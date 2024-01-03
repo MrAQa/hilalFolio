@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
+import logo from "./logo.svg";
+import "./App.css";
+import Login from "./Authentication/Login/login";
+import SignUp from "./Authentication/Sign-Up/sign-up";
+import ForgetPassword from "./Authentication/Forget-passowrd/forget-password";
+import OtpVerification from "./Authentication/Otp-verification/Otp-verification";
+import NewPassword from "./Authentication/new-password/new-passwpord";
+import { Route, Routes } from "react-router-dom";
+import Home from "./Pages/Home";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/otp-verification" element={<OtpVerification />} />
+        <Route path="/new-password" element={<NewPassword />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
     </div>
   );
 }
