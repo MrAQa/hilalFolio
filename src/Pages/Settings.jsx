@@ -17,7 +17,7 @@ function Settings() {
                             <div className='flex-1 pt-10'>
                                 <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-[#fff]">
                                     <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
-                                        Profile
+                                        Profile screen
                                     </h2>
                                     <div className='pt-6 flex flex-col sm:flex-row items-center gap-4'>
                                         <span className='flex relative'>
