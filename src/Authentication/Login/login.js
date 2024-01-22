@@ -465,9 +465,7 @@ const Login = () => {
                     </Divider>
                     <div className="flex justify-center items-center space-x-4 mt-2 mb-2">
                       <LoginSocialGoogle
-                        client_id={
-                          "662749198952-rfvupgjdptea3k7apdjgnsch72m9e153.apps.googleusercontent.com"
-                        }
+                        client_id={process.env.CLIENT_ID}
                         onLoginStart={onLoginStart}
                         // redirect_uri={"http://localhost:3000/home"}
                         scope="openid profile email"
