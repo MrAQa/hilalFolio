@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import ".//forget-password.css";
+// import ".//forget-password.css";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { Link, useNavigate } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
@@ -136,6 +137,7 @@ const ForgetPassword = () => {
                           as={OutlinedInput}
                           name="email"
                           autoComplete="off"
+                          error={touched.email && errors.email}
                           spellCheck={false}
                           placeholder="Enter your email"
                           endAdornment={
@@ -144,9 +146,9 @@ const ForgetPassword = () => {
                                 <CheckCircleOutlineIcon
                                   sx={{ color: "green" }}
                                 />
-                              ) : (
-                                <ErrorOutlineIcon sx={{ color: "red" }} />
-                              )}
+                              ) : touched.email && errors.email ? (
+                                <CancelIcon sx={{ color: "#CD0000" }} />
+                              ) : null}
                             </InputAdornment>
                           }
                           inputProps={{
@@ -156,7 +158,7 @@ const ForgetPassword = () => {
                         <ErrorMessage
                           name="email"
                           component="div"
-                          className={`text-red-500 text-start text-xs	`}
+                          className={`text-red-700 text-start text-xs	`}
                         />
                       </FormControl>
                     </div>
@@ -165,6 +167,7 @@ const ForgetPassword = () => {
                       className="submit-button mb-2 "
                       style={{ marginRight: "1rem" }}
                       type="submit"
+                      disabled={errors.email}
                       loading={Loading}
                     >
                       {Loading ? "Adding ..." : "Send OTP"}

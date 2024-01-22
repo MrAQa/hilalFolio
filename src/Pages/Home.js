@@ -1,9 +1,16 @@
 import React from "react";
+import NavBar from "../Component/Navbar";
+import CoinSecton from "../Component/Home/coin-section";
 
 const Home = () => {
   return (
     <>
-      <h1>Home</h1>
+      <div class="min-h-full ">
+        <NavBar />
+          <div className="bg-[#FAFAFA]">
+           <CoinSecton />
+          </div>
+      </div>
     </>
   );
 };

@@ -7,6 +7,7 @@ import OtpVerification from "./Authentication/Otp-verification/Otp-verification"
 import NewPassword from "./Authentication/new-password/new-passwpord";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
+import Settings from "./Pages/Settings";
 function App() {
   return (
     <div>
@@ -17,6 +18,7 @@ function App() {
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/new-password" element={<NewPassword />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/settings" element={<Settings/>} />
       </Routes>
     </div>
   );
