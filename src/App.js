@@ -8,6 +8,7 @@ import NewPassword from "./Authentication/new-password/new-passwpord";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import Settings from "./Pages/Settings";
+import BtcChart from "./Pages/BtcChart";
 function App() {
   return (
     <div>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/new-password" element={<NewPassword />} />
         <Route path="/home" element={<Home />} />
         <Route path="/settings" element={<Settings/>} />
+        <Route path="/btc-chart" element={<BtcChart/>} />
       </Routes>
     </div>
   );

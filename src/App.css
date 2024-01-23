@@ -156,3 +156,12 @@
   /* background-image: url('https://s3-alpha-sig.figma.com/img/33c8/da8c/02d8521b95c3ba7d1564593d2fdc8fa5?Expires=1706486400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Zcf966yc8Hq-Be2gc70gQHhU~2v~G42B-Sbo5u3Vz1LQyfWgc9Di93oOxwr2l-5Zjx-1aCNd8C-qBEnv~IjIM9lhbeI8eKJaFmTOT11f5AhT7n0c1~e0KeLIOBvZztvO~UOcSCU~Zf2FKcJI9AgNkzXKvQ3tXDMmnccoF2JF1Sti8rE-Y8az41-GlCyVFs-SWJoTo4ijrYkhvyq9UiM6i3e5asPdhvDHou0QrC7sfpsF-6Xegfn-Uj8izwBfDV~cLEd1KbPf0~553qREgw1wmlVkMpOyOqD7oMoVxfSPv4uViUPspqLTc0ZAOgrpaT15a50kWXnwm2VeBQ1U~7YKqQ__'); */
   background-size: cover;
 }
+.chartContainer {
+  width: 100px;
+  height: 100px;
+  max-width: 120px;
+}
+.parent {
+  height: 100px !important;
+  overflow: 'hidden';
+}

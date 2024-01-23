@@ -333,21 +333,54 @@
 //                     <Divider orientation="horizontal" flexItem>
 //                       <span className="small-text">Or Sign up with </span>
 //                     </Divider>
-//                     <div className="flex space-x-4 mt-2 mb-2">
-//                       <Button
-//                         variant="outlined"
-//                         className="social-button"
-//                         startIcon={<DownloadIcon />}
+//                     <div className="flex justify-center items-center space-x-4 mt-2 mb-2">
+//                       <LoginSocialGoogle
+//                         client_id={process.env.CLIENT_ID}
+//                         onLoginStart={onLoginStart}
+//                         // redirect_uri={"http://localhost:3000/home"}
+//                         scope="openid profile email"
+//                         // discoveryDocs="claims_supported"
+//                         // access_type="offline"
+//                         onResolve={({ data }) => googleLogin(data)}
+//                         onReject={(provider, data) =>
+//                           console.log(provider, data)
+//                         }
 //                       >
-//                         <span className="social-button-text">Google</span>
-//                       </Button>
-//                       <Button
-//                         variant="outlined"
-//                         className="social-button"
-//                         startIcon={<FacebookIcon />}
+//                         <Button
+//                           variant="outlined"
+//                           className="social-button"
+//                           //   onClick={handleGoogle}
+//                           startIcon={<DownloadIcon />}
+//                         >
+//                           <span className="social-button-text">Google</span>
+//                         </Button>
+//                       </LoginSocialGoogle>
+//                       <LoginSocialFacebook
+//                         appId={
+//                           process.env.REACT_APP_FB_APP_ID || "1447040019557218"
+//                         }
+//                         fieldsProfile={
+//                           "id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender"
+//                         }
+//                         onLoginStart={onLoginStart}
+//                         onLogoutSuccess={onLogoutSuccess}
+//                         redirect_uri={REDIRECT_URI}
+//                         onResolve={({ provider, data }: IResolveParams) => {
+//                           setProvider(provider);
+//                           setProfile(data);
+//                         }}
+//                         onReject={(err) => {
+//                           console.log(err);
+//                         }}
 //                       >
-//                         <span className="social-button-text">Facebook</span>
-//                       </Button>
+//                         <Button
+//                           variant="outlined"
+//                           className="social-button"
+//                           startIcon={<FacebookIcon />}
+//                         >
+//                           <span className="social-button-text">Facebook</span>
+//                         </Button>
+//                       </LoginSocialFacebook>
 //                     </div>
 //                     <span className="small-text mt-1">
 //                       Already a member?{" "}
