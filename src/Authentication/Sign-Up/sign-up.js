@@ -1,6 +1,8 @@
-// import React, { useState } from "react";
+// import React, { useState, useCallback } from "react";
 // // import "./sign-up.css";
 // import IconButton from "@mui/material/IconButton";
+// import { LoginSocialGoogle, LoginSocialFacebook } from "reactjs-social-login";
+
 // import OutlinedInput from "@mui/material/OutlinedInput";
 // import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 // import * as Yup from "yup";
@@ -57,7 +59,7 @@
 
 //   const submitLogin = (e) => {
 //     setLoading(true);
-//     fetch(`${url}/api/auth/register`, {
+//     fetch(${url}/api/auth/register, {
 //       method: "POST",
 //       headers: {
 //         "content-type": "application/json",
@@ -96,6 +98,53 @@
 //       });
 //   };
 
+//   const onLoginStart = useCallback(() => {
+//     alert(" start");
+//   }, []);
+
+//   const googleLogin = (e) => {
+//     console.log(e);
+//     setLoading(true);
+//     fetch(${url}/api/auth/social-login, {
+//       method: "POST",
+//       headers: {
+//         "content-type": "application/json",
+//         accept: "application/json",
+//       },
+//       body: JSON.stringify({
+//         email: e.email,
+//         name: e.name,
+//         socialLoginType: "google",
+//       }),
+//     })
+//       .then((response) => response.json())
+//       .then((res) => {
+//         if (res.success === true) {
+//           toast.success("Login Successfully", {
+//             position: toast.POSITION.TOP_CENTER,
+//             autoClose: 3000,
+//           });
+//           navigate("/home");
+//           setLoading(false);
+//         } else {
+//           toast.error(res.message, {
+//             position: toast.POSITION.TOP_CENTER,
+//             autoClose: 3000,
+//           });
+//           setLoading(false);
+//         }
+//       })
+//       .catch((error) => {
+//         toast.error(error, {
+//           position: toast.POSITION.TOP_CENTER,
+//           autoClose: 3000,
+//         });
+//         setLoading(false);
+//       });
+//   };
+
+//   const REDIRECT_URI = "http://localhost:3000/login";
+
 //   const validationSchema = Yup.object({
 //     email: Yup.string()
 //       .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email address")
@@ -104,7 +153,7 @@
 //       .required("Password is required")
 //       .min(8, "Password must be at least 8 characters")
 //       .matches(
-//         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+//         /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]+$/,
 //         "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
 //       ),
 
@@ -113,7 +162,7 @@
 //       .oneOf([Yup.ref("password"), null], "Passwords must match")
 //       .min(8, "Password must be at least 8 characters")
 //       .matches(
-//         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+//         /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]+$/,
 //         "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
 //       ),
 //   });
@@ -335,7 +384,9 @@
 //                     </Divider>
 //                     <div className="flex justify-center items-center space-x-4 mt-2 mb-2">
 //                       <LoginSocialGoogle
-//                         client_id={process.env.CLIENT_ID}
+//                         client_id={
+//                           "662749198952-rfvupgjdptea3k7apdjgnsch72m9e153.apps.googleusercontent.com"
+//                         }
 //                         onLoginStart={onLoginStart}
 //                         // redirect_uri={"http://localhost:3000/home"}
 //                         scope="openid profile email"
@@ -362,12 +413,12 @@
 //                         fieldsProfile={
 //                           "id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender"
 //                         }
-//                         onLoginStart={onLoginStart}
-//                         onLogoutSuccess={onLogoutSuccess}
+//                         // onLoginStart={onLoginStart}
+//                         // onLogoutSuccess={onLogoutSuccess}
 //                         redirect_uri={REDIRECT_URI}
 //                         onResolve={({ provider, data }: IResolveParams) => {
-//                           setProvider(provider);
-//                           setProfile(data);
+//                           // setProvider(provider);
+//                           // setProfile(data);
 //                         }}
 //                         onReject={(err) => {
 //                           console.log(err);
