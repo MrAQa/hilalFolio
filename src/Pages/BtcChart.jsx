@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import NavBar from '../Component/Navbar'
-import TradeViewChart from 'react-crypto-chart';
+// import TradeViewChart from 'react-crypto-chart';
 import NewCarousel from '../Component/Home/NewCarousel';
 function BtcChart() {
     const [activeTab, setActiveTab] = useState('Overview'); // Initial active tab
@@ -66,7 +66,7 @@ function BtcChart() {
                                     </div>
                                     <div className='parent bg-white shadow-sm rounded-3xl px-4 sm:px-8 py-6'>
 
-                                        <TradeViewChart
+                                        {/* <TradeViewChart
                                             containerStyle={{
                                                 minHeight: '60vh',
                                                 minWidth: '100%',
@@ -105,7 +105,7 @@ function BtcChart() {
                                                 wickUpColor: "gray",
                                             }}
                                             pair="BTCUSDT"
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                             }

@@ -9,12 +9,14 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import Settings from "./Pages/Settings";
 import BtcChart from "./Pages/BtcChart";
+import PasswordStrengthChecker from "./Authentication/Sign-Up/test";
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/test" element={<PasswordStrengthChecker />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/new-password" element={<NewPassword />} />
