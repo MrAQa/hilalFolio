@@ -2,57 +2,61 @@ import { FormControlLabel } from '@mui/material'
 import React from 'react'
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
+import { AboutIconDark, AboutIconLight, RightArrowDark, RightArrowLight, SubscriptionIconDark, SubscriptionIconLight } from '../../assets/custom-icon';
 function SideBar() {
+    const currentPath = window.location.pathname;
+
     const IOSSwitch = styled((props) => (
         <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-      ))(({ theme }) => ({
+    ))(({ theme }) => ({
         width: 42,
         height: 26,
         padding: 0,
         '& .MuiSwitch-switchBase': {
-          padding: 0,
-          margin: 2,
-          transitionDuration: '300ms',
-          '&.Mui-checked': {
-            transform: 'translateX(16px)',
-            color: '#fff',
-            '& + .MuiSwitch-track': {
-              backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
-              opacity: 1,
-              border: 0,
+            padding: 0,
+            margin: 2,
+            transitionDuration: '300ms',
+            '&.Mui-checked': {
+                transform: 'translateX(16px)',
+                color: '#fff',
+                '& + .MuiSwitch-track': {
+                    backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+                    opacity: 1,
+                    border: 0,
+                },
+                '&.Mui-disabled + .MuiSwitch-track': {
+                    opacity: 0.5,
+                },
+            },
+            '&.Mui-focusVisible .MuiSwitch-thumb': {
+                color: '#33cf4d',
+                border: '6px solid #fff',
+            },
+            '&.Mui-disabled .MuiSwitch-thumb': {
+                color:
+                    theme.palette.mode === 'light'
+                        ? theme.palette.grey[100]
+                        : theme.palette.grey[600],
             },
             '&.Mui-disabled + .MuiSwitch-track': {
-              opacity: 0.5,
+                opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
             },
-          },
-          '&.Mui-focusVisible .MuiSwitch-thumb': {
-            color: '#33cf4d',
-            border: '6px solid #fff',
-          },
-          '&.Mui-disabled .MuiSwitch-thumb': {
-            color:
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[600],
-          },
-          '&.Mui-disabled + .MuiSwitch-track': {
-            opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
-          },
         },
         '& .MuiSwitch-thumb': {
-          boxSizing: 'border-box',
-          width: 22,
-          height: 22,
+            boxSizing: 'border-box',
+            width: 22,
+            height: 22,
         },
         '& .MuiSwitch-track': {
-          borderRadius: 26 / 2,
-          backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
-          opacity: 1,
-          transition: theme.transitions.create(['background-color'], {
-            duration: 500,
-          }),
+            borderRadius: 26 / 2,
+            backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+            opacity: 1,
+            transition: theme.transitions.create(['background-color'], {
+                duration: 500,
+            }),
         },
-      }));
+    }));
     return (
         <div className='border-[1px] border-[#D7D9E4] rounded-3xl bg-[#fff]'>
             <div className="px-5">
@@ -83,47 +87,51 @@ function SideBar() {
                 </div>
             </div>
             <div className='pt-6'>
-                {/* <h3 className='text-sm text-[#747474] px-4'>Privacy</h3> */}
-                <div className='flex justify-between items-center px-4 py-4'>
+                
+                <Link to="/about-us" className={`flex justify-between items-center px-4 py-4 ${currentPath === '/about-us' ? 'bg-primaryPurple text-white' : ''} `}>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <mask id="mask0_1616_6737" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
-                                    <rect width="24" height="24" fill="#D9D9D9" />
-                                </mask>
-                                <g mask="url(#mask0_1616_6737)">
-                                    <path d="M12 16.2307C11.7872 16.2307 11.609 16.1589 11.4654 16.0154C11.3218 15.8718 11.25 15.6936 11.25 15.4808V11.7307C11.25 11.5179 11.3218 11.3397 11.4654 11.1961C11.609 11.0525 11.7872 10.9808 12 10.9808C12.2128 10.9808 12.391 11.0525 12.5346 11.1961C12.6782 11.3397 12.7499 11.5179 12.7499 11.7307V15.4808C12.7499 15.6936 12.6782 15.8718 12.5346 16.0154C12.391 16.1589 12.2128 16.2307 12 16.2307ZM12 9.0769C11.7743 9.0769 11.5833 8.9987 11.4269 8.8423C11.2705 8.68588 11.1923 8.49486 11.1923 8.26923C11.1923 8.04359 11.2705 7.85257 11.4269 7.69615C11.5833 7.53975 11.7743 7.46155 12 7.46155C12.2256 7.46155 12.4166 7.53975 12.5731 7.69615C12.7295 7.85257 12.8077 8.04359 12.8077 8.26923C12.8077 8.49486 12.7295 8.68588 12.5731 8.8423C12.4166 8.9987 12.2256 9.0769 12 9.0769ZM7.3077 22.5C6.80257 22.5 6.375 22.325 6.025 21.975C5.675 21.625 5.5 21.1974 5.5 20.6923V3.3077C5.5 2.80257 5.675 2.375 6.025 2.025C6.375 1.675 6.80257 1.5 7.3077 1.5H16.6922C17.1974 1.5 17.625 1.675 17.975 2.025C18.325 2.375 18.5 2.80257 18.5 3.3077V20.6923C18.5 21.1974 18.325 21.625 17.975 21.975C17.625 22.325 17.1974 22.5 16.6922 22.5H7.3077ZM6.99997 19.75V20.6923C6.99997 20.7692 7.03202 20.8397 7.09613 20.9038C7.16024 20.9679 7.23077 21 7.3077 21H16.6922C16.7692 21 16.8397 20.9679 16.9038 20.9038C16.9679 20.8397 17 20.7692 17 20.6923V19.75H6.99997ZM6.99997 18.25H17V5.74995H6.99997V18.25ZM6.99997 4.25H17V3.3077C17 3.23077 16.9679 3.16024 16.9038 3.09613C16.8397 3.03203 16.7692 2.99998 16.6922 2.99998H7.3077C7.23077 2.99998 7.16024 3.03203 7.09613 3.09613C7.03202 3.16024 6.99997 3.23077 6.99997 3.3077V4.25Z" fill="#6F7889" />
-                                </g>
-                            </svg>
+                            {
+                                currentPath === '/about-us' ?
+                                    <AboutIconLight />
+                                    :
+                                    <AboutIconDark />
+                            }
                         </span>
                         <span>About HilalFolio </span>
                     </div>
                     <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="16" viewBox="0 0 9 16" fill="none">
-                            <path d="M9 8C9 7.79248 8.91699 7.60156 8.75928 7.45215L2.18506 1.01074C2.03564 0.869629 1.85303 0.794922 1.63721 0.794922C1.21387 0.794922 0.881836 1.11865 0.881836 1.55029C0.881836 1.75781 0.964844 1.94873 1.09766 2.08984L7.14062 8L1.09766 13.9102C0.964844 14.0513 0.881836 14.2339 0.881836 14.4497C0.881836 14.8813 1.21387 15.2051 1.63721 15.2051C1.85303 15.2051 2.03564 15.1304 2.18506 14.981L8.75928 8.54785C8.91699 8.39014 9 8.20752 9 8Z" fill="#747474" />
-                        </svg>
+                        {
+                            currentPath === '/about-us' ?
+                                <RightArrowLight />
+                                :
+                                <RightArrowDark />
+                        }
+
                     </div>
-                </div>
-                <div className='flex justify-between items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
+                </Link>
+                <Link to="/subscription" className={`flex justify-between items-center px-5 py-4 border-[#D7D9E4] border-t-[1px] ${currentPath === '/subscription' ? 'bg-primaryPurple text-white' : ''}`}>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <mask id="mask0_1616_6749" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
-                                    <rect width="24" height="24" fill="#D9D9D9" />
-                                </mask>
-                                <g mask="url(#mask0_1616_6749)">
-                                    <path d="M12 11.8L10.3673 13.0615C10.2737 13.132 10.1817 13.1346 10.0913 13.0692C10.0009 13.0038 9.97242 12.9192 10.0057 12.8154L10.6269 10.7731L8.97308 9.50768C8.88974 9.43716 8.86634 9.35094 8.90287 9.24902C8.93941 9.14709 9.0096 9.09613 9.11345 9.09613H11.1577L11.7788 7.0846C11.8122 6.98075 11.8859 6.92883 12 6.92883C12.1141 6.92883 12.1878 6.98075 12.2211 7.0846L12.8423 9.09613H14.8711C14.975 9.09613 15.0477 9.14709 15.0894 9.24902C15.131 9.35094 15.1102 9.43716 15.0269 9.50768L13.3576 10.7731L13.9788 12.8154C14.0122 12.9192 13.9836 13.0038 13.8933 13.0692C13.8029 13.1346 13.7109 13.132 13.6173 13.0615L12 11.8ZM12 20.4807L7.68077 21.848C7.38591 21.9518 7.1154 21.9118 6.86925 21.7278C6.62308 21.5438 6.5 21.3012 6.5 20.9999V15.073C5.86667 14.4115 5.375 13.6468 5.025 12.7788C4.675 11.9109 4.5 10.9846 4.5 9.99998C4.5 7.90768 5.22692 6.13461 6.68077 4.68078C8.13461 3.22693 9.90767 2.5 12 2.5C14.0923 2.5 15.8653 3.22693 17.3192 4.68078C18.773 6.13461 19.5 7.90768 19.5 9.99998C19.5 10.9846 19.325 11.9109 18.975 12.7788C18.625 13.6468 18.1333 14.4115 17.5 15.073V20.9999C17.5 21.3012 17.3769 21.5438 17.1307 21.7278C16.8846 21.9118 16.614 21.9519 16.3192 21.848L12 20.4807ZM12 16C13.6666 16 15.0833 15.4166 16.25 14.25C17.4166 13.0833 18 11.6666 18 9.99998C18 8.33331 17.4166 6.91664 16.25 5.74998C15.0833 4.58331 13.6666 3.99998 12 3.99998C10.3333 3.99998 8.91664 4.58331 7.74997 5.74998C6.58331 6.91664 5.99997 8.33331 5.99997 9.99998C5.99997 11.6666 6.58331 13.0833 7.74997 14.25C8.91664 15.4166 10.3333 16 12 16ZM7.99997 20.0346L12 18.9615L16 20.0346V16.3191C15.4295 16.691 14.8051 16.9807 14.1269 17.1884C13.4487 17.3961 12.7397 17.5 12 17.5C11.2602 17.5 10.5513 17.3961 9.87305 17.1884C9.19485 16.9807 8.57049 16.691 7.99997 16.3191V20.0346Z" fill="#6F7889" />
-                                </g>
-                            </svg>
+                            {
+                                  currentPath === '/subscription' ?
+                                  <SubscriptionIconLight/>
+                                  :
+                                  <SubscriptionIconDark/>
+                            }
+                            
                         </span>
                         <span>My Subscription</span>
                     </div>
                     <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="16" viewBox="0 0 9 16" fill="none">
-                            <path d="M9 8C9 7.79248 8.91699 7.60156 8.75928 7.45215L2.18506 1.01074C2.03564 0.869629 1.85303 0.794922 1.63721 0.794922C1.21387 0.794922 0.881836 1.11865 0.881836 1.55029C0.881836 1.75781 0.964844 1.94873 1.09766 2.08984L7.14062 8L1.09766 13.9102C0.964844 14.0513 0.881836 14.2339 0.881836 14.4497C0.881836 14.8813 1.21387 15.2051 1.63721 15.2051C1.85303 15.2051 2.03564 15.1304 2.18506 14.981L8.75928 8.54785C8.91699 8.39014 9 8.20752 9 8Z" fill="#747474" />
-                        </svg>
+                       {
+                            currentPath === '/subscription' ?
+                                <RightArrowLight />
+                                :
+                                <RightArrowDark />
+                        }
                     </div>
-                </div>
+                </Link>
                 <div className='flex justify-between items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
@@ -139,8 +147,8 @@ function SideBar() {
                         <span>Dark Mode</span>
                     </div>
                     <div>
-                    <IOSSwitch  />
-                       
+                        <IOSSwitch />
+
                     </div>
                 </div>
                 <div className='flex justify-between items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
@@ -158,9 +166,12 @@ function SideBar() {
                         <span>Settings</span>
                     </div>
                     <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="16" viewBox="0 0 9 16" fill="none">
-                            <path d="M9 8C9 7.79248 8.91699 7.60156 8.75928 7.45215L2.18506 1.01074C2.03564 0.869629 1.85303 0.794922 1.63721 0.794922C1.21387 0.794922 0.881836 1.11865 0.881836 1.55029C0.881836 1.75781 0.964844 1.94873 1.09766 2.08984L7.14062 8L1.09766 13.9102C0.964844 14.0513 0.881836 14.2339 0.881836 14.4497C0.881836 14.8813 1.21387 15.2051 1.63721 15.2051C1.85303 15.2051 2.03564 15.1304 2.18506 14.981L8.75928 8.54785C8.91699 8.39014 9 8.20752 9 8Z" fill="#747474" />
-                        </svg>
+                       {
+                            currentPath === '/settings' ?
+                                <RightArrowLight />
+                                :
+                                <RightArrowDark />
+                        }
                     </div>
                 </div>
                 <div className='flex justify-between items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
@@ -178,9 +189,12 @@ function SideBar() {
                         <span>Help Center</span>
                     </div>
                     <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="16" viewBox="0 0 9 16" fill="none">
-                            <path d="M9 8C9 7.79248 8.91699 7.60156 8.75928 7.45215L2.18506 1.01074C2.03564 0.869629 1.85303 0.794922 1.63721 0.794922C1.21387 0.794922 0.881836 1.11865 0.881836 1.55029C0.881836 1.75781 0.964844 1.94873 1.09766 2.08984L7.14062 8L1.09766 13.9102C0.964844 14.0513 0.881836 14.2339 0.881836 14.4497C0.881836 14.8813 1.21387 15.2051 1.63721 15.2051C1.85303 15.2051 2.03564 15.1304 2.18506 14.981L8.75928 8.54785C8.91699 8.39014 9 8.20752 9 8Z" fill="#747474" />
-                        </svg>
+                       {
+                            currentPath === '/help-center' ?
+                                <RightArrowLight />
+                                :
+                                <RightArrowDark />
+                        }
                     </div>
                 </div>
                 <div className='flex justify-between items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
@@ -196,9 +210,9 @@ function SideBar() {
                         <span>Share with friends</span>
                     </div>
                     <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="16" viewBox="0 0 9 16" fill="none">
-                            <path d="M9 8C9 7.79248 8.91699 7.60156 8.75928 7.45215L2.18506 1.01074C2.03564 0.869629 1.85303 0.794922 1.63721 0.794922C1.21387 0.794922 0.881836 1.11865 0.881836 1.55029C0.881836 1.75781 0.964844 1.94873 1.09766 2.08984L7.14062 8L1.09766 13.9102C0.964844 14.0513 0.881836 14.2339 0.881836 14.4497C0.881836 14.8813 1.21387 15.2051 1.63721 15.2051C1.85303 15.2051 2.03564 15.1304 2.18506 14.981L8.75928 8.54785C8.91699 8.39014 9 8.20752 9 8Z" fill="#747474" />
-                        </svg>
+                      
+                                <RightArrowDark />
+                        
                     </div>
                 </div>
                 <div className='flex justify-between items-center px-5 py-4 '>
