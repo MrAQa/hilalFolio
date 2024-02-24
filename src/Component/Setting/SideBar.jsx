@@ -2,7 +2,12 @@ import React from 'react'
 
 function SideBar() {
     return (
-        <div className='border-[#D7D9E4] border-x-[1px]'>
+        <div className='border-[1px] border-[#D7D9E4] rounded-3xl bg-[#fff]'>
+            <div className="pt-10 px-4 sm:px-8">
+                <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+                    Account Setting
+                </h2>
+            </div>
             <div className='pt-6'>
                 <h3 className='text-sm text-[#747474] px-[38px]'>Privacy</h3>
                 <div className='flex justify-between items-center px-[38px] py-4'>

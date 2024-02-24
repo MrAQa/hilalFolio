@@ -35,7 +35,7 @@ module.exports = {
         'lightThemeSecondary' :'#747474',
       },
       maxWidth: {
-        sm: '100%',
+        // sm: '100%',
         md: '768px',
         lg: '1024px',
         xl: '1168px',

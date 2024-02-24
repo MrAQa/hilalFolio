@@ -13,7 +13,7 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/otp-verification" element={<OtpVerification />} />

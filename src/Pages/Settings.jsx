@@ -70,16 +70,16 @@ const [isLoading ,setIsLoading]= useState(false)
             <ToastContainer />
             <NavBar />
             <div className="bg-[#FAFAFA]">
-                <Banner />
+                {/* <Banner /> */}
                 <section>
                     <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto px-3 lg:px-0'>
                         <div className='flex flex-col md:flex-row gap-6 text-[#0C0F14]'>
-                            <div className='lg:w-[390px]'>
+                            <div className='lg:w-[390px] pt-10 '>
                                 <SideBar />
                             </div>
                             <div className='flex-1 pt-10'>
                                 <form onSubmit={HandleSubmit}>
-                                <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-[#fff]">
+                                <div className="border-[1px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-[#fff]">
                                     <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
                                         Profile
                                     </h2>
@@ -87,8 +87,7 @@ const [isLoading ,setIsLoading]= useState(false)
                                         <span className='flex relative'>
                                             <img
                                                 className='rounded-full w-[96px] h-[96px] object-cover'
-                                                src="https://s3-alpha-sig.figma.com/img/de80/5927/12bfb2a09a0147e9de9b29bb4e58c272?Expires=1706486400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WOx5oD7ySj-8bCR2NyhA9JY~lInJFV~V19bKASNMBolFWvQoFxstVdx4WFjD9httma7oIvQwmIJhc9IHIPcecOvREy3bQQfeWK1LJYfiBut3AA1kadKD8WLO82eTNwKpncOyC9UzK~N9xnRvMcIWR2mecYae9h53qxonfwLDNow-RKUjWImZb0BqpSP~O0X15wn57O0WE5nIMEiBrkBrF3ERYV2sguQ7p3nL1raDPp3SKtXXW973bpsYfQt95yCBdifXdqwwOY8mdHgKqKJnAykiANKUkoBHehqzXtu76hjiFI6ryC1yMx-jUlBzvzBoplGmwyj9QzVAtKPnBuL3pw__" alt="prfoile-icon" />
-
+                                                src="https://picsum.photos/200" alt='avatar'/>
                                             <div className='w-[28px] h-[28px] rounded-full border-[2px] border-white bg-primaryPurple absolute right-0 bottom-0 flex items-center justify-center'>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                                                     <path d="M6 9.7334H10.2" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
