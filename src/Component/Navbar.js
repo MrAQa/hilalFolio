@@ -1,6 +1,6 @@
 import { useState, Fragment } from "react";
 import { Menu, Transition, Popover, Dialog } from "@headlessui/react";
-import logo from "../assets/Logo-hilal.png";
+import logo from "../assets/Logo-new.png";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -8,7 +8,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLogedin, setIsLogedin] = useState(true);
-
+  const currentPath = window.location.pathname;
   function SignOutIcon(props) {
     return (
       <svg
@@ -44,7 +44,7 @@ const NavBar = () => {
         aria-label="Global"
       >
         <div className="flex lg:flex-1 z-[1]">
-          <Link to="/" className="-m-1.5 p-1.5">
+          <Link to="/home" className="-m-1.5 p-1.5">
             <span className="sr-only">Shariah</span>
             <img className="h-auto  w-[137px]" src={logo} alt="Shariah" />
           </Link>
@@ -90,22 +90,23 @@ const NavBar = () => {
         <Popover.Group className="hidden lg:flex lg:gap-x-5 xl:gap-x-8 px-4">
           <Link
             to="/home"
-            className="text-base font-semibold leading-normal text-[#0C0F14] flex items-center"
+            className={`text-base font-semibold leading-normal ${currentPath === "/home"
+            ?'text-[#6F4F9F]':'text-[#0C0F14]' } flex items-center`}
           >
-            Home
+            Market
           </Link>
 
           <Link
             to="#"
             className="text-base font-semibold leading-normal text-[#0C0F14] flex items-center"
           >
-            ODR
+            Favorites
           </Link>
           <Link
-            to="/settings"
+            to="#"
             className="text-base font-semibold leading-normal text-[#0C0F14] flex items-center"
           >
-            Profile
+            ODR
           </Link>
         </Popover.Group>
 

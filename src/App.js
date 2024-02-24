@@ -19,7 +19,7 @@ function App() {
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/new-password" element={<NewPassword />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/settings" element={<Settings/>} />
+        <Route path="/profile" element={<Settings/>} />
         <Route path="/btc-chart" element={<BtcChart/>} />
       </Routes>
     </div>
