@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Login from "./Authentication/Login/login";
 import SignUp from "./Authentication/Sign-Up/sign-up";
@@ -11,6 +10,7 @@ import BtcChart from "./Pages/BtcChart";
 import Profile from "./Pages/ProfilePage";
 import AboutPage from "./Pages/AboutPage";
 import SubscriptionPage from "./Pages/SubscriptionPage";
+import Settings from "./Pages/Settings";
 function App() {
   return (
     <div>
@@ -24,6 +24,7 @@ function App() {
         <Route path="/profile" element={<Profile/>} />
         <Route path="/about-us" element={<AboutPage/>} />
         <Route path="/subscription" element={<SubscriptionPage/>} />
+        <Route path="/settings" element={<Settings/>} />
         <Route path="/btc-chart" element={<BtcChart/>} />
       </Routes>
     </div>
