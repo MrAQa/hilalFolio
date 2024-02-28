@@ -4,7 +4,10 @@ import IconButton from "@mui/material/IconButton";
 import { LoginSocialGoogle, LoginSocialFacebook } from "reactjs-social-login";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import { 
+  Formik, Form, Field, ErrorMessage,
+  //  useFormik
+ } from "formik";
 import * as Yup from "yup";
 import { url } from "../../environment";
 import { LoadingButton } from "@mui/lab";
@@ -21,17 +24,17 @@ import { ReactComponent as FacebookIcon } from "../../assets/Facebook.svg";
 
 import InputAdornment from "@mui/material/InputAdornment";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+// import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
-  const [isValidEmail, setIsValidEmail] = useState(false);
+  // const [isValidEmail, setIsValidEmail] = useState(false);
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -73,7 +76,7 @@ const SignUp = () => {
       .then((response) => response.json())
       .then((res) => {
         console.log(res.success);
-        if (res.success == true) {
+        if (res.success === true) {
           localStorage.setItem("token", res.body.token);
           toast.success(res.message, {
             position: toast.POSITION.TOP_CENTER,
@@ -169,16 +172,16 @@ const SignUp = () => {
 
   return (
     <>
-      <div class="flex justify-center items-center">
+      <div className="flex justify-center items-center">
         <ToastContainer />
-        <div class="w-1/2 h-100 hidden md:block">
+        <div className="w-1/2 h-100 hidden md:block">
           <div className="bg-gray-100 h-screen rounded-lg"></div>
         </div>
-        <div class=" w-1/2 min-h-full ">
+        <div className=" w-1/2 min-h-full ">
           {" "}
           <div className="  rounded-lg md:overflow-auto h-[94vh] ">
             <div className="flex justify-center mt-1">
-              <img src="Logo.png" width={120} />
+              <img src="Logo.png" width={120} alt="logo"/>
             </div>
             <div className="flex flex-col justify-center items-center mt-3 text-center ">
               <p className="text-25 sm:text-35 Welcome-text">Create account</p>
@@ -189,11 +192,11 @@ const SignUp = () => {
                 onSubmit={onSubmit}
               >
                 {({ touched, errors }) => (
-                  <Form class="max-w-sm mt-3">
-                    <div class="mb-3">
+                  <Form className="max-w-sm mt-3">
+                    <div className="mb-3">
                       <label
                         for="email"
-                        class="block mb-2 text-sm font-medium text-gray-900 text-start"
+                        className="block mb-2 text-sm font-medium text-gray-900 text-start"
                       >
                         Email
                       </label>
@@ -231,10 +234,10 @@ const SignUp = () => {
                         />
                       </FormControl>
                     </div>
-                    <div class="mb-2">
+                    <div className="mb-2">
                       <label
                         for="password"
-                        class="block mb-2 text-sm font-medium heading text-start"
+                        className="block mb-2 text-sm font-medium heading text-start"
                       >
                         Password
                       </label>
@@ -246,7 +249,7 @@ const SignUp = () => {
                         <Field
                           as={OutlinedInput}
                           type={showPassword ? "text" : "password"}
-                          aria-autocomplete="off"
+                          // aria-autocomplete="off"
                           error={touched.password && errors.password}
                           name="password"
                           placeholder="Enter password"
@@ -284,10 +287,10 @@ const SignUp = () => {
                         />
                       </FormControl>
                     </div>
-                    <div class={`mb-2  ${errors.password && "mt-6"} `}>
+                    <div className={`mb-2  ${errors.password && "mt-6"} `}>
                       <label
                         for="password"
-                        class="block mb-2 text-sm font-medium heading text-start"
+                        className="block mb-2 text-sm font-medium heading text-start"
                       >
                         Confirm Password
                       </label>
@@ -302,7 +305,7 @@ const SignUp = () => {
                           error={
                             touched.confirmPassword && errors.confirmPassword
                           }
-                          aria-autocomplete="off"
+                          // aria-autocomplete="off"
                           name="confirmPassword"
                           placeholder="Re-enter password"
                           endAdornment={
@@ -340,18 +343,18 @@ const SignUp = () => {
                     >
                       {}
                       <div className="flex">
-                        <div class="flex items-center h-5">
+                        <div className="flex items-center h-5">
                           <input
                             id="remember"
                             type="checkbox"
                             value=""
                             required
-                            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 cursor-pointer dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 cursor-pointer dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
                           />
                         </div>
                         <label
                           for="remember"
-                          class="ms-2 text-sm font-medium remember-information "
+                          className="ms-2 text-sm font-medium remember-information "
                         >
                           I agree to{" "}
                           <span className="forget-text">

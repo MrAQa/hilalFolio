@@ -232,12 +232,12 @@ const Login = () => {
   };
   return (
     <>
-      <div class="flex h-screen justify-center items-center">
+      <div className="flex h-screen justify-center items-center">
         <ToastContainer />
-        <div class="w-1/2 h-100 hidden md:block">
+        <div className="w-1/2 h-100 hidden md:block">
           <div className="bg-gray-100 h-[95vh] m-4 rounded-lg"></div>
         </div>
-        <div class="w-1/2 min-h-full">
+        <div className="w-1/2 min-h-full">
           {" "}
           <div className=" h-[95vh] m-4 rounded-lg">
             <div className="relative inline-block text-left">
@@ -331,10 +331,10 @@ const Login = () => {
               >
                 {({ touched, errors }) => (
                   <Form className="max-w-sm mt-3">
-                    <div class="mb-3">
+                    <div className="mb-3">
                       <label
                         for="email"
-                        class="block mb-2 text-sm font-medium text-gray-900 text-start"
+                        className="block mb-2 text-sm font-medium text-gray-900 text-start"
                       >
                         Email
                       </label>
@@ -372,10 +372,10 @@ const Login = () => {
                         />
                       </FormControl>
                     </div>
-                    <div class="mb-2">
+                    <div className="mb-2">
                       <label
                         for="password"
-                        class="block mb-2 text-sm font-medium heading text-start"
+                        className="block mb-2 text-sm font-medium heading text-start"
                       >
                         Password
                       </label>
@@ -425,17 +425,17 @@ const Login = () => {
                       } `}
                     >
                       <div className="flex">
-                        <div class="flex items-center h-5">
+                        <div className="flex items-center h-5">
                           <input
                             id="remember"
                             type="checkbox"
                             value=""
-                            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 cursor-pointer dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 cursor-pointer dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
                           />
                         </div>
                         <label
                           for="remember"
-                          class="ms-2 text-sm font-medium remember-information "
+                          className="ms-2 text-sm font-medium remember-information "
                         >
                           Remember information
                         </label>

@@ -15,12 +15,12 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/sign-in" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/new-password" element={<NewPassword />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/about-us" element={<AboutPage/>} />
         <Route path="/subscription" element={<SubscriptionPage/>} />

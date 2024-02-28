@@ -5,9 +5,9 @@ import CoinSecton from "../Component/Home/coin-section";
 const Home = () => {
   return (
     <>
-      <div class="min-h-full ">
+      <div className="min-h-full ">
         <NavBar />
-          <div className="bg-[#FAFAFA]">
+          <div className="bg-[#F2F2F2]">
            <CoinSecton />
           </div>
       </div>
