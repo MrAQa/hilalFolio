@@ -146,7 +146,7 @@ const SignUp = () => {
       });
   };
 
-  const REDIRECT_URI = "http://localhost:3000/login";
+  const REDIRECT_URI = "http://localhost:3000/sign-in";
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -438,7 +438,7 @@ const SignUp = () => {
                     </div>
                     <span className="small-text mt-1">
                       Already a member?{" "}
-                      <Link className="forget-text" to={"/login"}>
+                      <Link className="forget-text" to={"/sign-in"}>
                         Login
                       </Link>
                     </span>

@@ -174,7 +174,7 @@ const ForgetPassword = () => {
                     </LoadingButton>
                     <span className="small-text mt-1">
                       Remember password?{" "}
-                      <Link className="forget-text" to={"/login"}>
+                      <Link className="forget-text" to={"/sign-in"}>
                         Login
                       </Link>
                     </span>

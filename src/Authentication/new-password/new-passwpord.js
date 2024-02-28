@@ -75,7 +75,7 @@ const SignUp = () => {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
           });
-          navigate("/login");
+          navigate("/sign-in");
           setLoading(false);
         } else {
           toast.error(res.message, {
