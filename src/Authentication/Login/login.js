@@ -1,7 +1,10 @@
 import React, { useCallback, useState, useEffect } from "react";
 import axios from "axios";
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
-import { GoogleLogin } from "@react-oauth/google";
+import { 
+  Formik, Form, Field, ErrorMessage,
+  //  useFormik
+   } from "formik";
+// import { GoogleLogin } from "@react-oauth/google";
 import { useGoogleLogin } from "@react-oauth/google";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +15,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Divider from "@mui/material/Divider";
-import { MenuItem, Select, InputLabel } from "@mui/material";
+// import { MenuItem, Select, InputLabel } from "@mui/material";
 
 import Button from "@mui/material/Button";
 import { LoadingButton } from "@mui/lab";
@@ -25,7 +28,7 @@ import { ReactComponent as FacebookIcon } from "../../assets/Facebook.svg";
 
 import InputAdornment from "@mui/material/InputAdornment";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+// import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
@@ -43,7 +46,7 @@ const Login = () => {
   // const [profile, setProfile] = useState();
 
   const onLoginStart = useCallback(() => {
-    alert("login start");
+    // alert("login start");
   }, []);
 
   const onLogoutSuccess = useCallback(() => {
