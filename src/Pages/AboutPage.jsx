@@ -37,10 +37,10 @@ function AboutPage() {
                                                 <path d="M21.0269 12.1307C21.7117 12.1307 22.2698 11.5735 22.2698 10.8874C22.2698 10.2012 21.7128 9.64404 21.0269 9.64404C20.341 9.64404 19.7839 10.2012 19.7839 10.8874C19.7839 11.5735 20.341 12.1307 21.0269 12.1307Z" fill="white" />
                                                 <defs>
                                                     <linearGradient id="paint0_linear_1657_7530" x1="4.66415" y1="27.3249" x2="27.314" y2="4.68284" gradientUnits="userSpaceOnUse">
-                                                        <stop stop-color="#FAAD4F" />
-                                                        <stop offset="0.35" stop-color="#DD2A7B" />
-                                                        <stop offset="0.62" stop-color="#9537B0" />
-                                                        <stop offset="1" stop-color="#515BD4" />
+                                                        <stop stopColor="#FAAD4F" />
+                                                        <stop offset="0.35" stopColor="#DD2A7B" />
+                                                        <stop offset="0.62" stopColor="#9537B0" />
+                                                        <stop offset="1" stopColor="#515BD4" />
                                                     </linearGradient>
                                                 </defs>
                                             </svg>

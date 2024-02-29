@@ -1,7 +1,7 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { Menu, Transition, Popover, Dialog } from "@headlessui/react";
 import logo from "../assets/Logo-new.png";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { SearchIcon } from "../assets/custom-icon";
 
@@ -9,7 +9,21 @@ const NavBar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLogedin, setIsLogedin] = useState(false);
+  const [userData, setuserData] = useState({})
   const currentPath = window.location.pathname;
+  useEffect(() => {
+    const UserData = JSON.parse(localStorage.getItem('user_Data'))
+    const token = localStorage.getItem('user_token');
+    if (token) {
+      setIsLogedin(true)
+      setuserData(UserData)
+    }
+    else {
+      setIsLogedin(false)
+    }
+  }, [])
+
+
   function SignOutIcon(props) {
     return (
       <svg
@@ -30,6 +44,8 @@ const NavBar = () => {
   }
 
   const handleSignOut = () => {
+    localStorage.removeItem('user_token');
+    localStorage.removeItem('user_Data');
     setIsLogedin(false);
   };
 
@@ -91,20 +107,20 @@ const NavBar = () => {
           <Link
             to="/"
             className={`text-base font-semibold leading-normal ${currentPath === "/"
-              ? 'text-[#6F4F9F]' : 'text-[#0C0F14]'} flex items-center`}
+              ? 'text-[#6F4F9F]' : 'text-primaryDark'} flex items-center`}
           >
             Market
           </Link>
 
           <Link
             to="#"
-            className="text-base font-semibold leading-normal text-[#0C0F14] flex items-center"
+            className="text-base font-semibold leading-normal text-primaryDark flex items-center"
           >
             Favorites
           </Link>
           <Link
             to="#"
-            className="text-base font-semibold leading-normal text-[#0C0F14] flex items-center"
+            className="text-base font-semibold leading-normal text-primaryDark flex items-center"
           >
             ODR
           </Link>
@@ -112,7 +128,7 @@ const NavBar = () => {
 
         <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-2 mr-4">
           <div className="p-2 ">
-           <SearchIcon/>
+            <SearchIcon />
           </div>
           <div className="p-2 ">
             <svg
@@ -153,13 +169,19 @@ const NavBar = () => {
                     <Menu.Button>
                       <div className="flex items-center justify-center gap-x-3">
                         <div className="flex items-center">
-                          <img
-                            className="w-6 rounded-full"
-                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt="prifile icon"
-                          />
+                          {
+                            userData?.image ?
+
+                              <img
+                                className="w-6 rounded-full"
+                                src={userData?.image}
+                                alt="prifile icon"
+                              />
+                              :
+                              <UserCircleIcon class="h-6 w-6 text-primaryDark" />
+                          }
                         </div>
-                        <div>Jane Doe</div>
+                        <div>{userData?.fullName}</div>
                         <div className="flex items-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -225,11 +247,10 @@ const NavBar = () => {
                                     } group flex w-full items-center rounded-md px-2 py-2 text-base font-semibold`}
                                   onClick={() => navigate("/profile")}
                                 >
-                                  <img
-                                    className="w-6 rounded-full mr-2"
-                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt="prifile icon"
-                                  />
+
+
+                                  <UserCircleIcon class="h-6 w-6 mr-2 text-primaryDark" />
+
                                   Profile
                                 </button>
                               )}
@@ -285,7 +306,7 @@ const NavBar = () => {
               >
                 <span className="sr-only">Close menu</span>
                 <XMarkIcon
-                  className="h-6 w-6 text-[#0C0F14]"
+                  className="h-6 w-6 text-primaryDark"
                   aria-hidden="true"
                 />
               </button>
@@ -295,90 +316,107 @@ const NavBar = () => {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 <Link
-                  to=''
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  to='/'
+                  className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 ${currentPath === "/"
+                    ? 'text-[#6F4F9F]' : 'text-primaryDark'} hover:bg-gray-50`}
                 >
-                  Product
+                  Market
                 </Link>
                 <Link
                   to=''
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Features
+                  Favorites
                 </Link>
                 <Link
                   to=''
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Marketplace
+                  ODR
                 </Link>
-                <Link
-                  to=''
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Company
-                </Link>
+
               </div>
-              <div className="border-t border-gray-700 pb-3 pt-4">
-                <div className="flex items-center px-5">
-                  <div className="flex-shrink-0">
-                    <img
-                      className="h-10 w-10 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    />
-                  </div>
-                  <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">
-                      Tom Cook
-                    </div>
-                    <div className="text-sm font-medium leading-none text-gray-400">
+              {
+                isLogedin ?
+
+                  <div className="border-t border-gray-700 pb-3 pt-4">
+                    <div className="flex items-center px-5">
+                      <div className="flex-shrink-0">
+                        {
+                          userData?.image ?
+
+                            <img
+                              className="h-10 w-10 rounded-full"
+                              src={userData?.image}
+                              alt="avatar"
+                            />
+                            :
+                            <UserCircleIcon class="h-10 w-10 text-gray-500" />
+                        }
+
+                      </div>
+                      <div className="ml-3">
+                        <div className="text-base font-medium leading-none text-primaryDark">
+                          {userData?.fullName}
+                        </div>
+                        {/* <div className="text-sm font-medium leading-none text-primaryDark">
                       tom@example.com
+                    </div> */}
+                      </div>
+                      <button
+                        type="button"
+                        className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      >
+                        <span className="absolute -inset-1.5"></span>
+                        <span className="sr-only">View notifications</span>
+                        <svg
+                          className="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <div className="mt-3 space-y-1 px-2">
+                      <Link
+                        to='/profile'
+                        className="block rounded-md px-3 py-2 text-base font-medium text-primaryDark hover:bg-gray-700 hover:text-white"
+                      >
+                        Your Profile
+                      </Link>
+
+                      <Link
+                        to=''
+                        className="block rounded-md px-3 py-2 text-base font-medium text-primaryDark hover:bg-gray-700 hover:text-white"
+                      >
+                        Sign out
+                      </Link>
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <span className="absolute -inset-1.5"></span>
-                    <span className="sr-only">View notifications</span>
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      aria-hidden="true"
+                  :
+                  <div className="space-y-4">
+                    <Link
+                      to="/sign-in"
+                      className="text-primaryPurple h-10  border-primaryPurple border-[1px] font-semibold flex justify-center items-center hover:bg-opacity-90 py-3 px-8 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
                     >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <div className="mt-3 space-y-1 px-2">
-                  <Link
-                    to=''
-                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                  >
-                    Your Profile
-                  </Link>
-                  <Link
-                    to=''
-                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                  >
-                    Settings
-                  </Link>
-                  <Link
-                    to=''
-                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                  >
-                    Sign out
-                  </Link>
-                </div>
-              </div>
+                      Sign in
+                    </Link>
+                    <Link
+                      to="/sign-up"
+                      className="bg-primaryPurple h-10 text-white font-semibold flex justify-center items-center hover:bg-opacity-90 py-3 px-8 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
+                    >
+                      Sign up
+                    </Link>
+                  </div>
+              }
             </div>
           </div>
         </Dialog.Panel>

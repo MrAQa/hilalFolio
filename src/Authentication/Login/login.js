@@ -1,11 +1,13 @@
-import React, { useCallback, useState, useEffect } from "react";
-import axios from "axios";
+import React, { useCallback, useState,
+  //  useEffect
+   } from "react";
+// import axios from "axios";
 import { 
   Formik, Form, Field, ErrorMessage,
   //  useFormik
    } from "formik";
 // import { GoogleLogin } from "@react-oauth/google";
-import { useGoogleLogin } from "@react-oauth/google";
+// import { useGoogleLogin } from "@react-oauth/google";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { LoginSocialGoogle, LoginSocialFacebook } from "reactjs-social-login";
@@ -20,7 +22,7 @@ import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import { LoadingButton } from "@mui/lab";
 import { useTranslation } from "react-i18next";
-import i18n from "../../i18n"; // Import your i18n configuration
+// import i18n from "../../i18n"; // Import your i18n configuration
 
 import { Link } from "react-router-dom";
 import { ReactComponent as DownloadIcon } from "../../assets/Logo.svg";
@@ -34,48 +36,49 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { url } from "../../environment";
+import { GetProfileData } from "../../service/service";
 const Login = () => {
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const [Loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [isValidEmail, setIsValidEmail] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("");
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState([]);
+  // const [isValidEmail, setIsValidEmail] = useState(false);
+  // const [selectedLanguage, setSelectedLanguage] = useState("");
+  // const [user, setUser] = useState(null);
+  // const [profile, setProfile] = useState([]);
   const [provider, setProvider] = useState("");
-  // const [profile, setProfile] = useState();
-
+  
+console.log(provider)
   const onLoginStart = useCallback(() => {
     // alert("login start");
   }, []);
 
   const onLogoutSuccess = useCallback(() => {
-    setProfile(null);
+    // setProfile(null);
     setProvider("");
     alert("logout success");
   }, []);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  useEffect(() => {
-    console.log(user);
-    if (user) {
-      axios
-        .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          // setProfile(res.data);
-          // handleLoginFunctionFromSocailAUth(res?.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   // console.log(user);
+  //   if (user) {
+  //     axios
+  //       .get(
+  //         `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${user.access_token}`,
+  //             Accept: "application/json",
+  //           },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         // setProfile(res.data);
+  //         // handleLoginFunctionFromSocailAUth(res?.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // }, [user]);
 
   // const REDIRECT_URI =
   // "https://plenty-planets-beam-42-118-51-2.loca.lt/account/login";
@@ -104,16 +107,16 @@ const Login = () => {
       ),
   });
 
-  const newFu = (res) => {
-    setUser(res);
-  };
+  // const newFu = (res) => {
+  //   setUser(res);
+  // };
 
   const navigate = useNavigate();
 
   const onSubmit = (values, actions) => {
     // Handle form submission logic here
 
-    console.log("Form submitted with values:", values);
+    // console.log("Form submitted with values:", values);
     submitLogin(values);
     actions.setSubmitting(false);
   };
@@ -138,8 +141,16 @@ const Login = () => {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
           });
-          navigate("/home");
+          navigate("/");
           setLoading(false);
+          localStorage.setItem('user_token', res?.body?.token);
+          GetProfileData().then((result) => {
+           const data = result?.body?.user;
+           localStorage.setItem('user_Data', JSON.stringify(data));
+           
+        }).catch((err) => {
+            console.log(err.message)
+        })
         } else {
           toast.error(res.message, {
             position: toast.POSITION.TOP_CENTER,
@@ -200,39 +211,39 @@ const Login = () => {
 
   const { t } = useTranslation();
 
-  const languages = [
-    { code: "en", name: "English" },
-    { code: "fr", name: "French" },
-    // Add more languages as needed
-  ];
+  // const languages = [
+  //   { code: "en", name: "English" },
+  //   { code: "fr", name: "French" },
+   
+  // ];
 
-  const handleChangeLanguage = (code) => {
-    // Implement language change logic (e.g., update i18n configuration)
-    console.log(`Language changed to ${code.target.value}`);
-    i18n.changeLanguage(code.target.value);
-  };
-  const handleGoogle = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      console.log(codeResponse, "codeResponse");
-      // newFu(codeResponse);
-    },
-    onError: (error) => console.log("Login Failed:", error),
-  });
+  // const handleChangeLanguage = (code) => {
+  //   // Implement language change logic (e.g., update i18n configuration)
+  //   console.log(`Language changed to ${code.target.value}`);
+  //   i18n.changeLanguage(code.target.value);
+  // };
+  // const handleGoogle = useGoogleLogin({
+  //   onSuccess: (codeResponse) => {
+  //     console.log(codeResponse, "codeResponse");
+  //     // newFu(codeResponse);
+  //   },
+  //   onError: (error) => console.log("Login Failed:", error),
+  // });
 
-  const handleLogin = (user) => {
-    console.log(user);
-  };
+  // const handleLogin = (user) => {
+  //   console.log(user);
+  // };
 
-  const handleSuccess = (response) => {
-    // Access user information and access token
-    console.log(response.profileObj);
-    console.log(response.tokenObj.access_token);
-  };
+  // const handleSuccess = (response) => {
+  //   // Access user information and access token
+  //   console.log(response.profileObj);
+  //   console.log(response.tokenObj.access_token);
+  // };
 
-  const handleFailure = (error) => {
-    // Handle login errors
-    console.error(error);
-  };
+  // const handleFailure = (error) => {
+  //   // Handle login errors
+  //   console.error(error);
+  // };
   return (
     <>
       <div className="flex h-screen justify-center items-center">
@@ -318,7 +329,7 @@ const Login = () => {
               </div> */}
             </div>
             <div className="flex justify-center mt-1">
-              <img src="Logo.png" width={120} />
+              <img src="Logo.png" width={120} alt="logo" />
             </div>
             <div className="flex flex-col justify-center items-center mt-3 text-center ">
               <p className="text-35 Welcome-text">Welcome back!</p>
@@ -336,7 +347,7 @@ const Login = () => {
                   <Form className="max-w-sm mt-3">
                     <div className="mb-3">
                       <label
-                        for="email"
+                        htmlFor="email"
                         className="block mb-2 text-sm font-medium text-gray-900 text-start"
                       >
                         Email
@@ -377,7 +388,7 @@ const Login = () => {
                     </div>
                     <div className="mb-2">
                       <label
-                        for="password"
+                      htmlFor="password"
                         className="block mb-2 text-sm font-medium heading text-start"
                       >
                         Password
@@ -391,7 +402,7 @@ const Login = () => {
                           as={OutlinedInput}
                           type={showPassword ? "text" : "password"}
                           error={touched.password && errors.password}
-                          aria-autocomplete="off"
+                          // aria-autocomplete="off"
                           placeholder="Enter your password"
                           name="password"
                           endAdornment={
@@ -437,7 +448,7 @@ const Login = () => {
                           />
                         </div>
                         <label
-                          for="remember"
+                        htmlFor="remember"
                           className="ms-2 text-sm font-medium remember-information "
                         >
                           Remember information
@@ -503,7 +514,7 @@ const Login = () => {
                         redirect_uri={REDIRECT_URI}
                         onResolve={({ provider, data }: IResolveParams) => {
                           setProvider(provider);
-                          setProfile(data);
+                          // setProfile(data);
                         }}
                         onReject={(err) => {
                           console.log(err);

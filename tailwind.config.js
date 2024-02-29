@@ -33,6 +33,7 @@ module.exports = {
         'lightThemeSuccess': '#098C26',
         'primaryPurple' :'#6F4F9F',
         'lightThemeSecondary' :'#747474',
+        'primaryDark':'#0C0F14',
       },
       maxWidth: {
         // sm: '100%',

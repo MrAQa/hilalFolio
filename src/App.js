@@ -11,12 +11,13 @@ import Profile from "./Pages/ProfilePage";
 import AboutPage from "./Pages/AboutPage";
 import SubscriptionPage from "./Pages/SubscriptionPage";
 import Settings from "./Pages/Settings";
+import LoginRoutes from "./routes/LoginRoutes";
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/sign-in" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={<LoginRoutes><Login /></LoginRoutes>} />
+        <Route path="/sign-up" element={<LoginRoutes><SignUp /></LoginRoutes>} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/new-password" element={<NewPassword />} />
