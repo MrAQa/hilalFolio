@@ -12,6 +12,7 @@ import AboutPage from "./Pages/AboutPage";
 import SubscriptionPage from "./Pages/SubscriptionPage";
 import Settings from "./Pages/Settings";
 import LoginRoutes from "./routes/LoginRoutes";
+import PrivateRoutes from "./routes/PrivateRoutes";
 function App() {
   return (
     <div>
@@ -22,10 +23,10 @@ function App() {
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/new-password" element={<NewPassword />} />
         <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile/>} />
-        <Route path="/about-us" element={<AboutPage/>} />
-        <Route path="/subscription" element={<SubscriptionPage/>} />
-        <Route path="/settings" element={<Settings/>} />
+        <Route path="/profile" element={<PrivateRoutes><Profile/></PrivateRoutes>} />
+        <Route path="/about-us" element={<PrivateRoutes><AboutPage/></PrivateRoutes>} />
+        <Route path="/subscription" element={<PrivateRoutes><SubscriptionPage/></PrivateRoutes>} />
+        <Route path="/settings" element={<PrivateRoutes><Settings/></PrivateRoutes>} />
         <Route path="/btc-chart" element={<BtcChart/>} />
       </Routes>
     </div>
