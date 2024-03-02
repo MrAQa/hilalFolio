@@ -7,19 +7,23 @@ import OtpVerification from "./Authentication/Otp-verification/Otp-verification"
 import NewPassword from "./Authentication/new-password/new-passwpord";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
-import Settings from "./Pages/Settings";
 import BtcChart from "./Pages/BtcChart";
+import Profile from "./Pages/ProfilePage";
+import AboutPage from "./Pages/AboutPage";
+import SubscriptionPage from "./Pages/SubscriptionPage";
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/new-password" element={<NewPassword />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/settings" element={<Settings/>} />
+        <Route path="/profile" element={<Profile/>} />
+        <Route path="/about-us" element={<AboutPage/>} />
+        <Route path="/subscription" element={<SubscriptionPage/>} />
         <Route path="/btc-chart" element={<BtcChart/>} />
       </Routes>
     </div>

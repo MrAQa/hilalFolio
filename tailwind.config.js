@@ -31,6 +31,13 @@ module.exports = {
         primaryPurple: "#6F4F9F",
         lightThemeSecondary: "#747474",
       },
+      maxWidth: {
+        // sm: '100%',
+        md: "768px",
+        lg: "1024px",
+        xl: "1168px",
+        "2xl": "1320px",
+      },
       // maxWidth: {
       //   sm: '100%',
       //   md: '768px',
