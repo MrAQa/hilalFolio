@@ -98,10 +98,10 @@ const ForgetPassword = () => {
   };
   return (
     <>
-      <div class="flex h-screen">
+      <div className="flex h-screen">
         <ToastContainer />
 
-        <div class="w-full">
+        <div className="w-full">
           {" "}
           <div className=" h-[95vh] m-4 rounded-lg flex flex-col justify-center items-center">
             {/* <div className="flex justify-center items-center mt-1">
@@ -121,10 +121,10 @@ const ForgetPassword = () => {
               >
                 {({ touched, errors }) => (
                   <Form className="max-w-sm mt-3">
-                    <div class="mb-5">
+                    <div className="mb-5">
                       <label
                         for="email"
-                        class="block mb-2 text-sm font-medium text-gray-900 text-start"
+                        className="block mb-2 text-sm font-medium text-gray-900 text-start"
                       >
                         Email
                       </label>
@@ -174,7 +174,7 @@ const ForgetPassword = () => {
                     </LoadingButton>
                     <span className="small-text mt-1">
                       Remember password?{" "}
-                      <Link className="forget-text" to={"/login"}>
+                      <Link className="forget-text" to={"/sign-in"}>
                         Login
                       </Link>
                     </span>

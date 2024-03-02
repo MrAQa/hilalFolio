@@ -1,6 +1,7 @@
 import React from "react";
 import { UpGraphGreen, DownGraphRed, UpIconGreen, HlalIcon } from '../../assets/custom-icons'
 import NewCarousel from './NewCarousel'
+import { Link } from "react-router-dom";
 const CoinSecton = () => {
   const headCells = [
     {
@@ -30,7 +31,7 @@ const CoinSecton = () => {
     <>
       <section className='pt-6 sm:pt-12'>
         <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto px-3 lg:px-0'>
-          <div className="border-[2px] border-[#C0C2CC] rounded-3xl px-4 sm:px-8 py-6">
+          <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-white">
             <div className="mx-auto max-w-2xl lg:mx-0">
               <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
                 Cryptocurrency Prices by Market Cap
@@ -52,12 +53,12 @@ const CoinSecton = () => {
                     />
                     <div className="text-sm leading-6">
                       <p>
-                        <a href="#">
+                        <Link to="">
                           <span className="text-base font-semibold">
 
                             Bitcoin
                           </span>
-                        </a>
+                        </Link>
                       </p>
                       <p className="text-[9px] font-semibold leading-[12px]">$29,732.54
                         <span className="text-lightThemeSuccess text-[7px] ml-1">16.38%</span>
@@ -78,12 +79,12 @@ const CoinSecton = () => {
                     />
                     <div className="text-sm leading-6">
                       <p>
-                        <a href="#">
+                        <Link to="">
                           <span className="text-base font-semibold">
 
                             Ethereum
                           </span>
-                        </a>
+                        </Link>
                       </p>
                       <p className="text-[9px] font-semibold leading-[12px]">$29,732.54
                         <span className="text-lightThemeDelete text-[7px] ml-1">16.38%</span>
@@ -104,11 +105,11 @@ const CoinSecton = () => {
                     />
                     <div className="text-sm leading-6">
                       <p>
-                        <a href="#">
+                        <Link to="">
                           <span className="text-base font-semibold">
                             Uniswaap
                           </span>
-                        </a>
+                        </Link>
                       </p>
                       <p className="text-[9px] font-semibold leading-[12px]">$29,732.54
                         <span className="text-lightThemeSuccess text-[7px] ml-1">16.38%</span>
@@ -129,11 +130,11 @@ const CoinSecton = () => {
                     />
                     <div className="text-sm leading-6">
                       <p>
-                        <a href="#">
+                        <Link to="">
                           <span className="text-base font-semibold">
                             Cardano
                           </span>
-                        </a>
+                        </Link>
                       </p>
                       <p className="text-[9px] font-semibold leading-[12px]">$29,732.54
                         <span className="text-lightThemeSuccess text-[7px] ml-1">16.38%</span>
@@ -149,15 +150,15 @@ const CoinSecton = () => {
       </section>
       <section className='pt-6 sm:pt-8'>
         <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto px-3 lg:px-0'>
-          <div className="border-[2px] border-[#C0C2CC] rounded-3xl px-4 sm:px-8 py-6">
+          <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-white">
             <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
               Coins
             </h2>
             <div className="py-5 flex flex-wrap gap-5">
-              <div className="px-6 py-2 rounded-[20px] bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD<span className="text-[#747474]">/BTC</span></div>
-              <div className="px-6 py-2 rounded-[20px] bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD/BTC</div>
-              <div className="px-6 py-2 rounded-[20px] bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD/BTC</div>
-              <div className="px-6 py-2 rounded-[20px] bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD/BTC</div>
+              <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD<span className="text-[#747474]">/BTC</span></div>
+              <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD/BTC</div>
+              <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD/BTC</div>
+              <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD/BTC</div>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left">
@@ -175,9 +176,9 @@ const CoinSecton = () => {
                 </thead>
                 <tbody>
                   {
-                    [1, 2, 3, 4, 5, 6, 7].map((item) => (
+                    [1, 2, 3, 4, 5, 6, 7].map((item,index) => (
 
-                      <tr className="text-base font-semibold">
+                      <tr key={index+'-item'} className="text-base font-semibold">
                         <td className="px-6 py-5">
                           <div className="relative flex items-center gap-x-2">
                             <img
@@ -187,12 +188,12 @@ const CoinSecton = () => {
                             />
                             <div className="text-sm leading-6">
                               <p>
-                                <a href="#">
+                                <Link to="">
                                   <span className="text-base font-semibold">
 
                                     Bitcoin
                                   </span>
-                                </a>
+                                </Link>
                               </p>
                               <p className="text-[9px] font-semibold leading-[12px]">$29,732.54
                                 <span className="text-lightThemeSuccess text-[7px] ml-1">16.38%</span>
@@ -233,7 +234,7 @@ const CoinSecton = () => {
       </section>
       <section className='py-6 sm:py-12'>
         <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto px-3 lg:px-0'>
-          <div className="border-[2px] border-[#C0C2CC] rounded-3xl px-4 sm:px-8 py-6">
+          <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-white">
               <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
                 News
               </h2>

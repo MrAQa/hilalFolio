@@ -44,8 +44,8 @@ const handleCatch = (error) => {
     throw error;
   }
 export const GetProfileData = async () => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODZiMzk2ZWMzMGEzMmU4YTM2MjU5ZiIsImlhdCI6MTcwNTk1NDg5NiwiZXhwIjoxNzA2MTI3Njk2fQ.fhRtH2M7nPPONPjEF-_g6LSLZClXmvSl6c2gstyiBvo'
-    try {
+  const token = localStorage.getItem('user_token')
+  try {
       
       const headers = {
         'Accept': 'application/json',
@@ -65,8 +65,8 @@ export const GetProfileData = async () => {
     }
   };
 export const UpdateProfileData = async (data) => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODZiMzk2ZWMzMGEzMmU4YTM2MjU5ZiIsImlhdCI6MTcwNTk1NDg5NiwiZXhwIjoxNzA2MTI3Njk2fQ.fhRtH2M7nPPONPjEF-_g6LSLZClXmvSl6c2gstyiBvo'
-    try {
+    const token = localStorage.getItem('user_token')
+      try {
       
       const headers = {
         'Accept': 'application/json',
@@ -85,3 +85,24 @@ export const UpdateProfileData = async (data) => {
       handleCatch(error)
     }
   }; 
+
+  export const UpdateProfileImage = async (imageFile) => {
+    const token = localStorage.getItem('user_token');
+    try {
+      const formData = new FormData();
+      formData.append('image', imageFile);
+  
+      const headers = {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      };
+  
+      const response = await axios.post(`/auth/profile-image`, formData, {
+        headers
+      });
+  
+      return response.data;
+    } catch (error) {
+      handleCatch(error);
+    }
+  };

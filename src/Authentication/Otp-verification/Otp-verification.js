@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 // import "./Otp-verification.css";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
-import * as Yup from "yup";
+import {
+  //  Link,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+// import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+// import * as Yup from "yup";
 import OtpInput from "react-otp-input";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -45,7 +49,7 @@ const OtpVerification = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [seconds]);
+  }, [seconds, minutes]);
 
   const verifyOtp = (e) => {
     if (otp.length < 6) {
@@ -66,9 +70,9 @@ const OtpVerification = () => {
     })
       .then((response) => response.json())
       .then((res) => {
-        if (res.success == true) {
+        if (res.success === true) {
           if (receivedData.component === "signUp") {
-            navigate("/home");
+            navigate("/");
           } else {
             navigate("/new-password");
           }
@@ -121,12 +125,12 @@ const OtpVerification = () => {
 
   return (
     <>
-      <div class="flex h-screen">
-        <div class="w-full">
+      <div className="flex h-screen">
+        <div className="w-full">
           <ToastContainer />{" "}
           <div className=" h-full rounded-lg flex flex-col justify-center items-center overflow-hidden">
             <div className="flex justify-center mt-1">
-              <img src="Logo.png" width={120} />
+              <img src="Logo.png" width={120} alt="logo" />
             </div>
             <div className="flex flex-col justify-center items-center mt-3 text-center ">
               <p className="text-35 Welcome-text">OTP Verification</p>
@@ -134,7 +138,7 @@ const OtpVerification = () => {
                 It was popularised in the 1960s with the release of Lorem Ipsum.
               </span>
 
-              <div class="mb-3">
+              <div className="mb-3">
                 <OtpInput
                   value={otp}
                   type="number"

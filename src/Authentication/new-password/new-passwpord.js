@@ -6,7 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import { 
+  Formik, Form, Field, ErrorMessage, 
+  // useFormik 
+} from "formik";
 import { useNavigate } from "react-router-dom";
 
 import * as Yup from "yup";
@@ -19,11 +22,11 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
-  const [isValidEmail, setIsValidEmail] = useState(false);
+  // const [isValidEmail, setIsValidEmail] = useState(false);
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -66,13 +69,13 @@ const SignUp = () => {
       .then((response) => response.json())
       .then((res) => {
         console.log(res.success);
-        if (res.success == true) {
+        if (res.success === true) {
           localStorage.setItem("token", res.body.token);
           toast.success(res.message, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
           });
-          navigate("/login");
+          navigate("/sign-in");
           setLoading(false);
         } else {
           toast.error(res.message, {
@@ -110,12 +113,12 @@ const SignUp = () => {
 
   return (
     <>
-      <div class="flex">
-        <div class="w-full min-h-full ">
+      <div className="flex">
+        <div className="w-full min-h-full ">
           <ToastContainer />{" "}
           <div className=" m-4 rounded-lg overflow-auto h-[94vh] flex flex-col justify-center items-center mt-3 text-center">
             <div className="flex justify-center mt-1">
-              <img src="Logo.png" width={120} />
+              <img src="Logo.png" width={120} alt="logo" />
             </div>
             <div className="flex flex-col justify-center items-center mt-3 text-center ">
               <p className="text-35 Welcome-text">Reset Password</p>
@@ -130,11 +133,11 @@ const SignUp = () => {
                 onSubmit={onSubmit}
               >
                 {({ touched, errors }) => (
-                  <Form class="max-w-sm mt-3">
-                    <div class="mb-2">
+                  <Form className="max-w-sm mt-3">
+                    <div className="mb-2">
                       <label
                         for="password"
-                        class="block mb-2 text-sm font-medium heading text-start"
+                        className="block mb-2 text-sm font-medium heading text-start"
                       >
                         New password
                       </label>
@@ -146,7 +149,7 @@ const SignUp = () => {
                         <Field
                           as={OutlinedInput}
                           type={showPassword ? "text" : "password"}
-                          aria-autocomplete="off"
+                          // aria-autocomplete="off"
                           error={touched.password && errors.password}
                           name="password"
                           placeholder="Enter your new password"
@@ -184,10 +187,10 @@ const SignUp = () => {
                         />
                       </FormControl>
                     </div>
-                    <div class={`mb-2  ${errors.password && "mt-6"} `}>
+                    <div className={`mb-2  ${errors.password && "mt-6"} `}>
                       <label
                         for="password"
-                        class="block mb-2 text-sm font-medium heading text-start"
+                        className="block mb-2 text-sm font-medium heading text-start"
                       >
                         Confirm new password
                       </label>
@@ -202,7 +205,7 @@ const SignUp = () => {
                           error={
                             touched.confirmPassword && errors.confirmPassword
                           }
-                          aria-autocomplete="off"
+                          // aria-autocomplete="off"
                           name="confirmPassword"
                           placeholder="Enter your confirm password"
                           endAdornment={

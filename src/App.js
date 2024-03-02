@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Login from "./Authentication/Login/login";
 import SignUp from "./Authentication/Sign-Up/sign-up";
@@ -11,19 +10,23 @@ import BtcChart from "./Pages/BtcChart";
 import Profile from "./Pages/ProfilePage";
 import AboutPage from "./Pages/AboutPage";
 import SubscriptionPage from "./Pages/SubscriptionPage";
+import Settings from "./Pages/Settings";
+import LoginRoutes from "./routes/LoginRoutes";
+import PrivateRoutes from "./routes/PrivateRoutes";
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={<LoginRoutes><Login /></LoginRoutes>} />
+        <Route path="/sign-up" element={<LoginRoutes><SignUp /></LoginRoutes>} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/new-password" element={<NewPassword />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/profile" element={<Profile/>} />
-        <Route path="/about-us" element={<AboutPage/>} />
-        <Route path="/subscription" element={<SubscriptionPage/>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<PrivateRoutes><Profile/></PrivateRoutes>} />
+        <Route path="/about-us" element={<PrivateRoutes><AboutPage/></PrivateRoutes>} />
+        <Route path="/subscription" element={<PrivateRoutes><SubscriptionPage/></PrivateRoutes>} />
+        <Route path="/settings" element={<PrivateRoutes><Settings/></PrivateRoutes>} />
         <Route path="/btc-chart" element={<BtcChart/>} />
       </Routes>
     </div>
