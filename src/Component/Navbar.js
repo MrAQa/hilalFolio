@@ -4,7 +4,7 @@ import logo from "../assets/Logo-new.png";
 import { UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { SearchIcon } from "../assets/custom-icon";
-
+import img from "../assets/image 4.png"
 const NavBar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -51,6 +51,12 @@ const NavBar = () => {
   };
 
   return (
+    <>
+    <div className='bg-white hidden lg:block'>
+    <marquee  width="100%" direction="right"  behavior="scroll" scrollamount="3">
+     <img src={img} alt="banner"/>
+    </marquee>
+    </div>
     <header
       id="main-header"
       className={`bg-white border-b-[1px] border-[#D7D9E4] ${!mobileMenuOpen && "z-50"
@@ -114,8 +120,9 @@ const NavBar = () => {
           </Link>
 
           <Link
-            to="#"
-            className="text-base font-semibold leading-normal text-primaryDark flex items-center"
+            to="/favorites"
+            className={`text-base font-semibold leading-normal ${currentPath === "/favorites"
+              ? 'text-[#6F4F9F]' : 'text-primaryDark'} flex items-center`}
           >
             Favorites
           </Link>
@@ -179,7 +186,7 @@ const NavBar = () => {
                                 alt="prifile icon"
                               />
                               :
-                              <UserCircleIcon class="h-6 w-6 text-primaryDark" />
+                              <UserCircleIcon className="h-6 w-6 text-primaryDark" />
                           }
                         </div>
                         <div>{userData?.fullName}</div>
@@ -250,7 +257,7 @@ const NavBar = () => {
                                 >
 
 
-                                  <UserCircleIcon class="h-6 w-6 mr-2 text-primaryDark" />
+                                  <UserCircleIcon className="h-6 w-6 mr-2 text-primaryDark" />
 
                                   Profile
                                 </button>
@@ -352,7 +359,7 @@ const NavBar = () => {
                               alt="avatar"
                             />
                             :
-                            <UserCircleIcon class="h-10 w-10 text-gray-500" />
+                            <UserCircleIcon className="h-10 w-10 text-gray-500" />
                         }
 
                       </div>
@@ -423,6 +430,7 @@ const NavBar = () => {
         </Dialog.Panel>
       </Dialog>
     </header>
+    </>
   );
 };
 export default NavBar;

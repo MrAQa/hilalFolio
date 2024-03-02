@@ -5,6 +5,7 @@ import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { BellIcon, DeleteIcon, LockIcon, RightArrowDark } from '../assets/custom-icon';
 import ChangePassword from '../Component/Setting/ChangePassword';
+import Footer from '../Component/Footer,';
 function Settings() {
 
     const IOSSwitch = styled((props) => (
@@ -62,7 +63,7 @@ function Settings() {
         <div>
             <NavBar />
             <div className="bg-[#FAFAFA]">
-                <section className='pb-24'>
+                <section className=''>
                     <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto px-3 lg:px-0'>
                         <div className='flex flex-col md:flex-row gap-6 text-[#0C0F14]'>
                             <div className='lg:w-[390px] pt-10 '>
@@ -123,6 +124,7 @@ function Settings() {
                     </div>
                 </section>
             </div>
+            <Footer/>
         </div>
     )
 }
