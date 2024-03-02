@@ -13,6 +13,7 @@ import SubscriptionPage from "./Pages/SubscriptionPage";
 import Settings from "./Pages/Settings";
 import LoginRoutes from "./routes/LoginRoutes";
 import PrivateRoutes from "./routes/PrivateRoutes";
+import Favorites from "./Component/Favorites";
 function App() {
   return (
     <div>
@@ -23,6 +24,7 @@ function App() {
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/new-password" element={<NewPassword />} />
         <Route path="/" element={<Home />} />
+        <Route path="/favorites" element={<PrivateRoutes><Favorites/></PrivateRoutes>} />
         <Route path="/profile" element={<PrivateRoutes><Profile/></PrivateRoutes>} />
         <Route path="/about-us" element={<PrivateRoutes><AboutPage/></PrivateRoutes>} />
         <Route path="/subscription" element={<PrivateRoutes><SubscriptionPage/></PrivateRoutes>} />

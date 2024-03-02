@@ -1,84 +1,91 @@
-import React, { useEffect, useState } from "react";
-import { UpGraphGreen, UpIconGreen } from '../../assets/custom-icons'
-import NewCarousel from './NewCarousel'
+import React, { useEffect, useState } from 'react'
+
+import { UpGraphGreen, UpIconGreen } from '../assets/custom-icons'
+
 import { Link } from "react-router-dom";
-import { GetCmcData } from "../../service/service";
-import { HaramlIcon, HilalIcon, NoStatuslIcon } from "../../assets/custom-icon";
+
+import { HaramlIcon, HilalIcon, NoStatuslIcon } from "../assets/custom-icon";
 import { LinearProgress } from "@mui/material";
-import TbaleDropDown from "./TbaleDropDown";
-// import MarketCapSection from "./MarketCapSection";
-const CoinSecton = () => {
-  const [CoinsData, setCoinsData] = useState([])
-  const [selectedStatus, setSelectedStatus] = useState('All');
-  const [selectedRank, setSelectedRank] = useState('All');
-  const [isLoading, setIsLoading] = useState(false)
-  const [noDataFlag, setNoDataFlag] = useState(false)
-  const [isLogedin, setIsLogedin] = useState(false);
-  const statuses = ['All', 'Compliant', 'Not Compliant'];
-  const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
-  useEffect(() => {
-    setIsLoading(true)
-    let number = null;
-    if (selectedRank !== 'All') {
-      number = parseInt(selectedRank.match(/\d+/)[0], 10);
-    }
-    GetCmcData(selectedStatus, number).then((result) => {
-      setIsLoading(false)
-      if (result.success) {
-        // console.log(result?.body?.cmcData)
-        const sortedData = result?.body?.cmcData?.sort((a, b) => a.cmc_rank - b.cmc_rank);
-        setCoinsData(sortedData)
-        if (result?.body?.cmcData?.length === 0) {
-          setNoDataFlag(true)
-        }
-        else {
-          setNoDataFlag(false)
-        }
+import { GetCmcData } from '../service/service';
+import Footer from './Footer,';
+import NavBar from './Navbar';
+import TbaleDropDown from './Home/TbaleDropDown';
+import MarketCapSection from './Home/MarketCapSection';
+function Favorites() {
+    const [CoinsData, setCoinsData] = useState([])
+    const [selectedStatus, setSelectedStatus] = useState('All');
+    const [selectedRank, setSelectedRank] = useState('All');
+    const [isLoading, setIsLoading] = useState(false)
+    const [noDataFlag, setNoDataFlag] = useState(false)
+    const [isLogedin, setIsLogedin] = useState(false);
+    const statuses = ['All', 'Compliant', 'Not Compliant'];
+    const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
+    useEffect(() => {
+      setIsLoading(true)
+      let number = null;
+      if (selectedRank !== 'All') {
+        number = parseInt(selectedRank.match(/\d+/)[0], 10);
       }
-    })
-  }, [selectedStatus, selectedRank])
-  useEffect(() => {
-
-    const token = localStorage.getItem('user_token');
-    if (token) {
-      setIsLogedin(true)
-
-    }
-    else {
-      setIsLogedin(false)
-    }
-  }, [])
-
-
-  const headCells = [
-
-    {
-      id: 'Name',
-
-    },
-    {
-      id: 'Status',
-    },
-    {
-      id: '24h%',
-    },
-    {
-      id: 'Price',
-    },
-    {
-      id: '24h High Price',
-    },
-    {
-      id: '24h Low Price',
-    },
-    {
-      id: 'Chart',
-    },
-  ]
+      GetCmcData(selectedStatus, number).then((result) => {
+        setIsLoading(false)
+        if (result.success) {
+          // console.log(result?.body?.cmcData)
+          const sortedData = result?.body?.cmcData?.sort((a, b) => a.cmc_rank - b.cmc_rank);
+          setCoinsData(sortedData)
+          if (result?.body?.cmcData?.length === 0) {
+            setNoDataFlag(true)
+          }
+          else {
+            setNoDataFlag(false)
+          }
+        }
+      })
+    }, [selectedStatus, selectedRank])
+    useEffect(() => {
+  
+      const token = localStorage.getItem('user_token');
+      if (token) {
+        setIsLogedin(true)
+  
+      }
+      else {
+        setIsLogedin(false)
+      }
+    }, [])
+  
+  
+    const headCells = [
+  
+      {
+        id: 'Name',
+  
+      },
+      {
+        id: 'Status',
+      },
+      {
+        id: '24h%',
+      },
+      {
+        id: 'Price',
+      },
+      {
+        id: '24h High Price',
+      },
+      {
+        id: '24h Low Price',
+      },
+      {
+        id: 'Chart',
+      },
+    ]
   return (
     <>
-      {/* <MarketCapSection/> */}
-      <section className='pt-6 sm:pt-8'>
+    <div className="min-h-full bg-[#F2F2F2]">
+      <NavBar/>
+        <div className="bg-[#F2F2F2]">
+            <MarketCapSection/>
+        <section className='pt-6 sm:pt-8'>
         <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto px-3 lg:px-0'>
           <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-white">
             {/* <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
@@ -242,25 +249,15 @@ const CoinSecton = () => {
                 </div>
               }
             </div>
-            {/* <div className="flex justify-center pt-5">
-              <button className="py-4 text-sm sm:text-base bg-primaryPurple rounded-lg text-white w-[80%] sm:w-1/3">See All Coins</button>
-            </div> */}
+           
           </div>
         </div>
       </section>
-      <section className='pt-6 sm:pt-12'>
-        <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto px-3 lg:px-0'>
-          <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-white">
-            <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
-              News
-            </h2>
-            <div className="py-6">
-              <NewCarousel />
-            </div>
-          </div>
         </div>
-      </section>
-    </>
-  );
-};
-export default CoinSecton;
+        <Footer/>
+    </div>
+  </>
+  )
+}
+
+export default Favorites

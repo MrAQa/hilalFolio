@@ -106,3 +106,37 @@ export const UpdateProfileData = async (data) => {
       handleCatch(error);
     }
   };
+
+  export const GetCmcData = async (shariahStatus,rank) => {
+    const token = localStorage.getItem('user_token')
+    try {
+        
+        const headers = {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+          
+        };
+        let endpoit='';
+        if(shariahStatus==='All' && rank===null){
+          endpoit=`/cmc/all`
+        }
+        else if(shariahStatus !=='All' && rank === null){
+            endpoit=`/cmc/all?shariahStatus=${shariahStatus}`
+        }
+        else if(shariahStatus ==='All' && rank !==null){
+          endpoit=`/cmc/all?rank=${rank}`
+        }
+        else{
+          endpoit=`/cmc/all?shariahStatus=${shariahStatus}&rank=${rank}`
+        }
+        const response = await axios.get(endpoit,{
+          headers
+        });
+    
+        return response.data;
+      }
+      catch (error) {
+        handleCatch(error)
+      }
+    };

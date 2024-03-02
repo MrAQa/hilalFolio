@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import NavBar from '../Component/Navbar'
 
 import NewCarousel from '../Component/Home/NewCarousel';
-import ApexChart from '../Component/Chart';
+// import ApexChart from '../Component/Chart';
 import Chart from '../Component/Chart';
+import Footer from '../Component/Footer,';
 function BtcChart() {
     const [activeTab, setActiveTab] = useState('Overview'); // Initial active tab
 
@@ -158,6 +159,7 @@ function BtcChart() {
 
                 </div>
             </section>
+            <Footer/>
         </div>
     )
 }

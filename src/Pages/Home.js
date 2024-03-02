@@ -6,7 +6,7 @@ import Footer from "../Component/Footer,";
 const Home = () => {
   return (
     <>
-      <div className="min-h-full ">
+      <div className="min-h-full bg-[#F2F2F2]">
         <NavBar />
           <div className="bg-[#F2F2F2]">
            <CoinSecton />

@@ -7,6 +7,7 @@ import { GetProfileData, UpdateProfileData, UpdateProfileImage } from '../servic
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import avatar from '../assets/avatar-img.svg'
+import Footer from '../Component/Footer,';
 
 function Profile() {
     const UserData = JSON.parse(localStorage.getItem('user_Data'))
@@ -139,7 +140,7 @@ function Profile() {
             <NavBar />
             <div className="bg-[#FAFAFA]">
                 {/* <Banner /> */}
-                <section className='pb-24'>
+                <section className=''>
                     <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto px-3 lg:px-0'>
                         <div className='flex flex-col md:flex-row gap-6 text-[#0C0F14]'>
                             <div className='lg:w-[390px] pt-10 '>
@@ -276,6 +277,7 @@ function Profile() {
                     </div>
                 </section>
             </div>
+            <Footer/>
         </div>
     )
 }
