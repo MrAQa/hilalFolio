@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UpGraphGreen, UpIconGreen } from '../../assets/custom-icons'
 import NewCarousel from './NewCarousel'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GetCmcData } from "../../service/service";
 import { HaramlIcon, HilalIcon, NoStatuslIcon } from "../../assets/custom-icon";
 import { LinearProgress } from "@mui/material";
@@ -75,6 +75,10 @@ const CoinSecton = () => {
       id: 'Chart',
     },
   ]
+const navigation = useNavigate()
+  const viewDetail=()=>{
+    navigation('/btc-chart')
+  }
   return (
     <>
       {/* <MarketCapSection/> */}
@@ -185,7 +189,9 @@ const CoinSecton = () => {
                                     <HilalIcon />
                                     Halal
                                   </span>
-                                  <div className="text-[14px] text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
+                                  <div
+                                  onClick={viewDetail}
+                                  className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
                                 </div>
                                 :
                                 item?.shariahStatus === 'Not Compliant' ?
@@ -194,7 +200,9 @@ const CoinSecton = () => {
                                       <HaramlIcon />
                                       Haram
                                     </span>
-                                    <div className="text-[14px] text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
+                                    <div
+                                    onClick={viewDetail}
+                                    className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
                                   </div>
                                   :
                                   <div>
@@ -202,7 +210,9 @@ const CoinSecton = () => {
                                       <NoStatuslIcon />
                                       No Status
                                     </span>
-                                    <div className="text-[14px] text-lightSecondaryText whitespace-nowrap font-medium text-left">Request Report</div>
+                                    <div
+                                    onClick={viewDetail}
+                                    className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">Request Report</div>
                                   </div>
                             }
 
