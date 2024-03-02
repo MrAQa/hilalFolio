@@ -55,7 +55,7 @@ function Footer() {
 
     ]
     return (
-        <footer id='main-footer' className='bg-white px-2 xs:px-5 py-8 lg:py-[60px]'>
+        <footer id='main-footer' className='bg-white px-2 xs:px-5 pt-8 lg:pt-[60px]'>
             <div className="2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto">
                 <div className='flex flex-col md:flex-row gap-y-6 justify-between text-whiteGrey'>
                     <div className='space-y-6'>
@@ -152,8 +152,14 @@ function Footer() {
                             </Link>
                            
                         </div>
+                       
                     </div>
                 </div>
+                <div className='flex items-center gap-x-8 border-t-[1px] border-[#D7D9E4] mt-16 py-8 justify-center'>
+                            <div className='text-primaryDark text-base text-center font-semibold'>
+                            Copyrights by <span className='text-primaryPurple'>Hilalfolio @2024</span>
+                            </div>
+</div>
             </div>
         </footer>
     )
