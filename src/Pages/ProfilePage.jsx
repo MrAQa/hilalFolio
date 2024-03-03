@@ -167,7 +167,7 @@ function Profile() {
                                                             <img className='rounded-full w-[96px] h-[96px] object-cover' src={avatar} alt='avatar' />
 
                                                     )}
-                                                <div className='w-[28px] h-[28px] rounded-full border-[2px] border-white bg-primaryPurple absolute right-0 bottom-0 flex items-center justify-center'>
+                                                <div className='w-[28px] h-[28px] rounded-full border-[2px] border-white bg-primaryPurple absolute cursor-pointer right-0 bottom-0 flex items-center justify-center'>
                                                     <svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'>
                                                         <path d='M6 9.7334H10.2' stroke='white' strokeWidth='1.4' strokeLinecap='round' strokeLinejoin='round' />
                                                         <path
