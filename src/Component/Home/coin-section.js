@@ -225,7 +225,7 @@ const navigation = useNavigate()
                             16.38%
                           </span>
                         </td>
-                        <td className="px-6 py-5 text-center">$29,732.54</td>
+                        <td className="px-6 py-5 text-center">{`$${item?.quote?.USD?.price?.toFixed(2)}`}</td>
                         <td className="px-6 py-5 text-center">$29,732.54</td>
                         <td className="px-6 py-5 text-center">$29,732.54</td>
                         <td className="px-6 py-5 text-center">
