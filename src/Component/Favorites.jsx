@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 
 import { UpGraphGreen, UpIconGreen } from '../assets/custom-icons'
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { HaramlIcon, HilalIcon, NoStatuslIcon } from "../assets/custom-icon";
 import { LinearProgress } from "@mui/material";
-import { GetCmcData } from '../service/service';
+import { GetFavData } from '../service/service';
 import Footer from './Footer,';
 import NavBar from './Navbar';
 import TbaleDropDown from './Home/TbaleDropDown';
@@ -26,13 +26,13 @@ function Favorites() {
       if (selectedRank !== 'All') {
         number = parseInt(selectedRank.match(/\d+/)[0], 10);
       }
-      GetCmcData(selectedStatus, number).then((result) => {
+      GetFavData(selectedStatus, number).then((result) => {
         setIsLoading(false)
         if (result.success) {
-          // console.log(result?.body?.cmcData)
-          const sortedData = result?.body?.cmcData?.sort((a, b) => a.cmc_rank - b.cmc_rank);
+          // console.log(result?.body?.coins)
+          const sortedData = result?.body?.coins?.sort((a, b) => a.cmc_rank - b.cmc_rank);
           setCoinsData(sortedData)
-          if (result?.body?.cmcData?.length === 0) {
+          if (result?.body?.coins?.length === 0) {
             setNoDataFlag(true)
           }
           else {
@@ -79,6 +79,11 @@ function Favorites() {
         id: 'Chart',
       },
     ]
+
+    const navigation = useNavigate()
+  const viewDetail = () => {
+    navigation('/btc-chart')
+  }
   return (
     <>
     <div className="min-h-full bg-[#F2F2F2]">
@@ -108,7 +113,7 @@ function Favorites() {
                 dataArray={statuses}
               />
             </div>
-            <div className="overflow-x-auto table_parent max-h-[70vh]">
+            <div className="overflow-x-auto table_parent h-[70vh] ">
               <table className="w-full text-left relative">
                 <thead className="text-base text-[#747474] bg-white sticky top-[-1px]">
                   <tr>
@@ -147,7 +152,9 @@ function Favorites() {
                     !isLoading &&
                     CoinsData?.map((item, index) => (
 
-                      <tr key={index + '-item'} className="text-base font-semibold">
+                      <tr
+                      onClick={viewDetail}
+                      key={index + '-item'} className="text-base font-semibold cursor-pointer">
 
                         {
                           isLogedin &&

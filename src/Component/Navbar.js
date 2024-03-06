@@ -3,12 +3,13 @@ import { Menu, Transition, Popover, Dialog } from "@headlessui/react";
 import logo from "../assets/Logo-new.png";
 import { UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
-import { SearchIcon } from "../assets/custom-icon";
+import { SearchIcon, SunIcon } from "../assets/custom-icon";
 import img from "../assets/image 4.png"
 const NavBar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLogedin, setIsLogedin] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [userData, setuserData] = useState({})
   const currentPath = window.location.pathname;
   useEffect(() => {
@@ -53,13 +54,13 @@ const NavBar = () => {
   return (
     <>
     <div className='bg-white hidden lg:block'>
-    <marquee  width="100%" direction="right"  behavior="scroll" scrollamount="3">
+    <div>
      <img src={img} alt="banner"/>
-    </marquee>
+    </div>
     </div>
     <header
       id="main-header"
-      className={`bg-white border-b-[1px] border-[#D7D9E4] ${!mobileMenuOpen && "z-50"
+      className={`bg-white border-y-[1px] border-[#D7D9E4] ${!mobileMenuOpen && "z-50"
         }`}
     >
       <nav
@@ -162,10 +163,18 @@ const NavBar = () => {
               />
             </svg>
           </div>
-          <div className="p-2 ">
+          <div
+          onClick={()=>setIsDarkMode(!isDarkMode)}
+          className="p-2 cursor-pointer">
+            {
+              isDarkMode ?
+
             <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
               <path d="M5.56851 16.3984C7.11418 17.9441 8.99759 18.7169 11.2187 18.7169C13.125 18.7169 14.8085 18.1171 16.2695 16.9176C17.7304 15.7181 18.6273 14.1965 18.9603 12.3528C19.0035 12.1701 18.9972 12.0111 18.9413 11.8759C18.8854 11.7407 18.7999 11.6341 18.6848 11.5559C18.5812 11.4778 18.4561 11.4288 18.3094 11.409C18.1628 11.3892 18.0126 11.4129 17.8587 11.4802C17.5438 11.634 17.1766 11.7693 16.7572 11.8858C16.3377 12.0024 15.8978 12.0607 15.4375 12.0607C13.901 12.0607 12.595 11.5229 11.5195 10.4474C10.4439 9.3719 9.90618 8.0659 9.90618 6.52943C9.90618 6.11063 9.95306 5.71147 10.0468 5.33193C10.1406 4.95239 10.2842 4.58654 10.4777 4.23438C10.5726 4.06852 10.6117 3.90236 10.5949 3.73589C10.578 3.56942 10.5228 3.4279 10.429 3.31132C10.3353 3.19474 10.2133 3.107 10.063 3.04809C9.91279 2.9892 9.73911 2.9844 9.54199 3.03368C7.63695 3.44955 6.11203 4.37684 4.96722 5.81554C3.82241 7.25423 3.25 8.89844 3.25 10.7482C3.25 12.9693 4.02284 14.8527 5.56851 16.3984Z" fill="#0E0A14" />
             </svg>
+            :
+            <SunIcon/>
+            }
           </div>
         </div>
         {isLogedin ? (
@@ -181,7 +190,7 @@ const NavBar = () => {
                             userData?.image ?
 
                               <img
-                                className="w-6 rounded-full"
+                                className="w-6 h-6 rounded-full object-cover"
                                 src={userData?.image}
                                 alt="prifile icon"
                               />
@@ -189,7 +198,7 @@ const NavBar = () => {
                               <UserCircleIcon className="h-6 w-6 text-primaryDark" />
                           }
                         </div>
-                        <div>{userData?.fullName}</div>
+                        {/* <div>{userData?.fullName}</div> */}
                         <div className="flex items-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"

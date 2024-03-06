@@ -27,7 +27,10 @@ const CoinSecton = () => {
       if (result.success) {
         // console.log(result?.body?.cmcData)
         const sortedData = result?.body?.cmcData?.sort((a, b) => a.cmc_rank - b.cmc_rank);
-        setCoinsData(sortedData)
+        const updatedCoinsData = sortedData.map((coin, i) => {
+          return { ...coin, isFav: false }; // Set isFav to false initially for each object
+        });
+        setCoinsData(updatedCoinsData)
         if (result?.body?.cmcData?.length === 0) {
           setNoDataFlag(true)
         }
@@ -75,9 +78,24 @@ const CoinSecton = () => {
       id: 'Chart',
     },
   ]
-const navigation = useNavigate()
-  const viewDetail=()=>{
+  const navigation = useNavigate()
+  const viewDetail = () => {
     navigation('/btc-chart')
+  }
+  const addFavorites = (e, index) => {
+    e.stopPropagation()
+
+    // Update the isFav key based on the index
+    const updatedCoinsData = CoinsData?.map((coin, i) => {
+      if (i === index) {
+        // Toggle the isFav key
+        return { ...coin, isFav: !coin.isFav };
+      }
+      return coin;
+    });
+
+    // console.log(updatedCoinsData)
+    setCoinsData(updatedCoinsData);
   }
   return (
     <>
@@ -105,7 +123,7 @@ const navigation = useNavigate()
                 dataArray={statuses}
               />
             </div>
-            <div className="overflow-x-auto table_parent max-h-[70vh]">
+            <div className="overflow-x-auto table_parent h-[70vh]">
               <table className="w-full text-left relative">
                 <thead className="text-base text-[#747474] bg-white sticky top-[-1px]">
                   <tr>
@@ -144,14 +162,32 @@ const navigation = useNavigate()
                     !isLoading &&
                     CoinsData?.map((item, index) => (
 
-                      <tr key={index + '-item'} className="text-base font-semibold">
+                      <tr
+                        onClick={viewDetail}
+                        key={index + '-item'} className={`text-base font-semibold border-b-[1px] border-[#D7D9E4] cursor-pointer`}>
 
                         {
                           isLogedin &&
                           <td className="px-2 py-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                              <path d="M11.693 17.2191L7.8026 19.5653C7.65773 19.6499 7.51255 19.6855 7.36705 19.672C7.22153 19.6585 7.0898 19.6095 6.97185 19.5249C6.85391 19.4403 6.7629 19.3297 6.6988 19.1932C6.63468 19.0566 6.62442 18.9057 6.66802 18.7403L7.7007 14.323L4.2661 11.3499C4.1379 11.2384 4.05617 11.1092 4.02092 10.9625C3.98567 10.8157 3.99496 10.673 4.0488 10.5346C4.10265 10.3961 4.18021 10.283 4.2815 10.1952C4.38278 10.1073 4.52124 10.05 4.69687 10.023L9.22955 9.6269L10.9891 5.45575C11.0532 5.30063 11.1504 5.18589 11.2805 5.11152C11.4106 5.03717 11.5481 5 11.693 5C11.8378 5 11.9753 5.03717 12.1055 5.11152C12.2356 5.18589 12.3327 5.30063 12.3968 5.45575L14.1564 9.6269L18.6891 10.023C18.8647 10.05 19.0032 10.1073 19.1044 10.1952C19.2057 10.283 19.2833 10.3961 19.3371 10.5346C19.391 10.673 19.4003 10.8157 19.365 10.9625C19.3298 11.1092 19.248 11.2384 19.1198 11.3499L15.6852 14.323L16.7179 18.7403C16.7615 18.9057 16.7513 19.0566 16.6871 19.1932C16.623 19.3297 16.532 19.4403 16.4141 19.5249C16.2961 19.6095 16.1644 19.6585 16.0189 19.672C15.8734 19.6855 15.7282 19.6499 15.5833 19.5653L11.693 17.2191Z" fill="#F7931A" />
-                            </svg>
+
+
+                            <span
+                              onClick={(e) => addFavorites(e, index)}
+                            >
+                              {
+
+                                item?.isFav ?
+
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M11.693 17.2191L7.8026 19.5653C7.65773 19.6499 7.51255 19.6855 7.36705 19.672C7.22153 19.6585 7.0898 19.6095 6.97185 19.5249C6.85391 19.4403 6.7629 19.3297 6.6988 19.1932C6.63468 19.0566 6.62442 18.9057 6.66802 18.7403L7.7007 14.323L4.2661 11.3499C4.1379 11.2384 4.05617 11.1092 4.02092 10.9625C3.98567 10.8157 3.99496 10.673 4.0488 10.5346C4.10265 10.3961 4.18021 10.283 4.2815 10.1952C4.38278 10.1073 4.52124 10.05 4.69687 10.023L9.22955 9.6269L10.9891 5.45575C11.0532 5.30063 11.1504 5.18589 11.2805 5.11152C11.4106 5.03717 11.5481 5 11.693 5C11.8378 5 11.9753 5.03717 12.1055 5.11152C12.2356 5.18589 12.3327 5.30063 12.3968 5.45575L14.1564 9.6269L18.6891 10.023C18.8647 10.05 19.0032 10.1073 19.1044 10.1952C19.2057 10.283 19.2833 10.3961 19.3371 10.5346C19.391 10.673 19.4003 10.8157 19.365 10.9625C19.3298 11.1092 19.248 11.2384 19.1198 11.3499L15.6852 14.323L16.7179 18.7403C16.7615 18.9057 16.7513 19.0566 16.6871 19.1932C16.623 19.3297 16.532 19.4403 16.4141 19.5249C16.2961 19.6095 16.1644 19.6585 16.0189 19.672C15.8734 19.6855 15.7282 19.6499 15.5833 19.5653L11.693 17.2191Z" fill="#F7931A" />
+                                  </svg>
+                                  :
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M8.54297 17.3557L11.693 15.4557L14.843 17.3807L14.018 13.7807L16.793 11.3807L13.143 11.0557L11.693 7.6557L10.243 11.0307L6.59297 11.3557L9.36797 13.7807L8.54297 17.3557ZM11.693 17.2191L7.8026 19.5653C7.65773 19.6499 7.51255 19.6855 7.36705 19.672C7.22153 19.6585 7.0898 19.6095 6.97185 19.5249C6.85391 19.4403 6.7629 19.3297 6.6988 19.1932C6.63468 19.0566 6.62442 18.9057 6.66802 18.7403L7.7007 14.323L4.2661 11.3499C4.1379 11.2384 4.05617 11.1092 4.02092 10.9625C3.98567 10.8157 3.99496 10.673 4.0488 10.5346C4.10265 10.3961 4.18021 10.283 4.2815 10.1952C4.38278 10.1073 4.52124 10.05 4.69687 10.023L9.22955 9.6269L10.9891 5.45575C11.0532 5.30063 11.1504 5.18589 11.2805 5.11152C11.4106 5.03717 11.5481 5 11.693 5C11.8378 5 11.9753 5.03717 12.1055 5.11152C12.2356 5.18589 12.3327 5.30063 12.3968 5.45575L14.1564 9.6269L18.6891 10.023C18.8647 10.05 19.0032 10.1073 19.1044 10.1952C19.2057 10.283 19.2833 10.3961 19.3371 10.5346C19.391 10.673 19.4003 10.8157 19.365 10.9625C19.3298 11.1092 19.248 11.2384 19.1198 11.3499L15.6852 14.323L16.7179 18.7403C16.7615 18.9057 16.7513 19.0566 16.6871 19.1932C16.623 19.3297 16.532 19.4403 16.4141 19.5249C16.2961 19.6095 16.1644 19.6585 16.0189 19.672C15.8734 19.6855 15.7282 19.6499 15.5833 19.5653L11.693 17.2191Z" fill="#6F7889" fill-opacity="0.5" />
+                                  </svg>
+                              }
+                            </span>
+
                           </td>
                         }
                         <td className="px-2 py-5 text-center"><span className="bg-[#EBEBEB] rounded px-2 py-[4px] text-lightSecondaryText text-[14px] font-medium">
@@ -190,8 +226,8 @@ const navigation = useNavigate()
                                     Halal
                                   </span>
                                   <div
-                                  onClick={viewDetail}
-                                  className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
+
+                                    className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
                                 </div>
                                 :
                                 item?.shariahStatus === 'Not Compliant' ?
@@ -201,8 +237,8 @@ const navigation = useNavigate()
                                       Haram
                                     </span>
                                     <div
-                                    onClick={viewDetail}
-                                    className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
+                                      // onClick={viewDetail}
+                                      className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
                                   </div>
                                   :
                                   <div>
@@ -211,8 +247,8 @@ const navigation = useNavigate()
                                       No Status
                                     </span>
                                     <div
-                                    onClick={viewDetail}
-                                    className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">Request Report</div>
+                                      // onClick={viewDetail}
+                                      className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">Request Report</div>
                                   </div>
                             }
 
