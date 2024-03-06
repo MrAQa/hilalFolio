@@ -27,10 +27,10 @@ const CoinSecton = () => {
       if (result.success) {
         // console.log(result?.body?.cmcData)
         const sortedData = result?.body?.cmcData?.sort((a, b) => a.cmc_rank - b.cmc_rank);
-        const updatedCoinsData = sortedData.map((coin, i) => {
-          return { ...coin, favorite: false }; // Set favorite to false initially for each object
-        });
-        setCoinsData(updatedCoinsData)
+        // const updatedCoinsData = sortedData.map((coin, i) => {
+        //   return { ...coin, favorite: false }; // Set favorite to false initially for each object
+        // });
+        setCoinsData(sortedData)
         if (result?.body?.cmcData?.length === 0) {
           setNoDataFlag(true)
         }
