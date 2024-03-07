@@ -4,11 +4,15 @@ import IconButton from "@mui/material/IconButton";
 import { LoadingButton } from "@mui/lab";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import imglOGO from "../../assets/Logo-new.png";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
-import { 
-  Formik, Form, Field, ErrorMessage, 
-  // useFormik 
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  // useFormik
 } from "formik";
 import { useNavigate } from "react-router-dom";
 
@@ -118,7 +122,7 @@ const SignUp = () => {
           <ToastContainer />{" "}
           <div className=" m-4 rounded-lg overflow-auto h-[94vh] flex flex-col justify-center items-center mt-3 text-center">
             <div className="flex justify-center mt-1">
-              <img src="Logo.png" width={120} alt="logo" />
+              <img src={imglOGO} width={120} alt="logo" />
             </div>
             <div className="flex flex-col justify-center items-center mt-3 text-center ">
               <p className="text-35 Welcome-text">Reset Password</p>

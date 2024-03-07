@@ -9,6 +9,8 @@ import {
 // import * as Yup from "yup";
 import OtpInput from "react-otp-input";
 import { ToastContainer, toast } from "react-toastify";
+import imglOGO from "../../assets/Logo-new.png";
+
 import "react-toastify/dist/ReactToastify.css";
 import { LoadingButton } from "@mui/lab";
 import { url } from "../../environment";
@@ -130,7 +132,7 @@ const OtpVerification = () => {
           <ToastContainer />{" "}
           <div className=" h-full rounded-lg flex flex-col justify-center items-center overflow-hidden">
             <div className="flex justify-center mt-1">
-              <img src="Logo.png" width={120} alt="logo" />
+              <img src={imglOGO} width={120} alt="logo" />
             </div>
             <div className="flex flex-col justify-center items-center mt-3 text-center ">
               <p className="text-35 Welcome-text">OTP Verification</p>

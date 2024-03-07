@@ -25,6 +25,8 @@ import Divider from "@mui/material/Divider";
 // import { MenuItem, Select, InputLabel } from "@mui/material";
 
 import Button from "@mui/material/Button";
+import imglOGO from "../../assets/Logo-new.png";
+
 import { LoadingButton } from "@mui/lab";
 import { useTranslation } from "react-i18next";
 // import i18n from "../../i18n"; // Import your i18n configuration
@@ -43,13 +45,9 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { url } from "../../environment";
 import { GetProfileData } from "../../service/service";
 const Login = () => {
-  // const [email, setEmail] = useState("");
   const [Loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  // const [isValidEmail, setIsValidEmail] = useState(false);
-  // const [selectedLanguage, setSelectedLanguage] = useState("");
-  // const [user, setUser] = useState(null);
-  // const [profile, setProfile] = useState([]);
+
   const [provider, setProvider] = useState("");
 
   console.log(provider);
@@ -64,29 +62,6 @@ const Login = () => {
   }, []);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  // useEffect(() => {
-  //   // console.log(user);
-  //   if (user) {
-  //     axios
-  //       .get(
-  //         `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${user.access_token}`,
-  //             Accept: "application/json",
-  //           },
-  //         }
-  //       )
-  //       .then((res) => {
-  //         // setProfile(res.data);
-  //         // handleLoginFunctionFromSocailAUth(res?.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [user]);
-
-  // const REDIRECT_URI =
-  // "https://plenty-planets-beam-42-118-51-2.loca.lt/account/login";
   const REDIRECT_URI = "http://localhost:3000/login";
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -111,10 +86,6 @@ const Login = () => {
         "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
       ),
   });
-
-  // const newFu = (res) => {
-  //   setUser(res);
-  // };
 
   const navigate = useNavigate();
 
@@ -217,39 +188,6 @@ const Login = () => {
 
   const { t } = useTranslation();
 
-  // const languages = [
-  //   { code: "en", name: "English" },
-  //   { code: "fr", name: "French" },
-
-  // ];
-
-  // const handleChangeLanguage = (code) => {
-  //   // Implement language change logic (e.g., update i18n configuration)
-  //   console.log(`Language changed to ${code.target.value}`);
-  //   i18n.changeLanguage(code.target.value);
-  // };
-  // const handleGoogle = useGoogleLogin({
-  //   onSuccess: (codeResponse) => {
-  //     console.log(codeResponse, "codeResponse");
-  //     // newFu(codeResponse);
-  //   },
-  //   onError: (error) => console.log("Login Failed:", error),
-  // });
-
-  // const handleLogin = (user) => {
-  //   console.log(user);
-  // };
-
-  // const handleSuccess = (response) => {
-  //   // Access user information and access token
-  //   console.log(response.profileObj);
-  //   console.log(response.tokenObj.access_token);
-  // };
-
-  // const handleFailure = (error) => {
-  //   // Handle login errors
-  //   console.error(error);
-  // };
   return (
     <>
       <div className="flex h-screen justify-center items-center">
@@ -260,82 +198,9 @@ const Login = () => {
         <div className="w-1/2 min-h-full">
           {" "}
           <div className=" h-[95vh] m-4 rounded-lg">
-            <div className="relative inline-block text-left">
-              {/* <div>
-                <IconButton
-                  aria-label="more"
-                  id="long-button"
-                  aria-controls={open ? "long-menu" : undefined}
-                  aria-expanded={open ? "true" : undefined}
-                  aria-haspopup="true"
-                  onClick={handleClick}
-                >
-                  <MoreVertIcon />
-                </IconButton>
-                <Menu
-                  id="long-menu"
-                  MenuListProps={{
-                    "aria-labelledby": "long-button",
-                  }}
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  PaperProps={{
-                    style: {
-                      maxHeight: ITEM_HEIGHT * 4.5,
-                      width: "20ch",
-                    },
-                  }}
-                >
-                  {options.map((option) => (
-                    <MenuItem
-                      key={option}
-                      selected={option === "Pyxis"}
-                      onClick={handleClose}
-                    >
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Menu>
-                <FormControl>
-                  <InputLabel id="language-select-label">Language</InputLabel>
-                  <Select
-                    labelId="language-select-label"
-                    id="language-select"
-                    value={selectedLanguage}
-                    label="Language"
-                    onChange={handleChangeLanguage}
-                  >
-                    <MenuItem value="">Select Language</MenuItem>
-                    <MenuItem value="en">English</MenuItem>
-                    <MenuItem value="es">Spanish</MenuItem>
-                    {/* Add more languages as needed */}
-              {/* </Select>
-                </FormControl> */}
-              {/* </div> */}
-
-              {/* <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div
-                  className="py-1"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="options-menu"
-                >
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => handleChangeLanguage(lang.code)}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                      role="menuitem"
-                    >
-                      {lang.name}
-                    </button>
-                  ))}
-                </div>
-              </div> */}
-            </div>
+            <div className="relative inline-block text-left"></div>
             <div className="flex justify-center mt-1">
-              <img src="Logo.png" width={120} alt="logo" />
+              <img src={imglOGO} width={120} alt="logo" />
             </div>
             <div className="flex flex-col justify-center items-center mt-3 text-center ">
               <p className="text-35 Welcome-text">Welcome back!</p>

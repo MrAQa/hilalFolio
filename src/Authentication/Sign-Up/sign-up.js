@@ -2,6 +2,9 @@ import React, { useState, useCallback } from "react";
 // import "./sign-up.css";
 import IconButton from "@mui/material/IconButton";
 import { LoginSocialGoogle, LoginSocialFacebook } from "reactjs-social-login";
+import imglOGO from "../../assets/Logo-new.png";
+import { ReactComponent as drop_up } from "../../assets/arrow_drop.svg";
+import { ReactComponent as drop_down } from "../../assets/arrow_drop_down.svg";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
 import {
@@ -32,6 +35,97 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import CircleIcon from "@mui/icons-material/Circle";
+import DoneIcon from "@mui/icons-material/Done";
+const getPasswordStrength = (password) => {
+  let strength = 0;
+  if (password.length >= 8) strength += 1;
+  if (password.match(/\d|[\W_]/)) strength += 1;
+  if (password.match(/[a-z]/)) strength += 1;
+  if (password.match(/[A-Z]/)) strength += 1;
+  return strength; // This will be a value between 0 and 4
+};
+
+const PasswordStrengthBar = ({ password }) => {
+  const strength = getPasswordStrength(password);
+  const strengthBarColor = (strength) => {
+    switch (strength) {
+      case 1:
+        return "red"; // Color for weak password
+      case 2:
+      case 3:
+        return "#f1c40f"; // Color for average password
+      case 4:
+        return "#2ecc71"; // Color for strong password
+      default:
+        return "#dddddd"; // Color for no password or very weak password
+    }
+  };
+
+  const strengthLabel = (strength) => {
+    switch (strength) {
+      case 1:
+        return "Weak";
+      case 2:
+      case 3:
+        return "Average";
+      case 4:
+        return "Strong";
+      default:
+        return ""; // No label for no password
+    }
+  };
+  const hasMinLength = password.length >= 8;
+  const hasNumberOrSymbol = /\d|[\W_]/.test(password);
+  const hasLowerAndUpperCase = /[a-z]/.test(password) && /[A-Z]/.test(password);
+
+  return (
+    <div style={{ width: "50%", padding: "5px", borderRadius: "5px" }}>
+      <div style={{ paddingBottom: "5px", color: strengthBarColor(strength) }}>
+        {strengthLabel(strength)}
+      </div>
+      <div
+        style={{ width: "100%", backgroundColor: "#ddd", borderRadius: "5px" }}
+      >
+        <div
+          style={{
+            width: `${strength * 25}%`,
+            backgroundColor: strengthBarColor(strength),
+            height: "6px",
+            borderRadius: "5px",
+            transition: "width 0.3s",
+          }}
+        ></div>
+      </div>
+      <div style={{ fontSize: "0.8rem" }}>
+        <div style={{ color: hasMinLength ? "green" : "gray" }}>
+          {hasMinLength ? (
+            <DoneIcon style={{ width: "15px" }} />
+          ) : (
+            <CircleIcon style={{ width: "10px" }} />
+          )}{" "}
+          At least 8 characters
+        </div>
+        <div style={{ color: hasNumberOrSymbol ? "green" : "gray" }}>
+          {hasNumberOrSymbol ? (
+            <DoneIcon style={{ width: "15px" }} />
+          ) : (
+            <CircleIcon style={{ width: "10px" }} />
+          )}{" "}
+          At least one number (0-9) or symbol
+        </div>
+        <div style={{ color: hasLowerAndUpperCase ? "green" : "gray" }}>
+          {hasLowerAndUpperCase ? (
+            <DoneIcon style={{ width: "15px" }} />
+          ) : (
+            <CircleIcon style={{ width: "10px" }} />
+          )}{" "}
+          Lowercase (a-z) and uppercase (A-Z)
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const SignUp = () => {
   // const [email, setEmail] = useState("");
@@ -162,15 +256,6 @@ const SignUp = () => {
         /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]+$/,
         "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
       ),
-
-    confirmPassword: Yup.string()
-      .required("Confirm Password is required")
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .min(8, "Password must be at least 8 characters")
-      .matches(
-        /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]+$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
-      ),
   });
 
   return (
@@ -184,7 +269,7 @@ const SignUp = () => {
           {" "}
           <div className="  rounded-lg md:overflow-auto h-[94vh] ">
             <div className="flex justify-center mt-1">
-              <img src="Logo.png" width={120} alt="logo" />
+              <img src={imglOGO} width={120} alt="logo" />
             </div>
             <div className="flex flex-col justify-center items-center mt-3 text-center ">
               <p className="text-25 sm:text-35 Welcome-text">Create account</p>
@@ -290,13 +375,17 @@ const SignUp = () => {
                         />
                       </FormControl>
                     </div>
+
+                    {/* Password strength bar */}
+                    {/* <PasswordStrengthBar password={inputData.password} /> */}
                     <div className={`mb-2  ${errors.password && "mt-6"} `}>
                       <label
-                        for="password"
+                        for="referal"
                         className="block mb-2 text-sm font-medium heading text-start"
                       >
-                        Confirm Password
+                        Referral code (Optional)
                       </label>
+                      <drop_down />
                       <FormControl
                         sx={{ m: 1, width: "43ch" }}
                         variant="outlined"
@@ -304,46 +393,16 @@ const SignUp = () => {
                       >
                         <Field
                           as={OutlinedInput}
-                          type={showPassword1 ? "text" : "password"}
-                          error={
-                            touched.confirmPassword && errors.confirmPassword
-                          }
+                          type={"text"}
                           // aria-autocomplete="off"
-                          name="confirmPassword"
-                          placeholder="Re-enter password"
-                          endAdornment={
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword1}
-                                onMouseDown={handleMouseDownPassword}
-                                edge="end"
-                              >
-                                {showPassword1 ? (
-                                  <VisibilityOff />
-                                ) : (
-                                  <Visibility />
-                                )}
-                              </IconButton>
-                            </InputAdornment>
-                          }
+                          name="referalCode"
+                          placeholder="Enter referral code"
                           autoComplete="off"
                           spellCheck={false}
                         />
-                        <ErrorMessage
-                          name="confirmPassword"
-                          component="div"
-                          className={`text-red-700 ${
-                            touched.email && "visible"
-                          } text-start text-xs	mb-10`}
-                        />
                       </FormControl>
                     </div>
-                    <div
-                      className={`flex justify-between w-full mb-4 ${
-                        errors.confirmPassword && "mt-6"
-                      } `}
-                    >
+                    <div className={`flex justify-between w-full mb-4`}>
                       {}
                       <div className="flex">
                         <div className="flex items-center h-5">
@@ -439,7 +498,7 @@ const SignUp = () => {
                         </Button>
                       </LoginSocialFacebook>
                     </div>
-                    <span className="small-text mt-1">
+                    <span className="already-text mt-1">
                       Already a member?{" "}
                       <Link className="forget-text" to={"/sign-in"}>
                         Login
