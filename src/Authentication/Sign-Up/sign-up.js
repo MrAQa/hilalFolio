@@ -3,8 +3,8 @@ import React, { useState, useCallback } from "react";
 import IconButton from "@mui/material/IconButton";
 import { LoginSocialGoogle, LoginSocialFacebook } from "reactjs-social-login";
 import imglOGO from "../../assets/Logo-new.png";
-import { ReactComponent as drop_up } from "../../assets/arrow_drop.svg";
-import { ReactComponent as drop_down } from "../../assets/arrow_drop_down.svg";
+// import { ReactComponent as drop_up } from "../../assets/arrow_drop.svg";
+// import { ReactComponent as Drop_down } from "../../assets/arrow_drop_down.svg";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
 import {
@@ -37,6 +37,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CircleIcon from "@mui/icons-material/Circle";
 import DoneIcon from "@mui/icons-material/Done";
+import { GetProfileData } from "../../service/service";
 const getPasswordStrength = (password) => {
   let strength = 0;
   if (password.length >= 8) strength += 1;
@@ -80,12 +81,13 @@ const PasswordStrengthBar = ({ password }) => {
   const hasLowerAndUpperCase = /[a-z]/.test(password) && /[A-Z]/.test(password);
 
   return (
-    <div style={{ width: "50%", padding: "5px", borderRadius: "5px" }}>
+    <div style={{ width: "100%", padding: "5px", borderRadius: "5px",textAlign:'left' }}>
       <div style={{ paddingBottom: "5px", color: strengthBarColor(strength) }}>
         {strengthLabel(strength)}
       </div>
       <div
         style={{ width: "100%", backgroundColor: "#ddd", borderRadius: "5px" }}
+        className="mb-3"
       >
         <div
           style={{
@@ -130,20 +132,18 @@ const PasswordStrengthBar = ({ password }) => {
 const SignUp = () => {
   // const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showPassword1, setShowPassword1] = useState(false);
+  // const [showPassword1, setShowPassword1] = useState(false);
   // const [isValidEmail, setIsValidEmail] = useState(false);
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
+  // const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
+  
   const initialValues = {
     email: "",
     password: "",
@@ -194,6 +194,7 @@ const SignUp = () => {
         }
       })
       .catch((err) => {
+        console.log('error', err)
         setLoading(false);
       });
   };
@@ -203,7 +204,7 @@ const SignUp = () => {
   }, []);
 
   const googleLogin = (e) => {
-    console.log(e);
+    // console.log(e);
     setLoading(true);
     fetch(`${url}/api/auth/social-login`, {
       method: "POST",
@@ -226,6 +227,15 @@ const SignUp = () => {
           });
           navigate("/");
           setLoading(false);
+          localStorage.setItem("user_token", res?.body?.token);
+          GetProfileData()
+            .then((result) => {
+              const data = result?.body?.user;
+              localStorage.setItem("user_Data", JSON.stringify(data));
+            })
+            .catch((err) => {
+              console.log(err.message);
+            });
         } else {
           toast.error(res.message, {
             position: toast.POSITION.TOP_CENTER,
@@ -249,11 +259,11 @@ const SignUp = () => {
     email: Yup.string()
       .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email address")
       .required("Email is required"),
-    password: Yup.string()
+      password: Yup.string()
       .required("Password is required")
       .min(8, "Password must be at least 8 characters")
       .matches(
-        /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]+$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
         "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
       ),
   });
@@ -278,12 +288,13 @@ const SignUp = () => {
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
+                
               >
-                {({ touched, errors }) => (
+                {({ touched, errors,values }) => (
                   <Form className="max-w-sm mt-3">
                     <div className="mb-3">
                       <label
-                        for="email"
+                        htmlFor="email"
                         className="block mb-2 text-sm font-medium text-gray-900 text-start"
                       >
                         Email
@@ -298,7 +309,7 @@ const SignUp = () => {
                           name="email"
                           autoComplete="off"
                           spellCheck={false}
-                          error={touched.email && errors.email}
+                          error={touched.email && !!errors.email}
                           placeholder="Enter your email"
                           endAdornment={
                             <InputAdornment position="end">
@@ -324,7 +335,7 @@ const SignUp = () => {
                     </div>
                     <div className="mb-2">
                       <label
-                        for="password"
+                        htmlFor="password"
                         className="block mb-2 text-sm font-medium heading text-start"
                       >
                         Password
@@ -332,14 +343,16 @@ const SignUp = () => {
                       <FormControl
                         sx={{ m: 1, width: "43ch" }}
                         variant="outlined"
-                        className="password-input"
+                        // className="password-input"
                       >
                         <Field
                           as={OutlinedInput}
                           type={showPassword ? "text" : "password"}
                           // aria-autocomplete="off"
-                          error={touched.password && errors.password}
+                          error={touched.password && !!errors.password}
                           name="password"
+                          // value={values.password}
+                          // onChange={(e)=>setPassword()}
                           placeholder="Enter password"
                           endAdornment={
                             <InputAdornment position="end">
@@ -369,23 +382,22 @@ const SignUp = () => {
                         <ErrorMessage
                           name="password"
                           component="div"
-                          className={`text-red-700 ${
-                            touched.email && "visible"
-                          } text-start text-xs	mb-10`}
+                          className={`text-red-700 ${touched.email && "visible"
+                            } text-start text-xs`}
                         />
                       </FormControl>
                     </div>
 
                     {/* Password strength bar */}
-                    {/* <PasswordStrengthBar password={inputData.password} /> */}
+                    <PasswordStrengthBar password={values.password} />
                     <div className={`mb-2  ${errors.password && "mt-6"} `}>
                       <label
-                        for="referal"
+                        htmlFor="referal"
                         className="block mb-2 text-sm font-medium heading text-start"
                       >
                         Referral code (Optional)
                       </label>
-                      <drop_down />
+                      {/* <Drop_down /> */}
                       <FormControl
                         sx={{ m: 1, width: "43ch" }}
                         variant="outlined"
@@ -403,7 +415,7 @@ const SignUp = () => {
                       </FormControl>
                     </div>
                     <div className={`flex justify-between w-full mb-4`}>
-                      {}
+                      { }
                       <div className="flex">
                         <div className="flex items-center h-5">
                           <input
@@ -415,7 +427,7 @@ const SignUp = () => {
                           />
                         </div>
                         <label
-                          for="remember"
+                          htmlFor="remember"
                           className="ms-2 text-sm font-medium remember-information "
                         >
                           I agree to{" "}
@@ -431,9 +443,9 @@ const SignUp = () => {
                       variant="contained"
                       className="submit-button mb-2 "
                       disabled={
-                        errors.confirmPassword &&
-                        errors.password &&
-                        errors.email
+                        !!errors.confirmPassword &&
+                        !!errors.password &&
+                        !!errors.email
                       }
                       style={{ marginRight: "1rem" }}
                       type="submit"
@@ -481,9 +493,8 @@ const SignUp = () => {
                         // onLoginStart={onLoginStart}
                         // onLogoutSuccess={onLogoutSuccess}
                         redirect_uri={REDIRECT_URI}
-                        onResolve={({ provider, data }: IResolveParams) => {
-                          // setProvider(provider);
-                          // setProfile(data);
+                        onResolve={({ provider, data }) => {
+                          console.log(provider, data)
                         }}
                         onReject={(err) => {
                           console.log(err);

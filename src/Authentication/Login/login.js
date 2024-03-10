@@ -63,9 +63,7 @@ const Login = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const REDIRECT_URI = "http://localhost:3000/login";
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
@@ -146,7 +144,7 @@ const Login = () => {
   };
 
   const googleLogin = (e) => {
-    console.log(e);
+    // console.log(e);
     setLoading(true);
     fetch(`${url}/api/auth/social-login`, {
       method: "POST",
@@ -169,6 +167,15 @@ const Login = () => {
           });
           navigate("/");
           setLoading(false);
+          localStorage.setItem("user_token", res?.body?.token);
+          GetProfileData()
+            .then((result) => {
+              const data = result?.body?.user;
+              localStorage.setItem("user_Data", JSON.stringify(data));
+            })
+            .catch((err) => {
+              console.log(err.message);
+            });
         } else {
           toast.error(res.message, {
             position: toast.POSITION.TOP_CENTER,
@@ -231,7 +238,7 @@ const Login = () => {
                         <Field
                           as={OutlinedInput}
                           name="email"
-                          error={touched.email && errors.email}
+                          error={touched.email && !!errors.email}
                           autoComplete="off"
                           placeholder="Enter your email"
                           spellCheck={false}
@@ -272,7 +279,7 @@ const Login = () => {
                         <Field
                           as={OutlinedInput}
                           type={showPassword ? "text" : "password"}
-                          error={touched.password && errors.password}
+                          error={touched.password && !!errors.password}
                           // aria-autocomplete="off"
                           placeholder="Enter your password"
                           name="password"
@@ -298,16 +305,14 @@ const Login = () => {
                         <ErrorMessage
                           name="password"
                           component="div"
-                          className={`text-red-700 ${
-                            touched.email && "visible"
-                          } text-start text-xs	mb-10`}
+                          className={`text-red-700 ${touched.email && "visible"
+                            } text-start text-xs	mb-10`}
                         />
                       </FormControl>
                     </div>
                     <div
-                      className={`flex justify-between w-full mb-4 ${
-                        errors.password && "mt-6"
-                      } `}
+                      className={`flex justify-between w-full mb-4 ${errors.password && "mt-6"
+                        } `}
                     >
                       <div className="flex">
                         <div className="flex items-center h-5">
@@ -337,7 +342,7 @@ const Login = () => {
                       className="submit-button mb-2 "
                       style={{ marginRight: "1rem", spinnerColor: "white" }}
                       type="submit"
-                      disabled={errors.email && errors.password}
+                      disabled={!!errors.email && !!errors.password}
                       loading={Loading}
                     >
                       {Loading ? "Adding ..." : "Login"}
@@ -383,7 +388,7 @@ const Login = () => {
                         onLoginStart={onLoginStart}
                         onLogoutSuccess={onLogoutSuccess}
                         redirect_uri={REDIRECT_URI}
-                        onResolve={({ provider, data }: IResolveParams) => {
+                        onResolve={({ provider, data }) => {
                           setProvider(provider);
                           // setProfile(data);
                         }}

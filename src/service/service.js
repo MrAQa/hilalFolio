@@ -114,9 +114,12 @@ export const GetCmcData = async (shariahStatus, rank) => {
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      // 'Authorization': `Bearer ${token}`
 
     };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
     let endpoit = '';
     if (shariahStatus === 'All' && rank === null) {
       endpoit = `/cmc/all`
@@ -196,6 +199,28 @@ export const RemoveFromFavorite = async (data) => {
     };
 
     const response = await axios.put(`/watch-list/remove-coin`, data, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
+
+export const SetNewPassword = async (data) => {
+  const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.post(`/auth/new-password`, data, {
       headers
     });
 

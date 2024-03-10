@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { 
+  // useState, 
+  useEffect 
+} from 'react';
 import ReactApexChart from 'react-apexcharts';
 
 const Chart = () => {
-  const [chartData, setChartData] = useState({
+  const chartData ={
     series: [
       {
         name: 'TEAM A',
@@ -84,7 +87,7 @@ const Chart = () => {
         },
       },
     },
-  });
+  };
 
   useEffect(() => {
     // Additional setup or side effects can be placed here

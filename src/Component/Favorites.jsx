@@ -10,7 +10,7 @@ import { GetFavData } from '../service/service';
 import Footer from './Footer,';
 import NavBar from './Navbar';
 import TbaleDropDown from './Home/TbaleDropDown';
-import MarketCapSection from './Home/MarketCapSection';
+// import MarketCapSection from './Home/MarketCapSection';
 function Favorites() {
     const [CoinsData, setCoinsData] = useState([])
     const [selectedStatus, setSelectedStatus] = useState('All');

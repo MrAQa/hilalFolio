@@ -7,40 +7,42 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import { Formik, Form, Field, ErrorMessage,
+  //  useFormik 
+  } from "formik";
 import * as Yup from "yup";
 import InputAdornment from "@mui/material/InputAdornment";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+// import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { url } from "../../environment";
 import FormControl from "@mui/material/FormControl";
 const ForgetPassword = () => {
-  const [email, setEmail] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  // const [email, setEmail] = useState("");
+  // const [showPassword, setShowPassword] = useState(false);
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const [isValidEmail, setIsValidEmail] = useState(false);
+  // const [isValidEmail, setIsValidEmail] = useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  // const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
+  // const handleMouseDownPassword = (
+  //   event: React.MouseEvent<HTMLButtonElement>
+  // ) => {
+  //   event.preventDefault();
+  // };
 
-  const handleChange = (event) => {
-    const newEmail = event.target.value;
-    setEmail(newEmail);
+  // const handleChange = (event) => {
+  //   const newEmail = event.target.value;
+  //   setEmail(newEmail);
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setIsValidEmail(emailRegex.test(newEmail));
-  };
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   setIsValidEmail(emailRegex.test(newEmail));
+  // };
 
   const initialValues = {
     email: "",
-    password: "",
+    // password: "",
   };
 
   const validationSchema = Yup.object({
@@ -72,7 +74,7 @@ const ForgetPassword = () => {
     })
       .then((response) => response.json())
       .then((res) => {
-        if (res.success == true) {
+        if (res.success === true) {
           localStorage.setItem("token", res.body.token);
 
           toast.success(res.message, {
@@ -123,7 +125,7 @@ const ForgetPassword = () => {
                   <Form className="max-w-sm mt-3">
                     <div className="mb-5">
                       <label
-                        for="email"
+                        htmlFor="email"
                         className="block mb-2 text-sm font-medium text-gray-900 text-start"
                       >
                         Email
@@ -137,7 +139,7 @@ const ForgetPassword = () => {
                           as={OutlinedInput}
                           name="email"
                           autoComplete="off"
-                          error={touched.email && errors.email}
+                          error={touched.email && !!errors.email}
                           spellCheck={false}
                           placeholder="Enter your email"
                           endAdornment={
@@ -167,7 +169,7 @@ const ForgetPassword = () => {
                       className="submit-button mb-2 "
                       style={{ marginRight: "1rem" }}
                       type="submit"
-                      disabled={errors.email}
+                      disabled={!!errors.email}
                       loading={Loading}
                     >
                       {Loading ? "Adding ..." : "Send OTP"}
