@@ -6,7 +6,12 @@ import NewCarousel from '../Component/Home/NewCarousel';
 import Chart from '../Component/Chart';
 import Footer from '../Component/Footer,';
 import { ExpandIcon } from '../assets/custom-icon';
+import { useLocation } from 'react-router-dom';
 function BtcChart() {
+
+    const location = useLocation();
+    const data = location.state; // Access the data here
+    console.log(data)
     const [activeTab, setActiveTab] = useState('Chart'); // Initial active tab
 
     const handleTabClick = (tab) => {
@@ -70,14 +75,37 @@ function BtcChart() {
                                             </div>
                                         </div>
                                         <div className='flex justify-between mb-5'>
-                                            <div></div>
-                                            <div className='flex gap-2'>
+                                            <div>
+
+                                                <div className="flex items-center gap-x-2">
+                                                    <img
+                                                        src={data?.logo}
+                                                        alt="logo"
+                                                        className="w-8 rounded-full bg-gray-50"
+                                                    />
+                                                    <div className="text-[20px] font-medium">
+
+                                                            {data?.name}
+                                                            <span className="text-lg ml-1 text-lightSecondaryText">
+
+                                                                {data?.symbol}
+                                                            </span>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div className='text-3xl font-bold'>
+                                                {`$${data?.quote?.USD?.price?.toFixed(2)}`}
+                                                </div>
+                                            </div>
+                                           <div>
+                                           <div className='flex gap-2'>
                                                 <span className='rounded-lg py-2 px-4 text-[14px] bg-primaryPurple text-white'>1h</span>
                                                 <span className='rounded-lg py-2 px-4 text-[14px] bg-[#F2F2F2] text-primaryDark'>24h</span>
                                                 <span className='rounded-lg py-2 px-4 text-[14px] bg-[#F2F2F2] text-primaryDark'>7d</span>
                                                 <span className='rounded-lg py-2 px-4 text-[14px] bg-[#F2F2F2] text-primaryDark'>30d</span>
                                                 <span className='rounded-lg py-2 px-4 text-[14px] bg-[#F2F2F2] text-primaryDark'>1y</span>
                                             </div>
+                                           </div>
                                         </div>
                                         <div className=' px-4 sm:px-8 py-6'>
 

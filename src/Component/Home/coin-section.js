@@ -79,12 +79,12 @@ const CoinSecton = () => {
     },
   ]
   const navigation = useNavigate()
-  const viewDetail = () => {
-    navigation('/btc-chart')
+  const viewDetail = (obj) => {
+    navigation('/btc-chart', { state: obj });
   }
   const toggleFavorites = (e, index) => {
     e.stopPropagation()
-   console.log(CoinsData[index].favorite)
+  //  console.log(CoinsData[index].favorite)
    if(!CoinsData[index].favorite){
     const data={symbols:[CoinsData[index]?.symbol]}
     addfav(data)
@@ -182,7 +182,7 @@ const CoinSecton = () => {
                     CoinsData?.map((item, index) => (
 
                       <tr
-                        onClick={viewDetail}
+                        onClick={()=>viewDetail(item)}
                         key={index + '-item'} className={`text-base font-semibold border-b-[1px] border-[#D7D9E4] cursor-pointer`}>
 
                         {
