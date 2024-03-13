@@ -5,6 +5,7 @@ import { LoadingButton } from "@mui/lab";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import imglOGO from "../../assets/Logo-new.png";
+import PasswordStrengthBar from "../../service/passwordStrengthCheck";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
 import {
@@ -36,9 +37,7 @@ const SignUp = () => {
 
   const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
@@ -98,19 +97,27 @@ const SignUp = () => {
     password: Yup.string()
       .required("Password is required")
       .min(8, "Password must be at least 8 characters")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
-      ),
+      .matches(/[a-z]/, "Invalid password")
+      .matches(/[A-Z]/, "Invalid password")
+      .test("num-or-special", "Invalid password", (value) => {
+        return (
+          /\d/.test(value) ||
+          /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(value)
+        );
+      }),
 
     confirmPassword: Yup.string()
       .required("Confirm Password is required")
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .min(8, "Password must be at least 8 characters")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
-      ),
+      .matches(/[a-z]/, "Invalid confirm password")
+      .matches(/[A-Z]/, "Invalid confirm password")
+      .test("num-or-special", "Invalid confirm password", (value) => {
+        return (
+          /\d/.test(value) ||
+          /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(value)
+        );
+      }),
   });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -136,7 +143,7 @@ const SignUp = () => {
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
               >
-                {({ touched, errors }) => (
+                {({ values, touched, errors }) => (
                   <Form className="max-w-sm mt-3">
                     <div className="mb-2">
                       <label
@@ -186,12 +193,14 @@ const SignUp = () => {
                           name="password"
                           component="div"
                           className={`text-red-700 ${
-                            errors.email && "visible"
+                            errors.password && "visible"
                           } text-start text-xs	mb-10`}
                         />
                       </FormControl>
                     </div>
-                    <div className={`mb-2  ${errors.password && "mt-6"} `}>
+                    {/* Password strength bar */}
+                    <PasswordStrengthBar password={values.password} />
+                    <div className={`mb-2  `}>
                       <label
                         for="password"
                         className="block mb-2 text-sm font-medium heading text-start"
@@ -234,24 +243,27 @@ const SignUp = () => {
                           name="confirmPassword"
                           component="div"
                           className={`text-red-700 ${
-                            touched.email && "visible"
+                            touched.confirmPassword && "visible"
                           } text-start text-xs	mb-10`}
                         />
                       </FormControl>
                     </div>
-
-                    <LoadingButton
-                      variant="contained"
-                      className={`submit-button mb-2    ${
-                        errors.confirmPassword && "mt-6"
+                    <div
+                      className={` mb-2 ${
+                        errors.confirmPassword ? "mt-6" : ""
                       }  `}
-                      disabled={errors.confirmPassword && errors.password}
-                      style={{ marginRight: "1rem" }}
-                      type="submit"
-                      loading={Loading}
                     >
-                      {Loading ? "Adding ..." : "Submit"}
-                    </LoadingButton>
+                      <LoadingButton
+                        variant="contained"
+                        className="submit-button"
+                        disabled={errors.confirmPassword && errors.password}
+                        style={{ marginRight: "1rem" }}
+                        type="submit"
+                        loading={Loading}
+                      >
+                        {Loading ? "Adding ..." : "Submit"}
+                      </LoadingButton>
+                    </div>
                   </Form>
                 )}
               </Formik>

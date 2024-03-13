@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
 // import "./Otp-verification.css";
-import {
-  //  Link,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
-// import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
-// import * as Yup from "yup";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import * as Yup from "yup";
 import OtpInput from "react-otp-input";
 import { ToastContainer, toast } from "react-toastify";
-import imglOGO from "../../assets/Logo-new.png";
-
 import "react-toastify/dist/ReactToastify.css";
 import { LoadingButton } from "@mui/lab";
 import { url } from "../../environment";
@@ -22,7 +16,7 @@ const OtpVerification = () => {
   const location = useLocation();
   const receivedData = location.state;
 
-  // console.log(receivedData);
+  console.log(receivedData);
 
   const [otp, setOtp] = useState("");
 
@@ -51,7 +45,7 @@ const OtpVerification = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [seconds, minutes]);
+  }, [seconds]);
 
   const verifyOtp = (e) => {
     if (otp.length < 6) {
@@ -72,9 +66,9 @@ const OtpVerification = () => {
     })
       .then((response) => response.json())
       .then((res) => {
-        if (res.success === true) {
+        if (res.success == true) {
           if (receivedData.component === "signUp") {
-            navigate("/");
+            navigate("/home");
           } else {
             navigate("/new-password");
           }
@@ -127,12 +121,12 @@ const OtpVerification = () => {
 
   return (
     <>
-      <div className="flex h-screen">
-        <div className="w-full">
+      <div class="flex h-screen">
+        <div class="w-full">
           <ToastContainer />{" "}
           <div className=" h-full rounded-lg flex flex-col justify-center items-center overflow-hidden">
             <div className="flex justify-center mt-1">
-              <img src={imglOGO} width={120} alt="logo" />
+              <img src="Logo.png" width={120} />
             </div>
             <div className="flex flex-col justify-center items-center mt-3 text-center ">
               <p className="text-35 Welcome-text">OTP Verification</p>
@@ -140,7 +134,7 @@ const OtpVerification = () => {
                 It was popularised in the 1960s with the release of Lorem Ipsum.
               </span>
 
-              <div className="mb-3">
+              <div class="mb-3">
                 <OtpInput
                   value={otp}
                   type="number"

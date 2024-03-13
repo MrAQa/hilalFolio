@@ -62,7 +62,7 @@ const Login = () => {
   }, []);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const REDIRECT_URI = "http://localhost:3000/login";
+  const REDIRECT_URI = "http://localhost:3000/sign-in";
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -79,10 +79,14 @@ const Login = () => {
     password: Yup.string()
       .required("Password is required")
       .min(8, "Password must be at least 8 characters")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
-      ),
+      .matches(/[a-z]/, "Invalid password")
+      .matches(/[A-Z]/, "Invalid password")
+      .test("num-or-special", "Invalid password", (value) => {
+        return (
+          /\d/.test(value) ||
+          /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(value)
+        );
+      }),
   });
 
   const navigate = useNavigate();
@@ -305,14 +309,16 @@ const Login = () => {
                         <ErrorMessage
                           name="password"
                           component="div"
-                          className={`text-red-700 ${touched.email && "visible"
-                            } text-start text-xs	mb-10`}
+                          className={`text-red-700 ${
+                            touched.email && "visible"
+                          } text-start text-xs	mb-10`}
                         />
                       </FormControl>
                     </div>
                     <div
-                      className={`flex justify-between w-full mb-4 ${errors.password && "mt-6"
-                        } `}
+                      className={`flex justify-between w-full mb-4 ${
+                        errors.password && "mt-6"
+                      } `}
                     >
                       <div className="flex">
                         <div className="flex items-center h-5">
