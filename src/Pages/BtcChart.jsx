@@ -6,10 +6,11 @@ import NewCarousel from '../Component/Home/NewCarousel';
 import Chart from '../Component/Chart';
 import Footer from '../Component/Footer,';
 import { ExpandIcon } from '../assets/custom-icon';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 function BtcChart() {
 
     const location = useLocation();
+    const navigation = useNavigate();
     const data = location.state; // Access the data here
     console.log(data)
     const [activeTab, setActiveTab] = useState('Chart'); // Initial active tab
@@ -23,7 +24,9 @@ function BtcChart() {
         News: 2,
         Markets: 3,
     };
-
+const handleRequestReview =()=>{
+    navigation('/review')
+}
     return (
         <div className='bg-[#F2F2F2]'>
             <NavBar />
@@ -67,7 +70,7 @@ function BtcChart() {
                                                     </svg>
                                                 </span>
                                                 <button
-
+                                                onClick={handleRequestReview}
                                                     className="bg-primaryPurple h-10 text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
                                                 >
                                                     Request Review

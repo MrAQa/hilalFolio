@@ -14,6 +14,7 @@ import Settings from "./Pages/Settings";
 import LoginRoutes from "./routes/LoginRoutes";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import Favorites from "./Component/Favorites";
+import ReportPage from "./Pages/ReportPage";
 function App() {
   return (
     <div>
@@ -30,6 +31,7 @@ function App() {
         <Route path="/subscription" element={<PrivateRoutes><SubscriptionPage/></PrivateRoutes>} />
         <Route path="/settings" element={<PrivateRoutes><Settings/></PrivateRoutes>} />
         <Route path="/btc-chart" element={<BtcChart/>} />
+        <Route path="/review" element={<ReportPage/>} />
       </Routes>
     </div>
   );
