@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../Component/Navbar'
 
 import NewCarousel from '../Component/Home/NewCarousel';
@@ -7,12 +7,13 @@ import Chart from '../Component/Chart';
 import Footer from '../Component/Footer,';
 import { ExpandIcon } from '../assets/custom-icon';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { GetCoinData } from '../service/service';
 function BtcChart() {
 
     const location = useLocation();
     const navigation = useNavigate();
     const data = location.state; // Access the data here
-    console.log(data)
+    // console.log(data)
     const [activeTab, setActiveTab] = useState('Chart'); // Initial active tab
 
     const handleTabClick = (tab) => {
@@ -24,6 +25,12 @@ function BtcChart() {
         News: 2,
         Markets: 3,
     };
+    useEffect(() => {
+        GetCoinData(data?._id).then((result)=>{
+        console.log(result)
+      })
+    }, [data?._id])
+    
 const handleRequestReview =()=>{
     navigation('/review')
 }

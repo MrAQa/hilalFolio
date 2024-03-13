@@ -11,18 +11,20 @@ const CoinSecton = () => {
   const [CoinsData, setCoinsData] = useState([])
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [selectedRank, setSelectedRank] = useState('All');
+  const [selectedPercentage, setSelectedPercentage] = useState('All');
   const [isLoading, setIsLoading] = useState(false)
   const [noDataFlag, setNoDataFlag] = useState(false)
   const [isLogedin, setIsLogedin] = useState(false);
   const statuses = ['All', 'Compliant', 'Not Compliant'];
   const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
+  const percentageChange = ['All','1h', '24h', '7d'];
   useEffect(() => {
     setIsLoading(true)
     let number = null;
     if (selectedRank !== 'All') {
       number = parseInt(selectedRank.match(/\d+/)[0], 10);
     }
-    GetCmcData(selectedStatus, number).then((result) => {
+    GetCmcData(selectedStatus, number,selectedPercentage).then((result) => {
       setIsLoading(false)
       if (result.success) {
         // console.log(result?.body?.cmcData)
@@ -41,7 +43,7 @@ const CoinSecton = () => {
     }).catch((err)=>{
       console.log(err)
     })
-  }, [selectedStatus, selectedRank])
+  }, [selectedStatus, selectedRank,selectedPercentage])
   useEffect(() => {
 
     const token = localStorage.getItem('user_token');
@@ -135,8 +137,13 @@ const CoinSecton = () => {
                 placeholder='Select Rank'
                 dataArray={rank}
               />
-              <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">24h%</div>
-
+              {/* <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">24h%</div> */}
+              <TbaleDropDown
+                value={selectedPercentage}
+                onChange={setSelectedPercentage}
+                placeholder='Percentage Change'
+                dataArray={percentageChange}
+              />
               <TbaleDropDown
                 value={selectedStatus}
                 onChange={setSelectedStatus}

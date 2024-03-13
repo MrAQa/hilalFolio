@@ -109,7 +109,7 @@ export const UpdateProfileImage = async (imageFile) => {
   }
 };
 
-export const GetCmcData = async (shariahStatus, rank) => {
+export const GetCmcData = async (shariahStatus, rank,percentageChange) => {
   const token = localStorage.getItem('user_token')
   try {
 
@@ -122,20 +122,26 @@ export const GetCmcData = async (shariahStatus, rank) => {
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
-    let endpoit = '';
-    if (shariahStatus === 'All' && rank === null) {
-      endpoit = `/cmc/all`
+    let endpoint = '';
+    if (shariahStatus === 'All' && rank === null && percentageChange === 'All') {
+      endpoint = `/cmc/all`;
+    } else if (shariahStatus !== 'All' && rank === null && percentageChange === 'All') {
+      endpoint = `/cmc/all?shariahStatus=${shariahStatus}`;
+    } else if (shariahStatus === 'All' && rank !== null && percentageChange === 'All') {
+      endpoint = `/cmc/all?rank=${rank}`;
+    } else if (shariahStatus === 'All' && rank === null && percentageChange !== 'All') {
+      endpoint = `/cmc/all?percentageChange=${percentageChange}`;
+    } else if (shariahStatus !== 'All' && rank !== null && percentageChange === 'All') {
+      endpoint = `/cmc/all?shariahStatus=${shariahStatus}&rank=${rank}`;
+    } else if (shariahStatus !== 'All' && rank === null && percentageChange !== 'All') {
+      endpoint = `/cmc/all?shariahStatus=${shariahStatus}&percentageChange=${percentageChange}`;
+    } else if (shariahStatus === 'All' && rank !== null && percentageChange !== 'All') {
+      endpoint = `/cmc/all?rank=${rank}&percentageChange=${percentageChange}`;
+    } else {
+      endpoint = `/cmc/all?shariahStatus=${shariahStatus}&rank=${rank}&percentageChange=${percentageChange}`;
     }
-    else if (shariahStatus !== 'All' && rank === null) {
-      endpoit = `/cmc/all?shariahStatus=${shariahStatus}`
-    }
-    else if (shariahStatus === 'All' && rank !== null) {
-      endpoit = `/cmc/all?rank=${rank}`
-    }
-    else {
-      endpoit = `/cmc/all?shariahStatus=${shariahStatus}&rank=${rank}`
-    }
-    const response = await axios.get(endpoit, {
+
+    const response = await axios.get(endpoint, {
       headers
     });
 
@@ -145,7 +151,27 @@ export const GetCmcData = async (shariahStatus, rank) => {
     handleCatch(error)
   }
 };
+export const GetCoinData = async (id) => {
+  // const token = localStorage.getItem('user_token')
+  try {
 
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      // 'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.get(`/cmc/${id}`, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
 export const GetFavData = async () => {
   const token = localStorage.getItem('user_token')
   try {
@@ -222,7 +248,7 @@ export const SetNewPassword = async (data) => {
 
     };
 
-    const response = await axios.post(`/auth/new-password`, data, {
+    const response = await axios.put(`/auth/password`, data, {
       headers
     });
 
