@@ -28,6 +28,8 @@ const handleCatch = (error) => {
     }
 
     else if (error.response.status === 401) {
+      localStorage.clear()
+      window.location.reload()
       throw new Error(error.response.data.message);
     }
     else {

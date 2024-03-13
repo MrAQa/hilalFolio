@@ -75,7 +75,7 @@ const ForgetPassword = () => {
       .then((response) => response.json())
       .then((res) => {
         if (res.success === true) {
-          localStorage.setItem("token", res.body.token);
+          localStorage.setItem("user_token", res.body.token);
 
           toast.success(res.message, {
             position: toast.POSITION.TOP_CENTER,

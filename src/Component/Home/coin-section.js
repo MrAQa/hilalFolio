@@ -38,6 +38,8 @@ const CoinSecton = () => {
           setNoDataFlag(false)
         }
       }
+    }).catch((err)=>{
+      console.log(err)
     })
   }, [selectedStatus, selectedRank])
   useEffect(() => {
