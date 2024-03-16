@@ -56,7 +56,7 @@ function Footer() {
     ]
     return (
         <footer id='main-footer' className='bg-white px-2 xs:px-5 pt-8 lg:pt-[60px] mt-6 sm:mt-12'>
-            <div className="2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto">
+            <div className="2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto">
                 <div className='flex flex-col md:flex-row gap-y-6 justify-between text-whiteGrey'>
                     <div className='space-y-6'>
                         

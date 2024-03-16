@@ -124,7 +124,7 @@ const CoinSecton = () => {
     <>
       {/* <MarketCapSection/> */}
       <section className='pt-6 sm:pt-8'>
-        <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto px-3 lg:px-0'>
+        <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
           <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-white">
             {/* <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
               Coins
@@ -323,7 +323,7 @@ const CoinSecton = () => {
         </div>
       </section>
       <section className='pt-6 sm:pt-12'>
-        <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto px-3 lg:px-0'>
+        <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
           <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-white">
             <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
               News

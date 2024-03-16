@@ -9,7 +9,7 @@ function AboutPage() {
             <NavBar />
             <div className="bg-[#FAFAFA]">
                 <section className=''>
-                    <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto px-3 lg:px-0'>
+                    <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
                         <div className='flex flex-col md:flex-row gap-6 text-[#0C0F14]'>
                             <div className='lg:w-[390px] pt-10 '>
                                 <SideBar />

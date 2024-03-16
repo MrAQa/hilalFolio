@@ -26,12 +26,16 @@ function Profile() {
 
     useEffect(() => {
         fetchdata()
+        // eslint-disable-next-line
     }, [])
     const fetchdata = () => {
         GetProfileData().then((result) => {
-            setUserData(result?.body?.user)
-            const data = result?.body?.user;
-            localStorage.setItem('user_Data', JSON.stringify(data));
+            const userDataCopy = { ...result?.body?.user }; // Create a copy of userData
+            userDataCopy.dob = changeformatdata(userDataCopy.dob); // Change the format of dob
+            setUserData(userDataCopy); // Update user data with the modified dob
+            
+            // const data = result?.body?.user;
+            localStorage.setItem('user_Data', JSON.stringify(userDataCopy));
         }).catch((err) => {
             console.log(err.message)
         })
@@ -118,22 +122,17 @@ function Profile() {
             reader.readAsDataURL(file);
         }
     };
-    // const chnageformatdata =(inputDate)=>{
+    const changeformatdata =(dateString)=>{
       
-    //    if(inputDate!==''){
-    //     const [day, month, year] = inputDate?.split("-");
+    const parts = dateString.split('-');
+    
+    const dateObject = new Date(parts[2], parts[1] - 1, parts[0]);
+    
+    const formattedDate = dateObject.toISOString().slice(0, 10);
 
-    //     const date = new Date(year, month - 1, day);
+    return formattedDate
 
-    //     const formattedDate = date.toISOString()?.split("T")[0];
-    //     return formattedDate
-    //    }
-    //    else{
-    //     return ''
-    //    }
-        
-
-    // }
+    }
     return (
         <div>
             <ToastContainer />
@@ -141,7 +140,7 @@ function Profile() {
             <div className="bg-[#FAFAFA]">
                 {/* <Banner /> */}
                 <section className=''>
-                    <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto px-3 lg:px-0'>
+                    <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md  mx-auto px-3 lg:px-0'>
                         <div className='flex flex-col md:flex-row gap-6 text-[#0C0F14]'>
                             <div className='lg:w-[390px] pt-10 '>
                                 <SideBar />

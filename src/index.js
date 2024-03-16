@@ -6,16 +6,29 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import "./i18n"; // Import your i18n configuration
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#6F4F9F', // Change the primary color
+    },
+  },
+
+});
 root.render(
-  <GoogleOAuthProvider clientId="662749198952-rfvupgjdptea3k7apdjgnsch72m9e153.apps.googleusercontent.com">
-    {/* <React.StrictMode> */}
+
+  <ThemeProvider theme={theme}>
+    <GoogleOAuthProvider clientId="662749198952-rfvupgjdptea3k7apdjgnsch72m9e153.apps.googleusercontent.com">
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    {/* </React.StrictMode> */}
-  </GoogleOAuthProvider>
+
+    </GoogleOAuthProvider>
+
+  </ThemeProvider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function

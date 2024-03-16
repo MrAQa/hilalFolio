@@ -24,7 +24,7 @@ function TbaleDropDown({value,placeholder,onChange,dataArray}) {
               <Listbox.Option
                 key={index}
                 className={({ active }) =>
-                  `${active ? 'bg-indigo-500 text-white' : 'text-gray-900'}
+                  `${active ? 'bg-primaryPurple text-white' : 'text-black'}
               cursor-default select-none relative py-2 pl-3 pr-9`
                 }
                 value={status}

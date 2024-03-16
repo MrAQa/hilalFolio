@@ -15,6 +15,7 @@ import LoginRoutes from "./routes/LoginRoutes";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import Favorites from "./Component/Favorites";
 import ReportPage from "./Pages/ReportPage";
+import ScrollToTopButton from "./Pages/ScrollTopButton";
 function App() {
   return (
     <div>
@@ -33,6 +34,7 @@ function App() {
         <Route path="/btc-chart" element={<BtcChart/>} />
         <Route path="/review" element={<ReportPage/>} />
       </Routes>
+      <ScrollToTopButton/>
     </div>
   );
 }

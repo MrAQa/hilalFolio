@@ -173,12 +173,12 @@ const SignUp = () => {
 
   return (
     <>
-      <div class="flex justify-center items-center">
+      <div className="flex justify-center items-center">
         <ToastContainer />
-        <div class="w-1/2 h-100 hidden md:block">
+        <div className="w-1/2 h-100 hidden md:block">
           <div className="bg-gray-100 h-screen rounded-lg"></div>
         </div>
-        <div class=" w-1/2 min-h-full ">
+        <div className=" w-1/2 min-h-full ">
           {" "}
           <div className="  rounded-lg md:overflow-auto h-[94vh] ">
             <div className="flex justify-center mt-1">
@@ -193,11 +193,11 @@ const SignUp = () => {
                 onSubmit={onSubmit}
               >
                 {({ touched, errors, values }) => (
-                  <Form class="max-w-sm mt-3">
-                    <div class="mb-3">
+                  <Form className="max-w-sm mt-3">
+                    <div className="mb-3">
                       <label
-                        for="email"
-                        class="block mb-2 text-sm font-medium text-gray-900 text-start"
+                        htmlFor="email"
+                        className="block mb-2 text-sm font-medium text-gray-900 text-start"
                       >
                         Email
                       </label>
@@ -235,10 +235,10 @@ const SignUp = () => {
                         />
                       </FormControl>
                     </div>
-                    <div class="mb-2">
+                    <div className="mb-2">
                       <label
-                        for="password"
-                        class="block mb-2 text-sm font-medium heading text-start"
+                        htmlFor="password"
+                        className="block mb-2 text-sm font-medium heading text-start"
                       >
                         Password
                       </label>
@@ -292,10 +292,10 @@ const SignUp = () => {
                     )}
 
 
-                    <div class={`mb-2   `}>
+                    <div className={`mb-2   `}>
                       <div className="flex justify-between cursor-pointer" onClick={() => setShowReferralCode(ShowReferralCode ? false : true)}>
                         <label
-                          htmlFor="referal"
+                          htmlhtmlFor="referal"
                           className="block mb-2 text-sm font-medium heading text-start cursor-pointer"
                         >
                           Referral code (Optional)
@@ -325,18 +325,18 @@ const SignUp = () => {
                     <div className={`flex justify-between w-full mb-4 `}>
                       { }
                       <div className="flex">
-                        <div class="flex items-center h-5">
+                        <div className="flex items-center h-5">
                           <input
                             id="remember"
                             type="checkbox"
                             value=""
                             required
-                            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 cursor-pointer dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 cursor-pointer dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
                           />
                         </div>
                         <label
-                          for="remember"
-                          class="ms-2 text-sm font-medium remember-information "
+                          htmlFor="remember"
+                          className="ms-2 text-sm font-medium remember-information "
                         >
                           I agree to{" "}
                           <span className="forget-text">
