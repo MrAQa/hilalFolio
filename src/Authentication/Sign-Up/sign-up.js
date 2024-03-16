@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import { url } from "../../environment";
 import { LoadingButton } from "@mui/lab";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { GetProfileData } from "../../service/service";
 
 import { useNavigate } from "react-router-dom";
 import Divider from "@mui/material/Divider";
@@ -18,6 +19,8 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { ReactComponent as DownloadIcon } from "../../assets/Logo.svg";
 import { ReactComponent as FacebookIcon } from "../../assets/Facebook.svg";
+import { ReactComponent as DropDown } from "../../assets/arrow_drop.svg";
+import { ReactComponent as DropUp } from "../../assets/arrow_drop_down.svg";
 
 import InputAdornment from "@mui/material/InputAdornment";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -30,6 +33,7 @@ import PasswordStrengthBar from "../../Component/passwordStrengthCheck";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [ShowReferralCode, setShowReferralCode] = useState(false);
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -119,8 +123,17 @@ const SignUp = () => {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
           });
-          navigate("/home");
+          navigate("/");
           setLoading(false);
+          localStorage.setItem("user_token", res?.body?.token);
+          GetProfileData()
+            .then((result) => {
+              const data = result?.body?.user;
+              localStorage.setItem("user_Data", JSON.stringify(data));
+            })
+            .catch((err) => {
+              console.log(err.message);
+            });
         } else {
           toast.error(res.message, {
             position: toast.POSITION.TOP_CENTER,
@@ -274,32 +287,40 @@ const SignUp = () => {
                       </FormControl>
                     </div>
                     {/* Password strength bar */}
-                    {errors.password && (
+                    {values.password && (
                       <PasswordStrengthBar password={values.password} />
                     )}
+
+
                     <div class={`mb-2   `}>
-                      <label
-                        htmlFor="referal"
-                        className="block mb-2 text-sm font-medium heading text-start"
-                      >
-                        Referral code (Optional)
-                      </label>
+                      <div className="flex justify-between cursor-pointer" onClick={() => setShowReferralCode(ShowReferralCode ? false : true)}>
+                        <label
+                          htmlFor="referal"
+                          className="block mb-2 text-sm font-medium heading text-start cursor-pointer"
+                        >
+                          Referral code (Optional)
+                        </label>
+                        {ShowReferralCode ? (<DropUp onClick={() => setShowReferralCode(false)} className="cursor-pointer" />) : (<DropDown onClick={() => setShowReferralCode(true)} className="cursor-pointer" />)}
+                      </div>
+
                       {/* <Drop_down /> */}
-                      <FormControl
-                        sx={{ m: 1, width: "43ch" }}
-                        variant="outlined"
-                        className="password-input"
-                      >
-                        <Field
-                          as={OutlinedInput}
-                          type={"text"}
-                          // aria-autocomplete="off"
-                          name="referalCode"
-                          placeholder="Enter referral code"
-                          autoComplete="off"
-                          spellCheck={false}
-                        />
-                      </FormControl>
+                      {ShowReferralCode &&
+                        <FormControl
+                          sx={{ m: 1, width: "43ch" }}
+                          variant="outlined"
+                          className="password-input"
+                        >
+                          <Field
+                            as={OutlinedInput}
+                            type={"text"}
+                            // aria-autocomplete="off"
+                            name="referalCode"
+                            placeholder="Enter referral code"
+                            autoComplete="off"
+                            spellCheck={false}
+                          />
+                        </FormControl>
+                      }
                     </div>
                     <div className={`flex justify-between w-full mb-4 `}>
                       { }
@@ -380,7 +401,7 @@ const SignUp = () => {
                         // onLoginStart={onLoginStart}
                         // onLogoutSuccess={onLogoutSuccess}
                         redirect_uri={REDIRECT_URI}
-                        onResolve={({ provider, data }: IResolveParams) => {
+                        onResolve={({ provider, data }) => {
                           // setProvider(provider);
                           // setProfile(data);
                         }}
