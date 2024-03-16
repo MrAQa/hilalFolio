@@ -3,6 +3,8 @@ import { Menu, Transition, Popover, Dialog } from "@headlessui/react";
 import logo from "../assets/Logo-new.png";
 import { UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+
 import { SearchIcon, SunIcon } from "../assets/custom-icon";
 import img from "../assets/image 4.png"
 const NavBar = () => {
@@ -24,7 +26,11 @@ const NavBar = () => {
     }
   }, [])
 
+  const { t, i18n } = useTranslation();
 
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
   function SignOutIcon(props) {
     return (
       <svg
@@ -184,9 +190,97 @@ const NavBar = () => {
               }
             </div>
           </div>
+          <div className="relative hidden lg:flex p-2 border-[1px] border-[#D7D9E4] rounded-lg mr-4">
+            <Menu>
+              {({ open }) => (
+                <>
+                  <Menu.Button>
+                    <div className="flex items-center justify-center gap-x-3">
+                      <div className="flex items-center">
+                        {t('Languages')}
+
+                      </div>
+                      {/* <div>{userData?.fullName}</div> */}
+                      <div className="flex items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="10"
+                          height="8"
+                          viewBox="0 0 10 8"
+                          fill="none"
+                        >
+                          <path
+                            d="M5.57253 6.69703L9.3327 2.1221C9.38457 2.05899 9.42542 1.98853 9.45525 1.91071C9.48508 1.83287 9.5 1.74947 9.5 1.66052C9.5 1.48262 9.45056 1.32806 9.35168 1.19684C9.25281 1.06561 9.1225 1 8.96073 1L1.03927 1C0.877501 1 0.747186 1.06624 0.648323 1.19872C0.549439 1.33123 0.499999 1.4858 0.499999 1.66245C0.499999 1.70663 0.555843 1.85995 0.667534 2.12239L4.42746 6.69707C4.5139 6.80223 4.60324 6.87901 4.6955 6.92741C4.78779 6.9758 4.88928 7 5 7C5.11072 7 5.21221 6.9758 5.30449 6.92741C5.39675 6.87901 5.4861 6.80222 5.57253 6.69703Z"
+                            fill="#0C0F14"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </Menu.Button>
+
+                  {open && (
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items
+                        static
+                        className="z-10 bgWhite border bg-white w-56 border-gray-300 absolute right-0 top-8 mt-2 rounded-md shadow-lg focus:outline-none"
+                      >
+                        <div className="px-1 py-1">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                className={`${active
+                                  ? "bg-primaryPurple text-white"
+                                  : "text-black"
+                                  } group flex w-full items-center rounded-md px-2 py-2 text-base font-semibold`}
+                                onClick={() => changeLanguage('en')}
+                              >
+
+                                <svg className="mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><rect x="1" y="4" width="30" height="24" rx="4" ry="4" fill="#071b65"></rect><path d="M5.101,4h-.101c-1.981,0-3.615,1.444-3.933,3.334L26.899,28h.101c1.981,0,3.615-1.444,3.933-3.334L5.101,4Z" fill="#fff"></path><path d="M22.25,19h-2.5l9.934,7.947c.387-.353,.704-.777,.929-1.257l-8.363-6.691Z" fill="#b92932"></path><path d="M1.387,6.309l8.363,6.691h2.5L2.316,5.053c-.387,.353-.704,.777-.929,1.257Z" fill="#b92932"></path><path d="M5,28h.101L30.933,7.334c-.318-1.891-1.952-3.334-3.933-3.334h-.101L1.067,24.666c.318,1.891,1.952,3.334,3.933,3.334Z" fill="#fff"></path><rect x="13" y="4" width="6" height="24" fill="#fff"></rect><rect x="1" y="13" width="30" height="6" fill="#fff"></rect><rect x="14" y="4" width="4" height="24" fill="#b92932"></rect><rect x="14" y="1" width="4" height="30" transform="translate(32) rotate(90)" fill="#b92932"></rect><path d="M28.222,4.21l-9.222,7.376v1.414h.75l9.943-7.94c-.419-.384-.918-.671-1.471-.85Z" fill="#b92932"></path><path d="M2.328,26.957c.414,.374,.904,.656,1.447,.832l9.225-7.38v-1.408h-.75L2.328,26.957Z" fill="#b92932"></path><path d="M27,4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Zm3,20c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24Z" opacity=".15"></path><path d="M27,5H5c-1.657,0-3,1.343-3,3v1c0-1.657,1.343-3,3-3H27c1.657,0,3,1.343,3,3v-1c0-1.657-1.343-3-3-3Z" fill="#fff" opacity=".2"></path></svg>
+                                {/* <UserCircleIcon className="h-6 w-6 mr-2 text-primaryDark" /> */}
+
+                                {t('English')}
+
+                              </button>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                className={`${active
+                                  ? "bg-primaryPurple text-white"
+                                  : "text-black"
+                                  } group flex w-full items-center rounded-md px-2 py-2 text-base font-semibold`}
+                                onClick={() => changeLanguage('fr')}
+                              >
+
+                                <svg className="mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><rect x="1" y="4" width="30" height="24" rx="4" ry="4" fill="#fff"></rect><path d="M1.638,5.847H30.362c-.711-1.108-1.948-1.847-3.362-1.847H5c-1.415,0-2.651,.739-3.362,1.847Z" fill="#bc271a"></path><path d="M1.031,7.692c-.008,.103-.031,.202-.031,.308v1.539H31v-1.539c0-.105-.023-.204-.031-.308H1.031Z" fill="#bc271a"></path><path fill="#bc271a" d="M1 11.384H31V13.231H1z"></path><path fill="#bc271a" d="M1 15.077H31V16.924H1z"></path><path fill="#bc271a" d="M1 18.769H31V20.616H1z"></path><path d="M1,24c0,.105,.023,.204,.031,.308H30.969c.008-.103,.031-.202,.031-.308v-1.539H1v1.539Z" fill="#bc271a"></path><path d="M30.362,26.153H1.638c.711,1.108,1.948,1.847,3.362,1.847H27c1.415,0,2.651-.739,3.362-1.847Z" fill="#bc271a"></path><path d="M16,4H5c-2.209,0-4,1.791-4,4v10.769h15V4Z" fill="#010062"></path><path d="M27,4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Zm3,20c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24Z" opacity=".15"></path><path d="M27,5H5c-1.657,0-3,1.343-3,3v1c0-1.657,1.343-3,3-3H27c1.657,0,3,1.343,3,3v-1c0-1.657-1.343-3-3-3Z" fill="#fff" opacity=".2"></path><path fill="#f6cd46" d="M11.639 8.108L11.931 10.106 13.061 8.432 12.455 10.36 14.2 9.342 12.818 10.816 14.833 10.655 12.949 11.384 14.833 12.113 12.818 11.952 14.2 13.427 12.455 12.408 13.061 14.336 11.931 12.662 11.639 14.661 11.346 12.662 10.216 14.336 10.822 12.408 9.077 13.427 10.459 11.952 8.444 12.113 10.328 11.384 8.444 10.655 10.459 10.816 9.077 9.342 10.822 10.36 10.216 8.432 11.346 10.106 11.639 8.108z"></path><path d="M10,8.189c-1.764-.783-3.829,.013-4.612,1.777-.783,1.764,.013,3.829,1.777,4.612,.903,.4,1.932,.4,2.835,0-1.764,1.266-4.221,.862-5.487-.903s-.862-4.221,.903-5.487c1.37-.983,3.214-.983,4.584,0Z" fill="#f6cd46"></path></svg>
+
+                                {t('Bahasa')}
+
+                              </button>
+                            )}
+                          </Menu.Item>
+
+                        </div>
+                      </Menu.Items>
+                    </Transition>
+                  )}
+                </>
+              )}
+            </Menu>
+          </div>
           {isLogedin ? (
             <>
               <div className="relative hidden lg:flex p-2 border-[1px] border-[#D7D9E4] rounded-lg">
+
                 <Menu>
                   {({ open }) => (
                     <>

@@ -17,14 +17,14 @@ const CoinSecton = () => {
   const [isLogedin, setIsLogedin] = useState(false);
   const statuses = ['All', 'Compliant', 'Not Compliant'];
   const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
-  const percentageChange = ['All','1h', '24h', '7d'];
+  const percentageChange = ['All', '1h', '24h', '7d'];
   useEffect(() => {
     setIsLoading(true)
     let number = null;
     if (selectedRank !== 'All') {
       number = parseInt(selectedRank.match(/\d+/)[0], 10);
     }
-    GetCmcData(selectedStatus, number,selectedPercentage).then((result) => {
+    GetCmcData(selectedStatus, number, selectedPercentage).then((result) => {
       setIsLoading(false)
       if (result.success) {
         // console.log(result?.body?.cmcData)
@@ -40,10 +40,10 @@ const CoinSecton = () => {
           setNoDataFlag(false)
         }
       }
-    }).catch((err)=>{
+    }).catch((err) => {
       console.log(err)
     })
-  }, [selectedStatus, selectedRank,selectedPercentage])
+  }, [selectedStatus, selectedRank, selectedPercentage])
   useEffect(() => {
 
     const token = localStorage.getItem('user_token');
@@ -88,20 +88,20 @@ const CoinSecton = () => {
   }
   const toggleFavorites = (e, index) => {
     e.stopPropagation()
-  //  console.log(CoinsData[index].favorite)
-   if(!CoinsData[index].favorite){
-    const data={symbols:[CoinsData[index]?.symbol]}
-    addfav(data)
-   }
-   if(CoinsData[index].favorite){
-    const data={symbols:[CoinsData[index]?.symbol]}
-    removefav(data)
-   }
+    //  console.log(CoinsData[index].favorite)
+    if (!CoinsData[index].favorite) {
+      const data = { symbols: [CoinsData[index]?.symbol] }
+      addfav(data)
+    }
+    if (CoinsData[index].favorite) {
+      const data = { symbols: [CoinsData[index]?.symbol] }
+      removefav(data)
+    }
     // Update the favorite key based on the index
     const updatedCoinsData = CoinsData?.map((coin, i) => {
       if (i === index) {
         // Toggle the favorite key
-       
+
         return { ...coin, favorite: !coin.favorite };
       }
       return coin;
@@ -110,13 +110,13 @@ const CoinSecton = () => {
     // console.log(updatedCoinsData)
     setCoinsData(updatedCoinsData);
   }
-  const addfav=(data)=>{
-    AddToFavorite(data).then((result)=>{
+  const addfav = (data) => {
+    AddToFavorite(data).then((result) => {
       console.log(result)
     })
   }
-  const removefav=(data)=>{
-    RemoveFromFavorite(data).then((result)=>{
+  const removefav = (data) => {
+    RemoveFromFavorite(data).then((result) => {
       console.log(result)
     })
   }
@@ -141,7 +141,7 @@ const CoinSecton = () => {
               <TbaleDropDown
                 value={selectedPercentage}
                 onChange={setSelectedPercentage}
-                placeholder='Percentage Change'
+                placeholder='Percentage'
                 dataArray={percentageChange}
               />
               <TbaleDropDown
@@ -191,7 +191,7 @@ const CoinSecton = () => {
                     CoinsData?.map((item, index) => (
 
                       <tr
-                        onClick={()=>viewDetail(item)}
+                        onClick={() => viewDetail(item)}
                         key={index + '-item'} className={`text-base font-semibold border-b-[1px] border-[#D7D9E4] cursor-pointer`}>
 
                         {
