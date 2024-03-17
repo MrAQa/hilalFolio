@@ -119,6 +119,8 @@ body {
 }
 /* Normal input styling */
 .password-input input {
+  padding: 10px;
+
   /* Your regular styles here */
 }
 
@@ -224,11 +226,16 @@ body {
 /* ::marker {
  margin: 0;
 } */
-p,ul{
+p,
+ul {
   font-size: 18px;
 }
-.scroll-to-top{
-  filter: drop-shadow(0px 2px 5px rgba(50, 45, 88, 0.10)) drop-shadow(0px 9px 9px rgba(50, 45, 88, 0.09)) drop-shadow(0px 20px 12px rgba(50, 45, 88, 0.05)) drop-shadow(0px 36px 14px rgba(50, 45, 88, 0.01)) drop-shadow(0px 56px 16px rgba(50, 45, 88, 0.00));
+.scroll-to-top {
+  filter: drop-shadow(0px 2px 5px rgba(50, 45, 88, 0.1))
+    drop-shadow(0px 9px 9px rgba(50, 45, 88, 0.09))
+    drop-shadow(0px 20px 12px rgba(50, 45, 88, 0.05))
+    drop-shadow(0px 36px 14px rgba(50, 45, 88, 0.01))
+    drop-shadow(0px 56px 16px rgba(50, 45, 88, 0));
   position: fixed;
   bottom: 20px;
   right: 30px;
