@@ -133,7 +133,6 @@ const NavBar = () => {
               Favorites
             </Link>
             <Link
-              to="#"
               className={`text-base font-semibold leading-normal ${currentPath === "#"
                 ? 'text-[#6F4F9F]' : 'text-primaryDark'} flex items-center`}
             >
@@ -141,7 +140,7 @@ const NavBar = () => {
             </Link>
 
             <Link
-              to="#"
+
               className="text-base font-semibold leading-normal text-primaryDark flex items-center"
             >
               ODR
