@@ -133,8 +133,8 @@ const NavBar = () => {
               Favorites
             </Link>
             <Link
-              to="#"
-              className={`text-base font-semibold leading-normal ${currentPath === "#"
+              to="/hilalbot"
+              className={`text-base font-semibold leading-normal ${currentPath === "/hilalbot"
                 ? 'text-[#6F4F9F]' : 'text-primaryDark'} flex items-center`}
             >
               HilalBot
