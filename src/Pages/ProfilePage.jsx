@@ -31,9 +31,11 @@ function Profile() {
     const fetchdata = () => {
         GetProfileData().then((result) => {
             const userDataCopy = { ...result?.body?.user }; // Create a copy of userData
-            userDataCopy.dob = changeformatdata(userDataCopy.dob); // Change the format of dob
+            // console.log(userDataCopy)
+            if(userDataCopy?.dob){
+                userDataCopy.dob = changeformatdata(userDataCopy.dob); // Change the format of dob
+            }
             setUserData(userDataCopy); // Update user data with the modified dob
-            
             // const data = result?.body?.user;
             localStorage.setItem('user_Data', JSON.stringify(userDataCopy));
         }).catch((err) => {
