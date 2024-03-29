@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import logo from '../../assets/Hilalbot-logo.png'
 import { ChatIcon, DeleteIconGray, ExpandIconGray, LogoutRedIcon, RecentIcon, SaveTagIcon } from '../../assets/custom-icon';
 import { GetAllChat } from '../../service/service';
-function SideNav({refresh,handleNewChat,GetChat}) {
+function SideNav({refresh,handleNewChat,GetChat,chatId}) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [questions, setQuestions]=useState([]);
     const toggleSidebar = () => {
@@ -78,7 +78,7 @@ function SideNav({refresh,handleNewChat,GetChat}) {
                         {questions?.map((item, index) => (
                             <div 
                             onClick={()=>GetChat(item?._id)}
-                            key={'item-' + index} className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
+                            key={'item-' + index} className={`flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px] ${item?._id===chatId ? 'bg-black bg-opacity-[0.05]' :''}`}>
                                 <span>
                                     <ChatIcon />
                                 </span>

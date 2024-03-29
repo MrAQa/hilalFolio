@@ -12,6 +12,7 @@ function Hilalbot() {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [queryId, setQueryId] = useState('');
+    const [chatId, setChatId] = useState('');
     const [refresh,setRefresh]= useState((false))
     const chatContainerRef = useRef(null);
 
@@ -79,7 +80,8 @@ function Hilalbot() {
                 setLoading(false)
                 const chatHistory = response.data?.conversation;
                 if(chatHistory.length>0){
-                    setQueryId(chatHistory[0]?.userId)
+                    setQueryId(chatHistory[0]?.queryId)
+                    setChatId(chatId)
                 }
                 const extractedMessages = chatHistory.reduce((acc, chat) => {
                     // Append question
@@ -112,6 +114,7 @@ function Hilalbot() {
                     refresh={refresh}
                     handleNewChat={handleNewChat}
                     GetChat={GetChat}
+                    chatId={chatId}
                     />
                     <main className="h-full md:ml-[300px]">
                         <div className='px-4 md:px-28 py-4 chatbot_conatiner '>
