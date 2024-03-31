@@ -258,3 +258,68 @@ export const SetNewPassword = async (data) => {
     handleCatch(error)
   }
 };
+
+export const ChatbotQuery = async (data) => {
+  const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.post(`/chatbot/query`, data, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
+
+export const GetAllChat = async () => {
+  const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.get(`/chatbot/all`, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
+export const GetChatHistory = async (id) => {
+  const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.get(`/chatbot/chat-history/${id}`, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};

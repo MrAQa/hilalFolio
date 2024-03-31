@@ -1,22 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '../../assets/Hilalbot-logo.png'
 import { ChatIcon, DeleteIconGray, ExpandIconGray, LogoutRedIcon, RecentIcon, SaveTagIcon } from '../../assets/custom-icon';
-function SideNav() {
+import { GetAllChat } from '../../service/service';
+function SideNav({refresh,handleNewChat,GetChat,chatId}) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [questions, setQuestions]=useState([]);
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     };
-    const questions = [
-        {
-            title: ' Web accessibility'
-        },
-        {
-            title: 'Design inspiration'
-        },
-        {
-            title: 'What is machine learning'
-        }
-    ]
+
+    useEffect(()=>{
+        GetAllChat().then((response)=>{
+            if(response?.success){
+                console.log(response?.data?.history)
+                setQuestions(response?.data?.history)
+            }
+        })
+    },[refresh]);
+ 
     return (
         <>
             <button
@@ -54,7 +55,9 @@ function SideNav() {
                         <img src={logo} alt="Hilalbot" className='w-[144px]' />
                     </div>
                     <div className="mt-6">
-                        <button className='bg-primaryPurple text-white text-base font-medium px-4 flex gap-3 py-3 w-full rounded-[10px] hover:opacity-90'>
+                        <button 
+                        onClick={handleNewChat}
+                        className='bg-primaryPurple text-white text-base font-medium px-4 flex gap-3 py-3 w-full rounded-[10px] hover:opacity-90'>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                     <g clipPath="url(#clip0_493_6559)">
@@ -71,17 +74,19 @@ function SideNav() {
 
 
                     </div>
-                    <div className="mt-4 text-lightSecondaryText text-base font-normal">
+                    <div className="mt-4 text-lightSecondaryText text-base h-[25vh] overflow-y-auto font-normal">
                         {questions?.map((item, index) => (
-                            <div key={'item-' + index} className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
+                            <div 
+                            onClick={()=>GetChat(item?._id)}
+                            key={'item-' + index} className={`flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px] ${item?._id===chatId ? 'bg-black bg-opacity-[0.05]' :''}`}>
                                 <span>
                                     <ChatIcon />
                                 </span>
-                                {item?.title}
+                                <div className='truncate'>{item?.subject}</div>
                             </div>
                         ))}
                     </div>
-                    <div className="my-4 text-lightSecondaryText text-base font-normal  bottom-0">
+                    <div className="my-4 text-lightSecondaryText text-base font-normal absolute bottom-0">
                         <div className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
                             <span>
                                 <RecentIcon />
