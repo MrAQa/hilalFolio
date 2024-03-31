@@ -62,7 +62,7 @@ const Login = () => {
   }, []);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const REDIRECT_URI = "http://localhost:3000/login";
+  const REDIRECT_URI = "http://localhost:3001/login";
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
