@@ -14,10 +14,15 @@ module.exports = {
       colors: {
         lightThemeDelete: "#CD0000",
         lightThemeSuccess: "#098C26",
-        primaryPurple: "#6F4F9F",
+        // primaryPurple: "#6F4F9F",
+        primaryPurple: "#7147B4",
         lightThemeSecondary: "#747474",
         primaryDark: "#0E0A14",
         lightSecondaryText: "#6F7889",
+        'gray': {
+          '900': '#101828', 
+          '600':'#475467',
+        },
       },
       maxWidth: {
         // sm: '100%',

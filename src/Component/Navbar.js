@@ -59,10 +59,15 @@ const NavBar = () => {
 
   return (
     <>
-      <div className='bg-white hidden lg:block'>
+      {/* <div className='bg-white hidden lg:block'>
         <div>
           <img src={img} alt="banner" />
         </div>
+      </div> */}
+      <div className='bg-white hidden lg:block'>
+        <marquee width="100%" direction="right" behavior="scroll" scrollamount="3">
+          <img src={img} alt="banner" />
+        </marquee>
       </div>
       <header
         id="main-header"
@@ -414,8 +419,8 @@ const NavBar = () => {
           <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6  sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <Link to="/" className="-m-1.5 p-1.5">
-                <span className="sr-only">Shariah</span>
-                <img className="h-10 w-auto" src={logo} alt="Shariah" />
+                <span className="sr-only">Hilalfolio</span>
+                <img className="h-10 w-auto" src={logo} alt="Hilalfolio" />
               </Link>
               <div className="flex items-center xs:gap-3">
                 <button

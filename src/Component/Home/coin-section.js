@@ -125,11 +125,12 @@ const CoinSecton = () => {
       {/* <MarketCapSection/> */}
       <section className='pt-6 sm:pt-8'>
         <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
-          <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-white">
-            {/* <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
-              Coins
-            </h2> */}
-            <div className="py-5 flex flex-wrap gap-5">
+          <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-8 bg-white">
+            <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-[30px]">
+            Today's Cryptocurrency Prices by Market Cap
+            </h2>
+            <p className="text-base text-gray-600 mt-1">Your current cryptocurrency summary and activity.</p>
+            <div className="py-6 flex flex-wrap gap-5">
               <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD<span className="text-[#747474]">/BTC</span></div>
               <TbaleDropDown
                 value={selectedRank}
@@ -284,7 +285,7 @@ const CoinSecton = () => {
                         }
 
                         <td className="px-6 py-5 text-center">
-                          <span className="text-lightThemeSuccess flex items-center gap-[2px]">
+                          <span className="text-lightThemeSuccess flex items-center justify-center gap-[2px]">
                             <UpIconGreen />
                             16.38%
                           </span>
