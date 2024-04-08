@@ -144,7 +144,7 @@ function Hilalbot() {
 
 
     const deleteAllChat = (id) => {
-        console.log(id);
+        // console.log(id);
         if (id) {
             setIds(id)
 
@@ -173,6 +173,7 @@ function Hilalbot() {
             setIsOpen(false)
             setIsLoading(false)
             if (response.success) {
+                setRefresh(prev => !prev)
                 toast.success(response.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 3000,

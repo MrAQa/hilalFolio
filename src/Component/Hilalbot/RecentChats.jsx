@@ -125,6 +125,11 @@ const RecentChats = ({ deleteAllChat ,refresh,updateTitle}) => {
 
                     </div>
                 ))
+               
+            }
+            {
+                 questions.length==0 &&
+                 <div className='text-xl font-medium text-center mt-28'>No Recenet Chats</div>
             }
         </div>
     );

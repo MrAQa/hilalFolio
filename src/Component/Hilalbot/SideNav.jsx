@@ -86,6 +86,10 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllCh
                                 <div className='truncate'>{item?.subject}</div>
                             </div>
                         ))}
+                         {
+                 questions.length==0 &&
+                 <div className='text-base font-medium text-center h-full flex items-center justify-center'>No Recenet Chats</div>
+            }
                     </div>
                     <div className="my-4 text-lightSecondaryText text-base font-normal">
                         <div 
