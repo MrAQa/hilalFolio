@@ -324,8 +324,11 @@ export const GetChatHistory = async (id) => {
   }
 };
 
-export const DeleteChatHistory = async (data) => {
+export const DeleteChatHistory = async (allValue,data) => {
   const token = localStorage.getItem('user_token')
+ 
+ 
+  
   try {
 
     const headers = {
@@ -334,8 +337,8 @@ export const DeleteChatHistory = async (data) => {
       'Authorization': `Bearer ${token}`
 
     };
-
-    const response = await axios.put(`/chatbot/delete-chat?all=true`, data, {
+    
+    const response = await axios.put(`/chatbot/delete-chat?all=${allValue}`, data, {
       headers
     });
 

@@ -126,7 +126,20 @@ function Hilalbot() {
     }
     const confirmDeleteAll = () => {
         setIsLoading(true)
-        DeleteChatHistory({ids}).then((response) => {
+        let data={};
+        let allValue=true;
+        if(ids!==null){
+            data={
+              ids:[ids]
+            }
+            allValue=false
+          }
+          else{
+            data={
+                ids:null
+            }
+          }
+        DeleteChatHistory(allValue,data).then((response) => {
             setIsOpen(false)
             setIsLoading(false)
             if(response.success){
