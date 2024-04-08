@@ -323,3 +323,47 @@ export const GetChatHistory = async (id) => {
     handleCatch(error)
   }
 };
+
+export const DeleteChatHistory = async (data) => {
+  const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.put(`/chatbot/delete-chat?all=true`, data, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
+
+export const UpdateChatSubject = async (id,data) => {
+  const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.put(`/chatbot/chat/${id}`, data, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};

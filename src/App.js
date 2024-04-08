@@ -34,7 +34,7 @@ function App() {
         <Route path="/settings" element={<PrivateRoutes><Settings/></PrivateRoutes>} />
         <Route path="/btc-chart" element={<BtcChart/>} />
         <Route path="/review" element={<ReportPage/>} />
-        <Route path="/hilalbot" element={<Hilalbot/>} />
+        <Route path="/hilalbot" element={<PrivateRoutes><Hilalbot/></PrivateRoutes>} />
       </Routes>
       <ScrollToTopButton/>
     </div>
