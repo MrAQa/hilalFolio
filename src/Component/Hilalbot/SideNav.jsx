@@ -79,7 +79,7 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllCh
                         {questions?.map((item, index) => (
                             <div 
                             onClick={()=>GetChat(item?._id)}
-                            key={'item-' + index} className={`flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px] ${item?._id===chatId ? 'bg-black bg-opacity-[0.05]' :''}`}>
+                            key={'item-' + index} className={`flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 my-1 mr-1 border-b-[1px] border-[#D0D5DD] last:border-b-0  ${item?._id===chatId ? 'bg-black bg-opacity-[0.05]' :''}`}>
                                 <span>
                                     <ChatIcon />
                                 </span>

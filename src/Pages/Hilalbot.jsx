@@ -8,6 +8,32 @@ import ConfirmationModal from '../Component/Hilalbot/ConfirmationModal';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const TypingDelay = 50; // Adjust the typing delay time in milliseconds
+const MessageDelay = 2000; // Adjust the delay between messages in milliseconds
+
+const TypingEffect = ({ text, onFinish }) => {
+    const [typedText, setTypedText] = useState('');
+    const typingTimeoutRef = useRef(null);
+
+    useEffect(() => {
+        const typingEffect = () => {
+            if (text.length > typedText.length) {
+                setTypedText(prevTypedText => prevTypedText + text.charAt(typedText.length));
+                typingTimeoutRef.current = setTimeout(typingEffect, TypingDelay);
+            } else {
+                onFinish();
+            }
+        };
+
+        typingTimeoutRef.current = setTimeout(typingEffect, TypingDelay);
+
+        return () => clearTimeout(typingTimeoutRef.current);
+    }, [text, typedText, onFinish]);
+
+    return <div>{typedText}</div>;
+};
+
+
 function Hilalbot() {
     let [isOpen, setIsOpen] = useState(false)
     const [inputValue, setInputValue] = useState('');
@@ -18,9 +44,8 @@ function Hilalbot() {
     const [refresh, setRefresh] = useState((false))
     const [showRecent, setShowRecent] = useState(false);
     const [ids, setIds] = useState(null);
-    const [isLoading, setIsLoading]= useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const chatContainerRef = useRef(null);
-
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
@@ -37,10 +62,12 @@ function Hilalbot() {
 
     const handleSendData = (e) => {
         e.preventDefault();
+      
         if (inputValue.trim() !== '') {
             const newMessage = {
                 text: inputValue,
-                sender: 'user' // Indicate that the message is sent by the user
+                sender: 'user', // Indicate that the message is sent by the 
+                typeingEffect:false,
             };
             setMessages(prevMessages => [...prevMessages, newMessage]);
             setInputValue('');
@@ -52,8 +79,9 @@ function Hilalbot() {
             ChatbotQuery(data)
                 .then((response) => {
                     const botMessage = {
-                        text: response.data?.conversation?.answer || 'Sorry, I could not understand that.',
-                        sender: 'bot' // Indicate that the message is from the bot
+                        text: response.data?.conversation?.answer || response?.message,
+                        sender: 'bot' ,// Indicate that the message is from the bot
+                        typeingEffect:true,
                     };
                     setMessages(prevMessages => [...prevMessages, botMessage]);
                     setQueryId(response.data?.conversation?.queryId || ''); // Update query ID for subsequent requests
@@ -76,7 +104,7 @@ function Hilalbot() {
         setShowRecent(false)
     }
     const GetChat = (chatId) => {
-
+       
         GetChatHistory(chatId)
             .then((response) => {
                 if (response?.success) {
@@ -93,12 +121,14 @@ function Hilalbot() {
                         // Append question
                         acc.push({
                             text: chat.question,
-                            sender: 'user'
+                            sender: 'user',
+                            typeingEffect:false,
                         });
                         // Append answer
                         acc.push({
                             text: chat.answer,
-                            sender: 'bot'
+                            sender: 'bot',
+                            typeingEffect:false,
                         });
                         return acc;
                     }, []);
@@ -111,67 +141,67 @@ function Hilalbot() {
                 console.error('Error fetching chat history:', error);
             });
     }
-   
+
 
     const deleteAllChat = (id) => {
         console.log(id);
-        if(id){
+        if (id) {
             setIds(id)
 
         }
-        else{
-            setIds(null) 
+        else {
+            setIds(null)
         }
         setIsOpen(true)
     }
     const confirmDeleteAll = () => {
         setIsLoading(true)
-        let data={};
-        let allValue=true;
-        if(ids!==null){
-            data={
-              ids:[ids]
+        let data = {};
+        let allValue = true;
+        if (ids !== null) {
+            data = {
+                ids: [ids]
             }
-            allValue=false
-          }
-          else{
-            data={
-                ids:null
+            allValue = false
+        }
+        else {
+            data = {
+                ids: null
             }
-          }
-        DeleteChatHistory(allValue,data).then((response) => {
+        }
+        DeleteChatHistory(allValue, data).then((response) => {
             setIsOpen(false)
             setIsLoading(false)
-            if(response.success){
+            if (response.success) {
                 toast.success(response.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 3000,
-                  });
+                });
             }
-            else{
+            else {
                 toast.error(response.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 3000,
-                  });
+                });
             }
         })
     }
-    const updateTitle=(id,data)=>{
+    const updateTitle = (id, data) => {
         // console.log(id,data);
-        UpdateChatSubject(id,data).then((response)=>{
+        UpdateChatSubject(id, data).then((response) => {
             // console.log(response);
-            if(response?.success){
-                setRefresh(prev=>!prev)
+            if (response?.success) {
+                setRefresh(prev => !prev)
                 toast.success(response.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 3000,
-                  });
+                });
             }
         })
     }
     return (
         <>
-         <ToastContainer />
+            <ToastContainer />
             <div className="min-h-screen bg-lightThemebg">
                 <NavBar />
                 <div className='bg-lightThemebg'>
@@ -200,9 +230,9 @@ function Hilalbot() {
                                         <>
                                             {
                                                 messages?.length > 0 ?
-                                                    <div ref={chatContainerRef} className='size-full space-y-4 overflow-y-auto pb-4 mb-4'>
+                                                    <div ref={chatContainerRef} className='size-full space-y-4 overflow-y-auto pb-4 mb-4 style-3'>
                                                         {messages.map((message, index) => (
-                                                            <div key={index} className={`flex w-full gap-4 ${message.sender === 'user' ? 'items-center' : 'flex-row-reverse items-baseline'}`}>
+                                                            <div key={index} className={`flex w-full gap-4 pr-2 ${message.sender === 'user' ? 'items-center' : 'flex-row-reverse items-baseline'}`}>
                                                                 {
                                                                     message.sender === 'user' ?
                                                                         <span className='flex justify-center items-center border-[1px] border-[#E2E8F0] size-10 p-3 rounded-full'>
@@ -218,7 +248,12 @@ function Hilalbot() {
                                                                 }
 
                                                                 <div className={`${message.sender === 'user' ? 'bg-white border-[#E2E8F0] rounded-tl-none' : 'bg-[#8A71B01C] border-primaryPurple rounded-tr-none'} text-primaryDark p-4 rounded-xl border-[1px] w-full`}>
-                                                                    {message.text}
+                                                                    {message.typeingEffect ? (
+                                                                        <TypingEffect text={message.text} onFinish={() => setTimeout(() => { }, MessageDelay)} />
+                                                                    ) : (
+                                                                        message.text
+                                                                    )}
+                                                                    {/* {message.text} */}
                                                                 </div>
                                                             </div>
                                                         ))}
