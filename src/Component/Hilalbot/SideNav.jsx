@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import logo from '../../assets/Hilalbot-logo.png'
 import { ChatIcon, DeleteIconGray, ExpandIconGray, LogoutRedIcon, RecentIcon, SaveTagIcon } from '../../assets/custom-icon';
 import { GetAllChat } from '../../service/service';
-function SideNav({refresh,handleNewChat,GetChat,chatId}) {
+function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllChat}) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [questions, setQuestions]=useState([]);
     const toggleSidebar = () => {
@@ -12,10 +12,11 @@ function SideNav({refresh,handleNewChat,GetChat,chatId}) {
     useEffect(()=>{
         GetAllChat().then((response)=>{
             if(response?.success){
-                console.log(response?.data?.history)
+                // console.log(response?.data?.history)
                 setQuestions(response?.data?.history)
             }
         })
+        // eslint-disable-next-line 
     },[refresh]);
  
     return (
@@ -47,10 +48,10 @@ function SideNav({refresh,handleNewChat,GetChat,chatId}) {
             <aside
                 id="hilalbot-sidebar"
                 className={`${sidebarOpen ? "" : "-translate-x-full"
-                    } fixed top-0 md:top-[100px] lg:top-[140px] left-0 md:left-8 z-40 w-[268px] h-full transition-transform md:translate-x-0`}
+                    } fixed top-0 md:top-[100px] lg:top-[174px] left-0 md:left-8 z-40 w-[268px] h-full transition-transform md:translate-x-0`}
                 aria-label="Sidebar"
             >
-                <div className="h-full px-4 py-4 pt-0 overflow-y-auto bg-white side-nav rounded-tr-xl rounded-br-xl text-whiteGrey relative" id="style-3">
+                <div className="h-full px-4 py-4 pt-0 overflow-y-auto bg-white side-nav rounded-tr-xl rounded-br-xl text-whiteGrey relative flex flex-col style-3">
                     <div className="flex py-3 justify-start">
                         <img src={logo} alt="Hilalbot" className='w-[144px]' />
                     </div>
@@ -74,20 +75,26 @@ function SideNav({refresh,handleNewChat,GetChat,chatId}) {
 
 
                     </div>
-                    <div className="mt-4 text-lightSecondaryText text-base h-[25vh] overflow-y-auto font-normal">
+                    <div className="mt-4 text-lightSecondaryText text-base overflow-y-auto font-normal h-full min-h-[98px] style-3">
                         {questions?.map((item, index) => (
                             <div 
                             onClick={()=>GetChat(item?._id)}
-                            key={'item-' + index} className={`flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px] ${item?._id===chatId ? 'bg-black bg-opacity-[0.05]' :''}`}>
+                            key={'item-' + index} className={`flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 my-1 mr-1 border-b-[1px] border-[#D0D5DD] last:border-b-0  ${item?._id===chatId ? 'bg-black bg-opacity-[0.05]' :''}`}>
                                 <span>
                                     <ChatIcon />
                                 </span>
                                 <div className='truncate'>{item?.subject}</div>
                             </div>
                         ))}
+                         {
+                 questions.length==0 &&
+                 <div className='text-base font-medium text-center h-full flex items-center justify-center'>No Recenet Chats</div>
+            }
                     </div>
-                    <div className="my-4 text-lightSecondaryText text-base font-normal absolute bottom-0">
-                        <div className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
+                    <div className="my-4 text-lightSecondaryText text-base font-normal">
+                        <div 
+                        onClick={()=>setShowRecent(true)}
+                        className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
                             <span>
                                 <RecentIcon />
                             </span>
@@ -99,7 +106,9 @@ function SideNav({refresh,handleNewChat,GetChat,chatId}) {
                             </span>
                             Save chat history
                         </div>
-                        <div className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
+                        <div
+                        onClick={()=>deleteAllChat(null)}
+                        className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
                             <span>
                                 <DeleteIconGray />
                             </span>

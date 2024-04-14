@@ -15,7 +15,7 @@ function AboutPage() {
                                 <SideBar />
                             </div>
                             <div className='flex-1 pt-10'>
-                                <div className="border-[1px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-[#fff]">
+                                <div className="border-[1px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-[#fff] h-full">
                                     <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
                                         About HilalFolio
                                     </h2>

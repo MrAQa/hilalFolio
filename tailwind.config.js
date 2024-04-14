@@ -7,6 +7,7 @@ module.exports = {
         28: "28px",
         35: "35px",
         32: "32px",
+        30:'30px'
       },
       screens: {
         xs: "350px",
@@ -14,10 +15,17 @@ module.exports = {
       colors: {
         lightThemeDelete: "#CD0000",
         lightThemeSuccess: "#098C26",
-        primaryPurple: "#6F4F9F",
+        // primaryPurple: "#6F4F9F",
+        lightThemeText:'#1F1F1F',
+        lightThemebg:'#F2F2F2',
+        primaryPurple: "#7147B4",
         lightThemeSecondary: "#747474",
         primaryDark: "#0E0A14",
         lightSecondaryText: "#6F7889",
+        'gray': {
+          '900': '#101828', 
+          '600':'#475467',
+        },
       },
       maxWidth: {
         // sm: '100%',

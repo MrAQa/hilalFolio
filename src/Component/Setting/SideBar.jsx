@@ -60,12 +60,12 @@ function SideBar() {
         },
     }));
     return (
-        <div className='border-[1px] border-[#D7D9E4] rounded-3xl bg-[#fff]'>
+        <div className='border-[1px] border-[#D7D9E4] rounded-3xl bg-[#fff] py-5'>
             <div className="px-5">
-                <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32 border-[#D7D9E4] border-b-[1px] pt-6  pb-[30px]">
+                <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32 border-[#D7D9E4] border-b-[1px] leading-normal pb-[30px]">
                     Account Setting
                 </h2>
-                <div className='pt-6 flex flex-col sm:flex-row items-center gap-4'>
+                <div className='pt-[30px] flex flex-col sm:flex-row items-center gap-4'>
                     <span className='flex relative'>
                        {
                         UserData?.image ?
@@ -100,7 +100,7 @@ function SideBar() {
             </div>
             <div className='pt-6'>
 
-                <Link to="/about-us" className={`flex justify-between items-center px-4 py-4 ${currentPath === '/about-us' ? 'bg-primaryPurple text-white' : ''} `}>
+                <Link to="/about-us" className={`flex justify-between my-2 items-center px-4 py-4 ${currentPath === '/about-us' ? 'bg-primaryPurple text-white' : ''} `}>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
                             {
@@ -122,7 +122,7 @@ function SideBar() {
 
                     </div>
                 </Link>
-                <Link to="/subscription" className={`flex justify-between items-center px-5 py-4 border-[#D7D9E4] border-t-[1px] ${currentPath === '/subscription' ? 'bg-primaryPurple text-white' : ''}`}>
+                <Link to="/subscription" className={`flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px] ${currentPath === '/subscription' ? 'bg-primaryPurple text-white' : ''}`}>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
                             {
@@ -144,7 +144,7 @@ function SideBar() {
                         }
                     </div>
                 </Link>
-                <div className='flex justify-between items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
+                <div className='flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
                           <SunIcon/>
@@ -156,7 +156,7 @@ function SideBar() {
 
                     </div>
                 </div>
-                <Link to="/settings" className={`flex justify-between items-center px-5 py-4 border-[#D7D9E4] border-t-[1px] ${currentPath === '/settings' ? 'bg-primaryPurple text-white' : ''}`}>
+                <Link to="/settings" className={`flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px] ${currentPath === '/settings' ? 'bg-primaryPurple text-white' : ''}`}>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
 
@@ -178,7 +178,7 @@ function SideBar() {
                         }
                     </div>
                 </Link>
-                <div className='flex justify-between items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
+                <div className='flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
                          <HelpCenterIcon/>
@@ -194,7 +194,7 @@ function SideBar() {
                         }
                     </div>
                 </div>
-                <div className='flex justify-between items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
+                <div className='flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
                           <ShareIcon/>
@@ -207,7 +207,7 @@ function SideBar() {
 
                     </div>
                 </div>
-                <div className='flex justify-between items-center px-5 py-4 '>
+                <div className='flex justify-between my-2 items-center px-5 py-4 '>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
                          <LogoutRedIcon/>
