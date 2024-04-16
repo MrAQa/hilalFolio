@@ -152,7 +152,7 @@ export const GetCmcData = async (shariahStatus, rank,percentageChange) => {
   }
 };
 export const GetCoinData = async (id) => {
-  // const token = localStorage.getItem('user_token')
+  const token = localStorage.getItem('user_token')
   try {
 
     const headers = {
@@ -161,7 +161,9 @@ export const GetCoinData = async (id) => {
       // 'Authorization': `Bearer ${token}`
 
     };
-
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
     const response = await axios.get(`/cmc/${id}`, {
       headers
     });
@@ -361,6 +363,50 @@ export const UpdateChatSubject = async (id,data) => {
     };
 
     const response = await axios.put(`/chatbot/chat/${id}`, data, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
+
+export const GenrateReport = async (data) => {
+  const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.post(`/report/token`, data, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
+
+export const GetReport = async (id) => {
+  const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.get(`/report/view/${id}`, {
       headers
     });
 
