@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.1b745f1c.css",
-    "main.js": "/static/js/main.9fb8f5da.js",
+    "main.js": "/static/js/main.50f6f653.js",
     "static/js/787.7665c611.chunk.js": "/static/js/787.7665c611.chunk.js",
     "static/media/bitcoin-cover.png": "/static/media/bitcoin-cover.996649695a83524008d8.png",
     "static/media/image 4.png": "/static/media/image 4.49b83181302da6684df9.png",
@@ -16,11 +16,11 @@
     "static/media/arrow_drop_down.svg": "/static/media/arrow_drop_down.44f7a1d7faa6b16f25fc9c3ce7f39bba.svg",
     "index.html": "/index.html",
     "main.1b745f1c.css.map": "/static/css/main.1b745f1c.css.map",
-    "main.9fb8f5da.js.map": "/static/js/main.9fb8f5da.js.map",
+    "main.50f6f653.js.map": "/static/js/main.50f6f653.js.map",
     "787.7665c611.chunk.js.map": "/static/js/787.7665c611.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1b745f1c.css",
-    "static/js/main.9fb8f5da.js"
+    "static/js/main.50f6f653.js"
   ]
 }
