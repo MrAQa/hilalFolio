@@ -20,6 +20,8 @@ import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useParams } from 'react-router-dom';
+
 import CancelIcon from "@mui/icons-material/Cancel";
 import Divider from "@mui/material/Divider";
 // import { MenuItem, Select, InputLabel } from "@mui/material";
@@ -49,8 +51,10 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const [provider, setProvider] = useState("");
+  const { param1, param2 } = useParams();
 
-  console.log(provider);
+  console.log(window.location.origin);
+  console.log(param2);
   const onLoginStart = useCallback(() => {
     // alert("login start");
   }, []);
@@ -62,7 +66,7 @@ const Login = () => {
   }, []);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const REDIRECT_URI = "http://localhost:3001/login";
+  const REDIRECT_URI = `${window.location.origin}/login`;
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
