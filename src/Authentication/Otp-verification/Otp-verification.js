@@ -10,6 +10,7 @@ import {
 import OtpInput from "react-otp-input";
 import { ToastContainer, toast } from "react-toastify";
 import imglOGO from "../../assets/Logo-new.png";
+import { GetProfileData } from "../../service/service";
 
 import "react-toastify/dist/ReactToastify.css";
 import { LoadingButton } from "@mui/lab";
@@ -75,6 +76,13 @@ const OtpVerification = () => {
         if (res.success === true) {
           if (receivedData.component === "signUp") {
             navigate("/");
+            localStorage.setItem("user_token", res?.body?.token);
+            GetProfileData()
+              .then((result) => {
+                const data = result?.body?.user;
+
+                localStorage.setItem("user_Data", JSON.stringify(data));
+              })
           } else {
             navigate("/new-password");
           }
