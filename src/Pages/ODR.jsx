@@ -1,38 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../Component/Navbar';
 import Footer from '../Component/Footer,';
-import { AddTokenIcon } from '../assets/custom-icon';
+import HomeODR from '../Component/ODR/HomeODR';
+import CryptoAssets from '../Component/ODR/CryptoAssets';
+import { GetCmcData } from '../service/service';
 
 const ODR = () => {
+
+    const [showAssets, setShowAssets] = useState(false);
+    const [CoinsData, setCoinsData] = useState([])
+    const [selectedStatus, setSelectedStatus] = useState('All');
+    const [selectedRank, setSelectedRank] = useState('All');
+    const [selectedPercentage, setSelectedPercentage] = useState('All');
+    const [isLoading, setIsLoading] = useState(false)
+    const [noDataFlag, setNoDataFlag] = useState(false)
+    useEffect(() => {
+        setIsLoading(true)
+        let number = null;
+        if (selectedRank !== 'All') {
+          number = parseInt(selectedRank.match(/\d+/)[0], 10);
+        }
+        GetCmcData(selectedStatus, number, selectedPercentage).then((result) => {
+          setIsLoading(false)
+          if (result.success) {
+            
+            const sortedData = result?.body?.cmcData?.sort((a, b) => a.cmc_rank - b.cmc_rank);
+           
+            setCoinsData(sortedData)
+            if (result?.body?.cmcData?.length === 0) {
+              setNoDataFlag(true)
+            }
+            else {
+              setNoDataFlag(false)
+            }
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
+      }, [selectedStatus, selectedRank, selectedPercentage])
     return (
         <>
             <div className="min-h-full bg-[#F2F2F2]">
                 <NavBar/>
-                <div className="bg-[#F2F2F2]">
-                <section className='pt-6 sm:pt-8'>
-                    <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
-                    <div className="rounded-2xl px-4 sm:px-8 py-8 bg-white h-screen max-h-[500px]">
-                        <div className='flex justify-center items-center h-full'>
-                        <div className='flex flex-col items-center text-center gap-4'>
-                        <AddTokenIcon/>
-                        <div className='text-lg font-bold'>
-                        No Recent Reviewed Tokens
-                        <p className='text-sm font-medium text-lightSecondaryText'>
-                        Click Add to get started
-                        </p>
-                        </div>
-                        <button
-                        className="bg-primaryPurple text-white font-semibold flex justify-center items-center hover:bg-opacity-90 py-3 px-8 min-w-28 w-full text-center rounded-lg disabled:opacity-50  z-[1]"
-
-                        >
-                            + Add
-                        </button>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </section>
-                </div>
+                {
+                    showAssets?
+                    <CryptoAssets
+                    setShowAssets={setShowAssets}
+                    CoinsData={CoinsData}
+                    />
+                    :
+                    <HomeODR
+                    setShowAssets={setShowAssets}
+                    />
+                }
                 <Footer/>
             </div>
         </>
