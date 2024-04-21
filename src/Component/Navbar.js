@@ -125,32 +125,34 @@ const NavBar = () => {
           <Popover.Group className="hidden lg:flex lg:gap-x-5 xl:gap-x-8 px-4">
             <Link
               to="/"
-              className={`text-base font-semibold leading-normal ${currentPath === "/"
-                ? 'text-[#6F4F9F]' : 'text-primaryDark'} flex items-center`}
+              className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/"
+                ? 'text-white bg-primaryPurple' : 'text-primaryDark'} flex items-center`}
             >
-              Market
+              Home
             </Link>
-            <Link
-              to="/favorites"
-              className={`text-base font-semibold leading-normal ${currentPath === "/favorites"
-                ? 'text-[#6F4F9F]' : 'text-primaryDark'} flex items-center`}
-            >
-              Favorites
-            </Link>
-            <Link
-              to="/hilalbot"
-              className={`text-base font-semibold leading-normal ${currentPath === "/hilalbot"
-                ? 'text-[#6F4F9F]' : 'text-primaryDark'} flex items-center`}
-            >
-              HilalBot
-            </Link>
-
             <Link
               to="#"
               className="text-base font-semibold leading-normal text-primaryDark flex items-center"
             >
               ODR
             </Link>
+            <Link
+              to="/hilalbot"
+              className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/hilalbot"
+                ? 'text-white bg-primaryPurple' : 'text-primaryDark'} flex items-center`}
+            >
+              HilalBot
+            </Link>
+            <Link
+              to="/favorites"
+              className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/favorites"
+                ? 'text-white bg-primaryPurple' : 'text-primaryDark'} flex items-center`}
+            >
+              Favorites
+            </Link>
+           
+
+          
           </Popover.Group>
 
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-2 mr-4">
@@ -442,15 +444,9 @@ const NavBar = () => {
                   <Link
                     to='/'
                     className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 ${currentPath === "/"
-                      ? 'text-[#6F4F9F]' : 'text-primaryDark'} hover:bg-gray-50`}
+                      ? 'text-white bg-primaryPurple' : 'text-primaryDark'} hover:bg-gray-50`}
                   >
-                    Market
-                  </Link>
-                  <Link
-                    to=''
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Favorites
+                    Home
                   </Link>
                   <Link
                     to=''
@@ -458,6 +454,13 @@ const NavBar = () => {
                   >
                     ODR
                   </Link>
+                  <Link
+                    to=''
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Favorites
+                  </Link>
+                  
 
                 </div>
                 {
