@@ -131,8 +131,9 @@ const NavBar = () => {
               Home
             </Link>
             <Link
-              to="#"
-              className="text-base font-semibold leading-normal text-primaryDark flex items-center"
+              to="/odr "
+              className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/odr"
+              ? 'text-white bg-primaryPurple' : 'text-primaryDark'} flex items-center`}
             >
               ODR
             </Link>

@@ -17,6 +17,7 @@ import Favorites from "./Component/Favorites";
 import ReportPage from "./Pages/ReportPage";
 import ScrollToTopButton from "./Pages/ScrollTopButton";
 import Hilalbot from "./Pages/Hilalbot";
+import ODR from "./Pages/ODR";
 function App() {
   return (
     <div>
@@ -35,6 +36,8 @@ function App() {
         <Route path="/btc-chart" element={<BtcChart/>} />
         <Route path="/review" element={<ReportPage/>} />
         <Route path="/hilalbot" element={<PrivateRoutes><Hilalbot/></PrivateRoutes>} />
+        <Route path="/odr" element={<PrivateRoutes><ODR/></PrivateRoutes>} />
+
       </Routes>
       <ScrollToTopButton/>
     </div>
