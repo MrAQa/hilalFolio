@@ -11,7 +11,6 @@ const CryptoAssets = ({ setShowAssets, CoinsData }) => {
     const [selectedItem, setSelectedItem] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
 
-    // Function to handle item selection
     const handleItemClick = (item) => {
         // Check if item is already selected
         setSelectedItem(item);
