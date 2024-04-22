@@ -16,7 +16,6 @@ const CryptoAssets = ({ setShowAssets, CoinsData }) => {
         setSelectedItem(item);
        if(!item.reportGenerated){
         const isSelected = selectedItems.includes(item);
-        // Toggle selection
         if (isSelected) {
             setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item)); // Remove item from selectedItems
         } else {
