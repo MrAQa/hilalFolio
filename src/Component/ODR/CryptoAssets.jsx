@@ -12,7 +12,7 @@ const CryptoAssets = ({ setShowAssets, CoinsData }) => {
     const [isLoading, setIsLoading] = useState(false)
 
     const handleItemClick = (item) => {
-        // Check if item is already selected
+        
         setSelectedItem(item);
        if(!item.reportGenerated){
         const isSelected = selectedItems.includes(item);
