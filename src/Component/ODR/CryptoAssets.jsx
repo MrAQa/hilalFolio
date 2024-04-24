@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TickIconWhite } from '../../assets/custom-icon';
 import { GetCoinData, GetReport } from '../../service/service';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,29 @@ const CryptoAssets = ({ setShowAssets, CoinsData }) => {
     const [selectedItems, setSelectedItems] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredCoins,setFilteredCoins]= useState([]);
 
+    useEffect(() => {
+        
+        const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+        if (cartItems) {
+            const updatedCoinsData = CoinsData.filter(item => !cartItems.some(cartItem => cartItem._id === item._id));
+            const filteredCoins = updatedCoinsData && Array.isArray(updatedCoinsData) ? updatedCoinsData.filter(item =>
+                (item.symbol && item.symbol.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                (item.name && item.name.toLowerCase().includes(searchQuery.toLowerCase()))
+            ) : [];
+            setFilteredCoins(filteredCoins)
+        }
+        else{
+            const filteredCoins = CoinsData && Array.isArray(CoinsData) ? CoinsData.filter(item =>
+                (item.symbol && item.symbol.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                (item.name && item.name.toLowerCase().includes(searchQuery.toLowerCase()))
+            ) : [];
+            setFilteredCoins(filteredCoins)
+        }
+    }, [CoinsData,searchQuery]);
+    
     const handleItemClick = (item) => {
         
         setSelectedItem(item);
@@ -44,13 +66,25 @@ const CryptoAssets = ({ setShowAssets, CoinsData }) => {
 
 
     }
-    const AddToCart=()=>{
-        console.log(selectedItems);
-        toast.success('Coins added into cart ', {
+    const AddToCart = () => {
+        // Store selectedItems in local storage
+        localStorage.setItem('cartItems', JSON.stringify(selectedItems));
+    
+        const updatedCoinsData = CoinsData.filter(item => !selectedItems.includes(item));
+
+        // Clear selectedItems
+        setSelectedItems([]);
+    
+        // Update CoinsData
+        setFilteredCoins(updatedCoinsData);
+    
+        // Optionally, display a toast notification
+        toast.success('Coins added to cart!', {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
-          });
-    }
+        });
+    };
+    
     return (
         <>
           <ToastContainer />
@@ -72,6 +106,8 @@ const CryptoAssets = ({ setShowAssets, CoinsData }) => {
                                 </span>
                                 <input type="text"
                                     placeholder='Search here'
+                                    value={searchQuery}
+                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     className='outline-none h-full w-full pl-3' />
                             </div>
                         </div>
@@ -79,11 +115,11 @@ const CryptoAssets = ({ setShowAssets, CoinsData }) => {
                             style={{ height: 'calc(100% - 11rem)' }}
                             className='mt-8 flex flex-wrap gap-4 overflow-auto'>
                             {
-                                CoinsData?.map((item, index) => (
+                                filteredCoins?.map((item, index) => (
 
                                     <div key={index + '-item'}
                                         onClick={() => handleItemClick(item)}
-                                        className='flex justify-between items-center gap-1 border-[1px] border-lightThemeOutline shadow-custom rounded-xl p-6 col-3-items'>
+                                        className='flex justify-between items-center max-h-24 gap-1 border-[1px] border-lightThemeOutline shadow-custom rounded-xl p-6 col-3-items'>
                                         <div className='flex items-center gap-2'>
                                             <span className="bg-[#EBEBEB] rounded px-2 py-[4px] text-lightSecondaryText text-[14px] font-medium">
                                                 {index + 1}
@@ -123,7 +159,7 @@ const CryptoAssets = ({ setShowAssets, CoinsData }) => {
                                                             :
                                                             <div
                                                                 onClick={() => handleViewReport(item)}
-                                                                className='text-primaryPurple text-sm font-semibold whitespace-nowrap'>View Report</div>
+                                                                className='text-primaryPurple text-sm font-semibold whitespace-nowrap cursor-pointer'>View Report</div>
                                                     }
                                                 </>
 
