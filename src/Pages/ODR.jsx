@@ -14,6 +14,7 @@ const ODR = () => {
     const [selectedPercentage, setSelectedPercentage] = useState('All');
     const [isLoading, setIsLoading] = useState(false)
     const [noDataFlag, setNoDataFlag] = useState(false)
+    const [refresh, setReresh]= useState(false)
     useEffect(() => {
         setIsLoading(true)
         let number = null;
@@ -41,12 +42,15 @@ const ODR = () => {
     return (
         <>
             <div className="min-h-full bg-[#F2F2F2]">
-                <NavBar/>
+                <NavBar 
+                refresh={refresh}
+                />
                 {
                     showAssets?
                     <CryptoAssets
                     setShowAssets={setShowAssets}
                     CoinsData={CoinsData}
+                   setReresh={setReresh}
                     />
                     :
                     <HomeODR

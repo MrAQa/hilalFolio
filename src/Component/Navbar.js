@@ -7,14 +7,14 @@ import { useTranslation } from 'react-i18next';
 
 import { BellNotificationIcon, CartIcon, DeleteIcon, SearchIcon, SunIcon } from "../assets/custom-icon";
 import img from "../assets/image 4.png"
-const NavBar = () => {
+const NavBar = ({refresh}) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setcartOpen] = useState(false);
   const [isLogedin, setIsLogedin] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [userData, setuserData] = useState({})
-  const [cartItem, setCartItems]= useState([])
+  const [cartItem, setCartItems] = useState([])
   const currentPath = window.location.pathname;
   useEffect(() => {
     const UserData = JSON.parse(localStorage.getItem('user_Data'))
@@ -28,8 +28,31 @@ const NavBar = () => {
     }
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
     setCartItems(cartItems)
-  }, [])
+  }, [refresh])
+  const removeCoinFromCart = (coinToRemove) => {
 
+    // Ensure that coinToRemove is not null or undefined
+    if (!coinToRemove) {
+      console.error('coinToRemove must be provided');
+      return;
+    }
+
+    // Retrieve current cart items from local storage
+    const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+
+    if (cartItems) {
+      console.log(cartItems);
+      // Filter out the item with the specified ID
+      const updatedCartItems = cartItems.filter(item => item._id !== coinToRemove._id);
+
+      // Update local storage with the updated cart items
+      localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+
+      
+      setCartItems(updatedCartItems);
+    }
+
+  };
   const { t, i18n } = useTranslation();
 
   const changeLanguage = (lng) => {
@@ -587,56 +610,56 @@ const NavBar = () => {
                       $10.00
                     </div>
                   </div>
-                  <div className="bg-[#FFE5E5] rounded-lg flex justify-center items-center min-h-[75px] w-[70px] cursor-pointer">
+                  <div onClick={() => removeCoinFromCart(item)} className="bg-[#FFE5E5] rounded-lg flex justify-center items-center min-h-[75px] w-[70px] cursor-pointer">
                     <DeleteIcon />
                   </div>
                 </div>
               ))}
               {
-                cartItem?.length===0 &&
+                cartItem?.length === 0 &&
                 <div className="bg-white w-full p-3 rounded-lg text-primaryPurple font-semibold text-base h-12 flex justify-center items-center ">
-              No item to show
-              </div>
+                  No item to show
+                </div>
               }
             </div>
             {
-              cartItem?.length >0 &&
+              cartItem?.length > 0 &&
 
-            <div className="pb-6 mt-6 border-b-[1px] border-lightThemeOutline space-y-4">
-              <div className="text-lightThemeSecondary text-base font-medium flex justify-between items-center">
-                <div>
-                  {'Discount (FRIENDS)'}
+              <div className="pb-6 mt-6 border-b-[1px] border-lightThemeOutline space-y-4">
+                <div className="text-lightThemeSecondary text-base font-medium flex justify-between items-center">
+                  <div>
+                    {'Discount (FRIENDS)'}
+                  </div>
+                  <div>
+                    {'10% ($4.90)'}
+                  </div>
                 </div>
-                <div>
-                  {'10% ($4.90)'}
+                <div className="text-lightThemeSecondary text-base font-medium flex justify-between items-center">
+                  <div>
+                    {'Express shipping'}
+                  </div>
+                  <div>
+                    {'$3.99'}
+                  </div>
+                </div>
+                <div className="text-primaryDark text-base font-semibold flex justify-between items-center">
+                  <div>
+                    {'Total'}
+                  </div>
+                  <div>
+                    {'$48.09'}
+                  </div>
                 </div>
               </div>
-              <div className="text-lightThemeSecondary text-base font-medium flex justify-between items-center">
-                <div>
-                  {'Express shipping'}
-                </div>
-                <div>
-                  {'$3.99'}
-                </div>
-              </div>
-              <div className="text-primaryDark text-base font-semibold flex justify-between items-center">
-                <div>
-                  {'Total'}
-                </div>
-                <div>
-                  {'$48.09'}
-                </div>
-              </div>
-            </div>
             }
             <div className="mt-6 space-y-4">
-              <button 
-              disabled={cartItem?.length===0}
-              className="bg-primaryPurple w-full p-3 rounded-lg text-white font-semibold text-base disabled:opacity-50 h-12 flex justify-center items-center hover:opacity-90">Checkout</button>
+              <button
+                disabled={cartItem?.length === 0}
+                className="bg-primaryPurple w-full p-3 rounded-lg text-white font-semibold text-base disabled:opacity-50 h-12 flex justify-center items-center hover:opacity-90">Checkout</button>
               <button className="bg-white w-full p-3 rounded-lg text-primaryPurple font-semibold text-base disabled:opacity-50 h-12 flex justify-center items-center hover:opacity-90 hover:border-[1px] hover:bg-gray-50">
-              Continue adding coins
+                Continue adding coins
               </button>
-             
+
             </div>
           </Dialog.Panel>
         </Dialog>

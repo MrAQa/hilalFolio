@@ -5,7 +5,7 @@ import { GetCoinData, GetReport } from '../../service/service';
 import { useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import { ToastContainer, toast } from "react-toastify";
-const CryptoAssets = ({ setShowAssets, CoinsData }) => {
+const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh}) => {
     const navigation = useNavigate();
     const [selectedItems, setSelectedItems] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -74,10 +74,13 @@ const CryptoAssets = ({ setShowAssets, CoinsData }) => {
 
         // Clear selectedItems
         setSelectedItems([]);
-    
+        
         // Update CoinsData
         setFilteredCoins(updatedCoinsData);
-    
+
+        //refresh Cart in Navbar
+        setReresh((prev)=>!prev)
+
         // Optionally, display a toast notification
         toast.success('Coins added to cart!', {
             position: toast.POSITION.TOP_CENTER,
