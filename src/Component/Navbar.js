@@ -27,7 +27,7 @@ const NavBar = ({refresh}) => {
       setIsLogedin(false)
     }
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
-    setCartItems(cartItems)
+    setCartItems(cartItems ?? [])
   }, [refresh])
   const removeCoinFromCart = (coinToRemove) => {
 
@@ -43,7 +43,7 @@ const NavBar = ({refresh}) => {
     if (cartItems) {
       console.log(cartItems);
       // Filter out the item with the specified ID
-      const updatedCartItems = cartItems.filter(item => item._id !== coinToRemove._id);
+      const updatedCartItems = cartItems?.filter(item => item._id !== coinToRemove._id);
 
       // Update local storage with the updated cart items
       localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
@@ -576,7 +576,7 @@ const NavBar = ({refresh}) => {
                 <span className='text-30 font-bold'>Order Summary</span>
               </div>
               <div className="flex items-center xs:gap-3">
-                <span className="text-sm font-semibold text-lightThemeSecondary">{`Total items ${cartItem.length}`}</span>
+                <span className="text-sm font-semibold text-lightThemeSecondary">{`Total items ${cartItem?.length}`}</span>
               </div>
             </div>
             <div className="pb-6 mt-6 border-b-[1px] border-lightThemeOutline space-y-4">
