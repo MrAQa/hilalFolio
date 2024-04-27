@@ -1,7 +1,7 @@
 import { useState, Fragment, useEffect } from "react";
 import { Menu, Transition, Popover, Dialog } from "@headlessui/react";
 import logo from "../assets/Logo-new.png";
-import { UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ArrowRightEndOnRectangleIcon, UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
@@ -58,24 +58,6 @@ const NavBar = ({refresh}) => {
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
-  function SignOutIcon(props) {
-    return (
-      <svg
-        {...props}
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-      >
-        <path
-          strokLinecap="round"
-          strokLinejoin="round"
-          d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
-        />
-      </svg>
-    );
-  }
 
   const handleSignOut = () => {
     localStorage.removeItem('user_token');
@@ -380,15 +362,13 @@ const NavBar = ({refresh}) => {
                                     onClick={handleSignOut}
                                   >
                                     {active ? (
-                                      <SignOutIcon
-                                        className="mr-2 h-5 w-5 text-white"
-                                        aria-hidden="true"
-                                      />
+                                    
+                                    <ArrowRightEndOnRectangleIcon className="mr-2 h-5 w-5 text-white"/>
+
                                     ) : (
-                                      <SignOutIcon
-                                        className="mr-2 h-5 w-5"
-                                        aria-hidden="true"
-                                      />
+                                    
+                                      <ArrowRightEndOnRectangleIcon className="mr-2 h-5 w-5"/>
+
                                     )}
                                     Sign Out
                                   </button>
