@@ -172,7 +172,7 @@ function Profile() {
                                                 imageLodaing ?
                                                 <div className='size-[96px] rounded-full border-[2px] border-primaryPurple bg-white  flex items-center justify-center'>
 
-                                                    <CircularProgress size={20} color='inherit' />
+                                                    <CircularProgress size={20} color='primary' />
                                                 </div>
                                                 :
 
