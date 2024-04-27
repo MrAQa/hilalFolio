@@ -8,11 +8,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import avatar from '../assets/avatar-img.svg'
 import Footer from '../Component/Footer,';
+import { CircularProgress } from '@mui/material';
 
 function Profile() {
     const UserData = JSON.parse(localStorage.getItem('user_Data'))
     const [isLoading, setIsLoading] = useState(false);
+    const [imageLodaing, setimageLodaing] = useState(false);
     const [isShowBtn, setIsShowBtn] = useState(false);
+    const [refresh, setRefresh] = useState(false);
     const [userImg, setUserImg] = useState(null)
     const [Imgfile, setImgFile] = useState(null)
     const [userData, setUserData] = useState({
@@ -37,7 +40,9 @@ function Profile() {
             }
             setUserData(userDataCopy); // Update user data with the modified dob
             // const data = result?.body?.user;
+            // console.log(userDataCopy);
             localStorage.setItem('user_Data', JSON.stringify(userDataCopy));
+            setRefresh((prev)=>!prev)
         }).catch((err) => {
             console.log(err.message)
         })
@@ -103,23 +108,32 @@ function Profile() {
                 autoClose: 3000,
             });
         })
-        if (Imgfile) {
-
-            UpdateProfileImage(Imgfile).then((result) => {
-                if (result.success) {
-                    fetchdata()
-                }
-            })
-        }
+       
     }
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setImgFile(file)
         if (file) {
-            setIsShowBtn(true)
+            // setIsShowBtn(true)
             const reader = new FileReader();
             reader.onloadend = () => {
-                setUserImg(reader.result);
+                
+                if (file) {
+                    setimageLodaing(true)
+                    UpdateProfileImage(file).then((result) => {
+                        setimageLodaing(false)
+                        if (result.success) {
+                            setUserImg(reader.result);
+                            fetchdata()
+                        }
+                        else{
+                            toast.error(result.message, {
+                                position: toast.POSITION.TOP_CENTER,
+                                autoClose: 3000,
+                            });
+                        }
+                    })
+                }
             };
             reader.readAsDataURL(file);
         }
@@ -138,7 +152,7 @@ function Profile() {
     return (
         <div>
             <ToastContainer />
-            <NavBar />
+            <NavBar refresh={refresh}/>
             <div className="bg-[#FAFAFA]">
                 {/* <Banner /> */}
                 <section className=''>
@@ -154,6 +168,14 @@ function Profile() {
                                             Profile
                                         </h2>
                                         <div className='pt-6 flex flex-col sm:flex-row items-center gap-4'>
+                                            {
+                                                imageLodaing ?
+                                                <div className='size-[96px] rounded-full border-[2px] border-primaryPurple bg-white  flex items-center justify-center'>
+
+                                                    <CircularProgress size={20} color='inherit' />
+                                                </div>
+                                                :
+
                                             <label htmlFor='profile_image' className='flex relative'>
                                                 {userImg ? (
                                                     <img className='rounded-full w-[96px] h-[96px] object-cover' src={userImg} alt='avatar' />
@@ -182,6 +204,7 @@ function Profile() {
                                                 </div>
                                                 <input type='file' className='hidden' accept=".png, .jpg" name='profile_image' id='profile_image' onChange={handleFileChange} />
                                             </label>
+                                            }
 
                                         </div>
                                         <div className='pt-6 flex flex-col lg:flex-row gap-5'>

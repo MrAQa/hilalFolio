@@ -278,13 +278,23 @@ ul {
 .bg-primaryPurple {
   background: linear-gradient(95deg, #7147b4 0%, #423cac 112.53%) !important;
 }
+
+.col-3-items {
+  width: 100%;
+}
 @media (min-width: 768px) {
   #hilalbot-sidebar {
     height: calc(100% - 132px);
+  }
+  .col-3-items {
+    width: calc(50% - 8px);
   }
 }
 @media (min-width: 1024px) {
   #hilalbot-sidebar {
     height: calc(100% - 214px);
+  }
+  .col-3-items {
+    width: calc(33% - 8px);
   }
 }

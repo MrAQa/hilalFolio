@@ -1,18 +1,20 @@
 import { useState, Fragment, useEffect } from "react";
 import { Menu, Transition, Popover, Dialog } from "@headlessui/react";
 import logo from "../assets/Logo-new.png";
-import { UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ArrowRightEndOnRectangleIcon, UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-import { SearchIcon, SunIcon } from "../assets/custom-icon";
+import { BellNotificationIcon, CartIcon, DeleteIcon, SearchIcon, SunIcon } from "../assets/custom-icon";
 import img from "../assets/image 4.png"
-const NavBar = () => {
+const NavBar = ({ refresh }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cartOpen, setcartOpen] = useState(false);
   const [isLogedin, setIsLogedin] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [userData, setuserData] = useState({})
+  const [cartItem, setCartItems] = useState([])
   const currentPath = window.location.pathname;
   useEffect(() => {
     const UserData = JSON.parse(localStorage.getItem('user_Data'))
@@ -24,31 +26,38 @@ const NavBar = () => {
     else {
       setIsLogedin(false)
     }
-  }, [])
+    const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    setCartItems(cartItems ?? [])
+  }, [refresh])
+  const removeCoinFromCart = (coinToRemove) => {
 
+    // Ensure that coinToRemove is not null or undefined
+    if (!coinToRemove) {
+      console.error('coinToRemove must be provided');
+      return;
+    }
+
+    // Retrieve current cart items from local storage
+    const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+
+    if (cartItems) {
+      console.log(cartItems);
+      // Filter out the item with the specified ID
+      const updatedCartItems = cartItems?.filter(item => item._id !== coinToRemove._id);
+
+      // Update local storage with the updated cart items
+      localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+
+
+      setCartItems(updatedCartItems);
+    }
+
+  };
   const { t, i18n } = useTranslation();
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
-  function SignOutIcon(props) {
-    return (
-      <svg
-        {...props}
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
-        />
-      </svg>
-    );
-  }
 
   const handleSignOut = () => {
     localStorage.removeItem('user_token');
@@ -125,32 +134,35 @@ const NavBar = () => {
           <Popover.Group className="hidden lg:flex lg:gap-x-5 xl:gap-x-8 px-4">
             <Link
               to="/"
-              className={`text-base font-semibold leading-normal ${currentPath === "/"
-                ? 'text-[#6F4F9F]' : 'text-primaryDark'} flex items-center`}
+              className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/"
+                ? 'text-white bg-primaryPurple' : 'text-primaryDark'} flex items-center`}
             >
-              Market
+              Home
             </Link>
             <Link
-              to="/favorites"
-              className={`text-base font-semibold leading-normal ${currentPath === "/favorites"
-                ? 'text-[#6F4F9F]' : 'text-primaryDark'} flex items-center`}
-            >
-              Favorites
-            </Link>
-            <Link
-              to="/hilalbot"
-              className={`text-base font-semibold leading-normal ${currentPath === "/hilalbot"
-                ? 'text-[#6F4F9F]' : 'text-primaryDark'} flex items-center`}
-            >
-              HilalBot
-            </Link>
-
-            <Link
-
-              className="text-base font-semibold leading-normal text-primaryDark flex items-center"
+              to="/odr "
+              className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/odr"
+                ? 'text-white bg-primaryPurple' : 'text-primaryDark'} flex items-center`}
             >
               ODR
             </Link>
+            <Link
+              to="/hilalbot"
+              className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/hilalbot"
+                ? 'text-white bg-primaryPurple' : 'text-primaryDark'} flex items-center`}
+            >
+              HilalBot
+            </Link>
+            <Link
+              to="/favorites"
+              className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/favorites"
+                ? 'text-white bg-primaryPurple' : 'text-primaryDark'} flex items-center`}
+            >
+              Favorites
+            </Link>
+
+
+
           </Popover.Group>
 
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-2 mr-4">
@@ -158,38 +170,24 @@ const NavBar = () => {
               <SearchIcon />
             </div>
             <div className="p-2 ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                viewBox="0 0 22 22"
-                fill="none"
-              >
-                <path
-                  d="M16.5 7.33337C16.5 5.87468 15.9205 4.47574 14.8891 3.44429C13.8576 2.41284 12.4587 1.83337 11 1.83337C9.54131 1.83337 8.14236 2.41284 7.11091 3.44429C6.07946 4.47574 5.5 5.87468 5.5 7.33337C5.5 13.75 2.75 15.5834 2.75 15.5834H19.25C19.25 15.5834 16.5 13.75 16.5 7.33337Z"
-                  stroke="#0C0F14"
-                  strokeWidth="1.83333"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M12.5857 19.25C12.4246 19.5278 12.1933 19.7584 11.9149 19.9187C11.6366 20.079 11.3211 20.1634 10.9999 20.1634C10.6787 20.1634 10.3632 20.079 10.0849 19.9187C9.80654 19.7584 9.57522 19.5278 9.41406 19.25"
-                  stroke="#0C0F14"
-                  strokeWidth="1.83333"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <BellNotificationIcon />
+
+            </div>
+            <div className="p-2 ">
+              <span role="button" onClick={() => setcartOpen(true)}>
+                <CartIcon />
+              </span>
             </div>
             <div
               onClick={() => setIsDarkMode(!isDarkMode)}
-              className="p-2 cursor-pointer">
+              className="p-2 cursor-pointer size-10 flex items-center">
               {
                 isDarkMode ?
 
-                  <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
-                    <path d="M5.56851 16.3984C7.11418 17.9441 8.99759 18.7169 11.2187 18.7169C13.125 18.7169 14.8085 18.1171 16.2695 16.9176C17.7304 15.7181 18.6273 14.1965 18.9603 12.3528C19.0035 12.1701 18.9972 12.0111 18.9413 11.8759C18.8854 11.7407 18.7999 11.6341 18.6848 11.5559C18.5812 11.4778 18.4561 11.4288 18.3094 11.409C18.1628 11.3892 18.0126 11.4129 17.8587 11.4802C17.5438 11.634 17.1766 11.7693 16.7572 11.8858C16.3377 12.0024 15.8978 12.0607 15.4375 12.0607C13.901 12.0607 12.595 11.5229 11.5195 10.4474C10.4439 9.3719 9.90618 8.0659 9.90618 6.52943C9.90618 6.11063 9.95306 5.71147 10.0468 5.33193C10.1406 4.95239 10.2842 4.58654 10.4777 4.23438C10.5726 4.06852 10.6117 3.90236 10.5949 3.73589C10.578 3.56942 10.5228 3.4279 10.429 3.31132C10.3353 3.19474 10.2133 3.107 10.063 3.04809C9.91279 2.9892 9.73911 2.9844 9.54199 3.03368C7.63695 3.44955 6.11203 4.37684 4.96722 5.81554C3.82241 7.25423 3.25 8.89844 3.25 10.7482C3.25 12.9693 4.02284 14.8527 5.56851 16.3984Z" fill="#0E0A14" />
+                  <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.56851 13.3984C4.11418 14.9441 5.99759 15.7169 8.21873 15.7169C10.125 15.7169 11.8085 15.1171 13.2695 13.9176C14.7304 12.7181 15.6273 11.1965 15.9603 9.3528C16.0035 9.1701 15.9972 9.01115 15.9413 8.87594C15.8854 8.74073 15.7999 8.63405 15.6848 8.55593C15.5812 8.4778 15.4561 8.42883 15.3094 8.409C15.1628 8.38915 15.0126 8.41289 14.8587 8.4802C14.5438 8.63405 14.1766 8.76926 13.7572 8.88583C13.3377 9.00241 12.8978 9.0607 12.4375 9.0607C10.901 9.0607 9.59501 8.52294 8.51948 7.44743C7.44395 6.3719 6.90618 5.0659 6.90618 3.52943C6.90618 3.11063 6.95306 2.71147 7.04681 2.33193C7.14056 1.95239 7.28418 1.58654 7.47768 1.23438C7.57263 1.06852 7.6117 0.902357 7.59487 0.735889C7.57804 0.56942 7.52275 0.427895 7.429 0.311317C7.33525 0.194739 7.21326 0.106998 7.06302 0.0480915C6.91279 -0.0107992 6.73911 -0.0156036 6.54199 0.0336776C4.63695 0.449553 3.11203 1.37684 1.96722 2.81554C0.822406 4.25423 0.25 5.89844 0.25 7.74818C0.25 9.96932 1.02284 11.8527 2.56851 13.3984Z" fill="#667085" />
                   </svg>
+
                   :
                   <SunIcon />
               }
@@ -364,15 +362,13 @@ const NavBar = () => {
                                     onClick={handleSignOut}
                                   >
                                     {active ? (
-                                      <SignOutIcon
-                                        className="mr-2 h-5 w-5 text-white"
-                                        aria-hidden="true"
-                                      />
+
+                                      <ArrowRightEndOnRectangleIcon className="mr-2 h-5 w-5 text-white" />
+
                                     ) : (
-                                      <SignOutIcon
-                                        className="mr-2 h-5 w-5"
-                                        aria-hidden="true"
-                                      />
+
+                                      <ArrowRightEndOnRectangleIcon className="mr-2 h-5 w-5" />
+
                                     )}
                                     Sign Out
                                   </button>
@@ -442,15 +438,9 @@ const NavBar = () => {
                   <Link
                     to='/'
                     className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 ${currentPath === "/"
-                      ? 'text-[#6F4F9F]' : 'text-primaryDark'} hover:bg-gray-50`}
+                      ? 'text-white bg-primaryPurple' : 'text-primaryDark'} hover:bg-gray-50`}
                   >
-                    Market
-                  </Link>
-                  <Link
-                    to=''
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Favorites
+                    Home
                   </Link>
                   <Link
                     to="/hilalbot"
@@ -464,6 +454,13 @@ const NavBar = () => {
                   >
                     ODR
                   </Link>
+                  <Link
+                    to=''
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Favorites
+                  </Link>
+
 
                 </div>
                 {
@@ -508,8 +505,8 @@ const NavBar = () => {
                             aria-hidden="true"
                           >
                             <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                               d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
                             />
                           </svg>
@@ -548,6 +545,107 @@ const NavBar = () => {
                     </div>
                 }
               </div>
+            </div>
+          </Dialog.Panel>
+        </Dialog>
+
+
+        <Dialog //popup for cart
+          as="div"
+          open={cartOpen}
+          onClose={setcartOpen}
+        >
+          <div className="fixed inset-0 z-10" />
+          <Dialog.Panel className="fixed inset-y-0 right-0 top-24 rounded-l-2xl max-h-[874px] round z-10 w-full max-w-[430px] overflow-y-auto bg-white px-6 py-6  sm:ring-1 sm:ring-gray-900/10">
+            <div className="flex items-baseline justify-between pb-6 border-b-[1px] border-lightThemeOutline">
+              <div className="-m-1.5 p-1.5">
+                <span className='text-30 font-bold'>Order Summary</span>
+              </div>
+              <div className="flex items-center xs:gap-3">
+                <span className="text-sm font-semibold text-lightThemeSecondary">{`Total items ${cartItem?.length}`}</span>
+              </div>
+            </div>
+            <div className="pb-6 mt-6 border-b-[1px] border-lightThemeOutline space-y-4">
+              {cartItem?.map((item, index) => (
+                <div key={index + '-item'} className="flex items-center gap-4">
+                  <div className='flex flex-1 justify-between items-center gap-1 border-[1px] h-[75px] border-lightThemeOutline shadow-custom rounded-xl p-4'>
+                    <div className='flex items-center gap-2'>
+
+                      <div className="flex items-center gap-x-2">
+                        <img
+                          src={item?.logo}
+                          alt="logo"
+                          className="w-8 rounded-full bg-gray-50"
+                        />
+                        <div className="text-sm leading-6">
+                          <p>
+
+                            <span className="text-base font-semibold">
+
+                              {item?.symbol}
+                            </span>
+
+                          </p>
+                          <p className="text-[14px] font-medium text-lightSecondaryText line-clamp-1">
+                            {item?.name}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-lg font-semibold">
+                      $10.00
+                    </div>
+                  </div>
+                  <div onClick={() => removeCoinFromCart(item)} className="bg-[#FFE5E5] rounded-lg flex justify-center items-center min-h-[75px] w-[70px] cursor-pointer">
+                    <DeleteIcon />
+                  </div>
+                </div>
+              ))}
+              {
+                cartItem?.length === 0 &&
+                <div className="bg-white w-full p-3 rounded-lg text-primaryPurple font-semibold text-base h-12 flex justify-center items-center ">
+                  No item to show
+                </div>
+              }
+            </div>
+            {
+              cartItem?.length > 0 &&
+
+              <div className="pb-6 mt-6 border-b-[1px] border-lightThemeOutline space-y-4">
+                <div className="text-lightThemeSecondary text-base font-medium flex justify-between items-center">
+                  <div>
+                    {'Discount (FRIENDS)'}
+                  </div>
+                  <div>
+                    {'10% ($4.90)'}
+                  </div>
+                </div>
+                <div className="text-lightThemeSecondary text-base font-medium flex justify-between items-center">
+                  <div>
+                    {'Express shipping'}
+                  </div>
+                  <div>
+                    {'$3.99'}
+                  </div>
+                </div>
+                <div className="text-primaryDark text-base font-semibold flex justify-between items-center">
+                  <div>
+                    {'Total'}
+                  </div>
+                  <div>
+                    {'$48.09'}
+                  </div>
+                </div>
+              </div>
+            }
+            <div className="mt-6 space-y-4">
+              <button
+                disabled={cartItem?.length === 0}
+                className="bg-primaryPurple w-full p-3 rounded-lg text-white font-semibold text-base disabled:opacity-50 h-12 flex justify-center items-center hover:opacity-90">Checkout</button>
+              <button className="bg-white w-full p-3 rounded-lg text-primaryPurple font-semibold text-base disabled:opacity-50 h-12 flex justify-center items-center hover:opacity-90 hover:border-[1px] hover:bg-gray-50">
+                Continue adding coins
+              </button>
+
             </div>
           </Dialog.Panel>
         </Dialog>

@@ -22,6 +22,7 @@ module.exports = {
         lightThemeSecondary: "#747474",
         primaryDark: "#0E0A14",
         lightSecondaryText: "#6F7889",
+        lightThemeOutline:"#D0D5DD",
         'gray': {
           '900': '#101828', 
           '600':'#475467',
@@ -34,7 +35,9 @@ module.exports = {
         xl: "1146px",
         "2xl": "1320px",
       },
-    
+      boxShadow: {
+        'custom': '0px 1px 2px rgba(16,24,40,0.05)', // Define your custom shadow
+      },
     },
   },
   plugins: [],
