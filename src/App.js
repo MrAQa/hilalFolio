@@ -18,9 +18,10 @@ import ReportPage from "./Pages/ReportPage";
 import ScrollToTopButton from "./Pages/ScrollTopButton";
 import Hilalbot from "./Pages/Hilalbot";
 import ODR from "./Pages/ODR";
+import { StateProvider } from "./context/context";
 function App() {
   return (
-    <div>
+    <StateProvider>
       <Routes>
         <Route path="/sign-in" element={<LoginRoutes><Login /></LoginRoutes>} />
         <Route path="/sign-up" element={<LoginRoutes><SignUp /></LoginRoutes>} />
@@ -28,19 +29,19 @@ function App() {
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/new-password" element={<NewPassword />} />
         <Route path="/" element={<Home />} />
-        <Route path="/favorites" element={<PrivateRoutes><Favorites/></PrivateRoutes>} />
-        <Route path="/profile" element={<PrivateRoutes><Profile/></PrivateRoutes>} />
-        <Route path="/about-us" element={<PrivateRoutes><AboutPage/></PrivateRoutes>} />
-        <Route path="/subscription" element={<PrivateRoutes><SubscriptionPage/></PrivateRoutes>} />
-        <Route path="/settings" element={<PrivateRoutes><Settings/></PrivateRoutes>} />
-        <Route path="/btc-chart" element={<BtcChart/>} />
-        <Route path="/review" element={<ReportPage/>} />
-        <Route path="/hilalbot" element={<PrivateRoutes><Hilalbot/></PrivateRoutes>} />
-        <Route path="/odr" element={<PrivateRoutes><ODR/></PrivateRoutes>} />
+        <Route path="/favorites" element={<PrivateRoutes><Favorites /></PrivateRoutes>} />
+        <Route path="/profile" element={<PrivateRoutes><Profile /></PrivateRoutes>} />
+        <Route path="/about-us" element={<PrivateRoutes><AboutPage /></PrivateRoutes>} />
+        <Route path="/subscription" element={<PrivateRoutes><SubscriptionPage /></PrivateRoutes>} />
+        <Route path="/settings" element={<PrivateRoutes><Settings /></PrivateRoutes>} />
+        <Route path="/btc-chart" element={<BtcChart />} />
+        <Route path="/review" element={<ReportPage />} />
+        <Route path="/hilalbot" element={<PrivateRoutes><Hilalbot /></PrivateRoutes>} />
+        <Route path="/odr" element={<PrivateRoutes><ODR /></PrivateRoutes>} />
 
       </Routes>
-      <ScrollToTopButton/>
-    </div>
+      <ScrollToTopButton />
+    </StateProvider>
   );
 }
 

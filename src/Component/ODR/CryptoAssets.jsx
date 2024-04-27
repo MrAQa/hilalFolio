@@ -5,7 +5,7 @@ import { GetCoinData, GetReport } from '../../service/service';
 import { useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import { ToastContainer, toast } from "react-toastify";
-const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh}) => {
+const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh,isLoadingCoins}) => {
     const navigation = useNavigate();
     const [selectedItems, setSelectedItems] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -117,7 +117,15 @@ const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh}) => {
                         <div
                             style={{ height: 'calc(100% - 11rem)' }}
                             className='mt-8 flex flex-wrap gap-4 overflow-auto'>
+                              
                             {
+                                   isLoadingCoins ?
+                                   <div className='w-full flex justify-center'>
+                                        <CircularProgress size={40} color='primary' />
+                                   </div>
+                                   :
+                                <>
+                                {
                                 filteredCoins?.map((item, index) => (
 
                                     <div key={index + '-item'}
@@ -157,7 +165,7 @@ const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh}) => {
                                                         (isLoading && selectedItem?._id == item?._id) ?
                                                             <span className="p-2 bg-[#F2F2F2] rounded-lg flex justify-center items-center cursor-pointer">
 
-                                                                <CircularProgress size={20} color='inherit' />
+                                                                <CircularProgress size={20} color='primary' />
                                                             </span>
                                                             :
                                                             <div
@@ -173,6 +181,8 @@ const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh}) => {
                                         }
                                     </div>
                                 ))
+                                }
+                                </>
                             }
                         </div>
                         <div className='pt-8 mt-4 border-t-[1px] border-lightThemeOutline flex flex-col lg:flex-row gap-5 justify-end'>

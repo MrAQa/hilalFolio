@@ -5,16 +5,18 @@ import { ArrowRightEndOnRectangleIcon, UserCircleIcon, XMarkIcon } from "@heroic
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-import { BellNotificationIcon, CartIcon, DeleteIcon, SearchIcon, SunIcon } from "../assets/custom-icon";
+import { BellNotificationIcon, CartIcon, DeleteIcon, GreenDot, SearchIcon, SunIcon } from "../assets/custom-icon";
 import img from "../assets/image 4.png"
-const NavBar = ({refresh}) => {
+import { useCartValue } from "../context/context";
+const NavBar = ({ refresh, setShowAssets, setshowPayement }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setcartOpen] = useState(false);
   const [isLogedin, setIsLogedin] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [userData, setuserData] = useState({})
-  const [cartItem, setCartItems] = useState([])
+  // const [cartItem, setCartItems] = useState([])
+  const [cartItem, setCartItems] = useCartValue();
   const currentPath = window.location.pathname;
   useEffect(() => {
     const UserData = JSON.parse(localStorage.getItem('user_Data'))
@@ -28,7 +30,7 @@ const NavBar = ({refresh}) => {
     }
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
     setCartItems(cartItems ?? [])
-  }, [refresh])
+  }, [refresh, cartOpen])
   const removeCoinFromCart = (coinToRemove) => {
 
     // Ensure that coinToRemove is not null or undefined
@@ -41,14 +43,14 @@ const NavBar = ({refresh}) => {
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
 
     if (cartItems) {
-      console.log(cartItems);
+      
       // Filter out the item with the specified ID
       const updatedCartItems = cartItems?.filter(item => item._id !== coinToRemove._id);
 
       // Update local storage with the updated cart items
       localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
 
-      
+
       setCartItems(updatedCartItems);
     }
 
@@ -65,7 +67,40 @@ const NavBar = ({refresh}) => {
     setIsLogedin(false);
     navigate('/')
   };
+  const GotoCoinsSelction = () => {
+    if (currentPath === "/odr") {
 
+      setcartOpen(false)
+      setshowPayement(false)
+      setShowAssets(true)
+    }
+    else {
+
+      navigate('/odr', {
+        state: {
+          showAssets: true
+        }
+      })
+
+
+    }
+
+  }
+  const handleCheckout = () => {
+    if (currentPath === "/odr") {
+
+      setcartOpen(false)
+      setshowPayement(true)
+    }
+    else {
+
+      navigate('/odr', {
+        state: {
+          showPayment: true
+        }
+      })
+    }
+  }
   return (
     <>
       {/* <div className='bg-white hidden lg:block'>
@@ -174,8 +209,12 @@ const NavBar = ({refresh}) => {
 
             </div>
             <div className="p-2 ">
-              <span role="button" onClick={() => setcartOpen(true)}>
+              <span className="relative" role="button" onClick={() => setcartOpen(true)}>
                 <CartIcon />
+                {
+                  cartItem?.length >0 &&
+                  <GreenDot className="absolute top-0 right-0"/>
+                }
               </span>
             </div>
             <div
@@ -362,12 +401,12 @@ const NavBar = ({refresh}) => {
                                     onClick={handleSignOut}
                                   >
                                     {active ? (
-                                    
-                                    <ArrowRightEndOnRectangleIcon className="mr-2 h-5 w-5 text-white"/>
+
+                                      <ArrowRightEndOnRectangleIcon className="mr-2 h-5 w-5 text-white" />
 
                                     ) : (
-                                    
-                                      <ArrowRightEndOnRectangleIcon className="mr-2 h-5 w-5"/>
+
+                                      <ArrowRightEndOnRectangleIcon className="mr-2 h-5 w-5" />
 
                                     )}
                                     Sign Out
@@ -550,7 +589,7 @@ const NavBar = ({refresh}) => {
           onClose={setcartOpen}
         >
           <div className="fixed inset-0 z-10" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 top-24 rounded-l-2xl max-h-[874px] round z-10 w-full max-w-[430px] overflow-y-auto bg-white px-6 py-6  sm:ring-1 sm:ring-gray-900/10">
+          <Dialog.Panel className="fixed inset-y-0 right-0 top-24 rounded-l-2xl max-h-[874px] round z-10 w-full max-w-[430px] bg-white px-6 py-6  sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-baseline justify-between pb-6 border-b-[1px] border-lightThemeOutline">
               <div className="-m-1.5 p-1.5">
                 <span className='text-30 font-bold'>Order Summary</span>
@@ -559,7 +598,7 @@ const NavBar = ({refresh}) => {
                 <span className="text-sm font-semibold text-lightThemeSecondary">{`Total items ${cartItem?.length}`}</span>
               </div>
             </div>
-            <div className="pb-6 mt-6 border-b-[1px] border-lightThemeOutline space-y-4">
+            <div className="pb-6 mt-6 border-b-[1px] overflow-y-auto max-h-[274px] border-lightThemeOutline space-y-4">
               {cartItem?.map((item, index) => (
                 <div key={index + '-item'} className="flex items-center gap-4">
                   <div className='flex flex-1 justify-between items-center gap-1 border-[1px] h-[75px] border-lightThemeOutline shadow-custom rounded-xl p-4'>
@@ -635,8 +674,11 @@ const NavBar = ({refresh}) => {
             <div className="mt-6 space-y-4">
               <button
                 disabled={cartItem?.length === 0}
+                onClick={handleCheckout}
                 className="bg-primaryPurple w-full p-3 rounded-lg text-white font-semibold text-base disabled:opacity-50 h-12 flex justify-center items-center hover:opacity-90">Checkout</button>
-              <button className="bg-white w-full p-3 rounded-lg text-primaryPurple font-semibold text-base disabled:opacity-50 h-12 flex justify-center items-center hover:opacity-90 hover:border-[1px] hover:bg-gray-50">
+              <button
+                onClick={GotoCoinsSelction}
+                className="bg-white w-full p-3 rounded-lg text-primaryPurple font-semibold text-base disabled:opacity-50 h-12 flex justify-center items-center hover:opacity-90 hover:border-[1px] hover:bg-gray-50">
                 Continue adding coins
               </button>
 

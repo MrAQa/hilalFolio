@@ -144,7 +144,7 @@ function BtcChart() {
                                                         >
                                                             {
                                                                 isLoading ?
-                                                                    <CircularProgress size={20} color='inherit' />
+                                                                    <CircularProgress size={20} color='primary' />
                                                                     :
                                                                     'Request Review'
                                                             }
