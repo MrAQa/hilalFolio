@@ -44,24 +44,21 @@ body {
 }
 
 .Welcome-text {
-  color: var(--Light-Theme-Text, #202124);
+  color: var(--Light-Theme-Text, #1F1F1F);
   text-align: center;
-  /* H0 */
-  font-family: Open Sans;
-  font-size: 35px;
+  font-size: 30px;
   font-style: normal;
   font-weight: 700;
   line-height: 150%;
 }
 .small-text {
-  color: var(--Grey-Grey-600, #808b9a);
+  color: var(--Placeholder-Light, #667085);
   text-align: center;
-  /* Body 1 */
-  font-family: Open Sans;
-  font-size: 14px;
+  font-family: "Open Sans";
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; /* 27px */
+  line-height: 24px; /* 150% */
 }
 .already-text {
   color: var(--Light-Theme-Text, #0e0a14);
@@ -98,9 +95,9 @@ body {
   );
   box-shadow: 0px 4px 30px 0px rgba(32, 70, 168, 0.15);
 }
-.social-button {
+/* .social-button {
   display: flex;
-  /* width: 397px; */
+ 
   height: 42px;
   padding: 16px;
   justify-content: center;
@@ -110,7 +107,7 @@ body {
   border-radius: 14px;
   border: 1px solid var(--Light-Theme-Outline, #d7d9e4);
   background: var(--Light-Theme-White, #fff);
-}
+} */
 .password-input {
   margin: 0 !important;
   /* width: 480px !important; */
@@ -140,25 +137,39 @@ body {
 }
 
 .social-button-text {
-  color: var(--Light-Theme-Secondary-Text, #5f6368);
-  /* font-feature-settings: "dlig" on;
-    font-family: Noto Sans; */
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 20px; /* 142.857% */
+  color: var(--Light-Theme-Secondary-Text, #667085);
+font-family: "Open Sans";
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 150% */
+  text-transform: capitalize;
+}
+.social-button{
+  border-radius: 8px !important;
+border: 1px solid var(--Gray-300, #D0D5DD) !important;
+padding: 13px 16px !important;
+box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+width: 100%;
+height: 50px;
+}
+.social-button:hover{
+ background-color:  rgba(111, 79, 159, 0.04)
+}
+.social-btn-container>div{
+  width: 50%;
 }
 .margin-8 {
   margin-top: 8px;
 }
 .remember-information {
-  color: var(--Grey-Grey-600, #808b9a);
-  /* H7 */
-  font-family: Open Sans;
+  color: var(--Light-Theme-Secondary-Text, #667085);
+  text-align: right;
+  font-family: "Open Sans";
   font-size: 14px;
   font-style: normal;
-  font-weight: 600;
-  line-height: 150%; /* 21px */
+  font-weight: 500;
+  line-height: 22px; /* 157.143% */
 }
 .input {
   border: 1px solid #000;
