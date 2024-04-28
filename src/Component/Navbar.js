@@ -8,14 +8,14 @@ import { useTranslation } from 'react-i18next';
 import { BellNotificationIcon, CartIcon, DeleteIcon, GreenDot, SearchIcon, SunIcon } from "../assets/custom-icon";
 import img from "../assets/image 4.png"
 import { useCartValue } from "../context/context";
-const NavBar = ({ refresh, setShowAssets, setshowPayement }) => {
+const NavBar = ({ refresh, setShowAssets, setshowPayement,searchQuery, setSearchQuery }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setcartOpen] = useState(false);
   const [isLogedin, setIsLogedin] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [userData, setuserData] = useState({})
-  // const [cartItem, setCartItems] = useState([])
+  const [showSearch, setShowSearch] = useState(false)
   const [cartItem, setCartItems] = useCartValue();
   const currentPath = window.location.pathname;
   useEffect(() => {
@@ -43,7 +43,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement }) => {
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
 
     if (cartItems) {
-      
+
       // Filter out the item with the specified ID
       const updatedCartItems = cartItems?.filter(item => item._id !== coinToRemove._id);
 
@@ -100,6 +100,10 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement }) => {
         }
       })
     }
+  }
+  const clearSearch=()=>{
+    setShowSearch(false)
+    setSearchQuery('')
   }
   return (
     <>
@@ -170,28 +174,28 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement }) => {
             <Link
               to="/"
               className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/"
-                ? 'text-white bg-primaryPurple' : 'text-primaryDark'} flex items-center`}
+                ? 'text-white bg-primaryPurple' : 'text-lightThemeSecondary'} flex items-center`}
             >
               Home
             </Link>
             <Link
               to="/odr "
               className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/odr"
-                ? 'text-white bg-primaryPurple' : 'text-primaryDark'} flex items-center`}
+                ? 'text-white bg-primaryPurple' : 'text-lightThemeSecondary'} flex items-center`}
             >
               ODR
             </Link>
             <Link
               to="/hilalbot"
               className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/hilalbot"
-                ? 'text-white bg-primaryPurple' : 'text-primaryDark'} flex items-center`}
+                ? 'text-white bg-primaryPurple' : 'text-lightThemeSecondary'} flex items-center`}
             >
               HilalBot
             </Link>
             <Link
               to="/favorites"
               className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/favorites"
-                ? 'text-white bg-primaryPurple' : 'text-primaryDark'} flex items-center`}
+                ? 'text-white bg-primaryPurple' : 'text-lightThemeSecondary'} flex items-center`}
             >
               Favorites
             </Link>
@@ -199,39 +203,62 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement }) => {
 
 
           </Popover.Group>
+          {
+            showSearch ?
+              <div className="border-lightThemeOutline border-[1px] flex rounded-lg p-3 h-10 items-center mr-4">
+                <SearchIcon />
+                <input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search here" className="outline-none border-none px-2"/>
+                <XMarkIcon 
+                onClick={clearSearch}
+                class="h-6 w-6 cursor-pointer text-gray-500" />
+              </div>
+              :
 
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-2 mr-4">
-            <div className="p-2 ">
-              <SearchIcon />
-            </div>
-            <div className="p-2 ">
-              <BellNotificationIcon />
-
-            </div>
-            <div className="p-2 ">
-              <span className="relative" role="button" onClick={() => setcartOpen(true)}>
-                <CartIcon />
+              <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-2 mr-4">
                 {
-                  cartItem?.length >0 &&
-                  <GreenDot className="absolute top-0 right-0"/>
+                  currentPath === "/" &&
+
+                  <div className="p-2 ">
+                    <SearchIcon className="cursor-pointer" onClick={() => setShowSearch(true)} />
+                  </div>
                 }
-              </span>
-            </div>
-            <div
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="p-2 cursor-pointer size-10 flex items-center">
-              {
-                isDarkMode ?
+                {
+                  isLogedin &&
+                  <>
+                    <div className="p-2 ">
+                      <BellNotificationIcon />
 
-                  <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2.56851 13.3984C4.11418 14.9441 5.99759 15.7169 8.21873 15.7169C10.125 15.7169 11.8085 15.1171 13.2695 13.9176C14.7304 12.7181 15.6273 11.1965 15.9603 9.3528C16.0035 9.1701 15.9972 9.01115 15.9413 8.87594C15.8854 8.74073 15.7999 8.63405 15.6848 8.55593C15.5812 8.4778 15.4561 8.42883 15.3094 8.409C15.1628 8.38915 15.0126 8.41289 14.8587 8.4802C14.5438 8.63405 14.1766 8.76926 13.7572 8.88583C13.3377 9.00241 12.8978 9.0607 12.4375 9.0607C10.901 9.0607 9.59501 8.52294 8.51948 7.44743C7.44395 6.3719 6.90618 5.0659 6.90618 3.52943C6.90618 3.11063 6.95306 2.71147 7.04681 2.33193C7.14056 1.95239 7.28418 1.58654 7.47768 1.23438C7.57263 1.06852 7.6117 0.902357 7.59487 0.735889C7.57804 0.56942 7.52275 0.427895 7.429 0.311317C7.33525 0.194739 7.21326 0.106998 7.06302 0.0480915C6.91279 -0.0107992 6.73911 -0.0156036 6.54199 0.0336776C4.63695 0.449553 3.11203 1.37684 1.96722 2.81554C0.822406 4.25423 0.25 5.89844 0.25 7.74818C0.25 9.96932 1.02284 11.8527 2.56851 13.3984Z" fill="#667085" />
-                  </svg>
+                    </div>
+                    <div className="p-2 ">
+                      <span className="relative" role="button" onClick={() => setcartOpen(true)}>
+                        <CartIcon />
+                        {
+                          cartItem?.length > 0 &&
+                          <GreenDot className="absolute top-0 right-0" />
+                        }
+                      </span>
+                    </div>
+                  </>
+                }
+                <div
+                  onClick={() => setIsDarkMode(!isDarkMode)}
+                  className="p-2 cursor-pointer size-10 flex items-center">
+                  {
+                    isDarkMode ?
 
-                  :
-                  <SunIcon />
-              }
-            </div>
-          </div>
+                      <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.56851 13.3984C4.11418 14.9441 5.99759 15.7169 8.21873 15.7169C10.125 15.7169 11.8085 15.1171 13.2695 13.9176C14.7304 12.7181 15.6273 11.1965 15.9603 9.3528C16.0035 9.1701 15.9972 9.01115 15.9413 8.87594C15.8854 8.74073 15.7999 8.63405 15.6848 8.55593C15.5812 8.4778 15.4561 8.42883 15.3094 8.409C15.1628 8.38915 15.0126 8.41289 14.8587 8.4802C14.5438 8.63405 14.1766 8.76926 13.7572 8.88583C13.3377 9.00241 12.8978 9.0607 12.4375 9.0607C10.901 9.0607 9.59501 8.52294 8.51948 7.44743C7.44395 6.3719 6.90618 5.0659 6.90618 3.52943C6.90618 3.11063 6.95306 2.71147 7.04681 2.33193C7.14056 1.95239 7.28418 1.58654 7.47768 1.23438C7.57263 1.06852 7.6117 0.902357 7.59487 0.735889C7.57804 0.56942 7.52275 0.427895 7.429 0.311317C7.33525 0.194739 7.21326 0.106998 7.06302 0.0480915C6.91279 -0.0107992 6.73911 -0.0156036 6.54199 0.0336776C4.63695 0.449553 3.11203 1.37684 1.96722 2.81554C0.822406 4.25423 0.25 5.89844 0.25 7.74818C0.25 9.96932 1.02284 11.8527 2.56851 13.3984Z" fill="#667085" />
+                      </svg>
+
+                      :
+                      <SunIcon />
+                  }
+                </div>
+              </div>
+          }
           <div className="relative hidden lg:flex p-2 border-[1px] border-[#D7D9E4] rounded-lg mr-4">
             <Menu>
               {({ open }) => (
@@ -427,16 +454,18 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement }) => {
             <div className='hidden lg:flex gap-4 justify-end text-base h-10'>
               <Link
                 to="/sign-in"
-                className="text-primaryPurple border-primaryPurple border-[1px] font-semibold flex justify-center items-center hover:bg-opacity-90 py-3 px-8 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
+                className="bg-primaryPurple text-white font-semibold flex justify-center items-center hover:bg-opacity-90 py-3 px-8 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
               >
-                Sign in
+                Login
               </Link>
               <Link
                 to="/sign-up"
-                className="bg-primaryPurple text-white font-semibold flex justify-center items-center hover:bg-opacity-90 py-3 px-8 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
+                className="text-primaryPurple border-primaryPurple border-[1px] font-semibold flex justify-center items-center hover:bg-opacity-90 py-3 px-8 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
               >
-                Sign up
+
+                Signup
               </Link>
+
 
 
             </div>

@@ -19,7 +19,7 @@ module.exports = {
         lightThemeText:'#1F1F1F',
         lightThemebg:'#F2F2F2',
         primaryPurple: "#7147B4",
-        lightThemeSecondary: "#747474",
+        lightThemeSecondary: "#667085",
         primaryDark: "#0E0A14",
         lightSecondaryText: "#6F7889",
         lightThemeOutline:"#D0D5DD",

@@ -7,8 +7,9 @@ import { HaramlIcon, HilalIcon, NoStatuslIcon } from "../../assets/custom-icon";
 import { LinearProgress } from "@mui/material";
 import TbaleDropDown from "./TbaleDropDown";
 // import MarketCapSection from "./MarketCapSection";
-const CoinSecton = () => {
+const CoinSecton = ({searchQuery, setSearchQuery}) => {
   const [CoinsData, setCoinsData] = useState([])
+ 
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [selectedRank, setSelectedRank] = useState('All');
   const [selectedPercentage, setSelectedPercentage] = useState('All');
@@ -120,6 +121,10 @@ const CoinSecton = () => {
       console.log(result)
     })
   }
+  const filteredCoins = CoinsData && Array.isArray(CoinsData) ? CoinsData.filter(item =>
+    (item.symbol && item.symbol.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (item.name && item.name.toLowerCase().includes(searchQuery.toLowerCase()))
+) : [];
   return (
     <>
       {/* <MarketCapSection/> */}
@@ -189,7 +194,7 @@ const CoinSecton = () => {
                 <tbody>
                   {
                     !isLoading &&
-                    CoinsData?.map((item, index) => (
+                    filteredCoins?.map((item, index) => (
 
                       <tr
                         onClick={() => viewDetail(item)}
