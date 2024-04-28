@@ -201,54 +201,54 @@ const Login = () => {
 
   const IOSSwitch = styled((props) => (
     <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-))(({ theme }) => ({
+  ))(({ theme }) => ({
     width: 42,
     height: 26,
     padding: 0,
     '& .MuiSwitch-switchBase': {
-        padding: 0,
-        margin: 2,
-        transitionDuration: '300ms',
-        '&.Mui-checked': {
-            transform: 'translateX(16px)',
-            color: '#fff',
-            '& + .MuiSwitch-track': {
-                backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#7147B4',
-                opacity: 1,
-                border: 0,
-            },
-            '&.Mui-disabled + .MuiSwitch-track': {
-                opacity: 0.5,
-            },
-        },
-        '&.Mui-focusVisible .MuiSwitch-thumb': {
-            color: '#33cf4d',
-            border: '6px solid #fff',
-        },
-        '&.Mui-disabled .MuiSwitch-thumb': {
-            color:
-                theme.palette.mode === 'light'
-                    ? theme.palette.grey[100]
-                    : theme.palette.grey[600],
+      padding: 0,
+      margin: 2,
+      transitionDuration: '300ms',
+      '&.Mui-checked': {
+        transform: 'translateX(16px)',
+        color: '#fff',
+        '& + .MuiSwitch-track': {
+          backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#7147B4',
+          opacity: 1,
+          border: 0,
         },
         '&.Mui-disabled + .MuiSwitch-track': {
-            opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+          opacity: 0.5,
         },
+      },
+      '&.Mui-focusVisible .MuiSwitch-thumb': {
+        color: '#33cf4d',
+        border: '6px solid #fff',
+      },
+      '&.Mui-disabled .MuiSwitch-thumb': {
+        color:
+          theme.palette.mode === 'light'
+            ? theme.palette.grey[100]
+            : theme.palette.grey[600],
+      },
+      '&.Mui-disabled + .MuiSwitch-track': {
+        opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+      },
     },
     '& .MuiSwitch-thumb': {
-        boxSizing: 'border-box',
-        width: 22,
-        height: 22,
+      boxSizing: 'border-box',
+      width: 22,
+      height: 22,
     },
     '& .MuiSwitch-track': {
-        borderRadius: 26 / 2,
-        backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
-        opacity: 1,
-        transition: theme.transitions.create(['background-color'], {
-            duration: 500,
-        }),
+      borderRadius: 26 / 2,
+      backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+      opacity: 1,
+      transition: theme.transitions.create(['background-color'], {
+        duration: 500,
+      }),
     },
-}));
+  }));
 
   return (
     <>
@@ -259,7 +259,7 @@ const Login = () => {
           <div className="m-4 rounded-lg">
             {/* <div className="relative inline-block text-left"></div> */}
             <div className="flex justify-center mt-1">
-              <img src={imglOGO}  alt="logo"  className="h-[44px]"/>
+              <img src={imglOGO} alt="logo" className="h-[44px]" />
             </div>
             <div className="flex flex-col justify-center items-center mt-6 text-center ">
               <p className="Welcome-text mb-3">Welcome back!</p>
@@ -274,7 +274,7 @@ const Login = () => {
                 onSubmit={onSubmit}
               >
                 {({ touched, errors }) => (
-                  <Form className="max-w-sm mt-8">
+                  <Form className="max-w-sm mt-8 w-[360px]">
                     <div className="mb-5">
                       <label
                         htmlFor="email"
@@ -283,7 +283,7 @@ const Login = () => {
                         Email
                       </label>
                       <FormControl
-                        sx={{ m: 1, width: "43ch" }}
+                        sx={{ m: 1, width: "100%" }}
                         variant="outlined"
                         className="password-input"
                       >
@@ -293,7 +293,7 @@ const Login = () => {
                           error={touched.email && !!errors.email}
                           autoComplete="off"
                           placeholder="Enter your email"
-                          sx={{borderRadius: '8px', height:'50px'}}
+                          sx={{ borderRadius: '8px', height: '50px' }}
                           spellCheck={false}
                           endAdornment={
                             <InputAdornment position="end">
@@ -325,7 +325,7 @@ const Login = () => {
                         Password
                       </label>
                       <FormControl
-                        sx={{ m: 1, width: "43ch" }}
+                        sx={{ m: 1, width: "100%" }}
                         variant="outlined"
                         className="password-input"
                       >
@@ -334,7 +334,7 @@ const Login = () => {
                           type={showPassword ? "text" : "password"}
                           error={touched.password && !!errors.password}
                           // aria-autocomplete="off"
-                          sx={{borderRadius: '8px', height:'50px'}}
+                          sx={{ borderRadius: '8px', height: '50px' }}
                           placeholder="Enter your password"
                           name="password"
                           endAdornment={
@@ -395,14 +395,14 @@ const Login = () => {
                     <LoadingButton
                       variant="contained"
                       className="submit-button mb-2 "
-                      style={{ marginRight: "1rem", spinnerColor: "white" ,color:'white', fontSize:'16px', fontWeight:'600',height:'50px',borderRadius:'8px'}}
+                      style={{ marginRight: "1rem", spinnerColor: "white", color: 'white', fontSize: '16px', fontWeight: '600', height: '50px', borderRadius: '8px',textTransform:'capitalize' ,fontFamily:'Open Sans' }}
                       type="submit"
                       disabled={!!errors.email && !!errors.password}
                       loading={Loading}
                     >
                       {Loading ? "Adding ..." : "Login"}
                     </LoadingButton>
-                    
+
                     <Divider orientation="horizontal" flexItem className="!my-4">
                       <span className="small-text">or login with</span>
                     </Divider>
@@ -458,8 +458,8 @@ const Login = () => {
                         </Button>
                       </LoginSocialFacebook>
                     </div>
-                    <button onClick={()=>navigate('/')} className="social-button social-button-text mt-4 mb-8">
-                    Continue as Guest
+                    <button onClick={() => navigate('/')} className="social-button social-button-text mt-4 mb-8">
+                      Continue as Guest
                     </button>
                     <span className="small-text">
                       Don’t have an account?{" "}
@@ -475,7 +475,7 @@ const Login = () => {
         </div>
         <div className="w-1/2 min-h-full items-center justify-center hidden md:flex">
           <div className="bg-gray-100 rounded-lg w-full flex justify-end">
-            <img src={bg} alt="background" className="h-screen"/>
+            <img src={bg} alt="background" className="h-screen" />
           </div>
         </div>
       </div>

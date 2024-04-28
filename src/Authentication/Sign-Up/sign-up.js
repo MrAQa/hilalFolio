@@ -30,6 +30,7 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import PasswordStrengthBar from "../../Component/passwordStrengthCheck";
+import bg from '../../assets/Loginpage-section.png'
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -173,28 +174,26 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center bg-[#F2F4F7]">
         <ToastContainer />
-        <div className="w-1/2 h-100 hidden md:block">
-          <div className="bg-gray-100 h-screen rounded-lg"></div>
-        </div>
-        <div className=" w-1/2 min-h-full ">
+      
+        <div className=" w-1/2 min-h-screen bg-white flex justify-center items-center">
           {" "}
-          <div className="  rounded-lg md:overflow-auto h-[94vh] ">
+          <div className="rounded-lg py-3">
             <div className="flex justify-center mt-1">
-              <img src={imglOGO} width={120} alt="logo" />
+              <img src={imglOGO}  className="h-[44px]" alt="logo" />
             </div>
-            <div className="flex flex-col justify-center items-center mt-3 text-center ">
-              <p className="text-25 sm:text-35 Welcome-text">Create account</p>
-              <span className="small-text">Sign up to get started!</span>
+            <div className="flex flex-col justify-center items-center mt-6 text-center ">
+            <p className="Welcome-text mb-3">Welcome back!</p>
+              <span className="small-text">Welcome back! Please enter your details.</span>
               <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
               >
                 {({ touched, errors, values }) => (
-                  <Form className="max-w-sm mt-3">
-                    <div className="mb-3">
+                  <Form className="max-w-sm mt-8 w-[360px]">
+                    <div className="mb-5">
                       <label
                         htmlFor="email"
                         className="block mb-2 text-sm font-medium text-gray-900 text-start"
@@ -202,7 +201,7 @@ const SignUp = () => {
                         Email
                       </label>
                       <FormControl
-                        sx={{ m: 1, width: "43ch" }}
+                        sx={{ m: 1, width: "100%" }}
                         variant="outlined"
                         className="password-input"
                       >
@@ -212,6 +211,7 @@ const SignUp = () => {
                           autoComplete="off"
                           spellCheck={false}
                           error={touched.email && !!errors.email}
+                          sx={{ borderRadius: '8px', height: '50px' }}
                           placeholder="Enter your email"
                           endAdornment={
                             <InputAdornment position="end">
@@ -231,11 +231,11 @@ const SignUp = () => {
                         <ErrorMessage
                           name="email"
                           component="div"
-                          className={`text-red-700 text-start text-xs	`}
+                          className={`text-red-700 text-start text-xs	py-[6px]`}
                         />
                       </FormControl>
                     </div>
-                    <div className="mb-2">
+                    <div className="mb-5">
                       <label
                         htmlFor="password"
                         className="block mb-2 text-sm font-medium heading text-start"
@@ -243,16 +243,17 @@ const SignUp = () => {
                         Password
                       </label>
                       <FormControl
-                        sx={{ m: 1, width: "43ch" }}
+                        sx={{ m: 1, width: "100%" }}
                         variant="outlined"
                         className="password-input"
                       >
                         <Field
                           as={OutlinedInput}
                           type={showPassword ? "text" : "password"}
+                        
                           error={touched.password && errors.password}
                           name="password"
-                          placeholder="Enter password"
+                          placeholder="Enter your password"
                           endAdornment={
                             <InputAdornment position="end">
                               <IconButton
@@ -272,6 +273,7 @@ const SignUp = () => {
                           autoComplete="off"
                           spellCheck={false}
                           sx={{
+                            borderRadius: '8px', height: '50px',
                             borderColor:
                               touched.password && errors.password
                                 ? "red"
@@ -282,7 +284,7 @@ const SignUp = () => {
                           name="password"
                           component="div"
                           className={`text-red-700 ${touched.password && "visible"
-                            } text-start text-xs	mb-10`}
+                            } text-start text-xs py-[6px]`}
                         />
                       </FormControl>
                     </div>
@@ -292,7 +294,7 @@ const SignUp = () => {
                     )}
 
 
-                    <div className={`mb-2   `}>
+                    <div className={`mb-4`}>
                       <div className="flex justify-between cursor-pointer" onClick={() => setShowReferralCode(ShowReferralCode ? false : true)}>
                         <label
                           htmlhtmlFor="referal"
@@ -306,7 +308,7 @@ const SignUp = () => {
                       {/* <Drop_down /> */}
                       {ShowReferralCode &&
                         <FormControl
-                          sx={{ m: 1, width: "43ch" }}
+                          sx={{ m: 1, width: "100%" }}
                           variant="outlined"
                           className="password-input"
                         >
@@ -317,12 +319,13 @@ const SignUp = () => {
                             name="referalCode"
                             placeholder="Enter referral code"
                             autoComplete="off"
+                            sx={{ borderRadius: '8px', height: '50px' }}
                             spellCheck={false}
                           />
                         </FormControl>
                       }
                     </div>
-                    <div className={`flex justify-between w-full mb-4 `}>
+                    <div className={`flex justify-between w-full mb-4`}>
                       { }
                       <div className="flex">
                         <div className="flex items-center h-5">
@@ -336,13 +339,13 @@ const SignUp = () => {
                         </div>
                         <label
                           htmlFor="remember"
-                          className="ms-2 text-sm font-medium remember-information "
+                          className="ms-2 text-sm !text-left font-medium remember-information "
                         >
                           I agree to{" "}
                           <span className="forget-text">
                             terms and conditions
                           </span>{" "}
-                          & <span className="forget-text">privacy </span>policy
+                          & <span className="forget-text">privacy policy </span><br/>
                           by Hilalfolio.
                         </label>
                       </div>
@@ -355,19 +358,19 @@ const SignUp = () => {
                         errors.password &&
                         errors.email
                       }
-                      style={{ marginRight: "1rem" }}
+                      style={{ marginRight: "1rem",color: 'white', fontSize: '16px', fontWeight: '600', height: '50px', borderRadius: '8px' ,textTransform:'capitalize',fontFamily:'Open Sans' }}
                       type="submit"
                       loading={Loading}
                     >
-                      {Loading ? "Adding ..." : "Sign Up"}
+                      {Loading ? "Adding ..." : "Signup"}
                     </LoadingButton>
                     {/* <button type="submit" className="submit-button mb-2 ">
                       Sign Up
                     </button> */}
-                    <Divider orientation="horizontal" flexItem>
+                    <Divider orientation="horizontal" flexItem className="!my-4">
                       <span className="small-text">Or Sign up with </span>
                     </Divider>
-                    <div className="flex justify-center items-center space-x-4 mt-2 mb-2">
+                    <div className="flex justify-center items-center space-x-4 mt-2 mb-2 social-btn-container">
                       <LoginSocialGoogle
                         client_id={
                           "662749198952-rfvupgjdptea3k7apdjgnsch72m9e153.apps.googleusercontent.com"
@@ -418,6 +421,9 @@ const SignUp = () => {
                         </Button>
                       </LoginSocialFacebook>
                     </div>
+                    <button onClick={() => navigate('/')} className="social-button social-button-text mt-4 mb-4">
+                      Continue as Guest
+                    </button>
                     <span className="small-text mt-1">
                       Already a member?{" "}
                       <Link className="forget-text" to={"/sign-in"}>
@@ -428,6 +434,11 @@ const SignUp = () => {
                 )}
               </Formik>
             </div>
+          </div>
+        </div>
+        <div className="w-1/2 min-h-full items-center justify-center hidden md:flex">
+          <div className="bg-gray-100 rounded-lg w-full flex justify-end">
+            <img src={bg} alt="background" className="h-screen"/>
           </div>
         </div>
       </div>
