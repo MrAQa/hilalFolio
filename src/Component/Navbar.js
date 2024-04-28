@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { BellNotificationIcon, CartIcon, DeleteIcon, GreenDot, SearchIcon, SunIcon } from "../assets/custom-icon";
 import img from "../assets/image 4.png"
 import { useCartValue } from "../context/context";
-const NavBar = ({ refresh, setShowAssets, setshowPayement,searchQuery, setSearchQuery }) => {
+const NavBar = ({ refresh, setShowAssets, setshowPayement,searchQuery, setSearchQuery,setIsLoginValue }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setcartOpen] = useState(false);
@@ -65,6 +65,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement,searchQuery, setSearch
     localStorage.removeItem('user_token');
     localStorage.removeItem('user_Data');
     setIsLogedin(false);
+    setIsLoginValue(false)
     navigate('/')
   };
   const GotoCoinsSelction = () => {
@@ -205,12 +206,12 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement,searchQuery, setSearch
           </Popover.Group>
           {
             showSearch ?
-              <div className="border-lightThemeOutline border-[1px] flex rounded-lg p-3 h-10 items-center mr-4">
+              <div className="border-lightThemeOutline border-[1px] hidden lg:flex lg:flex-1  rounded-lg p-3 h-10 items-center mr-4">
                 <SearchIcon />
                 <input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search here" className="outline-none border-none px-2"/>
+                placeholder="Search here" className="outline-none border-none px-2 w-full"/>
                 <XMarkIcon 
                 onClick={clearSearch}
                 class="h-6 w-6 cursor-pointer text-gray-500" />
