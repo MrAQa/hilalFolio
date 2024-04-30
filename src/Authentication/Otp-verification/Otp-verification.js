@@ -4,6 +4,7 @@ import {
   //  Link,
   useNavigate,
   useLocation,
+  Link,
 } from "react-router-dom";
 // import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 // import * as Yup from "yup";
@@ -140,15 +141,15 @@ const OtpVerification = () => {
           <ToastContainer />{" "}
           <div className=" h-full rounded-lg flex flex-col justify-center items-center overflow-hidden">
             <div className="flex justify-center mt-1">
-              <img src={imglOGO} width={120} alt="logo" />
+              <img src={imglOGO} className="h-[44px]" alt="logo" />
             </div>
-            <div className="flex flex-col justify-center items-center mt-3 text-center ">
+            <div className="flex max-w-sm w-[360px] flex-col justify-center items-center mt-3 text-center ">
               <p className="text-35 Welcome-text">OTP Verification</p>
               <span className="small-text">
                 It was popularised in the 1960s with the release of Lorem Ipsum.
               </span>
 
-              <div className="mb-3">
+              <div className="mb-6">
                 <OtpInput
                   value={otp}
                   type="number"
@@ -168,14 +169,14 @@ const OtpVerification = () => {
               </div>
               <LoadingButton
                 variant="contained"
-                className="submit-button mb-2 "
-                style={{ marginRight: "1rem" }}
+                className="submit-button !mb-8 "
+                style={{spinnerColor: "white", color: 'white', fontSize: '16px', fontWeight: '600', height: '50px', borderRadius: '8px',textTransform:'capitalize' ,fontFamily:'Open Sans' }}
                 onClick={() => verifyOtp()}
                 loading={Loading}
               >
                 {Loading ? "Adding ..." : "Verify"}
               </LoadingButton>
-              <span className="small-text mt-1">
+              {/* <span className="small-text mt-1">
                 Resend code:{" "}
                 <div className="forget-text">
                   {" "}
@@ -190,7 +191,13 @@ const OtpVerification = () => {
                     </p>
                   )}
                 </div>
-              </span>
+              </span> */}
+              <span className="small-text !text-[#1F1F1F] !font-semibold mt-1">
+                      Remember password?{" "}
+                      <Link className="forget-text" to={"/sign-in"}>
+                        Login
+                      </Link>
+                    </span>
             </div>
           </div>
         </div>

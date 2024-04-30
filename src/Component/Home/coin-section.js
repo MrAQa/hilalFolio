@@ -7,14 +7,15 @@ import { HaramlIcon, HilalIcon, NoStatuslIcon } from "../../assets/custom-icon";
 import { LinearProgress } from "@mui/material";
 import TbaleDropDown from "./TbaleDropDown";
 // import MarketCapSection from "./MarketCapSection";
-const CoinSecton = () => {
+const CoinSecton = ({ searchQuery,isLogedin }) => {
   const [CoinsData, setCoinsData] = useState([])
+
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [selectedRank, setSelectedRank] = useState('All');
   const [selectedPercentage, setSelectedPercentage] = useState('All');
   const [isLoading, setIsLoading] = useState(false)
   const [noDataFlag, setNoDataFlag] = useState(false)
-  const [isLogedin, setIsLogedin] = useState(false);
+ 
   const statuses = ['All', 'Compliant', 'Not Compliant'];
   const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
   const percentageChange = ['All', '1h', '24h', '7d'];
@@ -43,18 +44,8 @@ const CoinSecton = () => {
     }).catch((err) => {
       console.log(err)
     })
-  }, [selectedStatus, selectedRank, selectedPercentage])
-  useEffect(() => {
+  }, [selectedStatus, selectedRank, selectedPercentage,isLogedin])
 
-    const token = localStorage.getItem('user_token');
-    if (token) {
-      setIsLogedin(true)
-
-    }
-    else {
-      setIsLogedin(false)
-    }
-  }, [])
 
 
   const headCells = [
@@ -120,6 +111,16 @@ const CoinSecton = () => {
       console.log(result)
     })
   }
+  const filteredCoins = CoinsData && Array.isArray(CoinsData) ? CoinsData.filter(item =>
+    (item.symbol && item.symbol.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (item.name && item.name.toLowerCase().includes(searchQuery.toLowerCase()))
+  ) : [];
+
+  const GotoLogin=(e)=>{
+    e.stopPropagation()
+
+    navigation('/sign-in')
+  }
   return (
     <>
       {/* <MarketCapSection/> */}
@@ -127,7 +128,7 @@ const CoinSecton = () => {
         <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
           <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-8 bg-white">
             <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-[30px]">
-            Today's Cryptocurrency Prices by Market Cap
+              Today's Cryptocurrency Prices by Market Cap
             </h2>
             <p className="text-base text-gray-600 mt-1">Your current cryptocurrency summary and activity.</p>
             <div className="py-6 flex flex-wrap gap-5">
@@ -173,14 +174,14 @@ const CoinSecton = () => {
                     </th>
                     {headCells?.map((item) => (
 
-                      (item.id === 'Status' && !isLogedin) ? null :
-                        (
-                          <th key={item.id} scope="col" className="px-0 font-semibold ">
-                            <div className={`${item?.id === 'Name' ? 'pl-14' : 'pl-6 text-center  whitespace-nowrap'}  px-6 py-5 border-y-[1px] border-[#D7D9E4]`}>
-                              {item.id}
-                            </div>
-                          </th>
-                        )
+                      // (item.id === 'Status' && !isLogedin) ? null :
+                      (
+                        <th key={item.id} scope="col" className="px-0 font-semibold ">
+                          <div className={`${item?.id === 'Name' ? 'pl-14 text-left' : 'pl-6  whitespace-nowrap'} ${item.id === 'Status' ? 'text-left' :'text-center'}  px-6 py-5 border-y-[1px] border-[#D7D9E4]`}>
+                            {item.id}
+                          </div>
+                        </th>
+                      )
                     ))}
 
                   </tr>
@@ -189,7 +190,7 @@ const CoinSecton = () => {
                 <tbody>
                   {
                     !isLoading &&
-                    CoinsData?.map((item, index) => (
+                    filteredCoins?.map((item, index) => (
 
                       <tr
                         onClick={() => viewDetail(item)}
@@ -245,43 +246,65 @@ const CoinSecton = () => {
                           </div>
                         </td>
                         {
-                          isLogedin &&
-                          <td className="px-6 py-5 text-center">
-                            {
-                              item?.shariahStatus === 'Compliant' ?
-                                <div>
-                                  <span className="flex items-center gap-[2px] text-[#098C26]">
-                                    <HilalIcon />
-                                    Halal
-                                  </span>
-                                  <div
-
-                                    className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
-                                </div>
-                                :
-                                item?.shariahStatus === 'Not Compliant' ?
+                          isLogedin ?
+                            <td className="px-6 py-5 text-center">
+                              {
+                                item?.shariahStatus === 'Compliant' ?
                                   <div>
-                                    <span className="flex items-center gap-[2px] text-[#CD0000]">
-                                      <HaramlIcon />
-                                      Haram
+                                    <span className="flex items-center gap-[2px] text-[#098C26]">
+                                      <HilalIcon />
+                                      Halal
                                     </span>
                                     <div
-                                      // onClick={viewDetail}
+
                                       className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
                                   </div>
                                   :
-                                  <div>
-                                    <span className="flex items-center gap-[2px] text-lightSecondaryText whitespace-nowrap">
-                                      <NoStatuslIcon />
-                                      No Status
-                                    </span>
-                                    <div
-                                      // onClick={viewDetail}
-                                      className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">Request Report</div>
-                                  </div>
-                            }
+                                  item?.shariahStatus === 'Not Compliant' ?
+                                    <div>
+                                      <span className="flex items-center gap-[2px] text-[#CD0000]">
+                                        <HaramlIcon />
+                                        Haram
+                                      </span>
+                                      <div
+                                        // onClick={viewDetail}
+                                        className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
+                                    </div>
+                                    :
+                                    <div>
+                                      <span className="flex items-center gap-[2px] text-lightSecondaryText whitespace-nowrap">
+                                        <NoStatuslIcon />
+                                        No Status
+                                      </span>
+                                      <div
+                                        // onClick={viewDetail}
+                                        className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">Request Report</div>
+                                    </div>
+                              }
 
-                          </td>
+                            </td>
+                            :
+                            <td className="px-6 py-5 text-center">
+                              <div
+                              onClick={GotoLogin}
+                               className="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                  <mask id="mask0_1121_33982" style={{ maskType: 'alpha' }}  maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="20">
+                                    <rect x="0.325195" width="20" height="20" fill="#D9D9D9" />
+                                  </mask>
+                                  <g mask="url(#mask0_1121_33982)">
+                                    <path d="M11.1585 17.5C10.9224 17.5 10.7245 17.4201 10.5648 17.2604C10.4051 17.1007 10.3252 16.9028 10.3252 16.6667C10.3252 16.4306 10.4051 16.2326 10.5648 16.0729C10.7245 15.9132 10.9224 15.8333 11.1585 15.8333H16.1585V4.16667H11.1585C10.9224 4.16667 10.7245 4.08681 10.5648 3.92708C10.4051 3.76736 10.3252 3.56944 10.3252 3.33333C10.3252 3.09722 10.4051 2.89931 10.5648 2.73958C10.7245 2.57986 10.9224 2.5 11.1585 2.5H16.1585C16.6169 2.5 17.0092 2.66319 17.3356 2.98958C17.662 3.31597 17.8252 3.70833 17.8252 4.16667V15.8333C17.8252 16.2917 17.662 16.684 17.3356 17.0104C17.0092 17.3368 16.6169 17.5 16.1585 17.5H11.1585ZM9.6377 10.8333H3.65853C3.42242 10.8333 3.2245 10.7535 3.06478 10.5938C2.90506 10.434 2.8252 10.2361 2.8252 10C2.8252 9.76389 2.90506 9.56597 3.06478 9.40625C3.2245 9.24653 3.42242 9.16667 3.65853 9.16667H9.6377L8.0752 7.60417C7.92242 7.45139 7.84603 7.26389 7.84603 7.04167C7.84603 6.81944 7.92242 6.625 8.0752 6.45833C8.22797 6.29167 8.42242 6.20486 8.65853 6.19792C8.89464 6.19097 9.09603 6.27083 9.2627 6.4375L12.2419 9.41667C12.4085 9.58333 12.4919 9.77778 12.4919 10C12.4919 10.2222 12.4085 10.4167 12.2419 10.5833L9.2627 13.5625C9.09603 13.7292 8.89811 13.809 8.66895 13.8021C8.43978 13.7951 8.24186 13.7083 8.0752 13.5417C7.92242 13.375 7.8495 13.1771 7.85645 12.9479C7.86339 12.7188 7.94325 12.5278 8.09603 12.375L9.6377 10.8333Z" fill="url(#paint0_linear_1121_33982)" />
+                                  </g>
+                                  <defs>
+                                    <linearGradient id="paint0_linear_1121_33982" x1="2.8252" y1="2.5" x2="21.0775" y2="4.1445" gradientUnits="userSpaceOnUse">
+                                      <stop stopColor="#7147B4" />
+                                      <stop offset="1" stopColor="#423CAC" />
+                                    </linearGradient>
+                                  </defs>
+                                </svg>
+                              <span className="text-primaryPurple text-sm font-semibold">Login To View</span>
+                              </div>
+                            </td>
                         }
 
                         <td className="px-6 py-5 text-center">

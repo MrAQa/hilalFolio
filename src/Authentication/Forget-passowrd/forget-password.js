@@ -81,10 +81,10 @@ const ForgetPassword = () => {
           {" "}
           <div className=" h-[95vh] m-4 rounded-lg flex flex-col justify-center items-center">
             <div className="flex justify-center items-center mt-1">
-              <img src={imglOGO} width={120} alt="logo" />
+              <img src={imglOGO} className="h-[44px]" alt="logo" />
             </div>
             <div className="flex flex-col justify-center items-center mt-3 text-center ">
-              <p className="text-35 Welcome-text mb-2">Forgot password</p>
+              <p className="Welcome-text mb-3">Forgot password</p>
               <span className="small-text">
                 It was popularised in the 1960s with the
                 <br /> release of Lorem Ipsum.
@@ -96,8 +96,8 @@ const ForgetPassword = () => {
                 onSubmit={onSubmit}
               >
                 {({ touched, errors }) => (
-                  <Form className="max-w-sm mt-3">
-                    <div className="mb-5">
+                  <Form className="max-w-sm w-[360px] mt-8">
+                    <div className="mb-6">
                       <label
                         htmlFor="email"
                         className="block mb-2 text-sm font-medium text-gray-900 text-start"
@@ -105,7 +105,7 @@ const ForgetPassword = () => {
                         Email
                       </label>
                       <FormControl
-                        sx={{ m: 1, width: "43ch" }}
+                        sx={{ m: 1, width: "100%" }}
                         variant="outlined"
                         className="password-input"
                       >
@@ -115,6 +115,7 @@ const ForgetPassword = () => {
                           autoComplete="off"
                           error={touched.email && !!errors.email}
                           spellCheck={false}
+                          sx={{ borderRadius: '8px', height: '50px' }}
                           placeholder="Enter your email"
                           endAdornment={
                             <InputAdornment position="end">
@@ -140,15 +141,15 @@ const ForgetPassword = () => {
                     </div>
                     <LoadingButton
                       variant="contained"
-                      className="submit-button mb-2 "
-                      style={{ marginRight: "1rem" }}
+                      className="submit-button !mb-8 "
+                      style={{spinnerColor: "white", color: 'white', fontSize: '16px', fontWeight: '600', height: '50px', borderRadius: '8px',textTransform:'capitalize' ,fontFamily:'Open Sans' }}
                       type="submit"
                       disabled={!!errors.email}
                       loading={Loading}
                     >
-                      {Loading ? "Adding ..." : "Send OTP"}
+                      {Loading ? "Adding ..." : "Submit"}
                     </LoadingButton>
-                    <span className="small-text mt-1">
+                    <span className="small-text !text-[#1F1F1F] !font-semibold mt-1">
                       Remember password?{" "}
                       <Link className="forget-text" to={"/sign-in"}>
                         Login

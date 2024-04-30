@@ -15,7 +15,7 @@ import {
   ErrorMessage,
   // useFormik
 } from "formik";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import * as Yup from "yup";
 import { url } from "../../environment";
@@ -128,11 +128,11 @@ const SignUp = () => {
           <ToastContainer />{" "}
           <div className=" m-4 rounded-lg overflow-auto h-[94vh] flex flex-col justify-center items-center mt-3 text-center">
             <div className="flex justify-center mt-1">
-              <img src={imglOGO} width={120} alt="logo" />
+            <img src={imglOGO} className="h-[44px]" alt="logo" />
             </div>
-            <div className="flex flex-col justify-center items-center mt-3 text-center ">
-              <p className="text-35 Welcome-text">Reset Password</p>
-              <span className="small-text">
+            <div className="flex max-w-sm w-[360px] flex-col justify-center items-center mt-3 text-center ">
+              <p className="Welcome-text">Reset Password</p>
+              <span className="small-text mt-3">
                 Your new password must be different from <br />
                 previous used passwords.
               </span>
@@ -143,7 +143,7 @@ const SignUp = () => {
                 onSubmit={onSubmit}
               >
                 {({ values, touched, errors }) => (
-                  <Form className="max-w-sm mt-3">
+                  <Form className="max-w-sm w-[360px] mt-8">
                     <div className="mb-2">
                       <label
                         for="password"
@@ -152,7 +152,7 @@ const SignUp = () => {
                         New password
                       </label>
                       <FormControl
-                        sx={{ m: 1, width: "43ch" }}
+                        sx={{ m: 1, width: "100%" }}
                         variant="outlined"
                         className="password-input"
                       >
@@ -198,7 +198,7 @@ const SignUp = () => {
                     </div>
                     {/* Password strength bar */}
                     <PasswordStrengthBar password={values.password} />
-                    <div className={`mb-2  `}>
+                    <div className={`mb-6`}>
                       <label
                         for="password"
                         className="block mb-2 text-sm font-medium heading text-start"
@@ -206,7 +206,7 @@ const SignUp = () => {
                         Confirm new password
                       </label>
                       <FormControl
-                        sx={{ m: 1, width: "43ch" }}
+                        sx={{ m: 1, width: "100%" }}
                         variant="outlined"
                         className="password-input"
                       >
@@ -253,7 +253,7 @@ const SignUp = () => {
                         variant="contained"
                         className="submit-button"
                         disabled={errors.confirmPassword && errors.password}
-                        style={{ marginRight: "1rem" }}
+                        style={{spinnerColor: "white", color: 'white', fontSize: '16px', fontWeight: '600', height: '50px', borderRadius: '8px',textTransform:'capitalize' ,fontFamily:'Open Sans' }}
                         type="submit"
                         loading={Loading}
                       >
@@ -263,6 +263,12 @@ const SignUp = () => {
                   </Form>
                 )}
               </Formik>
+              <span className="small-text !text-[#1F1F1F] !font-semibold mt-7">
+                      Remember password?{" "}
+                      <Link className="forget-text" to={"/sign-in"}>
+                        Login
+                      </Link>
+                    </span>
             </div>
           </div>
         </div>
