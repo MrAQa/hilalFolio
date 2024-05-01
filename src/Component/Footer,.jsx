@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 import { FacebookIcon, GooglePlusIcon, TwitterIcon } from '../assets/custom-icon'
 function Footer() {
     const quickLinks = [
-       
-      
+
+
         {
             name: 'About Us',
             href: '/about-us'
@@ -26,13 +26,13 @@ function Footer() {
             name: 'Contact',
             href: '/contact-us'
         },
-    
-      
+
+
 
     ]
     const companyLink = [
-       
-      
+
+
         {
             name: 'Privacy',
             href: '#'
@@ -49,9 +49,9 @@ function Footer() {
             name: 'FAQ',
             href: '#'
         },
-       
-    
-      
+
+
+
 
     ]
     return (
@@ -59,7 +59,7 @@ function Footer() {
             <div className="2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto">
                 <div className='flex flex-col md:flex-row gap-y-6 justify-between text-whiteGrey'>
                     <div className='space-y-6'>
-                        
+
                         <div>
                             <Link
                                 to="/"
@@ -68,11 +68,50 @@ function Footer() {
                                 <img className="w-[166px]" src={logo} alt="HilalFolio" />
                             </Link>
                         </div>
-                        <div className='leading-7 text-base font-normal max-w-48 text-lightSecondaryText'>
+                        {/* <div className='leading-7 text-base font-normal max-w-48 text-lightSecondaryText'>
                         Be sure to take a look at our Terms of Use and Privacy Policy
+                        </div> */}
+                        <div className='flex flex-wrap items-center gap-x-8 mt-8 text-gray-600 font-semibold text-base'>
+
+                            <Link
+                                to={'/'}
+                                target="_blank"
+                            >
+                                Overview
+                            </Link>
+                            <Link
+                                to={'/'}
+                                target="_blank"
+                            >
+                                Features
+                            </Link>
+                            <Link
+                                to={'/'}
+                                target="_blank"
+                            >
+                                Pricing
+                            </Link>
+                            <Link
+                                to={'/'}
+                                target="_blank"
+                            >
+                                Careers
+                            </Link>
+                            <Link
+                                to={'/'}
+                                target="_blank"
+                            >
+                                Help
+                            </Link>
+                            <Link
+                                to={'/'}
+                                target="_blank"
+                            >
+                                Privacy
+                            </Link>
                         </div>
                     </div>
-                    <div>
+                    {/* <div>
                         <div className='text-lg font-bold text-primaryDark'>
                         About
                         </div>
@@ -107,24 +146,54 @@ function Footer() {
                             }
 
                         </ul>
-                    </div>
+                    </div> */}
                     <div>
-                        <div className='text-lg font-bold text-primaryDark'>
-                        Subscribe our Newsletters
+                        <div className='text-sm font-bold text-gray-900'>
+                            Stay up to date
                         </div>
-                        <div className='flex flex-col xs:flex-row items-center gap-2 mt-8'>
-                            <input type="text" 
-                          className='p-4 w-full outline-none h-[50px] border-[1px] border-[#D7D9E4] rounded-lg bg-transparent' 
-                            placeholder='Your email'
+                        <div className='flex flex-col xs:flex-row items-center gap-2 mt-4'>
+                            <input type="text"
+                                className='p-4 w-full outline-none h-[50px] border-[1px] border-[#D7D9E4] rounded-lg bg-transparent'
+                                placeholder='Your email'
                             />
                             <button
-                             className="bg-primaryPurple w-full xs:w-28 text-white font-semibold flex justify-center items-center hover:bg-opacity-90 py-3 px-8 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
-                             >
-                               Subscribe
+                                className="bg-primaryPurple w-full xs:w-28 text-white font-semibold flex justify-center items-center hover:bg-opacity-90 py-3 px-8 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
+                            >
+                                Subscribe
                             </button>
                         </div>
 
-                        <div className='flex items-center gap-x-8 mt-8'>
+
+
+                    </div>
+                </div>
+                <div className='flex flex-col md:flex-row items-center gap-x-8 border-t-[1px] border-[#D7D9E4] mt-10 pt-8 pb-10 justify-between'>
+                    <div className='text-gray-500 text-base font-normal'>
+                        © 2024 Hilalfolio. All rights reserved
+                    </div>
+                    <div className='flex text-gray-500 text-base items-center gap-x-4'>
+                           
+                           <Link
+                               to={'/'}
+                               target="_blank"
+                           >
+                             Terms
+                           </Link>
+                           <Link
+                               to={'/'}
+                               target="_blank"
+                           >
+                               Privacy
+                           </Link>
+                           <Link
+                               to={'/'}
+                               target="_blank"
+                           >
+                              Cookies
+                           </Link>
+                          
+                       </div>
+                    <div className='flex items-center gap-x-8'>
                            
                             <Link
                                 to={'/'}
@@ -152,14 +221,7 @@ function Footer() {
                             </Link>
                            
                         </div>
-                       
-                    </div>
                 </div>
-                <div className='flex items-center gap-x-8 border-t-[1px] border-[#D7D9E4] mt-16 py-8 justify-center'>
-                            <div className='text-primaryDark text-base text-center font-semibold'>
-                            Copyrights by <span className='text-primaryPurple'>Hilalfolio @2024</span>
-                            </div>
-</div>
             </div>
         </footer>
     )

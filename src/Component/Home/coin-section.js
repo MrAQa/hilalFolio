@@ -7,7 +7,7 @@ import { HaramlIcon, HilalIcon, NoStatuslIcon } from "../../assets/custom-icon";
 import { LinearProgress } from "@mui/material";
 import TbaleDropDown from "./TbaleDropDown";
 // import MarketCapSection from "./MarketCapSection";
-const CoinSecton = ({ searchQuery,isLogedin }) => {
+const CoinSecton = ({ searchQuery, isLogedin }) => {
   const [CoinsData, setCoinsData] = useState([])
 
   const [selectedStatus, setSelectedStatus] = useState('All');
@@ -15,7 +15,7 @@ const CoinSecton = ({ searchQuery,isLogedin }) => {
   const [selectedPercentage, setSelectedPercentage] = useState('All');
   const [isLoading, setIsLoading] = useState(false)
   const [noDataFlag, setNoDataFlag] = useState(false)
- 
+
   const statuses = ['All', 'Compliant', 'Not Compliant'];
   const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
   const percentageChange = ['All', '1h', '24h', '7d'];
@@ -44,7 +44,7 @@ const CoinSecton = ({ searchQuery,isLogedin }) => {
     }).catch((err) => {
       console.log(err)
     })
-  }, [selectedStatus, selectedRank, selectedPercentage,isLogedin])
+  }, [selectedStatus, selectedRank, selectedPercentage, isLogedin])
 
 
 
@@ -116,11 +116,20 @@ const CoinSecton = ({ searchQuery,isLogedin }) => {
     (item.name && item.name.toLowerCase().includes(searchQuery.toLowerCase()))
   ) : [];
 
-  const GotoLogin=(e)=>{
+  const GotoLogin = (e) => {
     e.stopPropagation()
 
     navigation('/sign-in')
   }
+  const numberWithCommas = (number) => {
+    if (typeof (number) === "string") {
+      return parseFloat(number)?.toLocaleString()
+    }
+    else {
+
+      return number?.toLocaleString();
+    }
+  };
   return (
     <>
       {/* <MarketCapSection/> */}
@@ -177,7 +186,7 @@ const CoinSecton = ({ searchQuery,isLogedin }) => {
                       // (item.id === 'Status' && !isLogedin) ? null :
                       (
                         <th key={item.id} scope="col" className="px-0 font-semibold ">
-                          <div className={`${item?.id === 'Name' ? 'pl-14 text-left' : 'pl-6  whitespace-nowrap'} ${item.id === 'Status' ? 'text-left' :'text-center'}  px-6 py-5 border-y-[1px] border-[#D7D9E4]`}>
+                          <div className={`${item?.id === 'Name' ? 'pl-14 text-left' : 'pl-6  whitespace-nowrap'} ${item.id === 'Status' ? 'text-left' : 'text-center'}  px-6 py-5 border-y-[1px] border-[#D7D9E4]`}>
                             {item.id}
                           </div>
                         </th>
@@ -286,10 +295,10 @@ const CoinSecton = ({ searchQuery,isLogedin }) => {
                             :
                             <td className="px-6 py-5 text-center">
                               <div
-                              onClick={GotoLogin}
-                               className="flex items-center gap-1">
+                                onClick={GotoLogin}
+                                className="flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
-                                  <mask id="mask0_1121_33982" style={{ maskType: 'alpha' }}  maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="20">
+                                  <mask id="mask0_1121_33982" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="20">
                                     <rect x="0.325195" width="20" height="20" fill="#D9D9D9" />
                                   </mask>
                                   <g mask="url(#mask0_1121_33982)">
@@ -302,7 +311,7 @@ const CoinSecton = ({ searchQuery,isLogedin }) => {
                                     </linearGradient>
                                   </defs>
                                 </svg>
-                              <span className="text-primaryPurple text-sm font-semibold">Login To View</span>
+                                <span className="text-primaryPurple text-sm font-semibold">Login To View</span>
                               </div>
                             </td>
                         }
@@ -313,9 +322,13 @@ const CoinSecton = ({ searchQuery,isLogedin }) => {
                             16.38%
                           </span>
                         </td>
-                        <td className="px-6 py-5 text-center">{`$${item?.quote?.USD?.price?.toFixed(2)}`}</td>
-                        <td className="px-6 py-5 text-center">$29,732.54</td>
-                        <td className="px-6 py-5 text-center">$29,732.54</td>
+                        <td className="px-6 py-5 text-center">{`$${numberWithCommas(item?.quote?.USD?.price?.toFixed(2))}`}</td>
+                        <td className="px-6 py-5 text-center text-lightThemeSuccess">{item?.periods?.['24h']?.quote?.USD?.high !== undefined
+                          ? `$${numberWithCommas(item.periods['24h'].quote.USD.high.toFixed(2))}`
+                          : 'N/A'}</td>
+                        <td className="px-6 py-5 text-center text-lightThemeDelete"> {item?.periods?.['24h']?.quote?.USD?.high !== undefined
+                          ? `$${numberWithCommas(item.periods['24h'].quote.USD.low.toFixed(2))}`
+                          : 'N/A'}</td>
                         <td className="px-6 py-5 text-center">
                           <UpGraphGreen />
                         </td>
@@ -350,7 +363,7 @@ const CoinSecton = ({ searchQuery,isLogedin }) => {
         <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
           <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-white">
             <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
-              News
+              Latest News
             </h2>
             <div className="py-6">
               <NewCarousel />

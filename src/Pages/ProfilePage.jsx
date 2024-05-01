@@ -214,6 +214,7 @@ function Profile() {
                                                     value={userData?.fullName}
                                                     name='fullName'
                                                     onChange={handleChange}
+                                                    maxLength={30}
                                                     className='p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-transparent mt-2' placeholder='Michael Smith' type="text" />
                                             </div>
                                             <div className='text-sm font-semibold flex flex-col lg:w-1/2'>
