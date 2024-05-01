@@ -88,8 +88,8 @@ const Login = () => {
       .required("Password is required")
       .min(8, "Password must be at least 8 characters")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]+$/,
+        "Invalid password"
       ),
   });
 
@@ -399,7 +399,7 @@ const Login = () => {
                     <LoadingButton
                       variant="contained"
                       className="submit-button mb-2 "
-                      style={{ marginRight: "1rem", spinnerColor: "white", color: 'white', fontSize: '16px', fontWeight: '600', height: '50px', borderRadius: '8px',textTransform:'capitalize' ,fontFamily:'Open Sans' }}
+                      style={{ marginRight: "1rem", spinnerColor: "white", color: 'white', fontSize: '16px', fontWeight: '600', height: '50px', borderRadius: '8px', textTransform: 'capitalize', fontFamily: 'Open Sans' }}
                       type="submit"
                       disabled={!!errors.email && !!errors.password}
                       loading={Loading}

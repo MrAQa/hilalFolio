@@ -11,7 +11,7 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
   const [CoinsData, setCoinsData] = useState([])
 
   const [selectedStatus, setSelectedStatus] = useState('All');
-  const [selectedRank, setSelectedRank] = useState('All');
+  const [selectedRank, setSelectedRank] = useState('Top 10');
   const [selectedPercentage, setSelectedPercentage] = useState('All');
   const [isLoading, setIsLoading] = useState(false)
   const [noDataFlag, setNoDataFlag] = useState(false)

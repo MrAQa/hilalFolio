@@ -64,18 +64,7 @@ export default function ReportPage() {
               </div>
             </div>
           </div>
-          <div className='pt-6 markdown-container'>
-            <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6 relative">
-              <Markdown>{data?.report}</Markdown>
-              <button 
-              onClick={()=>navigate('/hilalbot')}
-              className="bg-primaryPurple whitespace-nowrap h-[50px] text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50 absolute top-8 right-8"
-                  >
-                    Ask HilalBot
-                  </button>
-            </div>
-          </div>
-          {/* <div className='pt-6'>
+          <div className='pt-6'>
             <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6">
               <h2 className="text-2xl font-semibold  text-primaryPurple sm:text-32">
               Name of the Protocol: Bitcoin
@@ -127,7 +116,19 @@ export default function ReportPage() {
 
               </div>
             </div>
-          </div> */}
+          </div>
+          <div className='pt-6 markdown-container'>
+            <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6 relative">
+              <Markdown>{data?.report}</Markdown>
+              <button 
+              onClick={()=>navigate('/hilalbot')}
+              className="bg-primaryPurple whitespace-nowrap h-[50px] text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50 absolute top-8 right-8"
+                  >
+                    Ask HilalBot
+                  </button>
+            </div>
+          </div>
+         
 
           {/* <div className='pt-6'>
             <div className='border-[2px] border-[#D7D9E4] rounded-3xl bg-white px-4 sm:px-8 py-6'>
