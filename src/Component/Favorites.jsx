@@ -103,7 +103,15 @@ function Favorites() {
   }
 
  
-  
+  const numberWithCommas = (number) => {
+    if (typeof (number) === "string") {
+      return parseFloat(number)?.toLocaleString()
+    }
+    else {
+
+      return number?.toLocaleString();
+    }
+  };
   return (
     <>
     <div className="min-h-full bg-[#F2F2F2]">
@@ -258,9 +266,13 @@ function Favorites() {
                             16.38%
                           </span>
                         </td>
-                        <td className="px-6 py-5 text-center">{`$${item?.quote?.USD?.price?.toFixed(2)}`}</td>
-                        <td className="px-6 py-5 text-center">$29,732.54</td>
-                        <td className="px-6 py-5 text-center">$29,732.54</td>
+                        <td className="px-6 py-5 text-center">{`$${numberWithCommas(item?.quote?.USD?.price?.toFixed(2))}`}</td>
+                        <td className="px-6 py-5 text-center text-lightThemeSuccess">{item?.periods?.['24h']?.quote?.USD?.high !== undefined
+                          ? `$${numberWithCommas(item.periods['24h'].quote.USD.high.toFixed(2))}`
+                          : 'N/A'}</td>
+                        <td className="px-6 py-5 text-center text-lightThemeDelete"> {item?.periods?.['24h']?.quote?.USD?.high !== undefined
+                          ? `$${numberWithCommas(item.periods['24h'].quote.USD.low.toFixed(2))}`
+                          : 'N/A'}</td>
                         <td className="px-6 py-5 text-center">
                           <UpGraphGreen />
                         </td>
