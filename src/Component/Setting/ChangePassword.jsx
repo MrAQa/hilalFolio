@@ -99,21 +99,28 @@ function ChangePassword() {
   }
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let updatedValue = value; // Initialize updatedValue with the current value
+  
+    // Remove spaces if the input field is 'password' or 'newPassword'
+    if (name === 'password' || name === 'newPassword' || name==='confirmPassword') {
+      updatedValue = value.replace(/\s/g, ''); // Remove spaces from the value
+    }
+  
     setInputData({
       ...inputData,
-      [name]: value,
+      [name]: updatedValue, // Use updatedValue instead of value
     });
-
+  
     let errorMessage = '';
     switch (name) {
       case 'password':
-        errorMessage = value ? '' : 'Please enter your current password.';
+        errorMessage = updatedValue ? '' : 'Please enter your current password.';
         break;
       case 'newPassword':
-        errorMessage = value ? '' : 'Please enter a new password.';
+        errorMessage = updatedValue ? '' : 'Please enter a new password.';
         break;
       case 'confirmPassword':
-        errorMessage = value ? (value === inputData.newPassword ? '' : 'Passwords do not match.') : 'Please confirm your new password.';
+        errorMessage = updatedValue ? (updatedValue === inputData.newPassword ? '' : 'Passwords do not match.') : 'Please confirm your new password.';
         break;
       default:
         break;
@@ -123,6 +130,7 @@ function ChangePassword() {
       [name]: errorMessage
     });
   }
+  
 
   return (
     <>
