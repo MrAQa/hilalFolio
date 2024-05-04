@@ -66,6 +66,27 @@ export const GetTrendingCoins = async () => {
     handleCatch(error)
   }
 };
+export const GetNews = async () => {
+  // const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      // 'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.get(`/cmc/news?page=1&limit=4`, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
 export const GetProfileData = async () => {
   const token = localStorage.getItem('user_token')
   try {
@@ -87,6 +108,7 @@ export const GetProfileData = async () => {
     handleCatch(error)
   }
 };
+
 export const UpdateProfileData = async (data) => {
   const token = localStorage.getItem('user_token')
   try {

@@ -325,3 +325,16 @@ line-height: 2;
 .markdown-container>div>p{
   margin-bottom: 24px;
 }
+.trending-bar-container {
+  animation: scroll 30s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

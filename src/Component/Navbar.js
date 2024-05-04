@@ -6,18 +6,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 import { BellNotificationIcon, CartIcon, DeleteIcon, GreenDot, SearchIcon, SunIcon } from "../assets/custom-icon";
-import img from "../assets/image 4.png"
-import {  useGlobalState } from "../context/context";
+// import img from "../assets/image 4.png"
+import { useGlobalState } from "../context/context";
 import TrendingBar from "./TrendingBar";
-const NavBar = ({ refresh, setShowAssets, setshowPayement,searchQuery, setSearchQuery,setIsLoginValue }) => {
+const NavBar = ({ refresh, setShowAssets, setshowPayement, searchQuery, setSearchQuery, setIsLoginValue }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setcartOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [userData, setuserData] = useState({})
   const [showSearch, setShowSearch] = useState(false)
- 
-  const {cartItem, setCartItems,isLogedin, setIsLogedin} = useGlobalState();
+
+  const { cartItem, setCartItems, isLogedin, setIsLogedin } = useGlobalState();
   const currentPath = window.location.pathname;
   useEffect(() => {
     const UserData = JSON.parse(localStorage.getItem('user_Data'))
@@ -99,22 +99,24 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement,searchQuery, setSearch
       })
     }
   }
-  const clearSearch=()=>{
+  const clearSearch = () => {
     setShowSearch(false)
     setSearchQuery('')
   }
   return (
     <>
-      {/* <div className='bg-white hidden lg:block'>
-        <div>
-          <img src={img} alt="banner" />
-        </div>
-      </div> */}
+
       <div className='bg-white hidden lg:block'>
-        <marquee width="100%" direction="right" behavior="scroll" scrollamount="3">
-          <img src={img} alt="banner" />
+
+        {/* <marquee width="100%" direction="left" behavior="scroll" scrollamount="3">
           <TrendingBar/>
-        </marquee>
+        </marquee> */}
+        <div style={{ overflow: 'hidden', width: '100%', display: 'flex', justifyContent: 'end' }}>
+          <div className="trending-bar-container">
+            <TrendingBar />
+          </div>
+        </div>
+
       </div>
       <header
         id="main-header"
@@ -207,12 +209,12 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement,searchQuery, setSearch
               <div className="border-lightThemeOutline border-[1px] hidden lg:flex lg:flex-1  rounded-lg p-3 h-10 items-center mr-4">
                 <SearchIcon />
                 <input
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search here" className="outline-none border-none px-2 w-full"/>
-                <XMarkIcon 
-                onClick={clearSearch}
-                class="h-6 w-6 cursor-pointer text-gray-500" />
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search here" className="outline-none border-none px-2 w-full" />
+                <XMarkIcon
+                  onClick={clearSearch}
+                  class="h-6 w-6 cursor-pointer text-gray-500" />
               </div>
               :
 
