@@ -17,7 +17,7 @@ function Profile() {
     const [isShowBtn, setIsShowBtn] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [userImg, setUserImg] = useState(null)
-    const [Imgfile, setImgFile] = useState(null)
+    // const [Imgfile, setImgFile] = useState(null)
     const [userData, setUserData] = useState({
         fullName: '',
         dob: '',
@@ -112,7 +112,7 @@ function Profile() {
     }
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        setImgFile(file)
+        // setImgFile(file)
         if (file) {
             // setIsShowBtn(true)
             const reader = new FileReader();

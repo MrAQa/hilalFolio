@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { GenrateReport, GetCoinData, GetReport } from '../service/service';
 import { CircularProgress } from '@mui/material';
 import { UpIconGreen } from '../assets/custom-icons';
+import { useGlobalState } from '../context/context';
 function BtcChart() {
 
     const location = useLocation();
@@ -17,7 +18,7 @@ function BtcChart() {
     const data = location.state;
     // console.log(data)
     const [activeTab, setActiveTab] = useState('Chart'); // Initial active tab
-    const [isLogedin, setIsLogedin] = useState(false);
+    const {isLogedin, setIsLogedin} = useGlobalState();
     const [Coindata, setCoinData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [refresh, setrefresh] = useState(false)

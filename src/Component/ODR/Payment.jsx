@@ -1,11 +1,12 @@
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import React, { useEffect } from 'react';
 import { DeleteIcon } from '../../assets/custom-icon';
-import { useCartValue } from '../../context/context';
+import { useGlobalState } from '../../context/context';
 
 const Payment = ({ setshowPayement }) => {
 
-    const [cartItem,setCartItems]=useCartValue();
+    // const [cartItem,setCartItems]=useCartValue();
+    const {cartItem,setCartItems} = useGlobalState();
 
     useEffect(() => {
         const cartItems = JSON.parse(localStorage.getItem('cartItems'));

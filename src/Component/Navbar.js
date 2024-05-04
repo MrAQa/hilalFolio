@@ -7,26 +7,23 @@ import { useTranslation } from 'react-i18next';
 
 import { BellNotificationIcon, CartIcon, DeleteIcon, GreenDot, SearchIcon, SunIcon } from "../assets/custom-icon";
 import img from "../assets/image 4.png"
-import { useCartValue } from "../context/context";
+import {  useGlobalState } from "../context/context";
+import TrendingBar from "./TrendingBar";
 const NavBar = ({ refresh, setShowAssets, setshowPayement,searchQuery, setSearchQuery,setIsLoginValue }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setcartOpen] = useState(false);
-  const [isLogedin, setIsLogedin] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [userData, setuserData] = useState({})
   const [showSearch, setShowSearch] = useState(false)
-  const [cartItem, setCartItems] = useCartValue();
+ 
+  const {cartItem, setCartItems,isLogedin, setIsLogedin} = useGlobalState();
   const currentPath = window.location.pathname;
   useEffect(() => {
     const UserData = JSON.parse(localStorage.getItem('user_Data'))
     const token = localStorage.getItem('user_token');
     if (token) {
-      setIsLogedin(true)
       setuserData(UserData)
-    }
-    else {
-      setIsLogedin(false)
     }
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
     setCartItems(cartItems ?? [])
@@ -116,6 +113,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement,searchQuery, setSearch
       <div className='bg-white hidden lg:block'>
         <marquee width="100%" direction="right" behavior="scroll" scrollamount="3">
           <img src={img} alt="banner" />
+          <TrendingBar/>
         </marquee>
       </div>
       <header
