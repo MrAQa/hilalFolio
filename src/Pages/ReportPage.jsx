@@ -2,13 +2,18 @@ import React, { useEffect, useState } from 'react'
 import NavBar from '../Component/Navbar'
 import Footer from '../Component/Footer,'
 import img from '../assets/bitcoin-cover.png'
+import breaks from 'remark-breaks';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Markdown from 'react-markdown'
+import Markdown from 'react-markdown';
 export default function ReportPage() {
   const location = useLocation();
   const data = location.state; // Access the data here
   // const [sections, setSections] = useState([])
   const navigate = useNavigate();
+
+  const renderers = {
+    paragraph: ({ children }) => <p>{children}</p>
+  };
   useEffect(() => {
 
     const sections = data.report.split('\n\n').filter(section => section.trim() !== '')
@@ -119,7 +124,9 @@ export default function ReportPage() {
           </div>
           <div className='pt-6 markdown-container'>
             <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6 relative">
-              <Markdown>{data?.report}</Markdown>
+              <Markdown remarkPlugins={[breaks]}>{data?.report}</Markdown>
+
+              
               <button 
               onClick={()=>navigate('/hilalbot')}
               className="bg-primaryPurple whitespace-nowrap h-[50px] text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50 absolute top-8 right-8"
