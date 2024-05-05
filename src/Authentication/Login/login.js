@@ -1,9 +1,8 @@
 import React, {
   useCallback,
   useState,
-  //  useEffect
 } from "react";
-// import axios from "axios";
+
 import {
   Formik,
   Form,
@@ -49,16 +48,16 @@ import { GetProfileData } from "../../service/service";
 import bg from '../../assets/Loginpage-section.png'
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
+import { useGlobalState } from "../../context/context";
 
 const Login = () => {
   const [Loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
   const [provider, setProvider] = useState("");
   const { param1, param2 } = useParams();
 
-  console.log(window.location.origin);
-  console.log(param2);
+  console.log(provider);
+  const { setIsLogedin } = useGlobalState();
   const onLoginStart = useCallback(() => {
     // alert("login start");
   }, []);
@@ -126,6 +125,7 @@ const Login = () => {
           navigate("/");
           setLoading(false);
           localStorage.setItem("user_token", res?.body?.token);
+          setIsLogedin(true)
           GetProfileData()
             .then((result) => {
               const data = result?.body?.user;
@@ -176,6 +176,7 @@ const Login = () => {
           navigate("/");
           setLoading(false);
           localStorage.setItem("user_token", res?.body?.token);
+          setIsLogedin(true)
           GetProfileData()
             .then((result) => {
               const data = result?.body?.user;

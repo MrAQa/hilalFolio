@@ -309,6 +309,9 @@ ul {
   .col-3-items {
     width: calc(33% - 8px);
   }
+  .payment-container .col-3-items {
+    width: calc(33% - 9px);
+  }
 }
 .markdown-container strong,
 .markdown-container h3 {
@@ -329,4 +332,17 @@ ul {
 }
 .markdown-container > div > p {
   margin-bottom: 24px;
+}
+.trending-bar-container {
+  animation: scroll 30s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }

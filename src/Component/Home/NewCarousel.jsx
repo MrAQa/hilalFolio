@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { GetNews } from '../../service/service';
 
 const NewCarousel = () => {
+    const [news , setNews] = useState([])
+    useEffect(() => {
+        GetNews().then((res)=>{
+            if(res.success){
+
+                setNews(res.body?.news);
+            }
+        }).catch((err)=>console.log(err))
+    }, []);
     const settings = {
         autoplay: true, 
         autoplaySpeed: 2500, 
@@ -25,19 +35,24 @@ const NewCarousel = () => {
 
     return (
         <Slider {...settings}>
-            <div className='md:px-3'>
+            {
+                news?.map((obj,index)=>(
+
+            <div key={index+'-item'} className='md:px-3'>
                 <img
                     className='rounded-xl h-[160px] md:h-[180px] w-full object-cover'
-                    src="https://picsum.photos/200"
+                    src={obj?.thumb}
                      alt="slide" />
                 <div className='text-base font-semibold pt-4'>
-                    Bitcoin Token ORDI Surges to New High, Top 50 Coins
+                   {obj?.title}
                 </div>
                 <div className='text-sm font-normal pt-2 text-[#747474]'>
-                    12m ago • The Block
+                    {obj?.author}
                 </div>
             </div>
-            <div className='md:px-3'>
+                ))
+            }
+            {/* <div className='md:px-3'>
                 <img
                     className='rounded-xl h-[160px] md:h-[180px] w-full object-cover'
                     src="https://picsum.photos/200"
@@ -72,7 +87,7 @@ const NewCarousel = () => {
                 <div className='text-sm font-normal pt-2 text-[#747474]'>
                     12m ago • The Block
                 </div>
-            </div>
+            </div> */}
         </Slider>
     );
 };

@@ -45,6 +45,48 @@ const handleCatch = (error) => {
   }
   throw error;
 }
+export const GetTrendingCoins = async () => {
+  // const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      // 'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.get(`/cmc/trending-recent`, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
+export const GetNews = async () => {
+  // const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      // 'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.get(`/cmc/news?page=1&limit=5`, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
 export const GetProfileData = async () => {
   const token = localStorage.getItem('user_token')
   try {
@@ -66,6 +108,7 @@ export const GetProfileData = async () => {
     handleCatch(error)
   }
 };
+
 export const UpdateProfileData = async (data) => {
   const token = localStorage.getItem('user_token')
   try {
@@ -108,8 +151,33 @@ export const UpdateProfileImage = async (imageFile) => {
     handleCatch(error);
   }
 };
+export const GetCmcSearchData = async (query) => {
+  const token = localStorage.getItem('user_token')
+  try {
 
-export const GetCmcData = async (shariahStatus, rank,percentageChange) => {
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+
+
+    };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+
+    const response = await axios.get(`/cmc/all?page=1&limit=100&search=${query}`, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
+
+export const GetCmcData = async (shariahStatus, rank, percentageChange) => {
   const token = localStorage.getItem('user_token')
   try {
 
@@ -326,11 +394,11 @@ export const GetChatHistory = async (id) => {
   }
 };
 
-export const DeleteChatHistory = async (allValue,data) => {
+export const DeleteChatHistory = async (allValue, data) => {
   const token = localStorage.getItem('user_token')
- 
- 
-  
+
+
+
   try {
 
     const headers = {
@@ -339,7 +407,7 @@ export const DeleteChatHistory = async (allValue,data) => {
       'Authorization': `Bearer ${token}`
 
     };
-    
+
     const response = await axios.put(`/chatbot/delete-chat?all=${allValue}`, data, {
       headers
     });
@@ -351,7 +419,7 @@ export const DeleteChatHistory = async (allValue,data) => {
   }
 };
 
-export const UpdateChatSubject = async (id,data) => {
+export const UpdateChatSubject = async (id, data) => {
   const token = localStorage.getItem('user_token')
   try {
 

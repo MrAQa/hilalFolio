@@ -1,58 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { UpGraphGreen, UpIconGreen } from '../../assets/custom-icons'
+import { UpGraphGreen, UpIconGreen, UpIconRed } from '../../assets/custom-icons'
 import NewCarousel from './NewCarousel'
 import { Link, useNavigate } from "react-router-dom";
-import { AddToFavorite, GetCmcData, RemoveFromFavorite } from "../../service/service";
+import { AddToFavorite, RemoveFromFavorite } from "../../service/service";
 import { HaramlIcon, HilalIcon, NoStatuslIcon } from "../../assets/custom-icon";
 import { LinearProgress } from "@mui/material";
 import TbaleDropDown from "./TbaleDropDown";
-// import MarketCapSection from "./MarketCapSection";
+import { useGlobalState } from "../../context/context";
+
 const CoinSecton = ({ searchQuery, isLogedin }) => {
-  const [CoinsData, setCoinsData] = useState([])
 
-  const [selectedStatus, setSelectedStatus] = useState('All');
-  const [selectedRank, setSelectedRank] = useState('Top 10');
-  const [selectedPercentage, setSelectedPercentage] = useState('All');
-  const [isLoading, setIsLoading] = useState(false)
-  const [noDataFlag, setNoDataFlag] = useState(false)
-
+  const { CoinsData, setCoinsData, selectedStatus, setSelectedStatus, selectedRank, setSelectedRank, selectedPercentage, setSelectedPercentage, isLoading, noDataFlag } = useGlobalState();
   const statuses = ['All', 'Compliant', 'Not Compliant'];
   const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
   const percentageChange = ['All', '1h', '24h', '7d'];
-  useEffect(() => {
-    setIsLoading(true)
-    fetchData()
 
-    const interval = setInterval(fetchData, 20000);
-
-    // Cleanup function to clear interval on component unmount
-    return () => clearInterval(interval);
-
-  }, [selectedStatus, selectedRank, selectedPercentage, isLogedin])
-
-  const fetchData = () => {
-    let number = null;
-    if (selectedRank !== 'All') {
-      number = parseInt(selectedRank.match(/\d+/)[0], 10);
-    }
-    GetCmcData(selectedStatus, number, selectedPercentage).then((result) => {
-      setIsLoading(false)
-      if (result.success) {
-
-        const sortedData = result?.body?.cmcData?.sort((a, b) => a.cmc_rank - b.cmc_rank);
-
-        setCoinsData(sortedData)
-        if (result?.body?.cmcData?.length === 0) {
-          setNoDataFlag(true)
-        }
-        else {
-          setNoDataFlag(false)
-        }
-      }
-    }).catch((err) => {
-      console.log(err)
-    })
-  }
 
   const headCells = [
 
@@ -127,15 +88,6 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
 
     navigation('/sign-in')
   }
-  const numberWithCommas = (number) => {
-    if (typeof (number) === "string") {
-      return parseFloat(number)?.toLocaleString()
-    }
-    else {
-
-      return number?.toLocaleString();
-    }
-  };
   return (
     <>
       {/* <MarketCapSection/> */}
@@ -154,7 +106,6 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
                 placeholder='Select Rank'
                 dataArray={rank}
               />
-              {/* <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">24h%</div> */}
               <TbaleDropDown
                 value={selectedPercentage}
                 onChange={setSelectedPercentage}
@@ -323,18 +274,22 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
                         }
 
                         <td className="px-6 py-5 text-center">
-                          <span className="text-lightThemeSuccess flex items-center justify-center gap-[2px]">
-                            <UpIconGreen />
-                            16.38%
+
+                          <span key={index} className={`flex items-center justify-center gap-[2px] ${item?.periods?.['24h']?.quote?.USD?.percent_change !== undefined && item.periods['24h'].quote.USD.percent_change >= 0
+                            ? 'text-lightThemeSuccess'
+                            : 'text-lightThemeDelete'
+                            }`}>
+                            {item?.periods?.['24h']?.quote?.USD?.percent_change !== undefined && item.periods['24h'].quote.USD.percent_change >= 0 ? (
+                              <UpIconGreen />
+                            ) : (
+                              <UpIconRed className="rotate-180" />
+                            )}
+                            {item?.percentChange}
                           </span>
                         </td>
-                        <td className="px-6 py-5 text-center">{`$${numberWithCommas(item?.quote?.USD?.price?.toFixed(2))}`}</td>
-                        <td className="px-6 py-5 text-center text-lightThemeSuccess">{item?.periods?.['24h']?.quote?.USD?.high !== undefined
-                          ? `$${numberWithCommas(item.periods['24h'].quote.USD.high.toFixed(2))}`
-                          : 'N/A'}</td>
-                        <td className="px-6 py-5 text-center text-lightThemeDelete"> {item?.periods?.['24h']?.quote?.USD?.high !== undefined
-                          ? `$${numberWithCommas(item.periods['24h'].quote.USD.low.toFixed(2))}`
-                          : 'N/A'}</td>
+                        <td className="px-6 py-5 text-center">{item?.formattedPrice}</td>
+                        <td className="px-6 py-5 text-center text-lightThemeSuccess">{item?.formattedHigh}</td>
+                        <td className="px-6 py-5 text-center text-lightThemeDelete"> {item?.formattedLow}</td>
                         <td className="px-6 py-5 text-center">
                           <UpGraphGreen />
                         </td>
