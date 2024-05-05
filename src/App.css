@@ -304,6 +304,9 @@ background:  linear-gradient(95deg, #7147B4 0%, #423CAC 112.53%) !important;
   .col-3-items{
     width: calc(33% - 8px);
   }
+  .payment-container  .col-3-items{
+    width: calc(33% - 9px);
+  }
 }
 .markdown-container strong,
 .markdown-container h3{
