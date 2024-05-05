@@ -151,6 +151,31 @@ export const UpdateProfileImage = async (imageFile) => {
     handleCatch(error);
   }
 };
+export const GetCmcSearchData = async (query) => {
+  const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      
+
+    };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+   
+
+    const response = await axios.get(`/cmc/all?page=1&limit=100&search=${query}`, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
 
 export const GetCmcData = async (shariahStatus, rank,percentageChange) => {
   const token = localStorage.getItem('user_token')
