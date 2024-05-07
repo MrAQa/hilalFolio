@@ -121,7 +121,7 @@ const {CoinsData, setCoinsData,selectedStatus, setSelectedStatus,selectedRank, s
             </div>
             <div className="overflow-x-auto table_parent h-[70vh]">
               <table className="w-full text-left relative">
-                <thead className="text-base text-[#747474] bg-white sticky top-[-1px]">
+                <thead className="text-base text-[#747474] bg-white sticky top-[-1px] z-10">
                   <tr>
                     {
                       isLogedin &&

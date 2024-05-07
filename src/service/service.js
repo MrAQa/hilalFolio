@@ -77,7 +77,7 @@ export const GetNews = async () => {
 
     };
 
-    const response = await axios.get(`/cmc/news?page=1&limit=4`, {
+    const response = await axios.get(`/cmc/news?page=1&limit=5`, {
       headers
     });
 

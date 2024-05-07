@@ -48,7 +48,7 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllCh
             <aside
                 id="hilalbot-sidebar"
                 className={`${sidebarOpen ? "" : "-translate-x-full"
-                    } fixed top-0 md:top-[100px] lg:top-[174px] left-0 md:left-8 z-40 w-[268px] h-full transition-transform md:translate-x-0`}
+                    } fixed top-0 md:top-[100px] lg:top-[174px] left-0 md:left-28  z-40 w-[268px] h-full transition-transform md:translate-x-0`}
                 aria-label="Sidebar"
             >
                 <div className="h-full px-4 py-4 pt-0 overflow-y-auto bg-white side-nav rounded-tr-xl rounded-br-xl text-whiteGrey relative flex flex-col style-3">
