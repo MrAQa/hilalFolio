@@ -38,7 +38,7 @@ const NewCarousel = () => {
             {
                 news?.map((obj,index)=>(
 
-            <div key={index+'-item'} className='md:px-3'>
+            <a href={`${obj?.url}`} target="_blank" rel="noopener noreferrer" key={index+'-item'} className='md:px-3'>
                 <img
                     className='rounded-xl h-[160px] md:h-[180px] w-full object-cover'
                     src={obj?.thumb}
@@ -49,7 +49,7 @@ const NewCarousel = () => {
                 <div className='text-sm font-normal pt-2 text-[#747474]'>
                     {obj?.author}
                 </div>
-            </div>
+            </a>
                 ))
             }
             {/* <div className='md:px-3'>

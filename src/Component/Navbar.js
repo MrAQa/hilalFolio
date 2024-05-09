@@ -10,7 +10,7 @@ import { BellNotificationIcon, CartIcon, DeleteIcon, GreenDot, SearchIcon, SunIc
 import { useGlobalState } from "../context/context";
 import TrendingBar from "./TrendingBar";
 import SearchModal from "./SearchModal";
-const NavBar = ({ refresh, setShowAssets, setshowPayement, searchQuery, setSearchQuery, setIsLoginValue }) => {
+const NavBar = ({ refresh, setShowAssets, setshowPayement,  setSearchQuery, }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setcartOpen] = useState(false);
@@ -28,6 +28,8 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, searchQuery, setSearc
     }
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
     setCartItems(cartItems ?? [])
+  
+// eslint-disable-next-line
   }, [refresh, cartOpen])
   const removeCoinFromCart = (coinToRemove) => {
 
@@ -63,7 +65,6 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, searchQuery, setSearc
     localStorage.removeItem('user_token');
     localStorage.removeItem('user_Data');
     setIsLogedin(false);
-    setIsLoginValue(false)
     navigate('/')
   };
   const GotoCoinsSelction = () => {
@@ -100,10 +101,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, searchQuery, setSearc
       })
     }
   }
-  const clearSearch = () => {
-    setShowSearch(false)
-    setSearchQuery('')
-  }
+ 
   return (
     <>
 
