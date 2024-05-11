@@ -13,6 +13,7 @@ export const StateProvider = ({ children }) => {
  const [isLoading, setIsLoading] = useState(false)
  const [noDataFlag, setNoDataFlag] = useState(false)
  const [isLogedin, setIsLogedin] = useState(false);
+ const [userData, setuserData] = useState({})
  useEffect(() => {
 
    const token = localStorage.getItem('user_token');
@@ -22,7 +23,9 @@ export const StateProvider = ({ children }) => {
    }
    else {
      setIsLogedin(false)
+   
    }
+ 
  }, [])
  useEffect(() => {
   setIsLoading(true)
@@ -81,7 +84,7 @@ const numberWithCommas = (number) => {
   }
 };
   return (
-    <StateContext.Provider value={{cartItem, setCartItems,CoinsData, setCoinsData,selectedStatus, setSelectedStatus,selectedRank, setSelectedRank,selectedPercentage,setSelectedPercentage,isLoading, noDataFlag,isLogedin, setIsLogedin}}>
+    <StateContext.Provider value={{cartItem, setCartItems,CoinsData, setCoinsData,selectedStatus, setSelectedStatus,selectedRank, setSelectedRank,selectedPercentage,setSelectedPercentage,isLoading, noDataFlag,isLogedin, setIsLogedin,userData,setuserData}}>
       {children}
     </StateContext.Provider>
   );

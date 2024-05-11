@@ -66,8 +66,14 @@ export const GetTrendingCoins = async () => {
     handleCatch(error)
   }
 };
-export const GetNews = async () => {
-  // const token = localStorage.getItem('user_token')
+export const GetNews = async (count) => {
+  let endpoint='';
+  if(count){
+    endpoint=`news?page=1&limit=${count}`
+  }
+  else{
+    endpoint=`news?page=1`
+  }
   try {
 
     const headers = {
@@ -77,7 +83,7 @@ export const GetNews = async () => {
 
     };
 
-    const response = await axios.get(`/cmc/news?page=1&limit=5`, {
+    const response = await axios.get(`/cmc/${endpoint}`, {
       headers
     });
 

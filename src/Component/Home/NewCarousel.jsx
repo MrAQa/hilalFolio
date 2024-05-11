@@ -7,7 +7,7 @@ import { GetNews } from '../../service/service';
 const NewCarousel = () => {
     const [news , setNews] = useState([])
     useEffect(() => {
-        GetNews().then((res)=>{
+        GetNews(5).then((res)=>{
             if(res.success){
 
                 setNews(res.body?.news);
