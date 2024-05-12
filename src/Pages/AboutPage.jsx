@@ -1,6 +1,8 @@
 import React from 'react'
 import SideBar from '../Component/Setting/SideBar'
 import NavBar from '../Component/Navbar'
+import logo from "../assets/Logo-new.png";
+
 import Footer from '../Component/Footer,'
 
 function AboutPage() {
@@ -17,14 +19,14 @@ function AboutPage() {
                             <div className='flex-1 pt-10'>
                                 <div className="border-[1px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-[#fff] h-full">
                                     <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
-                                        About HilalFolio
-                                    </h2>
+                                    <img className="h-auto  w-[200px]" src={logo} alt="Shariah" />
+                        </h2>
                                     <div className='pt-6 flex flex-col text-lg gap-4'>
 
-                                        <p>"Our Crypto App is committed to offering a halal & ethical approach to managing digital assets in accordance with Islamic principles. With a focus on transparency and integrity, we provide users with a secure platform to engage in halal cryptocurrency transactions. Whether you're seeking to invest, save, or transact, our app ensures compliance with Islamic finance principles, distinguishing between halal and haram activities.</p>
+                                        <p className='text-[#1F1F1F]-400'>"Our Crypto App is committed to offering a halal & ethical approach to managing digital assets in accordance with Islamic principles. With a focus on transparency and integrity, we provide users with a secure platform to engage in halal cryptocurrency transactions. Whether you're seeking to invest, save, or transact, our app ensures compliance with Islamic finance principles, distinguishing between halal and haram activities.</p>
                                         <p>Join us in embracing Islamic values as we revolutionize the world of digital web 3 cryptocurrency with integrity and faith-based guidance."</p>
                                         <p className='text-xl font-semibold'>
-                                            Connect With Us!
+                                        Our Socials!
                                         </p>
                                         <div className='flex gap-2'>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
