@@ -19,6 +19,7 @@ import ScrollToTopButton from "./Pages/ScrollTopButton";
 import Hilalbot from "./Pages/Hilalbot";
 import ODR from "./Pages/ODR";
 import { StateProvider } from "./context/context";
+import NewsPage from "./Pages/NewsPage";
 function App() {
   return (
     <StateProvider>
@@ -35,6 +36,7 @@ function App() {
         <Route path="/subscription" element={<PrivateRoutes><SubscriptionPage /></PrivateRoutes>} />
         <Route path="/settings" element={<PrivateRoutes><Settings /></PrivateRoutes>} />
         <Route path="/btc-chart" element={<BtcChart />} />
+        <Route path="/news" element={<NewsPage/>} />
         <Route path="/review" element={<ReportPage />} />
         <Route path="/hilalbot" element={<PrivateRoutes><Hilalbot /></PrivateRoutes>} />
         <Route path="/odr" element={<PrivateRoutes><ODR /></PrivateRoutes>} />

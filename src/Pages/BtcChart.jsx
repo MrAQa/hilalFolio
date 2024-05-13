@@ -6,7 +6,7 @@ import NewCarousel from '../Component/Home/NewCarousel';
 import Chart from '../Component/Chart';
 import Footer from '../Component/Footer,';
 import { ExpandIcon } from '../assets/custom-icon';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { GenrateReport, GetCoinData, GetReport } from '../service/service';
 import { CircularProgress } from '@mui/material';
 import { UpIconGreen } from '../assets/custom-icons';
@@ -38,9 +38,9 @@ function BtcChart() {
     };
 
     const tabData = {
-        Chart: 1,
-        News: 2,
-        Markets: 3,
+        // Chart: 1,
+        // News: 2,
+        // Markets: 3,
     };
     useEffect(() => {
         GetCoinData(data?._id).then((result) => {
@@ -98,7 +98,7 @@ function BtcChart() {
 
                     <div>
                         <div className="text-base font-semibold text-center text-gray-500  px-4 sm:px-8">
-                            <ul className="flex flex-wrap -mb-px py-4 gap-6">
+                            {/* <ul className="flex flex-wrap -mb-px py-4 gap-6">
                                 {Object.keys(tabData).map((tab) => (
                                     <li className="me-2" key={tab}>
                                         <span
@@ -113,11 +113,12 @@ function BtcChart() {
                                         </span>
                                     </li>
                                 ))}
-                            </ul>
+                            </ul> */}
                         </div>
                         <div className="tab-content mb-4">
                             {
-                                tabData[activeTab] === 1 &&
+                                // tabData[activeTab] === 1 &&
+                                true &&
                                 <>
                                     <div className='border-[2px] border-[#D7D9E4] rounded-3xl bg-white px-4 sm:px-8 py-6'>
                                         <div className='mb-6 flex justify-between'>
@@ -425,9 +426,14 @@ function BtcChart() {
                                     </div>
                                     <div className='pt-6'>
                                         <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6">
+                                            <div className='flex justify-between items-center mb-6'>
                                             <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
                                                 Latest News
                                             </h2>
+                                            <Link to='/news' className='text-base font-medium text-primaryPurple'>
+                                                See all
+                                            </Link>
+                                            </div>
                                             <div className="py-6">
                                                 <NewCarousel />
                                             </div>
@@ -437,13 +443,7 @@ function BtcChart() {
                                 </>
 
                             }
-                            {/* {
-                                tabData[activeTab] === 2 &&
-
-                                <div>
-                                    community
-                                </div>
-                            } */}
+                          
                             {
                                 tabData[activeTab] === 2 &&
 

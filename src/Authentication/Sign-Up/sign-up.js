@@ -177,7 +177,7 @@ const SignUp = () => {
       <div className="flex justify-center items-center bg-[#F2F4F7]">
         <ToastContainer />
       
-        <div className=" w-1/2 min-h-screen bg-white flex justify-center items-center">
+        <div className="w-full md:w-1/2 min-h-screen bg-white flex justify-center items-center">
           {" "}
           <div className="rounded-lg py-3">
             <div className="flex justify-center mt-1">

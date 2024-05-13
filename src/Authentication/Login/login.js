@@ -49,15 +49,13 @@ import bg from '../../assets/Loginpage-section.png'
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { useGlobalState } from "../../context/context";
-
 const Login = () => {
   const [Loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [provider, setProvider] = useState("");
   const { param1, param2 } = useParams();
 
-  console.log(provider);
-  const { setIsLogedin } = useGlobalState();
+  const { setIsLogedin, setuserData } = useGlobalState();
   const onLoginStart = useCallback(() => {
     // alert("login start");
   }, []);
@@ -130,6 +128,7 @@ const Login = () => {
             .then((result) => {
               const data = result?.body?.user;
               localStorage.setItem("user_Data", JSON.stringify(data));
+              setuserData(data)
             })
             .catch((err) => {
               console.log(err.message);
@@ -181,6 +180,7 @@ const Login = () => {
             .then((result) => {
               const data = result?.body?.user;
               localStorage.setItem("user_Data", JSON.stringify(data));
+              setuserData(data)
             })
             .catch((err) => {
               console.log(err.message);
@@ -257,9 +257,9 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex h-screen justify-center items-center">
+      <div className="flex md:h-screen justify-center items-center">
         <ToastContainer />
-        <div className="w-1/2 min-h-full flex items-center justify-center">
+        <div className="w-full md:w-1/2 min-h-full bg-white  flex items-center justify-center">
           {" "}
           <div className="m-4 rounded-lg">
             {/* <div className="relative inline-block text-left"></div> */}

@@ -7,7 +7,7 @@ import { GetNews } from '../../service/service';
 const NewCarousel = () => {
     const [news , setNews] = useState([])
     useEffect(() => {
-        GetNews().then((res)=>{
+        GetNews(5).then((res)=>{
             if(res.success){
 
                 setNews(res.body?.news);
@@ -32,13 +32,39 @@ const NewCarousel = () => {
             },
         ],
     };
-
+    const calculateTimeDifference = (inputDate) => {
+        const now = new Date();
+      
+        // Attempt to convert inputDate to a Date object
+        const targetDate = new Date(inputDate);
+        if (isNaN(targetDate)) {
+          return "Invalid date format";
+        }
+      
+        const difference = now - targetDate; // Difference in milliseconds
+      
+        const seconds = Math.floor(difference / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+      
+      
+        if (days > 0) {
+          return `${days} day${days !== 1 ? 's' : ''} ago`;
+        } else if (hours > 0) {
+          return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+        } else if (minutes > 0) {
+          return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+        } else {
+          return `${seconds} second${seconds !== 1 ? 's' : ''} ago`;
+        }
+      };
     return (
         <Slider {...settings}>
             {
                 news?.map((obj,index)=>(
 
-            <a href={`${obj?.url}`} target="_blank" rel="noopener noreferrer" key={index+'-item'} className='md:px-3'>
+            <a href={`${obj?.share_url}`} target="_blank" rel="noopener noreferrer" key={index+'-item'} className='md:px-3'>
                 <img
                     className='rounded-xl h-[160px] md:h-[180px] w-full object-cover'
                     src={obj?.thumb}
@@ -46,9 +72,13 @@ const NewCarousel = () => {
                 <div className='text-base font-semibold pt-4'>
                    {obj?.title}
                 </div>
-                <div className='text-sm font-normal pt-2 text-[#747474]'>
-                    {obj?.author}
-                </div>
+                <div className='text-sm float-left font-normal pt-2 text-[#747474]'>
+                                                            {obj?.author} <br/>
+                                                            {calculateTimeDifference(obj?.published_at?.date)}
+                                                        </div>
+                                                        <div className='text-sm  text-right font-normal pt-2 text-[#747474]'>
+                                                           Cointelegraph
+                                                        </div>
             </a>
                 ))
             }

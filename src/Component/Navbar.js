@@ -10,21 +10,22 @@ import { BellNotificationIcon, CartIcon, DeleteIcon, GreenDot, SearchIcon, SunIc
 import { useGlobalState } from "../context/context";
 import TrendingBar from "./TrendingBar";
 import SearchModal from "./SearchModal";
-const NavBar = ({ refresh, setShowAssets, setshowPayement,  setSearchQuery, }) => {
+const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setcartOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [userData, setuserData] = useState({})
   const [showSearch, setShowSearch] = useState(false)
 
-  const { cartItem, setCartItems, isLogedin, setIsLogedin } = useGlobalState();
+  const { cartItem, setCartItems, isLogedin, setIsLogedin ,userData,setuserData} = useGlobalState();
   const currentPath = window.location.pathname;
   useEffect(() => {
+    //refresh (in dependency array) is using to get latest data after updating data from settings
+
     const UserData = JSON.parse(localStorage.getItem('user_Data'))
     const token = localStorage.getItem('user_token');
     if (token) {
-      setuserData(UserData)
+    setuserData(UserData)
     }
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
     setCartItems(cartItems ?? [])
@@ -65,6 +66,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement,  setSearchQuery, }) =
     localStorage.removeItem('user_token');
     localStorage.removeItem('user_Data');
     setIsLogedin(false);
+    setuserData({})
     navigate('/')
   };
   const GotoCoinsSelction = () => {
@@ -260,20 +262,23 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement,  setSearchQuery, }) =
               }
             </div>
           </div>
-
-          <div className="relative hidden lg:flex p-2 border-[1px] border-[#D7D9E4] rounded-lg mr-4">
+          <div className="bg-[#D0D5DD] w-[1px] mr-4 h-6">
+            
+          </div>
+          <div className="relative hidden lg:flex p-2 mr-4">
             <Menu>
               {({ open }) => (
                 <>
                   <Menu.Button>
                     <div className="flex items-center justify-center gap-x-3">
-                      <div className="flex items-center">
+                      <div className="flex items-center text-base font-medium">
                         {t('Languages')}
 
                       </div>
                       {/* <div>{userData?.fullName}</div> */}
                       <div className="flex items-center">
                         <svg
+                        className="w-[16px] h-[12px]"
                           xmlns="http://www.w3.org/2000/svg"
                           width="10"
                           height="8"
@@ -350,7 +355,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement,  setSearchQuery, }) =
           </div>
           {isLogedin ? (
             <>
-              <div className="relative hidden lg:flex p-2 border-[1px] border-[#D7D9E4] rounded-lg">
+              <div className="relative hidden lg:flex p-2">
 
                 <Menu>
                   {({ open }) => (
@@ -362,16 +367,16 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement,  setSearchQuery, }) =
                               userData?.image ?
 
                                 <img
-                                  className="w-6 h-6 rounded-full object-cover"
+                                  className="w-10 h-10 rounded-full object-cover"
                                   src={userData?.image}
                                   alt="prifile icon"
                                 />
                                 :
-                                <UserCircleIcon className="h-6 w-6 text-primaryDark" />
+                                <UserCircleIcon className="h-10 w-10 text-primaryDark" />
                             }
                           </div>
                           {/* <div>{userData?.fullName}</div> */}
-                          <div className="flex items-center">
+                          {/* <div className="flex items-center">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="10"
@@ -384,7 +389,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement,  setSearchQuery, }) =
                                 fill="#0C0F14"
                               />
                             </svg>
-                          </div>
+                          </div> */}
                         </div>
                       </Menu.Button>
 
