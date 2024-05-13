@@ -68,7 +68,7 @@ const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh,isLoadingCoins}) => 
     }
     const AddToCart = () => {
         // Store selectedItems in local storage
-        const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) ?? [];
         const selectedCoins = [...cartItems, ...selectedItems];
         const updatedCoinsData = CoinsData.filter(item => !selectedCoins.some(cartItem => cartItem._id === item._id));
         localStorage.setItem('cartItems', JSON.stringify(selectedCoins));
