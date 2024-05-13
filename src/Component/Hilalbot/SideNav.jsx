@@ -106,6 +106,8 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllCh
                             </span>
                             Save chat history
                         </div>
+                        {
+                            questions.length>0 &&
                         <div
                         onClick={()=>deleteAllChat(null)}
                         className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
@@ -114,18 +116,19 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllCh
                             </span>
                             Delete all chats
                         </div>
+                        }
                         <div className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
                             <span>
                                 <ExpandIconGray />
                             </span>
                             Uptades & FAQ
                         </div>
-                        <div className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
+                        {/* <div className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
                             <span>
                                 <LogoutRedIcon />
                             </span>
                             <span className='text-[#CD0000]'>Logout</span>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </aside>
