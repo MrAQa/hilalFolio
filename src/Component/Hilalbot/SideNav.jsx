@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import logo from '../../assets/Hilalbot-logo.png'
 import { ChatIcon, DeleteIconGray, ExpandIconGray, LogoutRedIcon, RecentIcon, SaveTagIcon } from '../../assets/custom-icon';
-import { GetAllChat } from '../../service/service';
+import { GetAllChat, GetProfileData, UpdateUserSettings } from '../../service/service';
+import Switch from '@mui/material/Switch';
+import { styled } from '@mui/material/styles';
 function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllChat}) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [questions, setQuestions]=useState([]);
+    const [checked, setChecked] = useState(false);
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     };
@@ -16,9 +19,83 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllCh
                 setQuestions(response?.data?.history)
             }
         })
+        const UserSettings = JSON.parse(localStorage.getItem('user_Setting'))
+        setChecked(UserSettings?.saveChatHistory)
+        
         // eslint-disable-next-line 
     },[refresh]);
- 
+    const IOSSwitch = styled((props) => (
+        <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+    ))(({ theme }) => ({
+        width: 42,
+        height: 26,
+        padding: 0,
+        '& .MuiSwitch-switchBase': {
+            padding: 0,
+            margin: 2,
+            transitionDuration: '300ms',
+            '&.Mui-checked': {
+                transform: 'translateX(16px)',
+                color: '#fff',
+                '& + .MuiSwitch-track': {
+                    backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#7147B4',
+                    opacity: 1,
+                    border: 0,
+                },
+                '&.Mui-disabled + .MuiSwitch-track': {
+                    opacity: 0.5,
+                },
+            },
+            '&.Mui-focusVisible .MuiSwitch-thumb': {
+                color: '#33cf4d',
+                border: '6px solid #fff',
+            },
+            '&.Mui-disabled .MuiSwitch-thumb': {
+                color:
+                    theme.palette.mode === 'light'
+                        ? theme.palette.grey[100]
+                        : theme.palette.grey[600],
+            },
+            '&.Mui-disabled + .MuiSwitch-track': {
+                opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+            },
+        },
+        '& .MuiSwitch-thumb': {
+            boxSizing: 'border-box',
+            width: 22,
+            height: 22,
+        },
+        '& .MuiSwitch-track': {
+            borderRadius: 26 / 2,
+            backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+            opacity: 1,
+            transition: theme.transitions.create(['background-color'], {
+                duration: 500,
+            }),
+        },
+    }));
+    
+
+    const handleChange = (event) => {
+        setChecked(event.target.checked);
+        const data={save:event.target.checked}
+        UpdateUserSettings(data).then((result)=>{
+
+            if(result?.success){
+                GetProfileData()
+                .then((result) => {
+                  const data = result?.body?.user;
+                  localStorage.setItem("user_Data", JSON.stringify(data));
+                  const userSettings = result?.body?.userSettings;
+                  localStorage.setItem("user_Setting", JSON.stringify(userSettings));
+                })
+                .catch((err) => {
+                  console.log(err.message);
+                });
+            }
+        })
+        console.log(event.target.checked);
+    };
     return (
         <>
             <button
@@ -100,11 +177,17 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllCh
                             </span>
                             Recent chats
                         </div>
-                        <div className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
-                            <span>
+                        <div className='flex items-center justify-between gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
+                          <span className='flex items-center gap-3'>
+                        
                                 <SaveTagIcon />
-                            </span>
+                        
                             Save chat history
+                          </span>
+                            <IOSSwitch
+                              checked={checked}
+                              onChange={handleChange}
+                            />
                         </div>
                         {
                             questions.length>0 &&
