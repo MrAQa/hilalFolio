@@ -131,6 +131,8 @@ const SignUp = () => {
             .then((result) => {
               const data = result?.body?.user;
               localStorage.setItem("user_Data", JSON.stringify(data));
+              const userSettings = result?.body?.userSettings;
+              localStorage.setItem("user_Setting", JSON.stringify(userSettings));
             })
             .catch((err) => {
               console.log(err.message);

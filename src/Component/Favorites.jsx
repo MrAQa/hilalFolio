@@ -153,7 +153,7 @@ function Favorites() {
                 </div>
                 <div className="overflow-x-auto table_parent h-[70vh] ">
                   <table className="w-full text-left relative">
-                    <thead className="text-base text-[#747474] bg-white sticky top-[-1px] z-10">
+                    <thead className="text-base text-[#747474] bg-white sticky top-[-1px] z-[5]">
                       <tr>
                         {
                           isLogedin &&

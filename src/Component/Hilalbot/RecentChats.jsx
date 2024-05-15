@@ -72,12 +72,15 @@ const RecentChats = ({ deleteAllChat ,refresh,updateTitle}) => {
                 <h2 className='text-32 font-bold'>
                     Recent chats
                 </h2>
+                {
+                    questions?.length>0 &&
                 <span
                     onClick={()=>deleteAllChat(null)}
                     role='button'
                     className='text-lightThemeDelete text-sm font-medium p-3'>
                     Delete all
                 </span>
+                }
             </div>
             {
                 questions?.map((item, index) => (

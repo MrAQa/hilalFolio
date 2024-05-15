@@ -631,7 +631,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
           onClose={setcartOpen}
         >
           <div className="fixed inset-0 z-10" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 top-24 rounded-l-2xl max-h-[874px] round z-10 w-full max-w-[430px] bg-white px-6 py-6  sm:ring-1 sm:ring-gray-900/10">
+          <Dialog.Panel className="fixed inset-y-0 right-0 top-24 rounded-l-2xl max-h-[874px] round z-10 w-full max-w-[430px] bg-white px-6 py-6  sm:ring-1 sm:ring-gray-900/10 overflow-y-auto">
             <div className="flex items-baseline justify-between pb-6 border-b-[1px] border-lightThemeOutline">
               <div className="-m-1.5 p-1.5">
                 <span className='text-30 font-bold'>Order Summary</span>

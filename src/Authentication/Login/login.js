@@ -125,6 +125,8 @@ const Login = () => {
             .then((result) => {
               const data = result?.body?.user;
               localStorage.setItem("user_Data", JSON.stringify(data));
+              const userSettings = result?.body?.userSettings;
+              localStorage.setItem("user_Setting", JSON.stringify(userSettings));
               setuserData(data)
             })
             .catch((err) => {
@@ -182,6 +184,8 @@ const Login = () => {
             .then((result) => {
               const data = result?.body?.user;
               localStorage.setItem("user_Data", JSON.stringify(data));
+              const userSettings = result?.body?.userSettings;
+              localStorage.setItem("user_Setting", JSON.stringify(userSettings));
               setuserData(data)
             })
             .catch((err) => {

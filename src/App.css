@@ -283,7 +283,7 @@ ul {
   background: #4f4f4f;
 }
 .chatbot_conatiner {
-  height: calc(100vh - 136px);
+  height: calc(100vh - 144px);
   display: flex;
   flex-direction: column;
 }
@@ -345,4 +345,32 @@ ul {
   100% {
     transform: translateX(-100%);
   }
+}
+
+.form-container {
+  /* max-width: 400px; */
+  margin: 0 auto;
+  padding: 20px;
+  /* border: 1px solid #ccc; */
+  border-radius: 10px;
+  /* background-color: #f9f9f9; */
+}
+
+.card-element {
+  padding: 10px 14px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  height: 44px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: green;
+  margin-top: 10px;
 }
