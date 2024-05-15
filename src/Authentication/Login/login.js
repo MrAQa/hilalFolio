@@ -35,7 +35,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ReactComponent as DownloadIcon } from "../../assets/Logo.svg";
 import { ReactComponent as FacebookIcon } from "../../assets/Facebook.svg";
-
+import SocialPopup from './SocialPopup'
 import InputAdornment from "@mui/material/InputAdornment";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 // import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
@@ -52,7 +52,11 @@ import { useGlobalState } from "../../context/context";
 const Login = () => {
   const [Loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [provider, setProvider] = useState("");
+  let [isOpen, setIsOpen] = useState(false)
+
+  function closeModal() {
+    setIsOpen(false)
+  } const [provider, setProvider] = useState("");
   const { param1, param2 } = useParams();
 
   const { setIsLogedin, setuserData } = useGlobalState();
@@ -83,19 +87,12 @@ const Login = () => {
       .required("Email is required"),
     password: Yup.string()
       .required("Password is required")
-      .min(8, "Password must be at least 8 characters")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]+$/,
-        "Invalid password"
-      ),
   });
 
   const navigate = useNavigate();
 
   const onSubmit = (values, actions) => {
-    // Handle form submission logic here
 
-    // console.log("Form submitted with values:", values);
     submitLogin(values);
     actions.setSubmitting(false);
   };
@@ -138,6 +135,11 @@ const Login = () => {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
           });
+          if (res.socialLogin) {
+            setIsOpen(true)
+
+          }
+
           setLoading(false);
         }
       })
@@ -483,7 +485,12 @@ const Login = () => {
             <img src={bg} alt="background" className="h-screen" />
           </div>
         </div>
+        <SocialPopup
+          isOpen={isOpen}
+          closeModal={closeModal}
+        />
       </div>
+
     </>
   );
 };

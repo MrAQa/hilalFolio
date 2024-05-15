@@ -99,7 +99,7 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
             </h2>
             <p className="text-base text-gray-600 mt-1">Your current cryptocurrency summary and activity.</p>
             <div className="py-6 flex flex-wrap gap-5">
-              <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD<span className="text-[#747474]">/BTC</span></div>
+              {/* <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD<span className="text-[#747474]">/BTC</span></div> */}
               <TbaleDropDown
                 value={selectedRank}
                 onChange={setSelectedRank}
@@ -121,7 +121,7 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
             </div>
             <div className="overflow-x-auto table_parent h-[70vh]">
               <table className="w-full text-left relative">
-                <thead className="text-base text-[#747474] bg-white sticky top-[-1px] z-10">
+                <thead className="text-base text-[#747474] bg-white sticky top-[-1px]">
                   <tr>
                     {
                       isLogedin &&
