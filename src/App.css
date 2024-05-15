@@ -341,3 +341,34 @@ line-height: 2;
     transform: translateX(-100%);
   }
 }
+
+
+.form-container {
+  /* max-width: 400px; */
+  margin: 0 auto;
+  padding: 20px;
+  /* border: 1px solid #ccc; */
+  border-radius: 10px;
+  /* background-color: #f9f9f9; */
+}
+
+.card-element {
+  padding: 10px 14px;
+  border: 1px solid #D0D5DD;
+  border-radius: 8px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  height: 44px;
+}
+
+
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: green;
+  margin-top: 10px;
+}

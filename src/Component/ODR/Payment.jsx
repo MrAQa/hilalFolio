@@ -4,9 +4,13 @@ import { ApplePayIcon, DeleteIcon, MasterCardIcon, TickIconWhite } from '../../a
 import { useGlobalState } from '../../context/context';
 import PaymentPopup from './PaymentPopup';
 import { GenrateReport } from '../../service/service';
+import { Elements } from '@stripe/react-stripe-js';
+import CheckoutForm from './CheckoutForm';
+import { loadStripe } from '@stripe/stripe-js';
 
 const Payment = ({ setshowPayement }) => {
     const { cartItem, setCartItems } = useGlobalState();
+    const [clientSecret, setClientSecret] = useState("");
     console.log(cartItem);
     let [isOpen, setIsOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -24,7 +28,7 @@ const Payment = ({ setshowPayement }) => {
         }
         GenrateReport(data).then((result) => {
             console.log(result);
-           
+
             setIsLoading(false)
             if (result.success) {
                 setIsOpen(true)
@@ -61,6 +65,10 @@ const Payment = ({ setshowPayement }) => {
         }
 
     };
+    const stripePromise = loadStripe(
+        "pk_test_51PFsNB08ZDzoXpLEzP4uFGQ9hdOrLtTgmdXDOgLvMjWdYCV8Z8EGheRcZjtzXgltIQ51OiMLdozUuc8QCfaL11Vk003pbrL8J9"
+    );
+
 
     return (
         <div className="bg-[#F2F2F2]">
@@ -140,7 +148,7 @@ const Payment = ({ setshowPayement }) => {
                                 </div>
                             </div>
                             <div className='text-30 py-8 font-bold'>Card Details</div>
-                            <form>
+                            {/* <form>
                                 <div className='flex mb-6 gap-4'>
                                     <div className='flex flex-col gap-[6px] flex-1'>
                                         <label className='text-sm font-semibold' htmlFor="card-name">Name on card</label>
@@ -162,13 +170,17 @@ const Payment = ({ setshowPayement }) => {
                                     </div>
                                 </div>
                                 <button
-                                    onClick={openModal}
-                                    disabled={isLoading || cartItem.length===0}
+                                    // onClick={openModal}
+                                    onClick={handleSubmit}
+                                    disabled={isLoading || cartItem.length === 0}
                                     className="bg-primaryPurple w-full p-3 rounded-xl text-white font-semibold text-base disabled:opacity-50 h-12 flex justify-center items-center hover:opacity-90">
-                                    {isLoading? 'Loading...':'Pay $51.00'}
+                                    {isLoading ? 'Loading...' : 'Pay $51.00'}
                                 </button>
 
-                            </form>
+                            </form> */}
+                              <Elements stripe={stripePromise} >
+                <CheckoutForm />
+            </Elements>
                         </div>
                         <div className="inset-y-0 rounded-2xl max-h-[874px] round w-full max-w-[430px] overflow-y-auto bg-white px-6 py-6  sm:ring-1 sm:ring-gray-900/10">
                             <div className="flex items-baseline justify-between pb-6 border-b-[1px] border-lightThemeOutline">
@@ -257,6 +269,7 @@ const Payment = ({ setshowPayement }) => {
                     </div>
                 </div>
             </section>
+          
             <PaymentPopup
                 isOpen={isOpen}
                 closeModal={closeModal}
