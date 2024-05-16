@@ -7,13 +7,13 @@ import { GenrateReport } from '../../service/service';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 import { loadStripe } from '@stripe/stripe-js';
-
+import { url } from '../../environment';
 const Payment = ({ setshowPayement }) => {
     const { cartItem, setCartItems } = useGlobalState();
     const [clientSecret, setClientSecret] = useState("");
     console.log(cartItem);
     let [isOpen, setIsOpen] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
+    const [Total, setTotal] = useState(0)
 
     function closeModal() {
         setIsOpen(false)
@@ -40,7 +40,35 @@ const Payment = ({ setshowPayement }) => {
     useEffect(() => {
         const cartItems = JSON.parse(localStorage.getItem('cartItems'));
         setCartItems(cartItems ?? [])
+        getPaymentTotal()
+
     }, [])
+
+
+    const getPaymentTotal = (e) => {
+
+        let cartItems = JSON.parse(localStorage.getItem('cartItems'));
+        let symbols = cartItems.map((item) => item.symbol)
+        fetch(`${url}/api/payment/calculate`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                accept: "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('user_token')}`
+
+            },
+            body: JSON.stringify({
+                symbols: symbols ?? [],
+            }),
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                setTotal(res.body.total)
+            })
+            .catch((error) => {
+
+            });
+    };
     const removeCoinFromCart = (coinToRemove) => {
 
         // Ensure that coinToRemove is not null or undefined
@@ -53,15 +81,13 @@ const Payment = ({ setshowPayement }) => {
         const cartItems = JSON.parse(localStorage.getItem('cartItems'));
 
         if (cartItems) {
-
             // Filter out the item with the specified ID
             const updatedCartItems = cartItems?.filter(item => item._id !== coinToRemove._id);
 
             // Update local storage with the updated cart items
             localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-
-
             setCartItems(updatedCartItems);
+            getPaymentTotal()
         }
 
     };
@@ -179,7 +205,7 @@ const Payment = ({ setshowPayement }) => {
 
                             </form> */}
                               <Elements stripe={stripePromise} >
-                <CheckoutForm />
+                <CheckoutForm total={Total}/>
             </Elements>
                         </div>
                         <div className="inset-y-0 rounded-2xl max-h-[874px] round w-full max-w-[430px] overflow-y-auto bg-white px-6 py-6  sm:ring-1 sm:ring-gray-900/10">
@@ -259,7 +285,7 @@ const Payment = ({ setshowPayement }) => {
                                             {'Total'}
                                         </div>
                                         <div>
-                                            {'$48.09'}
+                                            {Total ? Total : 0}
                                         </div>
                                     </div>
                                 </div>

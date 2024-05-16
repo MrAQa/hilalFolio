@@ -120,6 +120,8 @@ const Login = () => {
           navigate("/");
           setLoading(false);
           localStorage.setItem("user_token", res?.body?.token);
+          localStorage.setItem('socialLogin', res.socialLogin)
+
           setIsLogedin(true)
           GetProfileData()
             .then((result) => {
@@ -179,6 +181,7 @@ const Login = () => {
           navigate("/");
           setLoading(false);
           localStorage.setItem("user_token", res?.body?.token);
+          localStorage.setItem('socialLogin', res.socialLogin)
           setIsLogedin(true)
           GetProfileData()
             .then((result) => {
@@ -491,6 +494,7 @@ const Login = () => {
         </div>
         <SocialPopup
           isOpen={isOpen}
+          setIsOpen={setIsOpen}
           closeModal={closeModal}
         />
       </div>

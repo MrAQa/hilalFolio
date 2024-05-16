@@ -94,7 +94,7 @@ function Settings() {
                                                         <span>
                                                             <LockIcon />
                                                         </span>
-                                                        Change Password
+                                                        {localStorage.getItem('socialLogin') == true ? 'Set Password': 'Change Password'}
                                                     </span>
                                                     <div>
                                                         <RightArrowDark />
