@@ -49,7 +49,7 @@ export default function CheckoutForm({ handlepayFailed, handleClose }) {
       }
       else if (paymentIntent && paymentIntent.status === "succeeded") {
 
-
+        handleClose('success')
         setIsLoading(false);
 
 

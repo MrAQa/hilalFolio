@@ -22,7 +22,7 @@ const style = {
     px: 4,
     pb: 5,
 };
-const CheckoutForm = ({ total }) => {
+const CheckoutForm = ({ total, openModal }) => {
 
     const stripe = useStripe();
 
@@ -112,7 +112,13 @@ const CheckoutForm = ({ total }) => {
         }
     };
     const handleOpenPay = () => setPayStripe(true);
-    const handleClosePay = () => setPayStripe(false);
+    const handleClosePay = (e) => {
+        setPayStripe(false); debugger
+        if (e == 'success') {
+            openModal()
+        }
+
+    };
 
 
     return (

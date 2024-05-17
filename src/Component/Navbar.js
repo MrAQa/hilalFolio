@@ -10,14 +10,16 @@ import { BellNotificationIcon, CartIcon, DeleteIcon, GreenDot, SearchIcon, SunIc
 import { useGlobalState } from "../context/context";
 import TrendingBar from "./TrendingBar";
 import SearchModal from "./SearchModal";
+import { url } from '../environment'
 const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [Total, setTotal] = useState(0);
   const [cartOpen, setcartOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [showSearch, setShowSearch] = useState(false)
 
-  const { cartItem, setCartItems, isLogedin, setIsLogedin ,userData,setuserData} = useGlobalState();
+  const { cartItem, setCartItems, isLogedin, setIsLogedin, userData, setuserData } = useGlobalState();
   const currentPath = window.location.pathname;
   useEffect(() => {
     //refresh (in dependency array) is using to get latest data after updating data from settings
@@ -25,12 +27,13 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
     const UserData = JSON.parse(localStorage.getItem('user_Data'))
     const token = localStorage.getItem('user_token');
     if (token) {
-    setuserData(UserData)
+      setuserData(UserData)
     }
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
     setCartItems(cartItems ?? [])
-  
-// eslint-disable-next-line
+    getPaymentTotal()
+
+    // eslint-disable-next-line
   }, [refresh, cartOpen])
   const removeCoinFromCart = (coinToRemove) => {
 
@@ -53,6 +56,8 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
 
 
       setCartItems(updatedCartItems);
+      getPaymentTotal()
+
     }
 
   };
@@ -103,7 +108,33 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
       })
     }
   }
- 
+
+
+  const getPaymentTotal = (e) => {
+
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    let symbols = cartItems?.map((item) => item.symbol)
+    fetch(`${url}/api/payment/calculate`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+        'Authorization': `Bearer ${localStorage.getItem('user_token')}`
+
+      },
+      body: JSON.stringify({
+        symbols: symbols ?? [],
+      }),
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        setTotal(res.body.total)
+      })
+      .catch((error) => {
+
+      });
+  };
+
   return (
     <>
 
@@ -263,7 +294,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
             </div>
           </div>
           <div className="bg-[#D0D5DD] w-[1px] mr-4 h-6">
-            
+
           </div>
           <div className="relative hidden lg:flex p-2 mr-4">
             <Menu>
@@ -278,7 +309,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
                       {/* <div>{userData?.fullName}</div> */}
                       <div className="flex items-center">
                         <svg
-                        className="w-[16px] h-[12px]"
+                          className="w-[16px] h-[12px]"
                           xmlns="http://www.w3.org/2000/svg"
                           width="10"
                           height="8"
@@ -708,7 +739,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
                     {'Total'}
                   </div>
                   <div>
-                    {'$48.09'}
+                    {Total ? Total : 0}
                   </div>
                 </div>
               </div>

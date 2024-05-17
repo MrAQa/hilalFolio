@@ -10,7 +10,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { url } from '../../environment';
 const Payment = ({ setshowPayement }) => {
     const { cartItem, setCartItems } = useGlobalState();
-    const [clientSecret, setClientSecret] = useState("");
+    const [isLoading, setIsLoading] = useState("");
     console.log(cartItem);
     let [isOpen, setIsOpen] = useState(false)
     const [Total, setTotal] = useState(0)
@@ -19,13 +19,15 @@ const Payment = ({ setshowPayement }) => {
         setIsOpen(false)
     }
 
-    function openModal(e) {
-        e.preventDefault()
+    function openModal() {
+        console.log('sssssssssssssssssssssssss')
+        // e.preventDefault()
         setIsLoading(true)
         const symbols = cartItem.map(item => item.symbol);
         const data = {
             symbols
         }
+        debugger
         GenrateReport(data).then((result) => {
             console.log(result);
 
@@ -33,8 +35,10 @@ const Payment = ({ setshowPayement }) => {
             if (result.success) {
                 setIsOpen(true)
                 setCartItems([])
+                localStorage.removeItem('cartItems')
             }
         }).catch((error) => console.log(error))
+
 
     }
     useEffect(() => {
@@ -47,8 +51,8 @@ const Payment = ({ setshowPayement }) => {
 
     const getPaymentTotal = (e) => {
 
-        let cartItems = JSON.parse(localStorage.getItem('cartItems'));
-        let symbols = cartItems.map((item) => item.symbol)
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        let symbols = cartItems?.map((item) => item.symbol)
         fetch(`${url}/api/payment/calculate`, {
             method: "POST",
             headers: {
@@ -205,7 +209,8 @@ const Payment = ({ setshowPayement }) => {
 
                             </form> */}
                               <Elements stripe={stripePromise} >
-                <CheckoutForm total={Total}/>
+                
+                <CheckoutForm total={Total} openModal={openModal}/>
             </Elements>
                         </div>
                         <div className="inset-y-0 rounded-2xl max-h-[874px] round w-full max-w-[430px] overflow-y-auto bg-white px-6 py-6  sm:ring-1 sm:ring-gray-900/10">

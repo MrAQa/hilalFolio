@@ -107,6 +107,8 @@ const ODR = () => {
                               <ReportedCoins
                                 CoinsData={reportedCoins}
                                 isLoadingCoins={isLoading}
+                                setShowAssets={setShowAssets}
+
                               />
                               :
                               <HomeODR

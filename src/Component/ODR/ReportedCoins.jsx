@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 import { Tab } from '@headlessui/react'
 import AccordianBox from './Disclosure';
 
-const ReportedCoins = ({ CoinsData, isLoadingCoins }) => {
+const ReportedCoins = ({ CoinsData, isLoadingCoins,setShowAssets }) => {
     const navigation = useNavigate();
     const [selectedItem, setSelectedItem] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
@@ -41,7 +41,11 @@ const ReportedCoins = ({ CoinsData, isLoadingCoins }) => {
 
 
     }
-
+    const GotoCoinsSelction = () => {
+     
+        setShowAssets(true)
+    
+      }
 
     return (
         <>
@@ -55,8 +59,16 @@ const ReportedCoins = ({ CoinsData, isLoadingCoins }) => {
                                     className='flex items-center gap-4 cursor-pointer'>
                                     {/* <ArrowLeftIcon className="h-6 w-6" /> */}
                                     <span className='text-30 font-bold'>Welcome To ODR</span>
+                                    
                                 </div>
-                                <div className='flex items-center border-[1px] border-lightThemeOutline h-12 w-[343px] rounded-lg px-3 py-2'>
+                                <div className='flex gap-2'>
+                                <button
+                                className="bg-primaryPurple text-white font-semibold flex justify-center items-center hover:bg-opacity-90 py-3 px-8 min-w-10  text-center rounded-lg disabled:opacity-50  z-[1]"
+                                onClick={()=>GotoCoinsSelction()}
+                            >
+                                + Add
+                            </button>
+                            <div className='flex items-center border-[1px] border-lightThemeOutline h-12 w-[343px] rounded-lg px-3 py-2'>
                                     <span>
                                         <MagnifyingGlassIcon className="h-6 w-6 text-lightThemeSecondary" />
 
@@ -67,6 +79,8 @@ const ReportedCoins = ({ CoinsData, isLoadingCoins }) => {
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                         className='outline-none h-full w-full pl-3' />
                                 </div>
+                                </div>
+                               
                             </div>
 
                             <Tab.Group>
@@ -171,7 +185,7 @@ const ReportedCoins = ({ CoinsData, isLoadingCoins }) => {
                                     </Tab.Panel>
                                 </Tab.Panels>
                             </Tab.Group>
-
+                           
 
                         </div>
                     </div>
