@@ -50,7 +50,7 @@ const CheckoutForm = ({ total, openModal }) => {
     const handlePaymentIntent = async (e) => {
         e.preventDefault()
         handleOpenPay()
-        const response = await fetch(`http://18.136.204.229:8000/api/payment/intent`, {
+        const response = await fetch(`http://54.179.193.192:8000/api/payment/intent`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
