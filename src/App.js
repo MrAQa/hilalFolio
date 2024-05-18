@@ -20,6 +20,7 @@ import Hilalbot from "./Pages/Hilalbot";
 import ODR from "./Pages/ODR";
 import { StateProvider } from "./context/context";
 import NewsPage from "./Pages/NewsPage";
+import HelpCenter from "./Pages/HelpCenter";
 function App() {
   return (
     <StateProvider>
@@ -35,6 +36,7 @@ function App() {
         <Route path="/about-us" element={<PrivateRoutes><AboutPage /></PrivateRoutes>} />
         <Route path="/subscription" element={<PrivateRoutes><SubscriptionPage /></PrivateRoutes>} />
         <Route path="/settings" element={<PrivateRoutes><Settings /></PrivateRoutes>} />
+        <Route path="/help-center" element={<PrivateRoutes><HelpCenter/></PrivateRoutes>} />
         <Route path="/btc-chart" element={<BtcChart />} />
         <Route path="/news" element={<NewsPage/>} />
         <Route path="/review" element={<ReportPage />} />

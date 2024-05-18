@@ -3,7 +3,7 @@ import React from 'react'
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import { AboutIconDark, AboutIconLight, HelpCenterIcon, LogoutRedIcon, RightArrowDark, RightArrowLight, SettingIconDark, SettingIconLight, ShareIcon, SubscriptionIconDark, SubscriptionIconLight, SunIcon } from '../../assets/custom-icon';
+import { AboutIconDark, AboutIconLight, HelpCenterIcon, HelpCenterIconLight, LogoutRedIcon, RightArrowDark, RightArrowLight, SettingIconDark, SettingIconLight, ShareIcon, SubscriptionIconDark, SubscriptionIconLight, SunIcon } from '../../assets/custom-icon';
 // import { UserCircleIcon } from '@heroicons/react/24/outline';
 import avatar from '../../assets/avatar-img.svg'
 function SideBar() {
@@ -67,19 +67,19 @@ function SideBar() {
                 </h2>
                 <div className='pt-[30px] flex flex-col sm:flex-row items-center gap-4'>
                     <span className='flex relative'>
-                       {
-                        UserData?.image ?
-                         <img
-                         className='rounded-full w-[80px] h-[80px] object-cover'
-                         src={UserData?.image}
-                         alt='avatar' />
-                         :
-                         
-                         <img
-                         className='rounded-full w-[80px] h-[80px] object-cover'
-                         src={avatar}
-                         alt='avatar' />
-                       }
+                        {
+                            UserData?.image ?
+                                <img
+                                    className='rounded-full w-[80px] h-[80px] object-cover'
+                                    src={UserData?.image}
+                                    alt='avatar' />
+                                :
+
+                                <img
+                                    className='rounded-full w-[80px] h-[80px] object-cover'
+                                    src={avatar}
+                                    alt='avatar' />
+                        }
 
                     </span>
                     <div className='text-base font-semibold text-center sm:text-left space-y-2'>
@@ -147,7 +147,7 @@ function SideBar() {
                 <div className='flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
-                          <SunIcon/>
+                            <SunIcon />
                         </span>
                         <span>Dark Mode</span>
                     </div>
@@ -178,10 +178,16 @@ function SideBar() {
                         }
                     </div>
                 </Link>
-                <div className='flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
+                <Link to="/help-center" className={`flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px] ${currentPath === '/help-center' ? 'bg-primaryPurple text-white' : ''}`}>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
-                         <HelpCenterIcon/>
+                            {
+                                currentPath === '/help-center' ?
+                                    <HelpCenterIconLight />
+                                    :
+                                    <HelpCenterIcon />
+                            }
+
                         </span>
                         <span>Help Center</span>
                     </div>
@@ -193,11 +199,11 @@ function SideBar() {
                                 <RightArrowDark />
                         }
                     </div>
-                </div>
+                </Link>
                 <div className='flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
-                          <ShareIcon/>
+                            <ShareIcon />
                         </span>
                         <span>Share with friends</span>
                     </div>
@@ -210,7 +216,7 @@ function SideBar() {
                 <div className='flex justify-between my-2 items-center px-5 py-4 '>
                     <div className='flex gap-2 text-base font-semibold'>
                         <span>
-                         <LogoutRedIcon/>
+                            <LogoutRedIcon />
                         </span>
                         <span className='text-[#CD0000]'>Logout</span>
                     </div>
