@@ -28,6 +28,7 @@ const ODR = () => {
     if (state) {
       state?.showAssets && setShowAssets(true)
       state?.showPayment && setshowPayement(true)
+     state?.symbol &&  setShowAssets(true);
     }
     // eslint-disable-next-line
   }, []);
@@ -47,17 +48,12 @@ const ODR = () => {
         const reportedCoins = sortedData.filter((item) => item.reportGenerated)
         console.log(reportedCoins);
         setReportedCoins(reportedCoins)
-        // if (result?.body?.cmcData?.length === 0) {
-        //   setNoDataFlag(true)
-        // }
-        // else {
-        //   setNoDataFlag(false)
-        // }
+        
       }
     }).catch((err) => {
       console.log(err)
     })
-  }, [selectedStatus, selectedRank, selectedPercentage])
+  }, [selectedStatus, selectedRank, selectedPercentage ,refresh])
   return (
     <>
       <div className="min-h-full bg-[#F2F2F2]">
@@ -70,6 +66,7 @@ const ODR = () => {
           showPayement ?
             <Payment
               setshowPayement={setshowPayement}
+              setReresh={setReresh}
             />
             :
             <>

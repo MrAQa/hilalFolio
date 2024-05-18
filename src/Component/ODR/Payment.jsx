@@ -8,9 +8,10 @@ import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 import { loadStripe } from '@stripe/stripe-js';
 import { url } from '../../environment';
-const Payment = ({ setshowPayement }) => {
+import FullPageLoader from '../../assets/FullpageLoader/FullpageLoader';
+const Payment = ({ setshowPayement,setReresh }) => {
     const { cartItem, setCartItems } = useGlobalState();
-    const [isLoading, setIsLoading] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     console.log(cartItem);
     let [isOpen, setIsOpen] = useState(false)
     const [Total, setTotal] = useState(0)
@@ -20,14 +21,13 @@ const Payment = ({ setshowPayement }) => {
     }
 
     function openModal() {
-        console.log('sssssssssssssssssssssssss')
         // e.preventDefault()
         setIsLoading(true)
         const symbols = cartItem.map(item => item.symbol);
         const data = {
             symbols
         }
-        debugger
+      
         GenrateReport(data).then((result) => {
             console.log(result);
 
@@ -101,6 +101,11 @@ const Payment = ({ setshowPayement }) => {
 
 
     return (
+        <>
+        {
+            isLoading && 
+            <FullPageLoader/>
+        }
         <div className="bg-[#F2F2F2]">
             <section className='pt-6 sm:pt-8'>
                 <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
@@ -305,8 +310,10 @@ const Payment = ({ setshowPayement }) => {
                 isOpen={isOpen}
                 closeModal={closeModal}
                 setshowPayement={setshowPayement}
+                setReresh={setReresh}
             />
         </div>
+        </>
     );
 }
 

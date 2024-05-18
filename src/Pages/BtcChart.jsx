@@ -11,6 +11,7 @@ import { GenrateReport, GetCoinData, GetReport } from '../service/service';
 import { CircularProgress } from '@mui/material';
 import { UpIconGreen } from '../assets/custom-icons';
 import { useGlobalState } from '../context/context';
+import { symbol } from 'prop-types';
 function BtcChart() {
 
     const location = useLocation();
@@ -65,15 +66,19 @@ function BtcChart() {
     const handleRequestReview = () => {
         if (isLogedin) {
 
-            setIsLoading(true)
-            const data = {
-                symbols: [Coindata?.symbol]
+            // setIsLoading(true)
+           const data = {
+                symbol: Coindata?.symbol
             }
-            GenrateReport(data).then((result) => {
-                console.log(result);
-                setIsLoading(false)
-                setrefresh(prev => !prev)
-            })
+            navigation('/odr',{ state: data })
+            // const data = {
+            //     symbols: [Coindata?.symbol]
+            // }
+            // GenrateReport(data).then((result) => {
+            //     console.log(result);
+            //     setIsLoading(false)
+            //     setrefresh(prev => !prev)
+            // })
         }
         else {
             navigation('/sign-in')
@@ -154,7 +159,7 @@ function BtcChart() {
                                                         <button
                                                             disabled={isLoading}
                                                             onClick={handleRequestReview}
-                                                            className="bg-primaryPurple h-10 text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
+                                                            className={`${isLoading?  'bg-[#7147B4]':'bg-primaryPurple' } h-10 text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:bg-opacity-50  z-[1]`}
                                                         >
                                                             {
                                                                 isLoading ?
