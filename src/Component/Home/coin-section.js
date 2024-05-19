@@ -287,7 +287,7 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
                             ) : (
                               <UpIconRed className="rotate-180" />
                             )}
-                            {item?.percentChange}
+                            {item?.percentChange?.replace('-', '')}
                           </span>
                         </td>
                         <td className="px-6 py-5 text-center">{item?.formattedPrice}</td>
