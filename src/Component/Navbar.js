@@ -549,16 +549,16 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
                     Home
                   </Link>
                   <Link
-                    to="/hilalbot"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    HilalBot
-                  </Link>
-                  <Link
                     to=''
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     ODR
+                  </Link>
+                  <Link
+                    to="/hilalbot"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    HilalBot
                   </Link>
                   <Link
                     to=''
