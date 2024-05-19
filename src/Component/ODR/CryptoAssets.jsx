@@ -5,10 +5,9 @@ import { GetCoinData, GetReport } from '../../service/service';
 import { useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import { ToastContainer, toast } from "react-toastify";
-const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh,isLoadingCoins}) => {
+const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh,isLoadingCoins ,selectedItems, setSelectedItems,selectedItem, handleItemClick}) => {
     const navigation = useNavigate();
-    const [selectedItems, setSelectedItems] = useState([]);
-    const [selectedItem, setSelectedItem] = useState(null);
+   
     const [isLoading, setIsLoading] = useState(false)
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredCoins,setFilteredCoins]= useState([]);
@@ -33,18 +32,7 @@ const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh,isLoadingCoins}) => 
         }
     }, [CoinsData,searchQuery]);
     
-    const handleItemClick = (item) => {
-        
-        setSelectedItem(item);
-       if(!item.reportGenerated){
-        const isSelected = selectedItems.includes(item);
-        if (isSelected) {
-            setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item)); // Remove item from selectedItems
-        } else {
-            setSelectedItems([...selectedItems, item]); // Add item to selectedItems
-        }
-       }
-    };
+  
     const handleViewReport = (data) => {
         let Coindata = {};
         setIsLoading(true)

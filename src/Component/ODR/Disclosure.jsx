@@ -1,7 +1,7 @@
 import { Disclosure } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { CircularProgress } from '@mui/material';
-import { useState } from 'react';
+
 
 export default function AccordianBox({ CoinsData, isLoadingCoins }) {
 

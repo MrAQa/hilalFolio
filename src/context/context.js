@@ -84,7 +84,7 @@ const numberWithCommas = (number) => {
   }
 };
   return (
-    <StateContext.Provider value={{cartItem, setCartItems,CoinsData, setCoinsData,selectedStatus, setSelectedStatus,selectedRank, setSelectedRank,selectedPercentage,setSelectedPercentage,isLoading, noDataFlag,isLogedin, setIsLogedin,userData,setuserData}}>
+    <StateContext.Provider value={{cartItem, setCartItems,CoinsData, setCoinsData,selectedStatus, setSelectedStatus,selectedRank, setSelectedRank,selectedPercentage,setSelectedPercentage,isLoading, noDataFlag,isLogedin, setIsLogedin,userData,setuserData ,fetchData}}>
       {children}
     </StateContext.Provider>
   );

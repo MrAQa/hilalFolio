@@ -511,3 +511,24 @@ export const UpdateUserSettings = async (data) => {
     handleCatch(error)
   }
 };
+export const GetAllFAQ= async () => {
+  const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.get(`/FAQ`, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};

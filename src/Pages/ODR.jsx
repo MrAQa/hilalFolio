@@ -18,7 +18,8 @@ const ODR = () => {
   const [reportedCoins, setReportedCoins] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
   const [showPayement, setshowPayement] = useState(false)
-  // const [noDataFlag, setNoDataFlag] = useState(false)
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
   const [refresh, setReresh] = useState(false)
   const { state } = useLocation();
   const selectedStatus = 'All';
@@ -28,6 +29,7 @@ const ODR = () => {
     if (state) {
       state?.showAssets && setShowAssets(true)
       state?.showPayment && setshowPayement(true)
+     state?.symbol &&  setShowAssets(true);
     }
     // eslint-disable-next-line
   }, []);
@@ -44,20 +46,32 @@ const ODR = () => {
         const sortedData = result?.body?.cmcData?.sort((a, b) => a.cmc_rank - b.cmc_rank);
 
         setCoinsData(sortedData)
+        if(state?.symbol){
+          const selectedItem = sortedData.find((item)=> item.symbol=== state?.symbol);
+          handleItemClick(selectedItem);
+        }
         const reportedCoins = sortedData.filter((item) => item.reportGenerated)
-        console.log(reportedCoins);
+       
         setReportedCoins(reportedCoins)
-        // if (result?.body?.cmcData?.length === 0) {
-        //   setNoDataFlag(true)
-        // }
-        // else {
-        //   setNoDataFlag(false)
-        // }
+        
       }
     }).catch((err) => {
       console.log(err)
     })
-  }, [selectedStatus, selectedRank, selectedPercentage])
+  }, [selectedStatus, selectedRank, selectedPercentage ,refresh])
+
+  const handleItemClick = (item) => {
+        
+    setSelectedItem(item);
+   if(!item.reportGenerated){
+    const isSelected = selectedItems.includes(item);
+    if (isSelected) {
+        setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item)); // Remove item from selectedItems
+    } else {
+        setSelectedItems([...selectedItems, item]); // Add item to selectedItems
+    }
+   }
+};
   return (
     <>
       <div className="min-h-full bg-[#F2F2F2]">
@@ -70,6 +84,7 @@ const ODR = () => {
           showPayement ?
             <Payment
               setshowPayement={setshowPayement}
+              setReresh={setReresh}
             />
             :
             <>
@@ -80,6 +95,10 @@ const ODR = () => {
                     CoinsData={CoinsData}
                     setReresh={setReresh}
                     isLoadingCoins={isLoading}
+                    selectedItems={selectedItems}
+                     setSelectedItems={setSelectedItems}
+                     selectedItem={selectedItem}
+                     handleItemClick={handleItemClick}
                   />
                   :
                   <>

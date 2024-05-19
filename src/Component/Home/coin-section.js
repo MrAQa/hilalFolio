@@ -6,14 +6,17 @@ import { HaramlIcon, HilalIcon, NoStatuslIcon } from "../../assets/custom-icon";
 import { LinearProgress } from "@mui/material";
 import TbaleDropDown from "./TbaleDropDown";
 import { useGlobalState } from "../../context/context";
+import { useEffect } from 'react';
 
 const CoinSecton = ({ searchQuery, isLogedin }) => {
 
-  const { CoinsData, setCoinsData, selectedStatus, setSelectedStatus, selectedRank, setSelectedRank, selectedPercentage, setSelectedPercentage, isLoading, noDataFlag } = useGlobalState();
+  const { CoinsData, setCoinsData, selectedStatus, setSelectedStatus, selectedRank, setSelectedRank, selectedPercentage, setSelectedPercentage, isLoading, noDataFlag, fetchData } = useGlobalState();
   const statuses = ['All', 'Compliant', 'Not Compliant'];
   const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
   const percentageChange = ['All', '1h', '24h', '7d'];
-
+  useEffect(() => {
+    fetchData(); //fetch latest data
+  }, []);
 
   const headCells = [
 
@@ -121,7 +124,7 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
             </div>
             <div className="overflow-x-auto table_parent h-[70vh]">
               <table className="w-full text-left relative">
-                <thead className="text-base text-[#747474] bg-white sticky top-[-1px]">
+                <thead className="text-base text-[#747474] bg-white sticky top-[-1px] z-[1]">
                   <tr>
                     {
                       isLogedin &&

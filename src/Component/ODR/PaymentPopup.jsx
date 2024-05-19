@@ -1,12 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import { useNavigate } from 'react-router-dom';
 
-export default function PaymentPopup({ isOpen, closeModal ,setshowPayement}) {
+export default function PaymentPopup({ isOpen, closeModal ,setshowPayement,setReresh}) {
 
-    const navigate = useNavigate();
     const handleLogout = () => {
         setshowPayement(false)
+        setReresh(prev=>!prev)
     }
     return (
         <>
