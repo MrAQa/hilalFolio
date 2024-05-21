@@ -15,8 +15,8 @@ import { useGlobalState } from '../context/context';
 function Favorites() {
   const [CoinsData, setCoinsData] = useState([])
   const [selectedStatus, setSelectedStatus] = useState('All');
-  const [selectedRank, setSelectedRank] = useState('All');
-  const [selectedPercentage, setSelectedPercentage] = useState('All');
+  const [selectedRank, setSelectedRank] = useState('Top 10');
+  const [selectedPercentage, setSelectedPercentage] = useState('24h');
   const [isLoading, setIsLoading] = useState(false)
   const [noDataFlag, setNoDataFlag] = useState(false)
   const { isLogedin } = useGlobalState();
@@ -122,14 +122,14 @@ function Favorites() {
       <div className="min-h-full bg-[#F2F2F2]">
         <NavBar />
         <div className="bg-[#F2F2F2]">
-          
+
           <section className='pt-6 sm:pt-8'>
             <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
               <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-white">
-              <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-[30px]">
-              My Favorites
-            </h2>
-            <p className="text-base text-gray-600 mt-1">Your current cryptocurrency summary and activity.</p>
+                <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-[30px]">
+                  My Favorites
+                </h2>
+                <p className="text-base text-gray-600 mt-1">Your current cryptocurrency summary and activity.</p>
                 <div className="py-5 flex flex-wrap gap-5">
                   <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD<span className="text-[#747474]">/BTC</span></div>
                   <TbaleDropDown
@@ -272,7 +272,7 @@ function Favorites() {
                                 : 'text-lightThemeDelete'
                                 }`}>
                                 {item?.periods?.['24h']?.quote?.USD?.percent_change !== undefined && item.periods['24h'].quote.USD.percent_change >= 0 ? (
-                                  <UpIconGreen/>
+                                  <UpIconGreen />
                                 ) : (
                                   <UpIconRed className="rotate-180" />
                                 )}
@@ -283,7 +283,8 @@ function Favorites() {
                             <td className="px-6 py-5 text-center text-lightThemeSuccess">{item?.formattedHigh}</td>
                             <td className="px-6 py-5 text-center text-lightThemeDelete"> {item?.formattedLow}</td>
                             <td className="px-6 py-5 text-center">
-                              <UpGraphGreen />
+                              {/* <UpGraphGreen /> */}
+                              <img src={item?.graph} alt="graph" width={56} />
                             </td>
                           </tr>
                         ))

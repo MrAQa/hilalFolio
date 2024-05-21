@@ -18,6 +18,8 @@ const Payment = ({ setshowPayement,setReresh }) => {
 
     function closeModal() {
         setIsOpen(false)
+        setshowPayement(false)
+        setReresh(prev=>!prev)
     }
 
     function openModal() {

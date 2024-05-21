@@ -9,7 +9,7 @@ import { useGlobalState } from "../../context/context";
 import { useEffect } from 'react';
 
 const CoinSecton = ({ searchQuery, isLogedin }) => {
-
+  
   const { CoinsData, setCoinsData, selectedStatus, setSelectedStatus, selectedRank, setSelectedRank, selectedPercentage, setSelectedPercentage, isLoading, noDataFlag, fetchData } = useGlobalState();
   const statuses = ['All', 'Compliant', 'Not Compliant'];
   const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
@@ -91,6 +91,11 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
 
     navigation('/sign-in')
   }
+  const handleClick = () => {
+    if (!isLogedin) {
+      navigation('/sign-in');
+    }
+  };
   return (
     <>
       {/* <MarketCapSection/> */}
@@ -115,12 +120,15 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
                 placeholder='Percentage'
                 dataArray={percentageChange}
               />
-              <TbaleDropDown
-                value={selectedStatus}
-                onChange={setSelectedStatus}
-                placeholder='Shariah Status'
-                dataArray={statuses}
-              />
+              <div onClick={handleClick}>
+                <TbaleDropDown
+                  value={selectedStatus}
+                  onChange={setSelectedStatus}
+                  placeholder="Shariah Status"
+                  dataArray={statuses}
+                />
+              </div>
+
             </div>
             <div className="overflow-x-auto table_parent h-[70vh]">
               <table className="w-full text-left relative">
@@ -294,7 +302,8 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
                         <td className="px-6 py-5 text-center text-lightThemeSuccess">{item?.formattedHigh}</td>
                         <td className="px-6 py-5 text-center text-lightThemeDelete"> {item?.formattedLow}</td>
                         <td className="px-6 py-5 text-center">
-                          <UpGraphGreen />
+                          {/* <UpGraphGreen /> */}
+                          <img src={item?.graph} alt="graph" width={56} />
                         </td>
                       </tr>
                     ))
