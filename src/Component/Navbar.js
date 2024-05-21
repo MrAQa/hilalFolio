@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { BellNotificationIcon, CartIcon, DeleteIcon, GreenDot, SearchIcon, SunIcon } from "../assets/custom-icon";
 // import img from "../assets/image 4.png"
 import { useGlobalState } from "../context/context";
-import TrendingBar from "./TrendingBar";
+// import TrendingBar from "./TrendingBar";
 import SearchModal from "./SearchModal";
 import { url } from '../environment'
 const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
@@ -138,18 +138,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
   return (
     <>
 
-      <div className='bg-white hidden lg:block'>
-
-        {/* <marquee width="100%" direction="left" behavior="scroll" scrollamount="3">
-          <TrendingBar/>
-        </marquee> */}
-        <div style={{ overflow: 'hidden', width: '100%', display: 'flex', justifyContent: 'end' }}>
-          <div className="trending-bar-container">
-            <TrendingBar />
-          </div>
-        </div>
-
-      </div>
+  
       <header
         id="main-header"
         className={`bg-white border-y-[1px] border-[#D7D9E4] ${!mobileMenuOpen && "z-50"
