@@ -23,7 +23,9 @@ function HelpCenter() {
                                             <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
                                                 FAQ's
                                             </h2>
-                                           <FAQAccordian/>
+                                           <FAQAccordian
+                                           FaqType={'hilalfolio'}
+                                           />
 
 
                                         </div>

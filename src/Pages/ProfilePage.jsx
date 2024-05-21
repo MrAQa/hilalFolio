@@ -57,11 +57,19 @@ function Profile() {
   };
   const handleChange = (event) => {
     const { name, value } = event.target;
-
-    setUserData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    if (name === 'fullName') {
+      const alphabeticValue = value.replace(/[^a-zA-Z\s]/g, '');
+      setUserData((prevData) => ({
+        ...prevData,
+        [name]: alphabeticValue,
+      }));
+    }
+    else {
+      setUserData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
 
     setIsShowBtn(true);
   };
@@ -242,20 +250,28 @@ function Profile() {
                         />
                       </div>
                       <div className="text-sm font-semibold flex flex-col lg:w-1/2">
-                        {/* <label htmlFor="">User Name</label>
-                                                <input
-                                                    defaultValue={userData?.fullName}
-                                                    readOnly
-                                                    className='p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-transparent mt-2' placeholder='@MichaelSmith2140' type="text" /> */}
                         <label htmlFor="">{`Gender (Optional)`}</label>
-                        <input
+                        {/* <input
                           value={userData?.gender}
                           onChange={handleChange}
                           name="gender"
                           className="p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-transparent mt-2"
                           placeholder="Male"
                           type="text"
-                        />
+                        /> */}
+                        <div className="p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-transparent mt-2">
+
+                        <select
+                          value={userData?.gender}
+                          onChange={handleChange}
+                          name="gender"
+                          className="outline-none  rounded-lg bg-transparent w-full"
+                        >
+                          <option value="">Select Gender</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
+                        </div>
                       </div>
                     </div>
                     <div className="pt-6 flex flex-col lg:flex-row gap-5">

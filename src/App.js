@@ -22,6 +22,7 @@ import { StateProvider } from "./context/context";
 import NewsPage from "./Pages/NewsPage";
 import HelpCenter from "./Pages/HelpCenter";
 import TrendingBar from "./Component/TrendingBar";
+import FAQ from "./Component/Hilalbot/FAQ";
 function App() {
   const location = useLocation();
   const currentPath = location.pathname;
@@ -56,6 +57,7 @@ function App() {
           <Route path="/btc-chart" element={<BtcChart />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/review" element={<ReportPage />} />
+          <Route path="/faq" element={<FAQ/>} />
           <Route path="/hilalbot" element={<PrivateRoutes><Hilalbot /></PrivateRoutes>} />
           <Route path="/odr" element={<PrivateRoutes><ODR /></PrivateRoutes>} />
 

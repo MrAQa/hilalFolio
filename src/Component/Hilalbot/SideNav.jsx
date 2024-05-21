@@ -4,6 +4,7 @@ import { ChatIcon, DeleteIconGray, ExpandIconGray, LogoutRedIcon, RecentIcon, Sa
 import { GetAllChat, GetProfileData, UpdateUserSettings } from '../../service/service';
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllChat}) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [questions, setQuestions]=useState([]);
@@ -200,12 +201,12 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllCh
                             Delete all chats
                         </div>
                         }
-                        <div className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
+                        <Link to='/faq' className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
                             <span>
                                 <ExpandIconGray />
                             </span>
                             Uptades & FAQ
-                        </div>
+                        </Link>
                         {/* <div className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
                             <span>
                                 <LogoutRedIcon />

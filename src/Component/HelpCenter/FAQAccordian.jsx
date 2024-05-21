@@ -3,7 +3,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { GetAllFAQ } from '../../service/service';
-export default function FAQAccordian() {
+export default function FAQAccordian({FaqType}) {
     const [isLoading, setIsLoading] = useState(false);
     const [FaqData, setFaqData] = useState([]);
 
@@ -29,7 +29,7 @@ export default function FAQAccordian() {
             ) : (
                 <>
                     {FaqData?.map((item, index) => (
-                        item.type === 'hilalfolio' &&
+                        item.type === FaqType &&
                         <Disclosure
                             key={index + '-item'}
                             as='div'
@@ -41,7 +41,7 @@ export default function FAQAccordian() {
                                     <Disclosure.Button className='flex justify-between items-center max-h-24 gap-1 p-6 w-full'>
                                         <div className='flex items-center gap-2'>
 
-                                            <div className='flex items-center gap-x-2 text-left'>
+                                            <div className='flex items-center gap-x-2 text-left font-semibold'>
                                                 {item?.question}
                                             </div>
                                         </div>

@@ -131,7 +131,7 @@ function Favorites() {
                 </h2>
                 <p className="text-base text-gray-600 mt-1">Your current cryptocurrency summary and activity.</p>
                 <div className="py-5 flex flex-wrap gap-5">
-                  <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD<span className="text-[#747474]">/BTC</span></div>
+                  {/* <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD<span className="text-[#747474]">/BTC</span></div> */}
                   <TbaleDropDown
                     value={selectedRank}
                     onChange={setSelectedRank}
