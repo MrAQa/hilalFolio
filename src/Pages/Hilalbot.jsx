@@ -214,9 +214,9 @@ function Hilalbot() {
                         setShowRecent={setShowRecent}
                         deleteAllChat={deleteAllChat}
                     />
-                    <main className="h-full md:ml-[380px]">
+                    <main className="h-full md:ml-[294px]">
 
-                        <div className='pl-4 pr-4 md:pr-28 py-5 lg:py-10 chatbot_conatiner'>
+                        <div className='pl-4 pr-4  py-5 lg:py-5 chatbot_conatiner'>
 
                             <div className='p-8 rounded-2xl bg-white flex flex-col h-full'>
                                 {
