@@ -22,7 +22,7 @@ const style = {
     px: 4,
     pb: 5,
 };
-const CheckoutForm = ({ total, openModal }) => {
+const CheckoutForm = ({ total, openModal,cartItem }) => {
 
     const stripe = useStripe();
 
@@ -161,7 +161,7 @@ const CheckoutForm = ({ total, openModal }) => {
                 disabled={!stripe || paymentProcessing || paymentSucceeded}
                 // disabled={isLoading || cartItem.length === 0}
                 className="bg-primaryPurple w-full p-3 rounded-xl text-white font-semibold text-base disabled:opacity-50 h-12 flex justify-center items-center hover:opacity-90">
-                {paymentProcessing ? 'Processing...' : `Pay ${total ? total : 0}`}
+                {paymentProcessing ? 'Processing...' : `Pay ${cartItem?.length > 0  ? total : 0}`}
             </button>
             {errorMessage && <div className="error-message">{errorMessage}</div>}
             {paymentSucceeded && <div className="success-message">Payment Successful!</div>}

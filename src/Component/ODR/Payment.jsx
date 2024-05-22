@@ -217,7 +217,7 @@ const Payment = ({ setshowPayement,setReresh }) => {
                             </form> */}
                               <Elements stripe={stripePromise} >
                 
-                <CheckoutForm total={Total} openModal={openModal}/>
+                <CheckoutForm total={Total} openModal={openModal} cartItem = {cartItem}/>
             </Elements>
                         </div>
                         <div className="inset-y-0 rounded-2xl max-h-[874px] round w-full max-w-[430px] overflow-y-auto bg-white px-6 py-6  sm:ring-1 sm:ring-gray-900/10">
