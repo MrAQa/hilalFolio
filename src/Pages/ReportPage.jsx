@@ -131,7 +131,7 @@ export default function ReportPage() {
               onClick={()=>navigate('/hilalbot')}
               className="bg-primaryPurple whitespace-nowrap h-[50px] text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50 absolute top-8 right-8"
                   >
-                    Ask HilalBot
+                    Ask Hilalbot
                   </button>
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function ReportPage() {
 
                   <button className="bg-primaryPurple whitespace-nowrap h-10 text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
                   >
-                    Ask From HilalBot
+                    Ask From Hilalbot
                   </button>
                 </div>
               </div>
@@ -185,7 +185,7 @@ export default function ReportPage() {
 
                   <button className="bg-primaryPurple whitespace-nowrap h-10 text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
                   >
-                    Ask From HilalBot
+                    Ask From Hilalbot
                   </button>
                 </div>
               </div>
@@ -239,7 +239,7 @@ export default function ReportPage() {
 
                   <button className="bg-primaryPurple whitespace-nowrap h-10 text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
                   >
-                    Ask From HilalBot
+                    Ask From Hilalbot
                   </button>
                 </div>
               </div>

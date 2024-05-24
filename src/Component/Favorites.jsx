@@ -20,32 +20,54 @@ function Favorites() {
   const [isLoading, setIsLoading] = useState(false)
   const [noDataFlag, setNoDataFlag] = useState(false)
   const { isLogedin } = useGlobalState();
-  const statuses = ['All', 'Compliant', 'Not Compliant'];
+  const statuses = ['All', 'Halal', 'Haram'];
   const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
-  const percentageChange = ['All', '1h', '24h', '7d'];
+  const percentageChange = ['1h', '24h', '7d'];
   useEffect(() => {
     setIsLoading(true)
     let number = null;
     if (selectedRank !== 'All') {
       number = parseInt(selectedRank.match(/\d+/)[0], 10);
     }
-    GetFavData(selectedStatus, number, selectedPercentage).then((result) => {
+    let shariastatus=null;
+    if(selectedStatus==='Halal'){
+      shariastatus='Compliant'
+    }
+    else if(selectedStatus==='Haram'){
+      shariastatus='Not Compliant'
+    }else{
+      shariastatus='All'
+    }
+    GetFavData(shariastatus, number, selectedPercentage).then((result) => {
       setIsLoading(false)
       if (result.success) {
         // console.log(result?.body?.coins)
         const sortedData = result?.body?.coins?.sort((a, b) => a.cmc_rank - b.cmc_rank);
-        const formattedCoins = sortedData.map(item => {
+        const formattedCoins = sortedData
+        .filter(item => shariastatus === item.shariahStatus || shariastatus === 'All')
+        .filter(item=>number>=item.cmc_rank || selectedRank=='All')
+        .map(item => {
           const price = item?.quote?.USD?.price?.toFixed(2);
           const high = item?.periods?.['24h']?.quote?.USD?.high?.toFixed(2);
           const low = item?.periods?.['24h']?.quote?.USD?.low?.toFixed(2);
-          const percentChange = item?.periods?.['24h']?.quote?.USD?.percent_change?.toFixed(2);
+          let percentChange='';
+          if(selectedPercentage==='1h'){
+            percentChange= item?.quote?.USD?.percent_change_1h?.toFixed(2)
+          }
+          else if(selectedPercentage==='24h'){
+            percentChange= item?.quote?.USD?.percent_change_24h?.toFixed(2)
+          }
+          else if(selectedPercentage==='7d') {
+            percentChange= item?.quote?.USD?.percent_change_7d?.toFixed(2)
+          }
+          // const percentChange = item?.periods?.['24h']?.quote?.USD?.percent_change?.toFixed(2);
 
           return {
             ...item,
             formattedPrice: `$${numberWithCommas(price)}`,
             formattedHigh: high !== undefined ? `$${numberWithCommas(high)}` : 'N/A',
             formattedLow: low !== undefined ? `$${numberWithCommas(low)}` : 'N/A',
-            percentChange: percentChange !== undefined ? `${numberWithCommas(percentChange)}%` : 'N/A'
+            percentChange: percentChange !== undefined ? `${numberWithCommas(percentChange)}` : 'N/A'
           };
         });
         setCoinsData(formattedCoins)
@@ -71,7 +93,7 @@ function Favorites() {
       id: 'Status',
     },
     {
-      id: '24h%',
+      id: `${selectedPercentage}%`,
     },
     {
       id: 'Price',
@@ -189,7 +211,7 @@ function Favorites() {
                       {
                         !isLoading &&
                         CoinsData?.map((item, index) => (
-
+                          
                           <tr
                             onClick={() => viewDetail(item)}
                             key={index + '-item'} className="text-base font-semibold cursor-pointer">
@@ -267,16 +289,16 @@ function Favorites() {
 
                             <td className="px-6 py-5 text-center">
 
-                              <span key={index} className={`flex items-center justify-center gap-[2px] ${item?.periods?.['24h']?.quote?.USD?.percent_change !== undefined && item.periods['24h'].quote.USD.percent_change >= 0
+                              <span key={index} className={`flex items-center justify-center gap-[2px] ${item?.percentChange!== undefined && item?.percentChange >= 0
                                 ? 'text-lightThemeSuccess'
                                 : 'text-lightThemeDelete'
                                 }`}>
-                                {item?.periods?.['24h']?.quote?.USD?.percent_change !== undefined && item.periods['24h'].quote.USD.percent_change >= 0 ? (
+                                {item?.percentChange!== undefined && item?.percentChange >= 0 ? (
                                   <UpIconGreen />
                                 ) : (
                                   <UpIconRed className="rotate-180" />
                                 )}
-                                {item?.percentChange}
+                                {item?.percentChange}%
                               </span>
                             </td>
                             <td className="px-6 py-5 text-center">{item?.formattedPrice}</td>

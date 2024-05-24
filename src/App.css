@@ -225,15 +225,15 @@ body {
 .table_parent::-webkit-scrollbar-thumb:hover {
   background: #4f4f4f;
 }
-.table_parent::-webkit-scrollbar {
+/* .table_parent::-webkit-scrollbar {
   display: none;
-}
+} */
 
 /* Hide scrollbar for IE, Edge and Firefox */
-.table_parent {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
+/* .table_parent {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+} */
 
 /* ::marker {
  margin: 0;

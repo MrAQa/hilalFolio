@@ -36,30 +36,51 @@ export const StateProvider = ({ children }) => {
   return () => clearInterval(interval);
   
  // eslint-disable-next-line
-}, [selectedStatus, selectedRank, selectedPercentage])
+}, [selectedStatus, selectedRank,selectedPercentage])
 
 const fetchData = () => {
   let number = null;
   if (selectedRank !== 'All') {
     number = parseInt(selectedRank.match(/\d+/)[0], 10);
   }
-  GetCmcData(selectedStatus, number, selectedPercentage).then((result) => {
+  let shariastatus=null;
+  if(selectedStatus==='Halal'){
+    shariastatus='Compliant'
+  }
+  else if(selectedStatus==='Haram'){
+    shariastatus='Not Compliant'
+  }else{
+    shariastatus='All'
+  }
+  GetCmcData(shariastatus, number, selectedPercentage).then((result) => {
     setIsLoading(false)
     if (result.success) {
 
       const sortedData = result?.body?.cmcData?.sort((a, b) => a.cmc_rank - b.cmc_rank);
       const formattedCoins = sortedData.map(item => {
+
+        
         const price = item?.quote?.USD?.price?.toFixed(2);
         const high = item?.periods?.['24h']?.quote?.USD?.high?.toFixed(2);
         const low = item?.periods?.['24h']?.quote?.USD?.low?.toFixed(2);
-        const percentChange = item?.periods?.['24h']?.quote?.USD?.percent_change?.toFixed(2);
+        let percentChange='';
+        if(selectedPercentage==='1h'){
+          percentChange= item?.quote?.USD?.percent_change_1h?.toFixed(2)
+        }
+        else if(selectedPercentage==='24h'){
+          percentChange= item?.quote?.USD?.percent_change_24h?.toFixed(2)
+        }
+        else if(selectedPercentage==='7d') {
+          percentChange= item?.quote?.USD?.percent_change_7d?.toFixed(2)
+        }
+        // const percentChange = item?.periods?.['24h']?.quote?.USD?.percent_change?.toFixed(2);
       
         return {
           ...item,
           formattedPrice: `$${numberWithCommas(price)}`,
           formattedHigh: high !== undefined ? `$${numberWithCommas(high)}` : 'N/A',
           formattedLow: low !== undefined ? `$${numberWithCommas(low)}` : 'N/A',
-          percentChange: percentChange !== undefined ? `${numberWithCommas(percentChange)}%` : 'N/A'
+          percentChange: percentChange !== undefined ? `${numberWithCommas(percentChange)}` : 'N/A'
         };
       });
       setCoinsData(formattedCoins)

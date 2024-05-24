@@ -11,9 +11,9 @@ import { useEffect } from 'react';
 const CoinSecton = ({ searchQuery, isLogedin }) => {
   
   const { CoinsData, setCoinsData, selectedStatus, setSelectedStatus, selectedRank, setSelectedRank, selectedPercentage, setSelectedPercentage, isLoading, noDataFlag, fetchData } = useGlobalState();
-  const statuses = ['All', 'Compliant', 'Not Compliant'];
+  const statuses = ['All', 'Halal', 'Haram'];
   const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
-  const percentageChange = ['All', '1h', '24h', '7d'];
+  const percentageChange = ['1h', '24h', '7d'];
   useEffect(() => {
     fetchData(); //fetch latest data
   }, []);
@@ -28,7 +28,7 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
       id: 'Status',
     },
     {
-      id: '24h%',
+      id: `${selectedPercentage}%`,
     },
     {
       id: 'Price',
@@ -286,16 +286,16 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
 
                         <td className="px-6 py-5 text-center">
 
-                          <span key={index} className={`flex items-center justify-center gap-[2px] ${item?.periods?.['24h']?.quote?.USD?.percent_change !== undefined && item.periods['24h'].quote.USD.percent_change >= 0
+                          <span key={index} className={`flex items-center justify-center gap-[2px] ${item?.percentChange !== undefined && item?.percentChange  >= 0
                             ? 'text-lightThemeSuccess'
                             : 'text-lightThemeDelete'
                             }`}>
-                            {item?.periods?.['24h']?.quote?.USD?.percent_change !== undefined && item.periods['24h'].quote.USD.percent_change >= 0 ? (
+                            {item?.percentChange !== undefined && item?.percentChange  >= 0 ? (
                               <UpIconGreen />
                             ) : (
                               <UpIconRed className="rotate-180" />
                             )}
-                            {item?.percentChange}
+                            {item?.percentChange}%
                           </span>
                         </td>
                         <td className="px-6 py-5 text-center">{item?.formattedPrice}</td>
