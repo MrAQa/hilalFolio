@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { GetAllChat } from '../../service/service';
+import { CircularProgress } from '@mui/material';
 
 
 const RecentChats = ({ deleteAllChat ,refresh,updateTitle}) => {
@@ -7,13 +8,20 @@ const RecentChats = ({ deleteAllChat ,refresh,updateTitle}) => {
     const [questions, setQuestions] = useState([]);
     const inputRefs =  useRef([]);
     const previousValues = useRef([]);
+    const [noDataFlag,setNoDataFlag]=useState(false);
+    const [Isloading,setIsloading]=useState(false);
     useEffect(() => {
+        setIsloading(true)
         GetAllChat().then((response) => {
+            setIsloading(false)
             if (response?.success) {
 
                 setQuestions(response?.data?.history)
+                if(response?.data?.history?.length===0){
+                    setNoDataFlag(true)
+                }
             }
-        })
+        }).catch((err)=>console.log(err))
         // eslint-disable-next-line 
     }, [refresh]);
     const EditChatSubject = (index) => {
@@ -80,7 +88,7 @@ const RecentChats = ({ deleteAllChat ,refresh,updateTitle}) => {
 
     // }
     return (
-        <div className='text-lightThemeText overflow-y-auto style-3'>
+        <div className='text-lightThemeText overflow-y-auto h-full style-3'>
             <div className='flex justify-between items-center mb-7'>
                 <h2 className='text-32 font-bold'>
                     Recent chats
@@ -95,7 +103,13 @@ const RecentChats = ({ deleteAllChat ,refresh,updateTitle}) => {
                 </span>
                 }
             </div>
+            
             {
+                Isloading ?
+                <div className='w-full flex justify-center'>
+                                        <CircularProgress size={40} color='primary' />
+                                   </div>
+                :
                 questions?.map((item, index) => (
                     <div key={`item-${index}`}
                         className='py-5 flex gap-2 justify-between border-b-[1px] border-[#D0D5DD] last:border-b-0 text-base font-normal'
@@ -144,7 +158,7 @@ const RecentChats = ({ deleteAllChat ,refresh,updateTitle}) => {
                
             }
             {
-                 questions.length==0 &&
+               noDataFlag && questions.length==0 &&
                  <div className='text-xl font-medium text-center mt-28'>No Recenet Chats</div>
             }
         </div>
