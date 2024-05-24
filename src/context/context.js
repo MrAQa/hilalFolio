@@ -56,7 +56,8 @@ const fetchData = () => {
     setIsLoading(false)
     if (result.success) {
 
-      const sortedData = result?.body?.cmcData?.sort((a, b) => a.cmc_rank - b.cmc_rank);
+      const sortedData = result?.body?.cmcData
+      ?.sort((a, b) => a.cmc_rank - b.cmc_rank);
       const formattedCoins = sortedData.map(item => {
 
         

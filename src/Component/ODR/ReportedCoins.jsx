@@ -90,7 +90,7 @@ const ReportedCoins = ({ CoinsData, isLoadingCoins,setShowAssets }) => {
                                             `${selected ? 'bg-[#F9F5FF] text-[#6941C6] font-bold' : 'font-semibold bg-white text-gray-500'} px-4 py-2 rounded-md w-64 text-base`
                                         }
                                     >
-                                        View Progress
+                                        In Progress
                                     </Tab>
                                     <Tab
                                         className={({ selected }) =>

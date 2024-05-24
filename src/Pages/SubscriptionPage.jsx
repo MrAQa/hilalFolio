@@ -20,12 +20,12 @@ function SubscriptionPage() {
                                     <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
                                         My Subscription
                                     </h2>
-                                    <p className='text-base pt-2 max-w-[480px] text-[#6F7889]'>
+                                    <p className='text-base pt-2  text-[#6F7889]'>
                                         You wouldn't place a tender without first understanding the full scope of work.
                                     </p>
                                     <div className='pt-8 flex  gap-4'>
 
-                                        <div className='border-[1px] border-[#D7D9E4] rounded-2xl p-4 text-[#0F172A] space-y-6 w-1/2 bg-[#f1edf5] max-w-[338px]'>
+                                        <div className='border-[1px] border-[#D7D9E4] rounded-2xl p-4 text-[#0F172A] space-y-6 w-1/2 bg-[#f1edf5] '>
                                             <h3 className=' text-[28px] font-semibold'>Basic</h3>
                                             <div className='text-lg'>
                                                 <strong className='text-[35px] font-bold'>$00/</strong>per Month
@@ -44,10 +44,10 @@ function SubscriptionPage() {
                                                 }
                                             </div>
                                             <div className='text-sm font-semibold flex flex-col'>
-                                            <button type='submit' className='bg-primaryPurple text-white hover:bg-opacity-90 py-3 px-2 rounded-lg disabled:opacity-50 '>Buy Now</button>
+                                            <button type='submit' className='bg-primaryPurple text-white hover:bg-opacity-90 py-3 px-2 rounded-lg disabled:opacity-50 '>Verify</button>
                                         </div>
                                         </div>
-                                        <div className='border-[1px] border-[#D7D9E4] rounded-2xl p-4 text-[#0F172A] space-y-6 w-1/2 max-w-[338px]'>
+                                        <div className='border-[1px] border-[#D7D9E4] rounded-2xl p-4 text-[#0F172A] space-y-6 w-1/2 '>
                                             <h3 className=' text-[28px] font-semibold'>Premium</h3>
                                             <div className='text-lg'>
                                                 <strong className='text-[35px] font-bold'>$00/</strong>per Month
@@ -61,12 +61,13 @@ function SubscriptionPage() {
                                             <div className='space-y-6 text-sm font-medium'>
                                                 {
                                                     points?.map((item, index) => (
-                                                        <p className='flex items-center gap-2' key={index}><span><FadeBulletPoint /></span>{item}</p>
+                                                        <p className='flex items-center gap-2' key={index}><span><ActiveBulletPoint /></span>{item}</p>
                                                     ))
                                                 }
                                             </div>
                                             <div className='text-sm font-semibold flex flex-col '>
-                                                <button type='button' className='text-primaryPurple border-primaryPurple border-[1px] hover:bg-opacity-90 py-3 px-2 rounded-lg disabled:opacity-50 '>Buy Now</button>
+                                                {/* <button type='button' className='text-primaryPurple border-primaryPurple border-[1px] hover:bg-opacity-90 py-3 px-2 rounded-lg disabled:opacity-50 '>Verify</button> */}
+                                                <button type='submit' className='bg-primaryPurple text-white hover:bg-opacity-90 py-3 px-2 rounded-lg disabled:opacity-50 '>Verify</button>
                                             </div>
                                         </div>
 

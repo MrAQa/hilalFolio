@@ -6,6 +6,7 @@ const RecentChats = ({ deleteAllChat ,refresh,updateTitle}) => {
 
     const [questions, setQuestions] = useState([]);
     const inputRefs =  useRef([]);
+    const previousValues = useRef([]);
     useEffect(() => {
         GetAllChat().then((response) => {
             if (response?.success) {
@@ -23,6 +24,7 @@ const RecentChats = ({ deleteAllChat ,refresh,updateTitle}) => {
         });
         setTimeout(() => {
             if (inputRefs.current[index]) {
+                previousValues.current[index] = questions[index]?.subject; // Store the previous value
                 inputRefs.current[index].focus();
             }
         }, 10);
@@ -35,12 +37,18 @@ const RecentChats = ({ deleteAllChat ,refresh,updateTitle}) => {
     };
   
     const handleBlur = (index) => {
-        const id= questions[index]?._id;
-        const data={
-            subjectName:questions[index]?.subject
+        const currentValue = questions[index]?.subject;
+        const previousValue = previousValues.current[index];
+
+        if (currentValue !== previousValue) {
+            const id = questions[index]?._id;
+            const data = {
+                subjectName: questions[index]?.subject
+            };
+
+            updateTitle(id, data);
         }
-        
-        updateTitle(id,data)
+
         setQuestions(prevQuestions => {
             const updatedQuestions = [...prevQuestions];
             updatedQuestions[index] = { ...updatedQuestions[index], editable: false };
@@ -50,12 +58,17 @@ const RecentChats = ({ deleteAllChat ,refresh,updateTitle}) => {
 
     const handleKeyDown = (event, index) => {
         if (event.key === 'Enter') {
-            const id= questions[index]?._id;
-            const data={
-                subjectName:questions[index]?.subject
+            const currentValue = questions[index]?.subject;
+            const previousValue = previousValues.current[index];
+
+            if (currentValue !== previousValue) {
+                const id = questions[index]?._id;
+                const data = {
+                    subjectName: questions[index]?.subject
+                };
+
+                updateTitle(id, data);
             }
-            
-            updateTitle(id,data)
             setQuestions(prevQuestions => {
                 const updatedQuestions = [...prevQuestions];
                 updatedQuestions[index] = { ...updatedQuestions[index], editable: false };

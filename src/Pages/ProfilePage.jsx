@@ -22,6 +22,7 @@ function Profile() {
   const [refresh, setRefresh] = useState(false);
   const [userImg, setUserImg] = useState(null);
   // const [Imgfile, setImgFile] = useState(null)
+  const today = new Date().toISOString().split('T')[0];
   const [userData, setUserData] = useState({
     fullName: "",
     dob: "",
@@ -63,6 +64,22 @@ function Profile() {
         ...prevData,
         [name]: alphabeticValue,
       }));
+    }
+    else if(name=== 'dob'){
+      const selectedDate = event.target.value;
+      if (selectedDate <= today) {
+      
+        setUserData((prevData) => ({
+          ...prevData,
+          [name]: selectedDate,
+        }));
+      } else {
+        setUserData((prevData) => ({
+          ...prevData,
+          [name]: today,
+        }));
+        
+      }
     }
     else {
       setUserData((prevData) => ({
@@ -308,6 +325,7 @@ function Profile() {
                           onChange={handleChange}
                           className="p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-transparent mt-2"
                           placeholder="18-01-1995"
+                          max={today}
                           type="date"
                         />
                       </div>

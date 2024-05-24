@@ -282,7 +282,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
               }
             </div>
           </div>
-          <div className="bg-[#D0D5DD] w-[1px] mr-4 h-6">
+          <div className="bg-[#D0D5DD] w-[1px] mr-4 h-6 hidden lg:block">
 
           </div>
           <div className="relative hidden lg:flex p-2 mr-4">

@@ -190,7 +190,7 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllCh
                               onChange={handleChange}
                             />
                         </div>
-                        {
+                        {/* {
                             questions.length>0 &&
                         <div
                         onClick={()=>deleteAllChat(null)}
@@ -200,7 +200,7 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,deleteAllCh
                             </span>
                             Delete all chats
                         </div>
-                        }
+                        } */}
                         <Link to='/faq' className='flex items-center gap-3 py-3 cursor-pointer hover:bg-black hover:bg-opacity-[0.05] px-1 rounded-[10px]'>
                             <span>
                                 <ExpandIconGray />

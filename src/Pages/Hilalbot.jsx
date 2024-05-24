@@ -203,7 +203,7 @@ function Hilalbot() {
     return (
         <>
             <ToastContainer />
-            <div className="min-h-screen bg-lightThemebg">
+            <div className=" bg-lightThemebg">
                 <NavBar />
                 <div className='bg-lightThemebg'>
                     <SideNav
