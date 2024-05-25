@@ -334,19 +334,29 @@ ul {
   margin-bottom: 24px;
 }
 .trending-bar-container {
-  animation: scroll 30s linear infinite;
+  animation: scroll 20s linear infinite;
   white-space: nowrap;
 }
-
+.trending-bar-container2 {
+  animation: scroll2 20s linear infinite;
+  white-space: nowrap;
+}
 @keyframes scroll {
   0% {
     transform: translateX(100%);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
-
+@keyframes scroll2 {
+  0% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
 .form-container {
   /* max-width: 400px; */
   margin: 0 auto;

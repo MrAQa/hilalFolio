@@ -36,6 +36,10 @@ function App() {
           <div className="trending-bar-container">
             <TrendingBar />
           </div>
+          <div className="trending-bar-container2">
+            <TrendingBar />
+          </div>
+          
         </div>
 
       </div>
