@@ -307,14 +307,14 @@ function BtcChart() {
                                                     </div>
                                                 </div>
                                                 <div className='h-[1px] my-10 bg-[#D7D9E4]'></div>
-                                                <div>
+                                                {/* <div>
 
                                                     <p>
 
                                                         <span className='text-lg font-medium'>
                                                             Disclaimer:
                                                         </span> This page may contain affiliate links. CoinMarketCap may be compensated if you visit any affiliate links and you take certain actions such as signing up and transacting with these affiliate platforms. Please refer to Affiliate Disclosure  </p>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
