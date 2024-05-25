@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.150af3e0.css",
-    "main.js": "/static/js/main.a826bff2.js",
+    "main.css": "/static/css/main.30f201e2.css",
+    "main.js": "/static/js/main.a00a7955.js",
     "static/js/787.7665c611.chunk.js": "/static/js/787.7665c611.chunk.js",
     "static/media/bitcoin-cover.png": "/static/media/bitcoin-cover.996649695a83524008d8.png",
     "static/media/Loginpage-section.png": "/static/media/Loginpage-section.232a731c0e12824b83cb.png",
@@ -15,12 +15,12 @@
     "static/media/arrow_drop.svg": "/static/media/arrow_drop.690fb06888ec307bba3f7948a4560749.svg",
     "static/media/arrow_drop_down.svg": "/static/media/arrow_drop_down.44f7a1d7faa6b16f25fc9c3ce7f39bba.svg",
     "index.html": "/index.html",
-    "main.150af3e0.css.map": "/static/css/main.150af3e0.css.map",
-    "main.a826bff2.js.map": "/static/js/main.a826bff2.js.map",
+    "main.30f201e2.css.map": "/static/css/main.30f201e2.css.map",
+    "main.a00a7955.js.map": "/static/js/main.a00a7955.js.map",
     "787.7665c611.chunk.js.map": "/static/js/787.7665c611.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.150af3e0.css",
-    "static/js/main.a826bff2.js"
+    "static/css/main.30f201e2.css",
+    "static/js/main.a00a7955.js"
   ]
 }
