@@ -7,9 +7,9 @@ import Chart from '../Component/Chart';
 import Footer from '../Component/Footer,';
 import { ExpandIcon } from '../assets/custom-icon';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { GetCoinData, GetReport,RemoveFromFavorite ,AddToFavorite} from '../service/service';
+import { GetCoinData, GetReport, RemoveFromFavorite, AddToFavorite } from '../service/service';
 import { CircularProgress } from '@mui/material';
-import { UpIconGreen } from '../assets/custom-icons';
+import { UpIconGreen, UpIconRed } from '../assets/custom-icons';
 import { useGlobalState } from '../context/context';
 import Markdown from 'react-markdown';
 import breaks from 'remark-breaks';
@@ -44,10 +44,12 @@ function BtcChart() {
         // News: 2,
         // Markets: 3,
     };
+    const [dataSet, setDataSet] = useState([])
     useEffect(() => {
         GetCoinData(data?._id).then((result) => {
             if (result.success) {
                 setCoinData(result?.body?.cmcData)
+                setDataSet(result?.body?.dataSets)
                 setIsLoading(false)
             }
         }).catch((error) => console.log(error))
@@ -90,46 +92,67 @@ function BtcChart() {
         }
     };
     const toggleFavorites = (Coindata) => {
-        if(isLogedin){
+        if (isLogedin) {
 
             if (!Coindata.favorite) {
-              const data = { symbols: [Coindata?.symbol] }
-              addfav(data)
+                const data = { symbols: [Coindata?.symbol] }
+                addfav(data)
             }
             if (Coindata.favorite) {
-              const data = { symbols: [Coindata?.symbol] }
-              removefav(data)
+                const data = { symbols: [Coindata?.symbol] }
+                removefav(data)
             }
-            setCoinData({...Coindata, favorite: !Coindata.favorite})
+            setCoinData({ ...Coindata, favorite: !Coindata.favorite })
         }
-      }
-      const addfav = (data) => {
+    }
+    const addfav = (data) => {
         AddToFavorite(data).then((result) => {
-          console.log(result)
+            console.log(result)
         })
-      }
-      const removefav = (data) => {
+    }
+    const removefav = (data) => {
         RemoveFromFavorite(data).then((result) => {
-          console.log(result)
+            console.log(result)
         })
-      }
-      function formatLargeNumber(number) {
+    }
+    function formatLargeNumber(number) {
         if (isNaN(number)) return 'Invalid input';
-      
+
         const absNumber = Math.abs(number);
-      
+
         if (absNumber >= 1e12) {
-          return (number / 1e12).toFixed(2) + 'T';
+            return (number / 1e12).toFixed(2) + 'T';
         } else if (absNumber >= 1e9) {
-          return (number / 1e9).toFixed(2) + 'B';
+            return (number / 1e9).toFixed(2) + 'B';
         } else if (absNumber >= 1e6) {
-          return (number / 1e6).toFixed(2) + 'M';
+            return (number / 1e6).toFixed(2) + 'M';
         } else if (absNumber >= 1e3) {
-          return (number / 1e3).toFixed(2) + 'K';
+            return (number / 1e3).toFixed(2) + 'K';
         } else {
-          return number.toFixed(2);
+            return number.toFixed(2);
         }
-      }
+    }
+
+    const [activeTabPeriod, setActiveTabPeriod] = useState('1h');
+
+    const getPercentChange = () => {
+        switch (activeTabPeriod) {
+            case '1h':
+                return data?.quote?.USD?.percent_change_1h?.toFixed(2);
+            case '24h':
+                return data?.quote?.USD?.percent_change_24h?.toFixed(2);
+            case '7d':
+                return data?.quote?.USD?.percent_change_7d?.toFixed(2);
+            case '30d':
+                return data?.quote?.USD?.percent_change_30d?.toFixed(2);
+            case '60d':
+                return data?.quote?.USD?.percent_change_60d?.toFixed(2);
+            default:
+                return data?.quote?.USD?.percent_change_1h?.toFixed(2);
+        }
+    };
+    const percentChange = getPercentChange();
+    const isPositive = parseFloat(percentChange) >= 0;
     return (
         <div className='bg-[#F2F2F2]'>
             <NavBar />
@@ -174,7 +197,7 @@ function BtcChart() {
                                                 <span className="p-2 bg-[#F2F2F2] rounded-lg flex justify-center items-center cursor-pointer">
 
                                                     <span
-                                                      onClick={() => toggleFavorites(Coindata)}
+                                                        onClick={() => toggleFavorites(Coindata)}
                                                     >
                                                         {
 
@@ -242,27 +265,35 @@ function BtcChart() {
                                                     <div className='text-3xl font-bold'>
                                                         {`$${numberWithCommas(data?.quote?.USD?.price?.toFixed(2))}`}
                                                     </div>
-                                                    <div className='bg-[#E5FFEB] text-lightThemeSuccess text-base px-[6px] py-1 flex items-center gap-1 rounded-md'>
+
+                                                  
+                                                    <div className={`text-base px-[6px] py-1 flex items-center gap-1 rounded-md ${isPositive ? 'bg-[#E5FFEB] text-lightThemeSuccess' : 'bg-[#FFE5E5] text-lightThemeDelete'}`}>
                                                         <span>
-                                                            <UpIconGreen />
+                                                            {isPositive ? <UpIconGreen /> : <UpIconRed className="rotate-180" />}
                                                         </span>
-                                                        {`2.84% (1d)`}
+                                                        {percentChange}%
                                                     </div>
                                                 </div>
                                             </div>
                                             <div>
+
                                                 <div className='flex gap-2'>
-                                                    <span className='rounded-lg py-2 px-4 text-[14px] bg-primaryPurple text-white'>1h</span>
-                                                    <span className='rounded-lg py-2 px-4 text-[14px] bg-[#F2F2F2] text-primaryDark'>24h</span>
-                                                    <span className='rounded-lg py-2 px-4 text-[14px] bg-[#F2F2F2] text-primaryDark'>7d</span>
-                                                    <span className='rounded-lg py-2 px-4 text-[14px] bg-[#F2F2F2] text-primaryDark'>30d</span>
-                                                    <span className='rounded-lg py-2 px-4 text-[14px] bg-[#F2F2F2] text-primaryDark'>1y</span>
+                                                    {['1h', '24h', '7d', '30d', '60d'].map((period) => (
+                                                        <span
+                                                            key={period}
+                                                            onClick={() => setActiveTabPeriod(period)}
+                                                            className={`rounded-lg py-2 px-4 text-[14px] cursor-pointer ${activeTabPeriod === period ? 'bg-primaryPurple text-white' : 'bg-[#F2F2F2] text-primaryDark'
+                                                                }`}
+                                                        >
+                                                            {period}
+                                                        </span>
+                                                    ))}
                                                 </div>
                                             </div>
                                         </div>
                                         <div className=' px-4 sm:px-8 py-6'>
 
-                                            <Chart />
+                                            <Chart dataSet={dataSet} />
 
                                         </div>
                                     </div>
@@ -300,19 +331,19 @@ function BtcChart() {
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>Price Change (1h)</span>
                                                         <div className='text-xl font-medium'>
-                                                            <span className={`${data?.quote?.USD?.percent_change_1h>=0? 'text-lightThemeSuccess': 'text-lightThemeDelete' } ml-1`}>{data?.quote?.USD?.percent_change_1h.toFixed(2)}%</span>
+                                                            <span className={`${data?.quote?.USD?.percent_change_1h >= 0 ? 'text-lightThemeSuccess' : 'text-lightThemeDelete'} ml-1`}>{data?.quote?.USD?.percent_change_1h.toFixed(2)}%</span>
                                                         </div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>Price Change (24h)</span>
                                                         <div className='text-xl font-medium'>
-                                                        <span className={`${data?.quote?.USD?.percent_change_24h>=0? 'text-lightThemeSuccess': 'text-lightThemeDelete' } ml-1`}>{data?.quote?.USD?.percent_change_24h.toFixed(2)}%</span>
+                                                            <span className={`${data?.quote?.USD?.percent_change_24h >= 0 ? 'text-lightThemeSuccess' : 'text-lightThemeDelete'} ml-1`}>{data?.quote?.USD?.percent_change_24h.toFixed(2)}%</span>
                                                         </div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>Price Change (7d)</span>
                                                         <div className='text-xl font-medium'>
-                                                        <span className={`${data?.quote?.USD?.percent_change_7d>=0? 'text-lightThemeSuccess': 'text-lightThemeDelete' } ml-1`}>{data?.quote?.USD?.percent_change_7d.toFixed(2)}%</span>
+                                                            <span className={`${data?.quote?.USD?.percent_change_7d >= 0 ? 'text-lightThemeSuccess' : 'text-lightThemeDelete'} ml-1`}>{data?.quote?.USD?.percent_change_7d.toFixed(2)}%</span>
                                                         </div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
@@ -346,7 +377,8 @@ function BtcChart() {
                                                     <ExpandIcon
                                                         className="w-4 cursor-pointer ml-2 fill-[#6F7889]"
                                                     /></a>
-                                                <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">Explorers</div>
+                                                {/* <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">Explorers</div> */}
+
                                                 {/* <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">Community</div> */}
                                             </div>
                                             <div className="pb-6">
@@ -412,30 +444,67 @@ function BtcChart() {
                                     <div className='pt-6'>
                                         <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6">
                                             <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
-                                                Bitcoin Resources
+                                                {data?.name} Resources
                                             </h2>
                                             <div className="pt-8">
-                                                <div className='flex justify-between gap-7 py-4'>
-                                                    <div className='w-[343px] flex items-center justify-between gap-2'>
-                                                        <span className='text-base font-medium text-[#747474]'>http://bitcoin.org/</span>
-                                                        <div className='text-xl font-medium'>
-                                                            <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
-                                                        </div>
-                                                    </div>
-                                                    <div className='w-[343px] flex items-center justify-between gap-2'>
-                                                        <span className='text-base font-medium text-[#747474]'>http://bitcoin.org/</span>
-                                                        <div className='text-xl font-medium'>
-                                                            <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
-                                                        </div>
-                                                    </div>
-                                                    <div className='w-[343px] flex items-center justify-between gap-2'>
-                                                        <span className='text-base font-medium text-[#747474]'>http://bitcoin.org/</span>
-                                                        <div className='text-xl font-medium'>
-                                                            <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
-                                                        </div>
-                                                    </div>
+                                                <div className='flex  flex-wrap gap-x-24 gap-y-8 py-4'>
+                                                    {
+                                                        data?.urls?.website?.map((item, index) => (
+
+                                                            <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
+                                                                <span className='text-base font-medium text-[#747474]'>{item}</span>
+                                                                <div className='text-xl font-medium'>
+                                                                    <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
+                                                                </div>
+                                                            </a>
+                                                        ))
+                                                    }
+                                                    {
+                                                        data?.urls?.explorer?.map((item, index) => (
+
+                                                            <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
+                                                                <span className='text-base font-medium text-[#747474]'>{item}</span>
+                                                                <div className='text-xl font-medium'>
+                                                                    <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
+                                                                </div>
+                                                            </a>
+                                                        ))
+                                                    }
+                                                    {
+                                                        data?.urls?.announcement?.map((item, index) => (
+
+                                                            <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
+                                                                <span className='text-base font-medium text-[#747474]'>Announcement</span>
+                                                                <div className='text-xl font-medium'>
+                                                                    <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
+                                                                </div>
+                                                            </a>
+                                                        ))
+                                                    }
+                                                    {
+                                                        data?.urls?.technical_doc?.map((item, index) => (
+
+                                                            <a key={index} href={item} target='_blank' className='flex items-center justify-between w-[28%]'>
+                                                                <span className='text-base font-medium text-[#747474]'>Technical Document</span>
+                                                                <div className='text-xl font-medium'>
+                                                                    <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
+                                                                </div>
+                                                            </a>
+                                                        ))
+                                                    }
+                                                    {
+                                                        data?.urls?.source_code?.map((item, index) => (
+
+                                                            <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
+                                                                <span className='text-base font-medium text-[#747474]'>Source Code</span>
+                                                                <div className='text-xl font-medium'>
+                                                                    <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
+                                                                </div>
+                                                            </a>
+                                                        ))
+                                                    }
                                                 </div>
-                                                <div className='flex justify-between gap-7 py-4'>
+                                                {/* <div className='flex justify-between gap-7 py-4'>
                                                     <div className='w-[343px] flex items-center justify-between gap-2'>
                                                         <span className='text-base font-medium text-[#747474]'>Technical Documentation</span>
                                                         <div className='text-xl font-medium'>
@@ -474,7 +543,7 @@ function BtcChart() {
                                                             <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> */}
 
                                             </div>
                                         </div>
