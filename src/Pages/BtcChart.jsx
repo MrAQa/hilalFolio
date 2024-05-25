@@ -7,11 +7,12 @@ import Chart from '../Component/Chart';
 import Footer from '../Component/Footer,';
 import { ExpandIcon } from '../assets/custom-icon';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { GetCoinData, GetReport,RemoveFromFavorite ,AddToFavorite} from '../service/service';
+import { GetCoinData, GetReport, RemoveFromFavorite, AddToFavorite } from '../service/service';
 import { CircularProgress } from '@mui/material';
-import { UpIconGreen } from '../assets/custom-icons';
+import { UpIconGreen, UpIconRed } from '../assets/custom-icons';
 import { useGlobalState } from '../context/context';
-
+import Markdown from 'react-markdown';
+import breaks from 'remark-breaks';
 function BtcChart() {
 
     const location = useLocation();
@@ -43,10 +44,12 @@ function BtcChart() {
         // News: 2,
         // Markets: 3,
     };
+    const [dataSet, setDataSet] = useState([])
     useEffect(() => {
         GetCoinData(data?._id).then((result) => {
             if (result.success) {
                 setCoinData(result?.body?.cmcData)
+                setDataSet(result?.body?.dataSets)
                 setIsLoading(false)
             }
         }).catch((error) => console.log(error))
@@ -89,29 +92,67 @@ function BtcChart() {
         }
     };
     const toggleFavorites = (Coindata) => {
-        if(isLogedin){
+        if (isLogedin) {
 
             if (!Coindata.favorite) {
-              const data = { symbols: [Coindata?.symbol] }
-              addfav(data)
+                const data = { symbols: [Coindata?.symbol] }
+                addfav(data)
             }
             if (Coindata.favorite) {
-              const data = { symbols: [Coindata?.symbol] }
-              removefav(data)
+                const data = { symbols: [Coindata?.symbol] }
+                removefav(data)
             }
-            setCoinData({...Coindata, favorite: !Coindata.favorite})
+            setCoinData({ ...Coindata, favorite: !Coindata.favorite })
         }
-      }
-      const addfav = (data) => {
+    }
+    const addfav = (data) => {
         AddToFavorite(data).then((result) => {
-          console.log(result)
+            console.log(result)
         })
-      }
-      const removefav = (data) => {
+    }
+    const removefav = (data) => {
         RemoveFromFavorite(data).then((result) => {
-          console.log(result)
+            console.log(result)
         })
-      }
+    }
+    function formatLargeNumber(number) {
+        if (isNaN(number)) return 'Invalid input';
+
+        const absNumber = Math.abs(number);
+
+        if (absNumber >= 1e12) {
+            return (number / 1e12).toFixed(2) + 'T';
+        } else if (absNumber >= 1e9) {
+            return (number / 1e9).toFixed(2) + 'B';
+        } else if (absNumber >= 1e6) {
+            return (number / 1e6).toFixed(2) + 'M';
+        } else if (absNumber >= 1e3) {
+            return (number / 1e3).toFixed(2) + 'K';
+        } else {
+            return number.toFixed(2);
+        }
+    }
+
+    const [activeTabPeriod, setActiveTabPeriod] = useState('1h');
+
+    const getPercentChange = () => {
+        switch (activeTabPeriod) {
+            case '1h':
+                return data?.quote?.USD?.percent_change_1h?.toFixed(2);
+            case '24h':
+                return data?.quote?.USD?.percent_change_24h?.toFixed(2);
+            case '7d':
+                return data?.quote?.USD?.percent_change_7d?.toFixed(2);
+            case '30d':
+                return data?.quote?.USD?.percent_change_30d?.toFixed(2);
+            case '60d':
+                return data?.quote?.USD?.percent_change_60d?.toFixed(2);
+            default:
+                return data?.quote?.USD?.percent_change_1h?.toFixed(2);
+        }
+    };
+    const percentChange = getPercentChange();
+    const isPositive = parseFloat(percentChange) >= 0;
     return (
         <div className='bg-[#F2F2F2]'>
             <NavBar />
@@ -156,7 +197,7 @@ function BtcChart() {
                                                 <span className="p-2 bg-[#F2F2F2] rounded-lg flex justify-center items-center cursor-pointer">
 
                                                     <span
-                                                      onClick={() => toggleFavorites(Coindata)}
+                                                        onClick={() => toggleFavorites(Coindata)}
                                                     >
                                                         {
 
@@ -224,27 +265,35 @@ function BtcChart() {
                                                     <div className='text-3xl font-bold'>
                                                         {`$${numberWithCommas(data?.quote?.USD?.price?.toFixed(2))}`}
                                                     </div>
-                                                    <div className='bg-[#E5FFEB] text-lightThemeSuccess text-base px-[6px] py-1 flex items-center gap-1 rounded-md'>
+
+                                                  
+                                                    <div className={`text-base px-[6px] py-1 flex items-center gap-1 rounded-md ${isPositive ? 'bg-[#E5FFEB] text-lightThemeSuccess' : 'bg-[#FFE5E5] text-lightThemeDelete'}`}>
                                                         <span>
-                                                            <UpIconGreen />
+                                                            {isPositive ? <UpIconGreen /> : <UpIconRed className="rotate-180" />}
                                                         </span>
-                                                        {`2.84% (1d)`}
+                                                        {percentChange}%
                                                     </div>
                                                 </div>
                                             </div>
                                             <div>
+
                                                 <div className='flex gap-2'>
-                                                    <span className='rounded-lg py-2 px-4 text-[14px] bg-primaryPurple text-white'>1h</span>
-                                                    <span className='rounded-lg py-2 px-4 text-[14px] bg-[#F2F2F2] text-primaryDark'>24h</span>
-                                                    <span className='rounded-lg py-2 px-4 text-[14px] bg-[#F2F2F2] text-primaryDark'>7d</span>
-                                                    <span className='rounded-lg py-2 px-4 text-[14px] bg-[#F2F2F2] text-primaryDark'>30d</span>
-                                                    <span className='rounded-lg py-2 px-4 text-[14px] bg-[#F2F2F2] text-primaryDark'>1y</span>
+                                                    {['1h', '24h', '7d', '30d', '60d'].map((period) => (
+                                                        <span
+                                                            key={period}
+                                                            onClick={() => setActiveTabPeriod(period)}
+                                                            className={`rounded-lg py-2 px-4 text-[14px] cursor-pointer ${activeTabPeriod === period ? 'bg-primaryPurple text-white' : 'bg-[#F2F2F2] text-primaryDark'
+                                                                }`}
+                                                        >
+                                                            {period}
+                                                        </span>
+                                                    ))}
                                                 </div>
                                             </div>
                                         </div>
                                         <div className=' px-4 sm:px-8 py-6'>
 
-                                            <Chart />
+                                            <Chart dataSet={dataSet} />
 
                                         </div>
                                     </div>
@@ -257,83 +306,86 @@ function BtcChart() {
                                                 <div className='flex flex-wrap gap-7'>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>Market Cap</span>
-                                                        <div className='text-xl font-medium'>$816B</div>
+                                                        <div className='text-xl font-medium'>${formatLargeNumber(data?.quote?.USD?.market_cap)}</div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>Fully Diluted Market Cap</span>
-                                                        <div className='text-xl font-medium'>$903.89 B</div>
+                                                        <div className='text-xl font-medium'>${formatLargeNumber(data?.quote?.USD?.fully_diluted_market_cap)}</div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
-                                                        <span className='text-base text-[#747474]'>Fully Diluted Valuation</span>
-                                                        <div className='text-xl font-medium'>$874B</div>
+                                                        <span className='text-base text-[#747474]'>Market Dominance</span>
+                                                        <div className='text-xl font-medium'>{data?.quote?.USD?.market_cap_dominance.toFixed(2)}%</div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>Circulating Supply</span>
-                                                        <div className='text-xl font-medium'>19,603,187</div>
+                                                        <div className='text-xl font-medium'>{formatLargeNumber(data?.circulating_supply)}</div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>Total Supply</span>
-                                                        <div className='text-xl font-medium'>21,000,000</div>
+                                                        <div className='text-xl font-medium'>{formatLargeNumber(data?.total_supply)}</div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>Volume 24h</span>
-                                                        <div className='text-xl font-medium'>$39B</div>
+                                                        <div className='text-xl font-medium'>${formatLargeNumber(data?.quote?.USD?.volume_24h)}</div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>Price Change (1h)</span>
                                                         <div className='text-xl font-medium'>
-                                                            <span className="text-lightThemeSuccess ml-1">0.05%</span>
+                                                            <span className={`${data?.quote?.USD?.percent_change_1h >= 0 ? 'text-lightThemeSuccess' : 'text-lightThemeDelete'} ml-1`}>{data?.quote?.USD?.percent_change_1h.toFixed(2)}%</span>
                                                         </div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>Price Change (24h)</span>
                                                         <div className='text-xl font-medium'>
-                                                            <span className="text-lightThemeSuccess ml-1">1.04%</span>
+                                                            <span className={`${data?.quote?.USD?.percent_change_24h >= 0 ? 'text-lightThemeSuccess' : 'text-lightThemeDelete'} ml-1`}>{data?.quote?.USD?.percent_change_24h.toFixed(2)}%</span>
                                                         </div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>Price Change (7d)</span>
                                                         <div className='text-xl font-medium'>
-                                                            <span className="text-lightThemeDelete ml-1">3.35%</span>
+                                                            <span className={`${data?.quote?.USD?.percent_change_7d >= 0 ? 'text-lightThemeSuccess' : 'text-lightThemeDelete'} ml-1`}>{data?.quote?.USD?.percent_change_7d.toFixed(2)}%</span>
                                                         </div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>All Time High</span>
-                                                        <div className='text-xl font-medium'>$816B</div>
+                                                        <div className='text-xl font-medium'>{formatLargeNumber(data?.periods?.all_time?.quote?.USD?.high)}</div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>All Time Low</span>
-                                                        <div className='text-xl font-medium'>$816B</div>
+                                                        <div className='text-xl font-medium'>{formatLargeNumber(data?.periods?.all_time?.quote?.USD?.low)}</div>
                                                     </div>
                                                 </div>
                                                 <div className='h-[1px] my-10 bg-[#D7D9E4]'></div>
-                                                <div>
+                                                {/* <div>
 
                                                     <p>
 
                                                         <span className='text-lg font-medium'>
                                                             Disclaimer:
                                                         </span> This page may contain affiliate links. CoinMarketCap may be compensated if you visit any affiliate links and you take certain actions such as signing up and transacting with these affiliate platforms. Please refer to Affiliate Disclosure  </p>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
                                     <div className='pt-6'>
                                         <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6">
                                             <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
-                                                About Bitcoin
+                                                About {data?.name}
                                             </h2>
                                             <div className='py-5 flex flex-wrap gap-5'>
-                                                <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal">bitcoin.org
+                                                <a href={data?.urls?.website[0]} target='_blank' className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal">{data?.urls?.website[0]}
                                                     <ExpandIcon
                                                         className="w-4 cursor-pointer ml-2 fill-[#6F7889]"
-                                                    /></div>
-                                                <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">Explorers</div>
-                                                <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">Community</div>
+                                                    /></a>
+                                                {/* <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">Explorers</div> */}
+
+                                                {/* <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">Community</div> */}
                                             </div>
                                             <div className="pb-6">
-                                                <h2 className='mb-4 text-[24px] font-medium text-primaryDark'>What Is Bitcoin?</h2>
-                                                <p className='mb-6'>
+                                                <h2 className='mb-4 text-[24px] font-medium text-primaryDark'>What Is {data?.name}?</h2>
+                                                {/* <p className='mb-6'>{data?.description}</p> */}
+                                                <Markdown remarkPlugins={[breaks]}>{data?.description}</Markdown>
+                                                {/* <p className='mb-6'>
                                                     Bitcoin is one of the most popular cryptocurrencies in the market. First introduced in 2009 by Satoshi Nakamoto, Bitcoin has held the crypto market’s number one spot according to market capitalization. Bitcoin paved the way for many existing altcoins in the market and marked a pivotal moment for digital payment solutions.
                                                 </p>
                                                 <p className='mb-6'>
@@ -385,37 +437,74 @@ function BtcChart() {
                                                 <p className='mb-6'>
 
                                                     Bitcoin halving occurs approximately every four years, where the rewards given to Bitcoin miners for mining blocks are cut in half. Halving was built into the Bitcoin protocol to maintain its value as a deflationary currency. By reducing the amount of new bitcoins, the protocol aims to prevent the devaluation of Bitcoin over time, which often happens with inflationary currencies.
-                                                </p>
+                                                </p> */}
                                             </div>
                                         </div>
                                     </div>
                                     <div className='pt-6'>
                                         <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6">
                                             <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
-                                                Bitcoin Resources
+                                                {data?.name} Resources
                                             </h2>
                                             <div className="pt-8">
-                                                <div className='flex justify-between gap-7 py-4'>
-                                                    <div className='w-[343px] flex items-center justify-between gap-2'>
-                                                        <span className='text-base font-medium text-[#747474]'>http://bitcoin.org/</span>
-                                                        <div className='text-xl font-medium'>
-                                                            <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
-                                                        </div>
-                                                    </div>
-                                                    <div className='w-[343px] flex items-center justify-between gap-2'>
-                                                        <span className='text-base font-medium text-[#747474]'>http://bitcoin.org/</span>
-                                                        <div className='text-xl font-medium'>
-                                                            <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
-                                                        </div>
-                                                    </div>
-                                                    <div className='w-[343px] flex items-center justify-between gap-2'>
-                                                        <span className='text-base font-medium text-[#747474]'>http://bitcoin.org/</span>
-                                                        <div className='text-xl font-medium'>
-                                                            <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
-                                                        </div>
-                                                    </div>
+                                                <div className='flex  flex-wrap gap-x-24 gap-y-8 py-4'>
+                                                    {
+                                                        data?.urls?.website?.map((item, index) => (
+
+                                                            <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
+                                                                <span className='text-base font-medium text-[#747474]'>{item}</span>
+                                                                <div className='text-xl font-medium'>
+                                                                    <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
+                                                                </div>
+                                                            </a>
+                                                        ))
+                                                    }
+                                                    {
+                                                        data?.urls?.explorer?.map((item, index) => (
+
+                                                            <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
+                                                                <span className='text-base font-medium text-[#747474]'>{item}</span>
+                                                                <div className='text-xl font-medium'>
+                                                                    <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
+                                                                </div>
+                                                            </a>
+                                                        ))
+                                                    }
+                                                    {
+                                                        data?.urls?.announcement?.map((item, index) => (
+
+                                                            <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
+                                                                <span className='text-base font-medium text-[#747474]'>Announcement</span>
+                                                                <div className='text-xl font-medium'>
+                                                                    <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
+                                                                </div>
+                                                            </a>
+                                                        ))
+                                                    }
+                                                    {
+                                                        data?.urls?.technical_doc?.map((item, index) => (
+
+                                                            <a key={index} href={item} target='_blank' className='flex items-center justify-between w-[28%]'>
+                                                                <span className='text-base font-medium text-[#747474]'>Technical Document</span>
+                                                                <div className='text-xl font-medium'>
+                                                                    <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
+                                                                </div>
+                                                            </a>
+                                                        ))
+                                                    }
+                                                    {
+                                                        data?.urls?.source_code?.map((item, index) => (
+
+                                                            <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
+                                                                <span className='text-base font-medium text-[#747474]'>Source Code</span>
+                                                                <div className='text-xl font-medium'>
+                                                                    <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
+                                                                </div>
+                                                            </a>
+                                                        ))
+                                                    }
                                                 </div>
-                                                <div className='flex justify-between gap-7 py-4'>
+                                                {/* <div className='flex justify-between gap-7 py-4'>
                                                     <div className='w-[343px] flex items-center justify-between gap-2'>
                                                         <span className='text-base font-medium text-[#747474]'>Technical Documentation</span>
                                                         <div className='text-xl font-medium'>
@@ -454,7 +543,7 @@ function BtcChart() {
                                                             <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> */}
 
                                             </div>
                                         </div>
@@ -479,7 +568,7 @@ function BtcChart() {
 
                             }
 
-                            {
+                            {/* {
                                 tabData[activeTab] === 2 &&
 
                                 <div>
@@ -492,8 +581,8 @@ function BtcChart() {
                                         </div>
                                     </div>
                                 </div>
-                            }
-                            {
+                            } */}
+                            {/* {
                                 tabData[activeTab] === 3 &&
 
                                 <div>
@@ -566,7 +655,7 @@ function BtcChart() {
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            } */}
                         </div>
                     </div>
 

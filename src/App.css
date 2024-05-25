@@ -225,15 +225,15 @@ body {
 .table_parent::-webkit-scrollbar-thumb:hover {
   background: #4f4f4f;
 }
-.table_parent::-webkit-scrollbar {
+/* .table_parent::-webkit-scrollbar {
   display: none;
-}
+} */
 
 /* Hide scrollbar for IE, Edge and Firefox */
-.table_parent {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
+/* .table_parent {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+} */
 
 /* ::marker {
  margin: 0;
@@ -334,19 +334,29 @@ ul {
   margin-bottom: 24px;
 }
 .trending-bar-container {
-  animation: scroll 30s linear infinite;
+  animation: scroll 20s linear infinite;
   white-space: nowrap;
 }
-
+.trending-bar-container2 {
+  animation: scroll2 20s linear infinite;
+  white-space: nowrap;
+}
 @keyframes scroll {
   0% {
     transform: translateX(100%);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
-
+@keyframes scroll2 {
+  0% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
 .form-container {
   /* max-width: 400px; */
   margin: 0 auto;
@@ -373,4 +383,42 @@ ul {
 .success-message {
   color: green;
   margin-top: 10px;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #7147B4;
+  border-radius: 50%;
+  animation: dot-animation 1s infinite;
+}
+
+.dot1 {
+  animation-delay: 0.1s;
+}
+
+.dot2 {
+  animation-delay: 0.2s;
+}
+
+.dot3 {
+  animation-delay: 0.3s;
+}
+
+@keyframes dot-animation {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
 }

@@ -89,8 +89,23 @@ export default function SearchModal({ setSearchOpen }) {
           return number?.toLocaleString();
         }
       };
+      const searchBoxRef = useRef(null);
+
+      useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (searchBoxRef.current && !searchBoxRef.current.contains(event.target)) {
+            setSearchOpen(false);
+          }
+        };
+    
+        document.addEventListener('mousedown', handleClickOutside);
+    
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+      }, [setSearchOpen]);
     return (
-        <div className="w-[600px] transform rounded-lg bg-white absolute top-[-5px] text-left align-middle shadow-xl transition-all z-20 right-[-360px]">
+        <div ref={searchBoxRef} className="w-[600px] transform rounded-lg bg-white absolute top-[-5px] text-left align-middle shadow-xl transition-all z-20 right-[-360px]">
 
             <div className=' rounded-lg md:bg-opacity-[0.4] py-1'>
 

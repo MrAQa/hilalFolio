@@ -7,6 +7,7 @@ import RecentChats from '../Component/Hilalbot/RecentChats';
 import ConfirmationModal from '../Component/Hilalbot/ConfirmationModal';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingSpinner from '../Component/ChatLoader';
 
 const TypingDelay = 50; // Adjust the typing delay time in milliseconds
 const MessageDelay = 2000; // Adjust the delay between messages in milliseconds
@@ -90,7 +91,7 @@ function Hilalbot() {
                     console.error('Error:', error);
                 })
                 .finally(() => {
-                    setLoading(false); // Set loading state to false after API call is complete
+                    setLoading(false);
                 });
         }
     }
@@ -112,6 +113,7 @@ function Hilalbot() {
                     setInputValue('')
                     setQueryId('')
                     setLoading(false)
+                    setShowRecent(false)
                     const chatHistory = response.data?.conversation;
                     if (chatHistory.length > 0) {
                         setQueryId(chatHistory[0]?.queryId)
@@ -203,7 +205,7 @@ function Hilalbot() {
     return (
         <>
             <ToastContainer />
-            <div className="min-h-screen bg-lightThemebg">
+            <div className=" bg-lightThemebg">
                 <NavBar />
                 <div className='bg-lightThemebg'>
                     <SideNav
@@ -242,10 +244,13 @@ function Hilalbot() {
                                                                             />
                                                                         </span>
                                                                         :
+                                                                       
+                                                                      
                                                                         <span className='flex justify-center items-center bg-primaryPurple size-10 p-2 rounded-full'>
                                                                             <ReceivedMessageIcon
                                                                             />
                                                                         </span>
+                                                                       
                                                                 }
 
                                                                 <div className={`${message.sender === 'user' ? 'bg-white border-[#E2E8F0] rounded-tr-none' : 'bg-[#8A71B01C] border-primaryPurple rounded-tl-none'} text-primaryDark p-4 rounded-xl border-[1px] w-full`}>
@@ -258,6 +263,7 @@ function Hilalbot() {
                                                                 </div>
                                                             </div>
                                                         ))}
+                                                        {loading && <LoadingSpinner/>}
                                                     </div>
                                                     :
                                                     <div className='flex justify-center flex-col items-center size-full'>

@@ -212,7 +212,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
               className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/hilalbot"
                 ? 'text-white bg-primaryPurple' : 'text-lightThemeSecondary'} flex items-center`}
             >
-              HilalBot
+              Hilalbot
             </Link>
             <Link
               to="/favorites"
@@ -282,7 +282,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
               }
             </div>
           </div>
-          <div className="bg-[#D0D5DD] w-[1px] mr-4 h-6">
+          <div className="bg-[#D0D5DD] w-[1px] mr-4 h-6 hidden lg:block">
 
           </div>
           <div className="relative hidden lg:flex p-2 mr-4">
@@ -536,6 +536,12 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
                       ? 'text-white bg-primaryPurple' : 'text-primaryDark'} hover:bg-gray-50`}
                   >
                     Home
+                  </Link>
+                  <Link
+                    to="/hilalbot"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Hilalbot
                   </Link>
                   <Link
                     to=''

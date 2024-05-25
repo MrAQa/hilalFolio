@@ -6,14 +6,14 @@ import { HaramlIcon, HilalIcon, NoStatuslIcon } from "../../assets/custom-icon";
 import { LinearProgress } from "@mui/material";
 import TbaleDropDown from "./TbaleDropDown";
 import { useGlobalState } from "../../context/context";
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 const CoinSecton = ({ searchQuery, isLogedin }) => {
   
   const { CoinsData, setCoinsData, selectedStatus, setSelectedStatus, selectedRank, setSelectedRank, selectedPercentage, setSelectedPercentage, isLoading, noDataFlag, fetchData } = useGlobalState();
-  const statuses = ['All', 'Compliant', 'Not Compliant'];
+  const statuses = ['All', 'Halal', 'Haram'];
   const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
-  const percentageChange = ['All', '1h', '24h', '7d'];
+  const percentageChange = ['1h', '24h', '7d'];
   useEffect(() => {
     fetchData(); //fetch latest data
   }, []);
@@ -28,7 +28,7 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
       id: 'Status',
     },
     {
-      id: '24h%',
+      id: `${selectedPercentage}%`,
     },
     {
       id: 'Price',
@@ -96,6 +96,28 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
       navigation('/sign-in');
     }
   };
+  const tableContainerRef = useRef(null);
+
+  useEffect(() => {
+    const tableContainer = tableContainerRef.current;
+
+    const handleScroll = (event) => {
+      const deltaY = event.deltaY;
+      const atBottom = tableContainer.scrollTop + tableContainer.clientHeight >= tableContainer.scrollHeight;
+      const atTop = tableContainer.scrollTop === 0;
+
+      if ((atBottom && deltaY > 0) || (atTop && deltaY < 0)) {
+        event.preventDefault();
+        window.scrollBy(0, deltaY);
+      }
+    };
+
+    tableContainer.addEventListener('wheel', handleScroll);
+
+    return () => {
+      tableContainer.removeEventListener('wheel', handleScroll);
+    };
+  }, []);
   return (
     <>
       {/* <MarketCapSection/> */}
@@ -111,13 +133,13 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
               <TbaleDropDown
                 value={selectedRank}
                 onChange={setSelectedRank}
-                placeholder='Select Rank'
+                placeholder='Show Coins'
                 dataArray={rank}
               />
               <TbaleDropDown
                 value={selectedPercentage}
                 onChange={setSelectedPercentage}
-                placeholder='Percentage'
+                placeholder='Price Change'
                 dataArray={percentageChange}
               />
               <div onClick={handleClick}>
@@ -130,7 +152,9 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
               </div>
 
             </div>
-            <div className="overflow-x-auto table_parent h-[70vh]">
+            <div 
+            ref={tableContainerRef} 
+            className="overflow-x-auto table_parent h-[70vh]">
               <table className="w-full text-left relative">
                 <thead className="text-base text-[#747474] bg-white sticky top-[-1px] z-[1]">
                   <tr>
@@ -154,7 +178,7 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
                       // (item.id === 'Status' && !isLogedin) ? null :
                       (
                         <th key={item.id} scope="col" className="px-0 font-semibold ">
-                          <div className={`${item?.id === 'Name' ? 'pl-14 text-left' : 'pl-6  whitespace-nowrap'} ${item.id === 'Status' ? 'text-left' : 'text-center'}  px-6 py-5 border-y-[1px] border-[#D7D9E4]`}>
+                          <div className={`${item?.id === 'Name' ? 'pl-14 !text-left' : 'pl-6  whitespace-nowrap'} ${item.id === 'Status' ? 'text-left' : 'text-center'}  px-6 py-5 border-y-[1px] border-[#D7D9E4]`}>
                             {item.id}
                           </div>
                         </th>
@@ -286,16 +310,16 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
 
                         <td className="px-6 py-5 text-center">
 
-                          <span key={index} className={`flex items-center justify-center gap-[2px] ${item?.periods?.['24h']?.quote?.USD?.percent_change !== undefined && item.periods['24h'].quote.USD.percent_change >= 0
+                          <span key={index} className={`flex items-center justify-center gap-[2px] ${item?.percentChange !== undefined && item?.percentChange  >= 0
                             ? 'text-lightThemeSuccess'
                             : 'text-lightThemeDelete'
                             }`}>
-                            {item?.periods?.['24h']?.quote?.USD?.percent_change !== undefined && item.periods['24h'].quote.USD.percent_change >= 0 ? (
+                            {item?.percentChange !== undefined && item?.percentChange  >= 0 ? (
                               <UpIconGreen />
                             ) : (
                               <UpIconRed className="rotate-180" />
                             )}
-                            {item?.percentChange?.replace('-', '')}
+                            {item?.percentChange?.replace('-', '')}%
                           </span>
                         </td>
                         <td className="px-6 py-5 text-center">{item?.formattedPrice}</td>

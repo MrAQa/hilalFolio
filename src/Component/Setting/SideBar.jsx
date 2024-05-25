@@ -140,7 +140,7 @@ function SideBar() {
                                         <AboutIconDark />
                                 }
                             </span>
-                            <span>About HilalFolio </span>
+                            <span>About Hilalfolio </span>
                         </div>
                         <div>
                             {

@@ -26,7 +26,7 @@ export default function ReportPage() {
       <NavBar />
       <section className='pt-6 sm:pt-12'>
         <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
-          <div
+          {/* <div
             style={{
 
               background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.50) 100%), url(${img}) lightgray -11.343px -38.072px / 114.652% 145.496% no-repeat`,
@@ -54,7 +54,7 @@ export default function ReportPage() {
                   </div>
                 </div>
                 <div className='text-3xl font-bold'>
-                  {/* {`$${data?.quote?.USD?.price?.toFixed(2)}`} */}
+                  
                 </div>
               </div>
               <div>
@@ -121,8 +121,8 @@ export default function ReportPage() {
 
               </div>
             </div>
-          </div>
-          <div className='pt-6 markdown-container'>
+          </div> */}
+          <div className='markdown-container'>
             <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6 relative">
               <Markdown remarkPlugins={[breaks]}>{data?.report}</Markdown>
 
@@ -131,7 +131,7 @@ export default function ReportPage() {
               onClick={()=>navigate('/hilalbot')}
               className="bg-primaryPurple whitespace-nowrap h-[50px] text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50 absolute top-8 right-8"
                   >
-                    Ask HilalBot
+                    Ask Hilalbot
                   </button>
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function ReportPage() {
 
                   <button className="bg-primaryPurple whitespace-nowrap h-10 text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
                   >
-                    Ask From HilalBot
+                    Ask From Hilalbot
                   </button>
                 </div>
               </div>
@@ -185,7 +185,7 @@ export default function ReportPage() {
 
                   <button className="bg-primaryPurple whitespace-nowrap h-10 text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
                   >
-                    Ask From HilalBot
+                    Ask From Hilalbot
                   </button>
                 </div>
               </div>
@@ -239,7 +239,7 @@ export default function ReportPage() {
 
                   <button className="bg-primaryPurple whitespace-nowrap h-10 text-white font-medium flex justify-center items-center hover:bg-opacity-90 py-3 px-3 min-w-28 text-center rounded-lg disabled:opacity-50  z-[1]"
                   >
-                    Ask From HilalBot
+                    Ask From Hilalbot
                   </button>
                 </div>
               </div>

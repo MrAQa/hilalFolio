@@ -64,8 +64,8 @@ function Footer() {
                             <Link
                                 to="/"
                             >
-                                <span className="sr-only">HilalFolio</span>
-                                <img className="w-[166px]" src={logo} alt="HilalFolio" />
+                                <span className="sr-only">Hilalfolio</span>
+                                <img className="w-[166px]" src={logo} alt="Hilalfolio" />
                             </Link>
                         </div>
                         {/* <div className='leading-7 text-base font-normal max-w-48 text-lightSecondaryText'>
