@@ -50,7 +50,7 @@ const ODR = () => {
           const selectedItem = sortedData.find((item)=> item.symbol=== state?.symbol);
           handleItemClick(selectedItem);
         }
-        const reportedCoins = sortedData.filter((item) => item.reportGenerated)
+        const reportedCoins = sortedData.filter((item) => item.reportGenerated || item.reportStatus!==null)
        
         setReportedCoins(reportedCoins)
         

@@ -16,6 +16,7 @@ export default function AccordianBox({ CoinsData, isLoadingCoins }) {
                 ) : (
                     <>
                         {CoinsData?.map((item, index) => (
+                            !item?.reportGenerated &&
                             <Disclosure
                                 key={index + '-item'}
                                 as='div'
