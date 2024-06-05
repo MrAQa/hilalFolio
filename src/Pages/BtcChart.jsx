@@ -218,7 +218,7 @@ function BtcChart() {
                                                 {/* } */}
 
                                                 {
-                                                    isLogedin && Coindata?.reportId ?
+                                                    isLogedin && Coindata?.reportGenerated ?
 
                                                         <button
                                                             onClick={handleViewReport}
