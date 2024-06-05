@@ -11,6 +11,7 @@ import { useGlobalState } from "../context/context";
 // import TrendingBar from "./TrendingBar";
 import SearchModal from "./SearchModal";
 import { url } from '../environment'
+import { FMCToken } from "../service/service";
 const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -32,7 +33,9 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
     setCartItems(cartItems ?? [])
     getPaymentTotal()
-
+FMCToken().then((res)=>{
+  console.log(res);
+})
     // eslint-disable-next-line
   }, [refresh, cartOpen])
   const removeCoinFromCart = (coinToRemove) => {
