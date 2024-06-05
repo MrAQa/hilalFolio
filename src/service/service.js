@@ -511,7 +511,7 @@ export const UpdateUserSettings = async (data) => {
     handleCatch(error)
   }
 };
-export const GetAllFAQ= async () => {
+export const GetAllFAQ = async () => {
   const token = localStorage.getItem('user_token')
   try {
 
@@ -530,5 +530,44 @@ export const GetAllFAQ= async () => {
   }
   catch (error) {
     handleCatch(error)
+  }
+};
+
+export const FMCToken = async () => {
+  const token = localStorage.getItem('user_token');
+
+  // Ensure token exists
+  if (!token) {
+    console.error('User token not found in localStorage');
+    return null;
+  }
+
+  try {
+    const userAgent = window.navigator.userAgent;
+    const platform = window.navigator.platform;
+
+    // Improved random string generation
+    const randomString = Math.random().toString(36).substring(2, 14) + Math.random().toString(36).substring(2, 14);
+    const deviceID = `${userAgent}-${platform}-${randomString}`;
+
+    const data = {
+      deviceId: deviceID,
+      token
+    };
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+
+    const response = await axios.post('/fcm/fcm-token', data, { headers });
+
+    return response.data;
+  } catch (error) {
+    // Improved error handling
+    console.error('Error occurred while fetching FMC token:', error);
+    handleCatch(error);
+    return null; // Return null or handle error as needed
   }
 };

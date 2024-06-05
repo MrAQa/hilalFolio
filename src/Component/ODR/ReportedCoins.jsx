@@ -124,6 +124,7 @@ const ReportedCoins = ({ CoinsData, isLoadingCoins,setShowAssets }) => {
                                                         <>
                                                             {
                                                                 CoinsData?.map((item, index) => (
+                                                                    item?.reportGenerated &&
                                                                     <div key={index + '-item'}
                                                                         onClick={() => handleItemClick(item)}
                                                                         className='flex justify-between items-center max-h-24 gap-1 border-[1px] border-lightThemeOutline shadow-custom rounded-xl p-6 col-3-items'>
