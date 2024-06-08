@@ -3,7 +3,7 @@ import { Popover, Transition, Tab } from '@headlessui/react';
 import { BellNotificationIcon, GreenDot } from '../assets/custom-icon';
 import { GetAllNotification, ReadNotification } from '../service/service';
 import { useNavigate } from 'react-router-dom';
-
+import { formatDistanceToNow } from 'date-fns';
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
@@ -91,19 +91,26 @@ const NotificationBox = () => {
                                         )}
                                     </Tab>
                                 </Tab.List>
-                                <Tab.Panels className="h-[400px] overflow-y-auto">
+                                <Tab.Panels className="max-h-[400px] overflow-y-auto">
                                     <Tab.Panel>
                                         <p className='text-center p-4'>No Result Found</p>
                                     </Tab.Panel>
                                     <Tab.Panel>
+                                        {
+                                            NotifData.length===0 &&
+                                            <p className='text-center p-4'>No Result Found</p>
+                                        }
                                         <div onClick={() => close()}>
 
                                             {NotifData?.map((item, index) => (
                                                 <div
                                                     onClick={() => NotifNaviagte(item?._id)}
                                                     key={`item-${index}`} className={`flex items-center gap-2 border-y-[1px] p-4 cursor-pointer hover:bg-slate-50 `}>
-                                                    <img className='size-5 rounded-full' src={item?.data?.logo} alt="logo" />
-                                                    <div>{item.title}</div>
+                                                    <img className='size-6 rounded-full' src={item?.data?.logo} alt="logo" />
+                                                    <div className='flex flex-col'>{item.title}
+
+                                                    <span className='text-[12px] text-lightThemeSecondary'>{formatDistanceToNow(new Date(item.createdAt), { addSuffix: true })}</span>
+                                                    </div>
                                                 </div>
                                             ))}
                                         </div>
