@@ -423,9 +423,9 @@ const Login = () => {
                     </Divider>
                     <div className="flex justify-center items-center space-x-4 mt-2 mb-2 social-btn-container">
                       <LoginSocialGoogle
-                        client_id={''}
-                        onLoginStart={onLoginStart}
-                        // redirect_uri={REDIRECT_URI}
+                        client_id={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                        onLoginStart={onLoginStart} 
+                        redirect_uri={REDIRECT_URI}
                         scope="openid profile email"
                         // discoveryDocs="claims_supported"
                         // access_type="offline"
