@@ -423,9 +423,9 @@ const Login = () => {
                     </Divider>
                     <div className="flex justify-center items-center space-x-4 mt-2 mb-2 social-btn-container">
                       <LoginSocialGoogle
-                        client_id={process.env.GOOGLE_CLIENT_ID}
+                        client_id={''}
                         onLoginStart={onLoginStart}
-                        redirect_uri={REDIRECT_URI}
+                        // redirect_uri={REDIRECT_URI}
                         scope="openid profile email"
                         // discoveryDocs="claims_supported"
                         // access_type="offline"
@@ -445,7 +445,7 @@ const Login = () => {
                       </LoginSocialGoogle>
                       <LoginSocialFacebook
                         appId={
-                          process.env.REACT_APP_FB_APP_ID || "1447040019557218"
+                          "1447040019557218"
                         }
                         fieldsProfile={
                           "id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender"
