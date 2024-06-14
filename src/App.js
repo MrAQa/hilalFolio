@@ -26,10 +26,12 @@ import FAQ from "./Component/Hilalbot/FAQ";
 function App() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const excludedPaths = ['/sign-in', '/sign-up', '/forget-password', '/otp-verification', '/new-password'];
+const isPathExcluded = !excludedPaths.includes(currentPath);
   return (
     <>
     {
-      currentPath !==('/sign-in' || '/sign-up') &&
+      isPathExcluded &&
 
       <div className='bg-white hidden lg:block'>
         <div style={{ overflow: 'hidden', width: '100%', display: 'flex', justifyContent: 'end' }}>
