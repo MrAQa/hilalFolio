@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import "./Otp-verification.css";
-import {
-  //  Link,
-  useNavigate,
-  useLocation,
-  Link,
-} from "react-router-dom";
-// import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
-// import * as Yup from "yup";
+
+import { useNavigate, useLocation, Link } from "react-router-dom";
+
 import OtpInput from "react-otp-input";
 import { ToastContainer, toast } from "react-toastify";
 import imglOGO from "../../assets/Logo-new.png";
@@ -24,12 +18,9 @@ const OtpVerification = () => {
   const location = useLocation();
   const receivedData = location.state;
 
-  // console.log(receivedData);
-
   const [otp, setOtp] = useState("");
 
   const handleOtpChange = (otpValue) => {
-    // Allow only numbers in the OTP input
     const numericOtp = otpValue.replace(/\D/g, "");
     setOtp(numericOtp);
   };
@@ -59,7 +50,7 @@ const OtpVerification = () => {
     if (otp.length < 6) {
       return;
     }
-    let token = "Bearer " + localStorage.getItem("token");
+    let token = "Bearer " + sessionStorage.getItem("user_token");
     setLoading(true);
     fetch(`${url}/api/auth/verify`, {
       method: "POST",
@@ -78,12 +69,11 @@ const OtpVerification = () => {
           if (receivedData.component === "signUp") {
             navigate("/");
             localStorage.setItem("user_token", res?.body?.token);
-            GetProfileData()
-              .then((result) => {
-                const data = result?.body?.user;
+            GetProfileData().then((result) => {
+              const data = result?.body?.user;
 
-                localStorage.setItem("user_Data", JSON.stringify(data));
-              })
+              localStorage.setItem("user_Data", JSON.stringify(data));
+            });
           } else {
             navigate("/new-password");
           }
@@ -170,7 +160,16 @@ const OtpVerification = () => {
               <LoadingButton
                 variant="contained"
                 className="submit-button !mb-8 "
-                style={{spinnerColor: "white", color: 'white', fontSize: '16px', fontWeight: '600', height: '50px', borderRadius: '8px',textTransform:'capitalize' ,fontFamily:'Open Sans' }}
+                style={{
+                  spinnerColor: "white",
+                  color: "white",
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  height: "50px",
+                  borderRadius: "8px",
+                  textTransform: "capitalize",
+                  fontFamily: "Open Sans",
+                }}
                 onClick={() => verifyOtp()}
                 loading={Loading}
               >
@@ -193,11 +192,11 @@ const OtpVerification = () => {
                 </div>
               </span> */}
               <span className="small-text !text-[#1F1F1F] !font-semibold mt-1">
-                      Remember password?{" "}
-                      <Link className="forget-text" to={"/sign-in"}>
-                        Login
-                      </Link>
-                    </span>
+                Remember password?{" "}
+                <Link className="forget-text" to={"/sign-in"}>
+                  Login
+                </Link>
+              </span>
             </div>
           </div>
         </div>

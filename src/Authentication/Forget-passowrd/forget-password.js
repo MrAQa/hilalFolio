@@ -49,12 +49,14 @@ const ForgetPassword = () => {
       .then((response) => response.json())
       .then((res) => {
         if (res.success === true) {
-          localStorage.setItem("user_token", res.body.token);
+      
 
           toast.success(res.message, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
           });
+          sessionStorage.setItem("user_token", res.body.token);
+
           navigate("/otp-verification", {
             state: { email: e.email, component: "forget" },
           });
