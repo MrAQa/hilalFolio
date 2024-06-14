@@ -5,9 +5,14 @@ import { GetCmcData } from '../service/service';
 const TrendingBar = () => {
 
     const [CoinsData, setCoinsData] = useState([])
-
+    const currentPath = location.pathname;
+    const excludedPaths = ['/sign-in', '/sign-up', '/forget-password', '/otp-verification', '/new-password'];
+    const isPathExcluded = !excludedPaths.includes(currentPath);
     useEffect(() => {
+      if(isPathExcluded){
+
         fetchData()
+      }
         const interval = setInterval(fetchData, 20000);
         return () => clearInterval(interval);
         

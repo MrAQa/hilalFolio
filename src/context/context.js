@@ -27,9 +27,15 @@ export const StateProvider = ({ children }) => {
    }
  
  }, [])
+
  useEffect(() => {
+  const currentPath = location.pathname;
+  const excludedPaths = ['/sign-in', '/sign-up', '/forget-password', '/otp-verification', '/new-password'];
+  const isPathExcluded = !excludedPaths.includes(currentPath);
   setIsLoading(true)
-  fetchData()
+  if(isPathExcluded){
+    fetchData()
+  }
 
   const interval = setInterval(fetchData, 20000);
 
@@ -52,6 +58,11 @@ const fetchData = () => {
   }else{
     shariastatus='All'
   }
+  const currentPath = location.pathname;
+  const excludedPaths = ['/sign-in', '/sign-up', '/forget-password', '/otp-verification', '/new-password'];
+  const isPathExcluded = !excludedPaths.includes(currentPath);
+  // console.log('fetch data',isPathExcluded);
+ if(isPathExcluded){
   GetCmcData(shariastatus, number, selectedPercentage).then((result) => {
     setIsLoading(false)
     if (result.success) {
@@ -95,6 +106,7 @@ const fetchData = () => {
   }).catch((err) => {
     console.log(err)
   })
+ }
 }
 const numberWithCommas = (number) => {
   if (typeof (number) === "string") {

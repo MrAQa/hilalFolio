@@ -10,8 +10,14 @@ function classNames(...classes) {
 
 const NotificationBox = () => {
     const [NotifData, useNotifData] = useState([]);
+
+    const currentPath = location.pathname;
+    const excludedPaths = ['/sign-in', '/sign-up', '/forget-password', '/otp-verification', '/new-password'];
+    const isPathExcluded = !excludedPaths.includes(currentPath);
     useEffect(() => {
-        fetchData()
+        if(isPathExcluded){
+            fetchData()
+        }
         const interval = setInterval(fetchData, 20000);
         return () => clearInterval(interval);
 
