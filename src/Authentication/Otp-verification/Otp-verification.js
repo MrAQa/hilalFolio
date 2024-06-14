@@ -16,6 +16,7 @@ import { GetProfileData } from "../../service/service";
 import "react-toastify/dist/ReactToastify.css";
 import { LoadingButton } from "@mui/lab";
 import { url } from "../../environment";
+import { CircularProgress } from "@mui/material";
 const OtpVerification = () => {
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(0);
@@ -145,9 +146,9 @@ const OtpVerification = () => {
             </div>
             <div className="flex max-w-sm w-[360px] flex-col justify-center items-center mt-3 text-center ">
               <p className="text-35 Welcome-text">OTP Verification</p>
-              <span className="small-text">
+              {/* <span className="small-text">
                 It was popularised in the 1960s with the release of Lorem Ipsum.
-              </span>
+              </span> */}
 
               <div className="mb-6">
                 <OtpInput
@@ -174,7 +175,7 @@ const OtpVerification = () => {
                 onClick={() => verifyOtp()}
                 loading={Loading}
               >
-                {Loading ? "Adding ..." : "Verify"}
+                {Loading ? <CircularProgress size={24} style={{ color: 'white' }} /> : "Verify"}
               </LoadingButton>
               {/* <span className="small-text mt-1">
                 Resend code:{" "}

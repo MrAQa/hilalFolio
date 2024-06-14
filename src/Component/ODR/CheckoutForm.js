@@ -30,9 +30,10 @@ const CheckoutForm = ({ total, openModal }) => {
     const [loading, setLoading] = React.useState(false);
     const [Refresh, setRefresh] = useState(0);
 
-    const stripePromise = loadStripe(
-        'pk_test_51PFsNB08ZDzoXpLEzP4uFGQ9hdOrLtTgmdXDOgLvMjWdYCV8Z8EGheRcZjtzXgltIQ51OiMLdozUuc8QCfaL11Vk003pbrL8J9'
-    );
+    // const stripePromise = loadStripe(
+    //     'pk_test_51PFsNB08ZDzoXpLEzP4uFGQ9hdOrLtTgmdXDOgLvMjWdYCV8Z8EGheRcZjtzXgltIQ51OiMLdozUuc8QCfaL11Vk003pbrL8J9'
+    // );
+    const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
     const [clientSecret, setClientSecret] = useState('');
     const [paymentProcessing, setPaymentProcessing] = useState(false);
     const [paymentSucceeded, setPaymentSucceeded] = useState(false);
@@ -113,7 +114,7 @@ const CheckoutForm = ({ total, openModal }) => {
     };
     const handleOpenPay = () => setPayStripe(true);
     const handleClosePay = (e) => {
-        setPayStripe(false); debugger
+        setPayStripe(false); 
         if (e == 'success') {
             openModal()
         }

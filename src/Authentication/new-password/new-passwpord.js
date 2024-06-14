@@ -25,6 +25,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { CircularProgress } from "@mui/material";
 
 const SignUp = () => {
   // const [email, setEmail] = useState("");
@@ -257,7 +258,7 @@ const SignUp = () => {
                         type="submit"
                         loading={Loading}
                       >
-                        {Loading ? "Adding ..." : "Submit"}
+                        {Loading ? <CircularProgress size={24} style={{ color: 'white' }} /> : "Submit"}
                       </LoadingButton>
                     </div>
                   </Form>

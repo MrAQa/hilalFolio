@@ -31,6 +31,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import PasswordStrengthBar from "../../Component/passwordStrengthCheck";
 import bg from '../../assets/Loginpage-section.png'
+import { CircularProgress } from "@mui/material";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -364,7 +365,7 @@ const SignUp = () => {
                       type="submit"
                       loading={Loading}
                     >
-                      {Loading ? "Adding ..." : "Signup"}
+                      {Loading ? <CircularProgress size={24} style={{ color: 'white' }} /> : "Signup"}
                     </LoadingButton>
                     {/* <button type="submit" className="submit-button mb-2 ">
                       Sign Up

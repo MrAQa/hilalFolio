@@ -49,6 +49,7 @@ import bg from '../../assets/Loginpage-section.png'
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { useGlobalState } from "../../context/context";
+import { CircularProgress } from "@mui/material";
 const Login = () => {
   const [Loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -414,7 +415,7 @@ const Login = () => {
                       disabled={!!errors.email && !!errors.password}
                       loading={Loading}
                     >
-                      {Loading ? "Adding ..." : "Login"}
+                      {Loading ? <CircularProgress size={24} style={{ color: 'white' }} /> : "Login"}
                     </LoadingButton>
 
                     <Divider orientation="horizontal" flexItem className="!my-4">

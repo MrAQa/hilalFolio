@@ -13,6 +13,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { url } from "../../environment";
 import FormControl from "@mui/material/FormControl";
+import { CircularProgress } from "@mui/material";
 const ForgetPassword = () => {
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -85,10 +86,10 @@ const ForgetPassword = () => {
             </div>
             <div className="flex flex-col justify-center items-center mt-3 text-center ">
               <p className="Welcome-text mb-3">Forgot password</p>
-              <span className="small-text">
+              {/* <span className="small-text">
                 It was popularised in the 1960s with the
                 <br /> release of Lorem Ipsum.
-              </span>
+              </span> */}
 
               <Formik
                 initialValues={initialValues}
@@ -147,7 +148,7 @@ const ForgetPassword = () => {
                       disabled={!!errors.email}
                       loading={Loading}
                     >
-                      {Loading ? "Adding ..." : "Submit"}
+                      {Loading ? <CircularProgress size={24} style={{ color: 'white' }} /> : "Submit"}
                     </LoadingButton>
                     <span className="small-text !text-[#1F1F1F] !font-semibold mt-1">
                       Remember password?{" "}
