@@ -116,21 +116,26 @@ function BtcChart() {
         })
     }
     function formatLargeNumber(number) {
-        if (isNaN(number)) return 'Invalid input';
+if(number){
+    if (isNaN(number)) return 'Invalid input';
 
-        const absNumber = Math.abs(number);
+    const absNumber = Math.abs(number);
 
-        if (absNumber >= 1e12) {
-            return (number / 1e12).toFixed(2) + 'T';
-        } else if (absNumber >= 1e9) {
-            return (number / 1e9).toFixed(2) + 'B';
-        } else if (absNumber >= 1e6) {
-            return (number / 1e6).toFixed(2) + 'M';
-        } else if (absNumber >= 1e3) {
-            return (number / 1e3).toFixed(2) + 'K';
-        } else {
-            return number.toFixed(2);
-        }
+    if (absNumber >= 1e12) {
+        return (number / 1e12).toFixed(2) + 'T';
+    } else if (absNumber >= 1e9) {
+        return (number / 1e9).toFixed(2) + 'B';
+    } else if (absNumber >= 1e6) {
+        return (number / 1e6).toFixed(2) + 'M';
+    } else if (absNumber >= 1e3) {
+        return (number / 1e3).toFixed(2) + 'K';
+    } else {
+        return number.toFixed(2);
+    }
+}
+else{
+    return 'N/A'
+}
     }
 
     const [activeTabPeriod, setActiveTabPeriod] = useState('1h');
@@ -348,11 +353,15 @@ function BtcChart() {
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>All Time High</span>
-                                                        <div className='text-xl font-medium'>{formatLargeNumber(data?.periods?.all_time?.quote?.USD?.high)}</div>
+                                                        <div className='text-xl font-medium'>${formatLargeNumber(data?.periods?.all_time?.quote?.USD?.high)}</div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>All Time Low</span>
-                                                        <div className='text-xl font-medium'>{formatLargeNumber(data?.periods?.all_time?.quote?.USD?.low)}</div>
+                                                        <div className='text-xl font-medium'>${formatLargeNumber(data?.periods?.all_time?.quote?.USD?.low)}</div>
+                                                    </div>
+                                                    <div className='w-[236px] flex flex-col gap-2'>
+                                                        <span className='text-base text-[#747474]'>Max Supply</span>
+                                                        <div className='text-xl font-medium'>{formatLargeNumber(data?.max_supply)} {data?.max_supply?data.symbol:''}</div>
                                                     </div>
                                                 </div>
                                                 <div className='h-[1px] my-10 bg-[#D7D9E4]'></div>
@@ -452,7 +461,7 @@ function BtcChart() {
                                                         data?.urls?.website?.map((item, index) => (
 
                                                             <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
-                                                                <span className='text-base font-medium text-[#747474]'>{item}</span>
+                                                                <span className='text-base font-medium text-[#747474] truncate'>{item}</span>
                                                                 <div className='text-xl font-medium'>
                                                                     <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
                                                                 </div>
@@ -463,7 +472,7 @@ function BtcChart() {
                                                         data?.urls?.explorer?.map((item, index) => (
 
                                                             <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
-                                                                <span className='text-base font-medium text-[#747474]'>{item}</span>
+                                                                <span className='text-base font-medium text-[#747474] truncate'>{item}</span>
                                                                 <div className='text-xl font-medium'>
                                                                     <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
                                                                 </div>

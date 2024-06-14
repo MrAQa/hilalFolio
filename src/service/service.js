@@ -571,3 +571,46 @@ export const FMCToken = async () => {
     return null; // Return null or handle error as needed
   }
 };
+export const GetAllNotification = async () => {
+  const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.get(`/notification/all`, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
+
+export const ReadNotification = async (data) => {
+  const token = localStorage.getItem('user_token');
+
+  try {
+
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+
+    const response = await axios.post('/notification/read', data, { headers });
+
+    return response.data;
+  } catch (error) {
+   
+    handleCatch(error);
+   
+  }
+};

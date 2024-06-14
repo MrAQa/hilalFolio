@@ -97,10 +97,10 @@ const Payment = ({ setshowPayement,setReresh }) => {
         }
 
     };
-    const stripePromise = loadStripe(
-        "pk_test_51PFsNB08ZDzoXpLEzP4uFGQ9hdOrLtTgmdXDOgLvMjWdYCV8Z8EGheRcZjtzXgltIQ51OiMLdozUuc8QCfaL11Vk003pbrL8J9"
-    );
-
+    // const stripePromise = loadStripe(
+    //     "pk_test_51PFsNB08ZDzoXpLEzP4uFGQ9hdOrLtTgmdXDOgLvMjWdYCV8Z8EGheRcZjtzXgltIQ51OiMLdozUuc8QCfaL11Vk003pbrL8J9"
+    // );
+    const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
     return (
         <>

@@ -12,6 +12,7 @@ import { useGlobalState } from "../context/context";
 import SearchModal from "./SearchModal";
 import { url } from '../environment'
 import { FMCToken } from "../service/service";
+import NotificationBox from "./NotificationBox";
 const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -256,7 +257,8 @@ FMCToken().then((res)=>{
               isLogedin &&
               <>
                 <div className="p-2 ">
-                  <BellNotificationIcon />
+                  {/* <BellNotificationIcon /> */}
+                  <NotificationBox/>
 
                 </div>
                 <div className="p-2 ">
