@@ -76,6 +76,8 @@ const SignUp = () => {
         console.log(res.success);
         if (res.success === true) {
           localStorage.setItem("token", res.body.token);
+          sessionStorage.setItem("user_token", res.body.token);
+
           toast.success(res.message, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
