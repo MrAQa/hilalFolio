@@ -1,7 +1,7 @@
 import { Listbox } from '@headlessui/react'
 import React from 'react'
 
-function TbaleDropDown({value,placeholder,onChange,dataArray}) {
+function TbaleDropDown({value,placeholder,onChange,dataArray ,disableOptions}) {
   return (
     <Listbox value={value} onChange={onChange}>
     {({ open }) => (
@@ -21,30 +21,55 @@ function TbaleDropDown({value,placeholder,onChange,dataArray}) {
             className="absolute mt-1 w-full rounded-md bg-white shadow-lg max-h-56 overflow-auto z-10"
           >
             {dataArray?.map((status, index) => (
-              <Listbox.Option
-                key={index}
-                className={({ active }) =>
-                  `${active ? 'bg-primaryPurple text-white' : 'text-black'}
-              cursor-pointer select-none relative py-2 pl-3 pr-9`
-                }
-                value={status}
-              >
-                {({ selected, active }) => (
-                  <>
-                    <span className={`${selected ? 'font-semibold' : 'font-normal'} block truncate`}>
-                      {status}
-                    </span>
-                    {selected ? (
-                      <span
-                        className={`${active ? 'text-white' : 'text-indigo-600'}
-                    absolute inset-y-0 right-0 flex items-center pr-4`}
-                      >
+              // <Listbox.Option
+              //   key={index}
+              //   className={({ active }) =>
+              //     `${active ? 'bg-primaryPurple text-white' : 'text-black'}
+              // cursor-pointer select-none relative py-2 pl-3 pr-9`
+              //   }
+              //   value={status}
+              // >
+              //   {({ selected, active }) => (
+              //     <>
+              //       <span className={`${selected ? 'font-semibold' : 'font-normal'} block truncate`}>
+              //         {status}
+              //       </span>
+              //       {selected ? (
+              //         <span
+              //           className={`${active ? 'text-white' : 'text-indigo-600'}
+              //       absolute inset-y-0 right-0 flex items-center pr-4`}
+              //         >
                        
-                      </span>
-                    ) : null}
-                  </>
-                )}
-              </Listbox.Option>
+              //         </span>
+              //       ) : null}
+              //     </>
+              //   )}
+              // </Listbox.Option>
+              <Listbox.Option
+              key={index}
+              className={({ active, disabled }) =>
+                `${active ? 'bg-primaryPurple text-white' : 'text-black'}
+                ${disabled ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'cursor-pointer'}
+                select-none relative py-2 pl-3 pr-9`
+              }
+              value={status}
+              disabled={disableOptions ?? false}
+            >
+              {({ selected, active }) => (
+                <>
+                  <span className={`${selected ? 'font-semibold' : 'font-normal'} block truncate`}>
+                    {status}
+                  </span>
+                  {selected ? (
+                    <span
+                      className={`${active ? 'text-white' : 'text-indigo-600'}
+                      absolute inset-y-0 right-0 flex items-center pr-4`}
+                    >
+                    </span>
+                  ) : null}
+                </>
+              )}
+            </Listbox.Option>
             ))}
           </Listbox.Options>
         </div>

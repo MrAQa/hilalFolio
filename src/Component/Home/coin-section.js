@@ -1,7 +1,7 @@
 import { UpGraphGreen, UpIconGreen, UpIconRed } from '../../assets/custom-icons'
 import NewCarousel from './NewCarousel'
 import { Link, useNavigate } from "react-router-dom";
-import { AddToFavorite, RemoveFromFavorite } from "../../service/service";
+import { AddToFavorite, GetReport, RemoveFromFavorite } from "../../service/service";
 import { HaramlIcon, HilalIcon, NoStatuslIcon } from "../../assets/custom-icon";
 import { LinearProgress } from "@mui/material";
 import TbaleDropDown from "./TbaleDropDown";
@@ -93,7 +93,10 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
   }
   const handleClick = () => {
     if (!isLogedin) {
-      navigation('/sign-in');
+      return true;
+    }
+    else{
+      return false;
     }
   };
   const tableContainerRef = useRef(null);
@@ -118,6 +121,35 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
       tableContainer.removeEventListener('wheel', handleScroll);
     };
   }, []);
+  const handleViewReport = (e,reportId) => {
+    e.stopPropagation()
+    if (reportId) {
+        GetReport(reportId).then((result) => {
+
+            if (result?.success) {
+                const data = result?.body?.report
+                navigation('/review', { state: data });
+            }
+        }).catch((error) => console.log(error))
+    }
+}
+const handleRequestReview = (e,symbol) => {
+  e.stopPropagation()
+  if (isLogedin) {
+
+      // setIsLoading(true)
+      const data = {
+          symbol: symbol
+      }
+      navigation('/odr', { state: data })
+
+  }
+  else {
+      navigation('/sign-in')
+  }
+
+
+}
   return (
     <>
       {/* <MarketCapSection/> */}
@@ -142,14 +174,15 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
                 placeholder='Price Change'
                 dataArray={percentageChange}
               />
-              <div onClick={handleClick}>
+              {/* <div onClick={handleClick}> */}
                 <TbaleDropDown
                   value={selectedStatus}
                   onChange={setSelectedStatus}
                   placeholder="Shariah Status"
                   dataArray={statuses}
+                  disableOptions={handleClick()}
                 />
-              </div>
+              {/* </div> */}
 
             </div>
             <div 
@@ -249,18 +282,39 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
                         {
                           isLogedin ?
                             <td className="px-6 py-5 text-center">
-                              {
-                                item?.shariahStatus === 'Compliant' ?
+                             
                                   <div>
+                                    {
+                                      item?.shariahStatus === 'Compliant' ?
                                     <span className="flex items-center gap-[2px] text-[#098C26]">
                                       <HilalIcon />
                                       Halal
                                     </span>
-                                    <div
-
-                                      className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
+                                    :
+                                    item?.shariahStatus === 'Not Compliant' ?
+                                    <span className="flex items-center gap-[2px] text-[#CD0000]">
+                                        <HaramlIcon />
+                                        Haram
+                                      </span>
+                                      :
+                                      <span className="flex items-center gap-[2px] text-lightSecondaryText whitespace-nowrap">
+                                      <NoStatuslIcon />
+                                      No Status
+                                    </span>
+                                    }
+                                    {
+                                      item?.reportGenerated ?
+                                      
+                                      <div
+                                        onClick={(e)=>handleViewReport(e,item?.reportId)}
+                                        className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
+                                        :
+                                        <div
+                                        onClick={(e)=>handleRequestReview(e,item?.symbol)}
+                                        className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">Request Report</div>
+                                    }
                                   </div>
-                                  :
+                                  {/* :
                                   item?.shariahStatus === 'Not Compliant' ?
                                     <div>
                                       <span className="flex items-center gap-[2px] text-[#CD0000]">
@@ -268,7 +322,7 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
                                         Haram
                                       </span>
                                       <div
-                                        // onClick={viewDetail}
+                                       
                                         className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
                                     </div>
                                     :
@@ -278,10 +332,10 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
                                         No Status
                                       </span>
                                       <div
-                                        // onClick={viewDetail}
+                                       
                                         className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">Request Report</div>
-                                    </div>
-                              }
+                                    </div> */}
+                              
 
                             </td>
                             :

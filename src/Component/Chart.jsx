@@ -23,11 +23,17 @@ const Chart = ({ dataSet }) => {
     yaxis: {
       title: {
         text: 'Value'
+      },
+      labels: {
+        formatter: (value) => value.toFixed(6)  // Format y-axis labels here
       }
     },
     tooltip: {
       x: {
         format: 'dd MMM yyyy HH:mm:ss'
+      },
+      y: {
+        formatter: (value) => value // Show original value in the tooltip
       }
     },
     colors: ['#7147B4'], // Set your desired color here
@@ -45,7 +51,7 @@ const Chart = ({ dataSet }) => {
   const series = [
     {
       name: 'Value',
-      data: dataSet.map(data => [data.timestamp, Math.round(data.value)])
+      data: dataSet.map(data => [data.timestamp, data.value])
     }
   ];
 

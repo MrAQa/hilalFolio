@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { HaramlIcon, HilalIcon, NoStatuslIcon } from "../assets/custom-icon";
 import { LinearProgress } from "@mui/material";
-import { GetFavData, RemoveFromFavorite } from '../service/service';
+import { GetFavData, GetReport, RemoveFromFavorite } from '../service/service';
 import Footer from './Footer,';
 import NavBar from './Navbar';
 import TbaleDropDown from './Home/TbaleDropDown';
@@ -47,20 +47,20 @@ function Favorites() {
           .filter(item => shariastatus === item.shariahStatus || shariastatus === 'All')
           .filter(item => number >= item.cmc_rank || selectedRank == 'All')
           .map(item => {
-            const price = item?.quote?.USD?.price?.toFixed(2);
-            const high = item?.periods?.['24h']?.quote?.USD?.high?.toFixed(2);
-            const low = item?.periods?.['24h']?.quote?.USD?.low?.toFixed(2);
+            const price = item?.quote?.USD?.price?.toFixed(5);
+            const high = item?.periods?.['24h']?.quote?.USD?.high?.toFixed(5);
+            const low = item?.periods?.['24h']?.quote?.USD?.low?.toFixed(5);
             let percentChange = '';
             if (selectedPercentage === '1h') {
-              percentChange = item?.quote?.USD?.percent_change_1h?.toFixed(2)
+              percentChange = item?.quote?.USD?.percent_change_1h?.toFixed(5)
             }
             else if (selectedPercentage === '24h') {
-              percentChange = item?.quote?.USD?.percent_change_24h?.toFixed(2)
+              percentChange = item?.quote?.USD?.percent_change_24h?.toFixed(5)
             }
             else if (selectedPercentage === '7d') {
-              percentChange = item?.quote?.USD?.percent_change_7d?.toFixed(2)
+              percentChange = item?.quote?.USD?.percent_change_7d?.toFixed(5)
             }
-            // const percentChange = item?.periods?.['24h']?.quote?.USD?.percent_change?.toFixed(2);
+            // const percentChange = item?.periods?.['24h']?.quote?.USD?.percent_change?.toFixed(5);
 
             return {
               ...item,
@@ -130,15 +130,59 @@ function Favorites() {
   }
 
 
+  // const numberWithCommas = (number) => {
+  //   if (typeof (number) === "string") {
+  //     return parseFloat(number)?.toLocaleString()
+  //   }
+  //   else {
+
+  //     return number?.toLocaleString();
+  //   }
+  // };
   const numberWithCommas = (number) => {
-    if (typeof (number) === "string") {
-      return parseFloat(number)?.toLocaleString()
+    // Ensure the input is converted to a number
+    let num = typeof number === "string" ? parseFloat(number) : number;
+
+    // Check if the number is valid
+    if (isNaN(num)) {
+      return '';
+    }
+
+    // Format the number with commas and at least 5 decimal places
+    return num.toLocaleString(undefined, {
+      minimumFractionDigits: 5,
+      maximumFractionDigits: 5
+    });
+  };
+  const handleViewReport = (e, reportId) => {
+    e.stopPropagation()
+    if (reportId) {
+      GetReport(reportId).then((result) => {
+
+        if (result?.success) {
+          const data = result?.body?.report
+          navigation('/review', { state: data });
+        }
+      }).catch((error) => console.log(error))
+    }
+  }
+  const handleRequestReview = (e, symbol) => {
+    e.stopPropagation()
+    if (isLogedin) {
+
+      // setIsLoading(true)
+      const data = {
+        symbol: symbol
+      }
+      navigation('/odr', { state: data })
+
     }
     else {
-
-      return number?.toLocaleString();
+      navigation('/sign-in')
     }
-  };
+
+
+  }
   return (
     <>
       <div className="min-h-full bg-[#F2F2F2]">
@@ -157,13 +201,13 @@ function Favorites() {
                   <TbaleDropDown
                     value={selectedRank}
                     onChange={setSelectedRank}
-                    placeholder='Select Rank'
+                    placeholder='Show Coins'
                     dataArray={rank}
                   />
                   <TbaleDropDown
                     value={selectedPercentage}
                     onChange={setSelectedPercentage}
-                    placeholder='Percentage Change'
+                    placeholder='Price Change'
                     dataArray={percentageChange}
                   />
                   <TbaleDropDown
@@ -257,33 +301,36 @@ function Favorites() {
                             {
                               isLogedin &&
                               <td className="px-6 py-5 text-center">
-                                {
-                                  item?.shariahStatus === 'Compliant' ?
-                                    <div>
+                                <div>
+                                  {
+                                    item?.shariahStatus === 'Compliant' ?
                                       <span className="flex items-center gap-[2px] text-[#098C26]">
                                         <HilalIcon />
                                         Halal
                                       </span>
-                                      <div className="text-[14px] text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
-                                    </div>
-                                    :
-                                    item?.shariahStatus === 'Not Compliant' ?
-                                      <div>
+                                      :
+                                      item?.shariahStatus === 'Not Compliant' ?
                                         <span className="flex items-center gap-[2px] text-[#CD0000]">
                                           <HaramlIcon />
                                           Haram
                                         </span>
-                                        <div className="text-[14px] text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
-                                      </div>
-                                      :
-                                      <div>
+                                        :
                                         <span className="flex items-center gap-[2px] text-lightSecondaryText whitespace-nowrap">
                                           <NoStatuslIcon />
                                           No Status
                                         </span>
-                                        <div className="text-[14px] text-lightSecondaryText whitespace-nowrap font-medium text-left">Request Report</div>
-                                      </div>
-                                }
+                                  }
+                                  {
+                                    item?.reportGenerated ?
+                                      <div
+                                        onClick={(e) => handleViewReport(e, item?.reportId)}
+                                        className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
+                                      :
+                                      <div
+                                        onClick={(e) => handleRequestReview(e, item?.symbol)}
+                                        className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">Request Report</div>
+                                  }
+                                </div>
 
                               </td>
                             }
