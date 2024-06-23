@@ -24,7 +24,7 @@ function AboutPage() {
                                     <div className='pt-6 flex flex-col text-lg gap-4'>
 
                                         <p className='text-[#1F1F1F]-400'>"Our Crypto App is committed to offering a halal & ethical approach to managing digital assets in accordance with Islamic principles. With a focus on transparency and integrity, we provide users with a secure platform to engage in halal cryptocurrency transactions. Whether you're seeking to invest, save, or transact, our app ensures compliance with Islamic finance principles, distinguishing between halal and haram activities.</p>
-                                        <p>Join us in embracing Islamic values as we revolutionize the world of digital web 3 cryptocurrency with integrity and faith-based guidance."</p>
+                                        <p className='font-semibold'>Join us in embracing Islamic values as we revolutionize the world of digital web 3 cryptocurrency with integrity and faith-based guidance."</p>
                                         <p className='text-xl font-semibold'>
                                         Our Socials!
                                         </p>
