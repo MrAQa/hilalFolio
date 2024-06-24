@@ -82,6 +82,8 @@ const OtpVerification = () => {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
           });
+          sessionStorage.setItem("user_token", res?.body?.token);
+
           setLoading(false);
         } else {
           setLoading(false);

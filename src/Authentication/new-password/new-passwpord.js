@@ -56,7 +56,7 @@ const SignUp = () => {
   };
 
   const submitLogin = (e) => {
-    let token = "Bearer " + localStorage.getItem("token");
+    let token = "Bearer " + sessionStorage.getItem("user_token");
 
     setLoading(true);
     fetch(`${url}/api/auth/new-password`, {
