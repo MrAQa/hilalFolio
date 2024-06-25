@@ -70,31 +70,32 @@ const fetchData = () => {
       const sortedData = result?.body?.cmcData
       ?.sort((a, b) => a.cmc_rank - b.cmc_rank);
       const formattedCoins = sortedData.map(item => {
-
         
-        const price = item?.quote?.USD?.price?.toFixed(2);
-        const high = item?.periods?.['24h']?.quote?.USD?.high?.toFixed(2);
-        const low = item?.periods?.['24h']?.quote?.USD?.low?.toFixed(2);
+        const price = item?.quote?.USD?.price?.toFixed(5);
+        const high = item?.periods?.['24h']?.quote?.USD?.high?.toFixed(5);
+        const low = item?.periods?.['24h']?.quote?.USD?.low?.toFixed(5);
         let percentChange='';
         if(selectedPercentage==='1h'){
-          percentChange= item?.quote?.USD?.percent_change_1h?.toFixed(2)
+          percentChange= item?.quote?.USD?.percent_change_1h?.toFixed(5)
         }
         else if(selectedPercentage==='24h'){
-          percentChange= item?.quote?.USD?.percent_change_24h?.toFixed(2)
+          percentChange= item?.quote?.USD?.percent_change_24h?.toFixed(5)
         }
         else if(selectedPercentage==='7d') {
-          percentChange= item?.quote?.USD?.percent_change_7d?.toFixed(2)
+          percentChange= item?.quote?.USD?.percent_change_7d?.toFixed(5)
         }
         // const percentChange = item?.periods?.['24h']?.quote?.USD?.percent_change?.toFixed(2);
       
         return {
           ...item,
+          
           formattedPrice: `$${numberWithCommas(price)}`,
           formattedHigh: high !== undefined ? `$${numberWithCommas(high)}` : 'N/A',
           formattedLow: low !== undefined ? `$${numberWithCommas(low)}` : 'N/A',
           percentChange: percentChange !== undefined ? `${numberWithCommas(percentChange)}` : 'N/A'
         };
       });
+     
       setCoinsData(formattedCoins)
       if (result?.body?.cmcData?.length === 0) {
         setNoDataFlag(true)
@@ -108,14 +109,29 @@ const fetchData = () => {
   })
  }
 }
-const numberWithCommas = (number) => {
-  if (typeof (number) === "string") {
-    return parseFloat(number)?.toLocaleString()
-  }
-  else {
+// const numberWithCommas = (number) => {
+//   if (typeof (number) === "string") {
+//     return parseFloat(number)?.toLocaleString()
+//   }
+//   else {
 
-    return number?.toLocaleString();
+//     return number?.toLocaleString();
+//   }
+// };
+const numberWithCommas = (number) => {
+  // Ensure the input is converted to a number
+  let num = typeof number === "string" ? parseFloat(number) : number;
+
+  // Check if the number is valid
+  if (isNaN(num)) {
+    return '';
   }
+
+  // Format the number with commas and at least 5 decimal places
+  return num.toLocaleString(undefined, {
+    minimumFractionDigits: 5,
+    maximumFractionDigits: 5
+  });
 };
   return (
     <StateContext.Provider value={{cartItem, setCartItems,CoinsData, setCoinsData,selectedStatus, setSelectedStatus,selectedRank, setSelectedRank,selectedPercentage,setSelectedPercentage,isLoading, noDataFlag,isLogedin, setIsLogedin,userData,setuserData ,fetchData}}>

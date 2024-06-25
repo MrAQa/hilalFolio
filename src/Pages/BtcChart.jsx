@@ -82,15 +82,30 @@ function BtcChart() {
 
 
     }
-    const numberWithCommas = (number) => {
-        if (typeof (number) === "string") {
-            return parseFloat(number)?.toLocaleString()
-        }
-        else {
+    // const numberWithCommas = (number) => {
+    //     if (typeof (number) === "string") {
+    //         return parseFloat(number)?.toLocaleString()
+    //     }
+    //     else {
 
-            return number?.toLocaleString();
+    //         return number?.toLocaleString();
+    //     }
+    // };
+    const numberWithCommas = (number) => {
+        // Ensure the input is converted to a number
+        let num = typeof number === "string" ? parseFloat(number) : number;
+      
+        // Check if the number is valid
+        if (isNaN(num)) {
+          return '';
         }
-    };
+      
+        // Format the number with commas and at least 5 decimal places
+        return num.toLocaleString(undefined, {
+          minimumFractionDigits: 5,
+          maximumFractionDigits: 5
+        });
+      };
     const toggleFavorites = (Coindata) => {
         if (isLogedin) {
 
@@ -116,26 +131,26 @@ function BtcChart() {
         })
     }
     function formatLargeNumber(number) {
-if(number){
-    if (isNaN(number)) return 'Invalid input';
+        if (number) {
+            if (isNaN(number)) return 'Invalid input';
 
-    const absNumber = Math.abs(number);
+            const absNumber = Math.abs(number);
 
-    if (absNumber >= 1e12) {
-        return (number / 1e12).toFixed(2) + 'T';
-    } else if (absNumber >= 1e9) {
-        return (number / 1e9).toFixed(2) + 'B';
-    } else if (absNumber >= 1e6) {
-        return (number / 1e6).toFixed(2) + 'M';
-    } else if (absNumber >= 1e3) {
-        return (number / 1e3).toFixed(2) + 'K';
-    } else {
-        return number.toFixed(2);
-    }
-}
-else{
-    return 'N/A'
-}
+            if (absNumber >= 1e12) {
+                return (number / 1e12).toFixed(2) + 'T';
+            } else if (absNumber >= 1e9) {
+                return (number / 1e9).toFixed(2) + 'B';
+            } else if (absNumber >= 1e6) {
+                return (number / 1e6).toFixed(2) + 'M';
+            } else if (absNumber >= 1e3) {
+                return (number / 1e3).toFixed(2) + 'K';
+            } else {
+                return number.toFixed(5);
+            }
+        }
+        else {
+            return 'N/A'
+        }
     }
 
     const [activeTabPeriod, setActiveTabPeriod] = useState('1h');
@@ -268,10 +283,10 @@ else{
                                                 </div>
                                                 <div className='flex items-center gap-2'>
                                                     <div className='text-3xl font-bold'>
-                                                        {`$${numberWithCommas(data?.quote?.USD?.price?.toFixed(2))}`}
+                                                        {`$${numberWithCommas(data?.quote?.USD?.price?.toFixed(5))}`}
                                                     </div>
 
-                                                  
+
                                                     <div className={`text-base px-[6px] py-1 flex items-center gap-1 rounded-md ${isPositive ? 'bg-[#E5FFEB] text-lightThemeSuccess' : 'bg-[#FFE5E5] text-lightThemeDelete'}`}>
                                                         <span>
                                                             {isPositive ? <UpIconGreen /> : <UpIconRed className="rotate-180" />}
@@ -353,15 +368,25 @@ else{
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>All Time High</span>
-                                                        <div className='text-xl font-medium'>${formatLargeNumber(data?.periods?.all_time?.quote?.USD?.high)}</div>
+                                                        <div className='text-xl font-medium px-[6px] py-1 flex items-center gap-1 w-fit rounded-md bg-[#E5FFEB] text-lightThemeSuccess'>
+
+                                                            <span>
+                                                          <UpIconGreen /> 
+                                                        </span> 
+                                                        ${formatLargeNumber(data?.periods?.all_time?.quote?.USD?.high)}
+                                                        </div>
                                                     </div>
+                                                   
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>All Time Low</span>
-                                                        <div className='text-xl font-medium'>${formatLargeNumber(data?.periods?.all_time?.quote?.USD?.low)}</div>
+                                                        <div className='text-xl font-medium px-[6px] py-1 flex items-center gap-1 w-fit rounded-md bg-[#FFE5E5] text-lightThemeDelete'>
+                                                        <UpIconRed className="rotate-180" />
+                                                            ${formatLargeNumber(data?.periods?.all_time?.quote?.USD?.low)}
+                                                        </div>
                                                     </div>
                                                     <div className='w-[236px] flex flex-col gap-2'>
                                                         <span className='text-base text-[#747474]'>Max Supply</span>
-                                                        <div className='text-xl font-medium'>{formatLargeNumber(data?.max_supply)} {data?.max_supply?data.symbol:''}</div>
+                                                        <div className='text-xl font-medium'>{formatLargeNumber(data?.max_supply)} {data?.max_supply ? data.symbol : ''}</div>
                                                     </div>
                                                 </div>
                                                 <div className='h-[1px] my-10 bg-[#D7D9E4]'></div>

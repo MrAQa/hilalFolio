@@ -5,6 +5,9 @@ import { ActiveBulletPoint, FadeBulletPoint } from '../assets/custom-icon'
 import Footer from '../Component/Footer,'
 function SubscriptionPage() {
     const points = ['Manage 1,000+ subscribers', '10 landing pages', 'Customizable domain', '15+ integrations', 'Basic support']
+    const pointsFree = ['View Shariah Status of 10 Coins/Tokens', 'View 10 Review Reports', 'ODR Request']
+    const pointsPaid = ['View Shariah Status of 100 Coins/Tokens', 'View 100 Review Reports', 'ODR Request']
+
     return (
         <div>
             <NavBar />
@@ -26,48 +29,48 @@ function SubscriptionPage() {
                                     <div className='pt-8 flex  gap-4'>
 
                                         <div className='border-[1px] border-[#D7D9E4] rounded-2xl p-4 text-[#0F172A] space-y-6 w-1/2 bg-[#f1edf5] '>
-                                            <h3 className=' text-[28px] font-semibold'>Basic</h3>
+                                            <h3 className=' text-[28px] font-semibold'>Free</h3>
                                             <div className='text-lg'>
                                                 <strong className='text-[35px] font-bold'>$00/</strong>per Month
                                             </div>
-                                            <p className='text-base'>
+                                            {/* <p className='text-base'>
                                                 Dictum aliquet arcu egestas massa sedole tellus sed arcu velit tincidunt.
-                                            </p>
+                                            </p> */}
                                             <div className='text-base font-semibold'>
                                                 What’s included?
                                             </div>
                                             <div className='space-y-6 text-sm font-medium'>
                                                 {
-                                                    points?.map((item, index) => (
+                                                    pointsFree?.map((item, index) => (
                                                         <p className='flex items-center gap-2' key={index}><span><ActiveBulletPoint /></span>{item}</p>
                                                     ))
                                                 }
                                             </div>
                                             <div className='text-sm font-semibold flex flex-col'>
-                                            <button type='submit' className='bg-primaryPurple text-white hover:bg-opacity-90 py-3 px-2 rounded-lg disabled:opacity-50 '>Verify</button>
+                                            <button type='submit' className='bg-primaryPurple text-white hover:bg-opacity-90 py-3 px-2 rounded-lg disabled:opacity-50 '>Get Started</button>
                                         </div>
                                         </div>
                                         <div className='border-[1px] border-[#D7D9E4] rounded-2xl p-4 text-[#0F172A] space-y-6 w-1/2 '>
-                                            <h3 className=' text-[28px] font-semibold'>Premium</h3>
+                                            <h3 className=' text-[28px] font-semibold'>Paid</h3>
                                             <div className='text-lg'>
-                                                <strong className='text-[35px] font-bold'>$00/</strong>per Month
+                                                <strong className='text-[35px] font-bold'>$2.99/</strong>per Month
                                             </div>
-                                            <p className='text-base'>
+                                            {/* <p className='text-base'>
                                                 Dictum aliquet arcu egestas massa sedole tellus sed arcu velit tincidunt.
-                                            </p>
+                                            </p> */}
                                             <div className='text-base font-semibold'>
                                                 What’s included?
                                             </div>
                                             <div className='space-y-6 text-sm font-medium'>
                                                 {
-                                                    points?.map((item, index) => (
+                                                    pointsPaid?.map((item, index) => (
                                                         <p className='flex items-center gap-2' key={index}><span><ActiveBulletPoint /></span>{item}</p>
                                                     ))
                                                 }
                                             </div>
                                             <div className='text-sm font-semibold flex flex-col '>
                                                 {/* <button type='button' className='text-primaryPurple border-primaryPurple border-[1px] hover:bg-opacity-90 py-3 px-2 rounded-lg disabled:opacity-50 '>Verify</button> */}
-                                                <button type='submit' className='bg-primaryPurple text-white hover:bg-opacity-90 py-3 px-2 rounded-lg disabled:opacity-50 '>Verify</button>
+                                                <button type='submit' className='bg-primaryPurple text-white hover:bg-opacity-90 py-3 px-2 rounded-lg disabled:opacity-50 '>Buy Now</button>
                                             </div>
                                         </div>
 
