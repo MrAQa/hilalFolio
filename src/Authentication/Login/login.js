@@ -335,7 +335,7 @@ const Login = () => {
                     <div className="mb-7">
                       <label
                         htmlFor="password"
-                        className="block mb-2 text-sm font-medium heading text-start"
+                        className="block mb-2 text-sm font-medium text-gray-900 text-start"
                       >
                         Password
                       </label>
@@ -489,7 +489,7 @@ const Login = () => {
           </div>
         </div>
         <div className="w-1/2 min-h-full items-center justify-center hidden md:flex">
-          <div className="bg-gray-100 rounded-lg w-full flex justify-end">
+          <div className="bg-lightThemebg rounded-lg w-full flex justify-end">
             <img src={bg} alt="background" className="h-screen" />
           </div>
         </div>

@@ -177,7 +177,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center bg-[#F2F4F7]">
+      <div className="flex justify-center items-center">
         <ToastContainer />
       
         <div className="w-full md:w-1/2 min-h-screen bg-white flex justify-center items-center">
@@ -440,7 +440,7 @@ const SignUp = () => {
           </div>
         </div>
         <div className="w-1/2 min-h-full items-center justify-center hidden md:flex">
-          <div className="bg-gray-100 rounded-lg w-full flex justify-end">
+          <div className="bg-lightThemebg rounded-lg w-full flex justify-end">
             <img src={bg} alt="background" className="h-screen"/>
           </div>
         </div>

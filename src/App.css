@@ -1,7 +1,41 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,100;1,9..40,200&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700;6..12,800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500&display=swap");
+:root {
+  --color-light-delete: #cd0000;
+  --color-light-success: #098c26;
+  --color-light-text: #1f1f1f;
+  --color-light-bg: #f2f2f2;
+  --color-primary-purple: #7147b4;
+  --color-light-secondary: #667085;
+  --color-primary-dark: #0e0a14;
+  --color-light-secondary-text: #6f7889;
+  --color-light-outline: #d0d5dd;
+  --color-gray-900: #101828;
+  --color-gray-600: #475467;
+  --color-gray-500: #667085;
+  --color-white:#ffffff;
+  --color-light-gray:#EBEBEB;
+  --color-container1:#fafafa;
+}
 
+.dark {
+  --color-light-delete: #ff6666;
+  --color-light-success: #33cc33;
+  --color-light-text: #ffffff;
+  --color-light-bg: #2b2930;
+  --color-primary-purple: #aa66ff;
+  --color-light-secondary: #cccccc;
+  --color-primary-dark: #e0e0e0;
+  --color-light-secondary-text: #bbbbbb;
+  --color-light-outline: #999999;
+  --color-gray-900: #e0e0e0;
+  --color-gray-600: #aaaaaa;
+  --color-gray-500: #888888;
+  --color-white:#0d0c0f;
+  --color-light-gray:#2C2C2C;
+  --color-container1:#1d1b20;
+}
 body {
-  background-color: #fafafa;
+  background-color: var(--color-container1);
   font-family: "Open Sans";
 }
 .App {
@@ -44,7 +78,7 @@ body {
 }
 
 .Welcome-text {
-  color: var(--Light-Theme-Text, #1f1f1f);
+  color: var(--color-light-text);
   text-align: center;
   font-size: 30px;
   font-style: normal;
@@ -52,7 +86,7 @@ body {
   line-height: 150%;
 }
 .small-text {
-  color: var(--Placeholder-Light, #667085);
+  color: var(--color-light-secondary);
   text-align: center;
   font-family: "Open Sans";
   font-size: 16px;
@@ -61,7 +95,7 @@ body {
   line-height: 24px; /* 150% */
 }
 .already-text {
-  color: var(--Light-Theme-Text, #0e0a14);
+  color: var(--color-gray-900);
   text-align: center;
   /* H7 */
   font-family: "Open Sans";
@@ -71,7 +105,7 @@ body {
   line-height: 150%; /* 21px */
 }
 .heading {
-  color: var(--Light-Theme-Text, #202124);
+  color: var(--color-gray-900);
   font-family: Open Sans;
   font-size: 14px;
   font-style: normal;
@@ -140,7 +174,7 @@ body {
 }
 
 .social-button-text {
-  color: var(--Light-Theme-Secondary-Text, #667085);
+  color: var(--color-light-secondary);
   font-family: "Open Sans";
   font-size: 16px;
   font-style: normal;
@@ -166,7 +200,7 @@ body {
   margin-top: 8px;
 }
 .remember-information {
-  color: var(--Light-Theme-Secondary-Text, #667085);
+  color: var(--color-light-secondary);
   text-align: right;
   font-family: "Open Sans";
   font-size: 14px;
@@ -257,7 +291,7 @@ ul {
 .side-nav {
   border-radius: 16px;
   border-right: 1px solid rgba(255, 255, 255, 0.15);
-  background: var(--Light-Theme-White, #fff);
+  /* background: var(--Light-Theme-White, #fff); */
   box-shadow: 0px 17px 40px 4px rgba(138, 113, 176, 0.11);
 }
 
@@ -422,3 +456,12 @@ ul {
     transform: scale(0);
   }
 }
+input{
+  background-color: var(--color-white);
+}
+svg{
+  fill:var(--color-white)
+}
+.dark{
+  color: var(--color-primary-dark);
+} 

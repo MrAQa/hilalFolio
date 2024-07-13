@@ -153,7 +153,7 @@ function Footer() {
                         </div>
                         <div className='flex flex-col xs:flex-row items-center gap-2 mt-4'>
                             <input type="text"
-                                className='p-4 w-full outline-none h-[50px] border-[1px] border-[#D7D9E4] rounded-lg bg-transparent'
+                                className='p-4 w-full outline-none h-[50px] border-[1px] border-lightThemeOutline rounded-lg bg-transparent'
                                 placeholder='Your email'
                             />
                             <button
@@ -167,7 +167,7 @@ function Footer() {
 
                     </div>
                 </div>
-                <div className='flex flex-col md:flex-row items-center gap-x-8 border-t-[1px] border-[#D7D9E4] mt-10 pt-8 pb-10 justify-between'>
+                <div className='flex flex-col md:flex-row items-center gap-x-8 border-t-[1px] border-lightThemeOutline mt-10 pt-8 pb-10 justify-between'>
                     <div className='text-gray-500 text-base font-normal'>
                         © 2024 Hilalfolio. All rights reserved
                     </div>

@@ -9,7 +9,7 @@ function PasswordInput({ value, onChange, placeholder, ...otherProps }) {
         value={value}
         onChange={onChange}
         {...otherProps}
-        className='p-4 w-full outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-transparent mt-2' placeholder={placeholder} type={showPassword?`text`:'password'} />
+        className='p-4 w-full outline-none border-[1px] border-lightThemeOutline rounded-lg bg-transparent mt-2' placeholder={placeholder} type={showPassword?`text`:'password'} />
         <span className='absolute right-2 top-[22px] cursor-pointer' onClick={()=>setShowPassword(!showPassword)}>
         {showPassword ? (
                  <VisibilityIcon />

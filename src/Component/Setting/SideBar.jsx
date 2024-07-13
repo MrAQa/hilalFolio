@@ -86,9 +86,9 @@ function SideBar() {
     return (
         <>
             <ToastContainer />
-            <div className='border-[1px] border-[#D7D9E4] rounded-3xl bg-[#fff] py-5'>
+            <div className='border-[1px] border-lightThemeOutline rounded-3xl bg-white py-5'>
                 <div className="px-5">
-                    <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32 border-[#D7D9E4] border-b-[1px] leading-normal pb-[30px]">
+                    <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32 border-lightThemeOutline border-b-[1px] leading-normal pb-[30px]">
                         Account Setting
                     </h2>
                     <div className='pt-[30px] flex flex-col sm:flex-row items-center gap-4'>
@@ -152,7 +152,7 @@ function SideBar() {
 
                         </div>
                     </Link>
-                    <Link to="/subscription" className={`flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px] ${currentPath === '/subscription' ? 'bg-primaryPurple text-white' : ''}`}>
+                    <Link to="/subscription" className={`flex justify-between my-2 items-center px-5 py-4 border-lightThemeOutline border-t-[1px] ${currentPath === '/subscription' ? 'bg-primaryPurple text-white' : ''}`}>
                         <div className='flex gap-2 text-base font-semibold'>
                             <span>
                                 {
@@ -174,7 +174,7 @@ function SideBar() {
                             }
                         </div>
                     </Link>
-                    <div className='flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
+                    <div className='flex justify-between my-2 items-center px-5 py-4 border-lightThemeOutline border-t-[1px]'>
                         <div className='flex gap-2 text-base font-semibold'>
                             <span>
                                 <SunIcon />
@@ -186,7 +186,7 @@ function SideBar() {
 
                         </div>
                     </div>
-                    <Link to="/settings" className={`flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px] ${currentPath === '/settings' ? 'bg-primaryPurple text-white' : ''}`}>
+                    <Link to="/settings" className={`flex justify-between my-2 items-center px-5 py-4 border-lightThemeOutline border-t-[1px] ${currentPath === '/settings' ? 'bg-primaryPurple text-white' : ''}`}>
                         <div className='flex gap-2 text-base font-semibold'>
                             <span>
 
@@ -208,7 +208,7 @@ function SideBar() {
                             }
                         </div>
                     </Link>
-                    <Link to="/help-center" className={`flex justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px] ${currentPath === '/help-center' ? 'bg-primaryPurple text-white' : ''}`}>
+                    <Link to="/help-center" className={`flex justify-between my-2 items-center px-5 py-4 border-lightThemeOutline border-t-[1px] ${currentPath === '/help-center' ? 'bg-primaryPurple text-white' : ''}`}>
                         <div className='flex gap-2 text-base font-semibold'>
                             <span>
                                 {
@@ -230,7 +230,7 @@ function SideBar() {
                             }
                         </div>
                     </Link>
-                    <div onClick={() => handleCopy(window.location.origin, 'URL Copied.')} className='flex cursor-pointer justify-between my-2 items-center px-5 py-4 border-[#D7D9E4] border-t-[1px]'>
+                    <div onClick={() => handleCopy(window.location.origin, 'URL Copied.')} className='flex cursor-pointer justify-between my-2 items-center px-5 py-4 border-lightThemeOutline border-t-[1px]'>
                         <div className='flex gap-2 text-base font-semibold'>
                             <span>
                                 <ShareIcon />

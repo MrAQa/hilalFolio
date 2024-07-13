@@ -296,7 +296,7 @@ function Hilalbot() {
                                                 }
                                                 <form onSubmit={handleSendData}>
                                                     <div className='flex gap-3'>
-                                                        <div className="flex p-4 h-[56px] border-[1px] border-[#D7D9E4] rounded-lg flex-1">
+                                                        <div className="flex p-4 h-[56px] border-[1px] border-lightThemeOutline rounded-lg flex-1">
                                                             <input
                                                                 className='w-full resize-none border-none outline-none text-xs lg:text-sm'
                                                                 value={inputValue}

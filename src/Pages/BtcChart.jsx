@@ -174,7 +174,7 @@ function BtcChart() {
     const percentChange = getPercentChange();
     const isPositive = parseFloat(percentChange) >= 0;
     return (
-        <div className='bg-[#F2F2F2]'>
+        <div className='bg-lightThemebg'>
             <NavBar />
             <section className='pt-6 sm:pt-12'>
                 <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
@@ -203,9 +203,9 @@ function BtcChart() {
                                 // tabData[activeTab] === 1 &&
                                 true &&
                                 <>
-                                    <div className='border-[2px] border-[#D7D9E4] rounded-3xl bg-white px-4 sm:px-8 py-6'>
+                                    <div className='border-[2px] border-lightThemeOutline rounded-3xl bg-white px-4 sm:px-8 py-6'>
                                         <div className='mb-6 flex justify-between'>
-                                            <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+                                            <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                                 Chart
                                             </h2>
 
@@ -214,7 +214,7 @@ function BtcChart() {
                                                 {/* {
 
                                                     isLoading && */}
-                                                <span className="p-2 bg-[#F2F2F2] rounded-lg flex justify-center items-center cursor-pointer">
+                                                <span className="p-2 bg-lightThemebg rounded-lg flex justify-center items-center cursor-pointer">
 
                                                     <span
                                                         onClick={() => toggleFavorites(Coindata)}
@@ -302,7 +302,7 @@ function BtcChart() {
                                                         <span
                                                             key={period}
                                                             onClick={() => setActiveTabPeriod(period)}
-                                                            className={`rounded-lg py-2 px-4 text-[14px] cursor-pointer ${activeTabPeriod === period ? 'bg-primaryPurple text-white' : 'bg-[#F2F2F2] text-primaryDark'
+                                                            className={`rounded-lg py-2 px-4 text-[14px] cursor-pointer ${activeTabPeriod === period ? 'bg-primaryPurple text-white' : 'bg-lightThemebg text-primaryDark'
                                                                 }`}
                                                         >
                                                             {period}
@@ -318,8 +318,8 @@ function BtcChart() {
                                         </div>
                                     </div>
                                     <div className='pt-6'>
-                                        <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6">
-                                            <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+                                        <div className="bg-white shadow-sm rounded-3xl border-[2px] border-lightThemeOutline px-4 sm:px-8 py-6">
+                                            <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                                 Statistics
                                             </h2>
                                             <div className="py-6">
@@ -389,7 +389,7 @@ function BtcChart() {
                                                         <div className='text-xl font-medium'>{formatLargeNumber(data?.max_supply)} {data?.max_supply ? data.symbol : ''}</div>
                                                     </div>
                                                 </div>
-                                                <div className='h-[1px] my-10 bg-[#D7D9E4]'></div>
+                                                <div className='h-[1px] my-10 bg-lightThemeOutline'></div>
                                                 {/* <div>
 
                                                     <p>
@@ -402,18 +402,18 @@ function BtcChart() {
                                         </div>
                                     </div>
                                     <div className='pt-6'>
-                                        <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6">
-                                            <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+                                        <div className="bg-white shadow-sm rounded-3xl border-[2px] border-lightThemeOutline px-4 sm:px-8 py-6">
+                                            <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                                 About {data?.name}
                                             </h2>
                                             <div className='py-5 flex flex-wrap gap-5'>
-                                                <a href={data?.urls?.website[0]} target='_blank' className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal">{data?.urls?.website[0]}
+                                                <a href={data?.urls?.website[0]} target='_blank' className="px-6 py-2 rounded-lg bg-lightThemebg flex items-center justify-center text-base font-normal">{data?.urls?.website[0]}
                                                     <ExpandIcon
                                                         className="w-4 cursor-pointer ml-2 fill-[#6F7889]"
                                                     /></a>
-                                                {/* <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">Explorers</div> */}
+                                                {/* <div className="px-6 py-2 rounded-lg bg-lightThemebg flex items-center justify-center text-base font-normal w-[116px]">Explorers</div> */}
 
-                                                {/* <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">Community</div> */}
+                                                {/* <div className="px-6 py-2 rounded-lg bg-lightThemebg flex items-center justify-center text-base font-normal w-[116px]">Community</div> */}
                                             </div>
                                             <div className="pb-6">
                                                 <h2 className='mb-4 text-[24px] font-medium text-primaryDark'>What Is {data?.name}?</h2>
@@ -476,8 +476,8 @@ function BtcChart() {
                                         </div>
                                     </div>
                                     <div className='pt-6'>
-                                        <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6">
-                                            <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+                                        <div className="bg-white shadow-sm rounded-3xl border-[2px] border-lightThemeOutline px-4 sm:px-8 py-6">
+                                            <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                                 {data?.name} Resources
                                             </h2>
                                             <div className="pt-8">
@@ -583,9 +583,9 @@ function BtcChart() {
                                         </div>
                                     </div>
                                     <div className='pt-6'>
-                                        <div className="bg-white shadow-sm rounded-3xl border-[2px] border-[#D7D9E4] px-4 sm:px-8 py-6">
+                                        <div className="bg-white shadow-sm rounded-3xl border-[2px] border-lightThemeOutline px-4 sm:px-8 py-6">
                                             <div className='flex justify-between items-center mb-6'>
-                                                <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+                                                <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                                     Latest News
                                                 </h2>
                                                 <Link to='/news' className='text-base font-medium text-primaryPurple'>
@@ -607,7 +607,7 @@ function BtcChart() {
 
                                 <div>
                                     <div className="bg-white shadow-sm rounded-3xl px-4 sm:px-8 py-6">
-                                        <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+                                        <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                             Bitcoin News
                                         </h2>
                                         <div className="py-6">
@@ -621,7 +621,7 @@ function BtcChart() {
 
                                 <div>
                                     <div className="bg-white shadow-sm rounded-3xl px-4 sm:px-8 py-6">
-                                        <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+                                        <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                             Market Stats
                                         </h2>
                                         <div className="py-6">

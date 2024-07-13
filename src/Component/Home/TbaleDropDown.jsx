@@ -8,7 +8,7 @@ function TbaleDropDown({value,placeholder,onChange,dataArray ,disableOptions}) {
       <>
         <div className="relative">
           <Listbox.Button
-            className="relative min-w-40 rounded-lg bg-[#F2F2F2] border  shadow-sm px-6  pr-10 py-2 text-left cursor-pointer sm:text-base"
+            className="relative min-w-40 rounded-lg bg-lightThemebg border  shadow-sm px-6  pr-10 py-2 text-left cursor-pointer sm:text-base"
           >
             <span className="block truncate text-primaryDark font-semibold ">{placeholder ?? value}</span>
             <span className={`absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none`}>
@@ -24,7 +24,7 @@ function TbaleDropDown({value,placeholder,onChange,dataArray ,disableOptions}) {
               // <Listbox.Option
               //   key={index}
               //   className={({ active }) =>
-              //     `${active ? 'bg-primaryPurple text-white' : 'text-black'}
+              //     `${active ? 'bg-primaryPurple text-white' : 'text-gray-900'}
               // cursor-pointer select-none relative py-2 pl-3 pr-9`
               //   }
               //   value={status}
@@ -48,7 +48,7 @@ function TbaleDropDown({value,placeholder,onChange,dataArray ,disableOptions}) {
               <Listbox.Option
               key={index}
               className={({ active, disabled }) =>
-                `${active ? 'bg-primaryPurple text-white' : 'text-black'}
+                `${active ? 'bg-primaryPurple text-white' : 'text-gray-900'}
                 ${disabled ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'cursor-pointer'}
                 select-none relative py-2 pl-3 pr-9`
               }

@@ -39,6 +39,24 @@ FMCToken().then((res)=>{
 })
     // eslint-disable-next-line
   }, [refresh, cartOpen])
+  useEffect(() => {
+     // Retrieve dark mode preference from localStorage
+     const darkModePreference = localStorage.getItem('darkMode') === 'true';
+     setIsDarkMode(darkModePreference);
+ 
+     if (darkModePreference) {
+       document.documentElement.classList.add('dark');
+     } else {
+       document.documentElement.classList.remove('dark');
+     }
+  }, []);
+  const toggleTheme = () => {
+    const newDarkMode = !isDarkMode;
+    document.documentElement.classList.toggle('dark', newDarkMode);
+    setIsDarkMode(newDarkMode);
+    // Save dark mode preference to localStorage
+    localStorage.setItem('darkMode', newDarkMode);
+  };
   const removeCoinFromCart = (coinToRemove) => {
 
     // Ensure that coinToRemove is not null or undefined
@@ -145,7 +163,7 @@ FMCToken().then((res)=>{
   
       <header
         id="main-header"
-        className={`bg-white border-y-[1px] border-[#D7D9E4] ${!mobileMenuOpen && "z-50"
+        className={`bg-white border-y-[1px] border-lightThemeOutline ${!mobileMenuOpen && "z-50"
           }`}
       >
         <nav
@@ -273,7 +291,7 @@ FMCToken().then((res)=>{
               </>
             }
             <div
-              onClick={() => setIsDarkMode(!isDarkMode)}
+              onClick={toggleTheme}
               className="p-2 cursor-pointer size-10 flex items-center">
               {
                 isDarkMode ?
@@ -339,7 +357,7 @@ FMCToken().then((res)=>{
                               <button
                                 className={`${active
                                   ? "bg-primaryPurple text-white"
-                                  : "text-black"
+                                  : "text-gray-900"
                                   } group flex w-full items-center rounded-md px-2 py-2 text-base font-semibold`}
                                 onClick={() => changeLanguage('en')}
                               >
@@ -357,7 +375,7 @@ FMCToken().then((res)=>{
                               <button
                                 className={`${active
                                   ? "bg-primaryPurple text-white"
-                                  : "text-black"
+                                  : "text-gray-900"
                                   } group flex w-full items-center rounded-md px-2 py-2 text-base font-semibold`}
                                 onClick={() => changeLanguage('fr')}
                               >
@@ -438,7 +456,7 @@ FMCToken().then((res)=>{
                                   <button
                                     className={`${active
                                       ? "bg-primaryPurple text-white"
-                                      : "text-black"
+                                      : "text-gray-900"
                                       } group flex w-full items-center rounded-md px-2 py-2 text-base font-semibold`}
                                     onClick={() => navigate("/profile")}
                                   >
@@ -455,7 +473,7 @@ FMCToken().then((res)=>{
                                   <button
                                     className={`${active
                                       ? "bg-primaryPurple text-white"
-                                      : "text-black"
+                                      : "text-gray-900"
                                       } group flex w-full items-center rounded-md px-2 py-2 text-base font-semibold`}
                                     onClick={handleSignOut}
                                   >
