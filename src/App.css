@@ -130,19 +130,7 @@ body {
   );
   box-shadow: 0px 4px 30px 0px rgba(32, 70, 168, 0.15);
 }
-/* .social-button {
-  display: flex;
- 
-  height: 42px;
-  padding: 16px;
-  justify-content: center;
-  color: white;
-  align-items: center;
-  gap: 4px;
-  border-radius: 14px;
-  border: 1px solid var(--Light-Theme-Outline, #d7d9e4);
-  background: var(--Light-Theme-White, #fff);
-} */
+
 .password-input {
   margin: 0 !important;
   /* width: 480px !important; */
@@ -152,14 +140,10 @@ body {
 /* Normal input styling */
 .password-input input {
   padding: 10px;
-
-  /* Your regular styles here */
+border-radius: 0px !important;
 }
 
-/* Styling for autofill */
-.password-input input:-webkit-autofill {
-  box-shadow: 0 0 0 30px white inset; /* Adjust the box-shadow as needed */
-}
+
 .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
   padding: 10px 14px !important;
 }
@@ -259,19 +243,7 @@ body {
 .table_parent::-webkit-scrollbar-thumb:hover {
   background: #4f4f4f;
 }
-/* .table_parent::-webkit-scrollbar {
-  display: none;
-} */
 
-/* Hide scrollbar for IE, Edge and Firefox */
-/* .table_parent {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
-} */
-
-/* ::marker {
- margin: 0;
-} */
 p,
 ul {
   font-size: 18px;
@@ -465,3 +437,10 @@ svg{
 .dark{
   color: var(--color-primary-dark);
 } 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--color-white) inset !important;
+  -webkit-text-fill-color: var(--color-light-text) !important;
+}

@@ -18,10 +18,9 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [Total, setTotal] = useState(0);
   const [cartOpen, setcartOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [showSearch, setShowSearch] = useState(false)
 
-  const { cartItem, setCartItems, isLogedin, setIsLogedin, userData, setuserData } = useGlobalState();
+  const { cartItem, setCartItems, isLogedin, setIsLogedin, userData, setuserData, isDarkMode, toggleTheme  } = useGlobalState();
   const currentPath = window.location.pathname;
   useEffect(() => {
     //refresh (in dependency array) is using to get latest data after updating data from settings
@@ -39,24 +38,7 @@ FMCToken().then((res)=>{
 })
     // eslint-disable-next-line
   }, [refresh, cartOpen])
-  useEffect(() => {
-     // Retrieve dark mode preference from localStorage
-     const darkModePreference = localStorage.getItem('darkMode') === 'true';
-     setIsDarkMode(darkModePreference);
- 
-     if (darkModePreference) {
-       document.documentElement.classList.add('dark');
-     } else {
-       document.documentElement.classList.remove('dark');
-     }
-  }, []);
-  const toggleTheme = () => {
-    const newDarkMode = !isDarkMode;
-    document.documentElement.classList.toggle('dark', newDarkMode);
-    setIsDarkMode(newDarkMode);
-    // Save dark mode preference to localStorage
-    localStorage.setItem('darkMode', newDarkMode);
-  };
+
   const removeCoinFromCart = (coinToRemove) => {
 
     // Ensure that coinToRemove is not null or undefined

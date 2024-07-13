@@ -50,11 +50,13 @@ import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { useGlobalState } from "../../context/context";
 import { CircularProgress } from "@mui/material";
+
+
 const Login = () => {
   const [Loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   let [isOpen, setIsOpen] = useState(false)
-
+ 
   function closeModal() {
     setIsOpen(false)
   } const [provider, setProvider] = useState("");
@@ -228,7 +230,7 @@ const Login = () => {
         transform: 'translateX(16px)',
         color: '#fff',
         '& + .MuiSwitch-track': {
-          backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#7147B4',
+          backgroundColor: theme.palette.mode === 'dark' ? '#7147B4' : '#7147B4',
           opacity: 1,
           border: 0,
         },
@@ -266,6 +268,8 @@ const Login = () => {
   }));
 
   return (
+    
+
     <>
       <div className="flex md:h-screen justify-center items-center">
         <ToastContainer />

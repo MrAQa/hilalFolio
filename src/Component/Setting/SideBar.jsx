@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useGlobalState } from '../../context/context';
 function SideBar() {
     const currentPath = window.location.pathname;
-    const { setIsLogedin, setuserData } = useGlobalState();
+    const { setIsLogedin, setuserData, isDarkMode, toggleTheme } = useGlobalState();
     const UserData = JSON.parse(localStorage.getItem('user_Data'))
     const IOSSwitch = styled((props) => (
         <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -27,7 +27,7 @@ function SideBar() {
                 transform: 'translateX(16px)',
                 color: '#fff',
                 '& + .MuiSwitch-track': {
-                    backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#7147B4',
+                    backgroundColor: theme.palette.mode === 'dark' ? '#7147B4' : '#7147B4',
                     opacity: 1,
                     border: 0,
                 },
@@ -177,12 +177,24 @@ function SideBar() {
                     <div className='flex justify-between my-2 items-center px-5 py-4 border-lightThemeOutline border-t-[1px]'>
                         <div className='flex gap-2 text-base font-semibold'>
                             <span>
-                                <SunIcon />
+                                {
+                                    isDarkMode ?
+
+                                        <svg className='mt-[2px]' width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2.56851 13.3984C4.11418 14.9441 5.99759 15.7169 8.21873 15.7169C10.125 15.7169 11.8085 15.1171 13.2695 13.9176C14.7304 12.7181 15.6273 11.1965 15.9603 9.3528C16.0035 9.1701 15.9972 9.01115 15.9413 8.87594C15.8854 8.74073 15.7999 8.63405 15.6848 8.55593C15.5812 8.4778 15.4561 8.42883 15.3094 8.409C15.1628 8.38915 15.0126 8.41289 14.8587 8.4802C14.5438 8.63405 14.1766 8.76926 13.7572 8.88583C13.3377 9.00241 12.8978 9.0607 12.4375 9.0607C10.901 9.0607 9.59501 8.52294 8.51948 7.44743C7.44395 6.3719 6.90618 5.0659 6.90618 3.52943C6.90618 3.11063 6.95306 2.71147 7.04681 2.33193C7.14056 1.95239 7.28418 1.58654 7.47768 1.23438C7.57263 1.06852 7.6117 0.902357 7.59487 0.735889C7.57804 0.56942 7.52275 0.427895 7.429 0.311317C7.33525 0.194739 7.21326 0.106998 7.06302 0.0480915C6.91279 -0.0107992 6.73911 -0.0156036 6.54199 0.0336776C4.63695 0.449553 3.11203 1.37684 1.96722 2.81554C0.822406 4.25423 0.25 5.89844 0.25 7.74818C0.25 9.96932 1.02284 11.8527 2.56851 13.3984Z" fill="#667085" />
+                                        </svg>
+
+                                        :
+                                        <SunIcon />
+                                }
                             </span>
                             <span>Dark Mode</span>
                         </div>
                         <div>
-                            <IOSSwitch />
+                            <IOSSwitch
+                                checked={isDarkMode}
+                                onChange={toggleTheme}
+                            />
 
                         </div>
                     </div>

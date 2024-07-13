@@ -22,7 +22,7 @@ function Settings() {
                 transform: 'translateX(16px)',
                 color: '#fff',
                 '& + .MuiSwitch-track': {
-                    backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+                    backgroundColor: theme.palette.mode === 'dark' ? '#65C466' : '#65C466',
                     opacity: 1,
                     border: 0,
                 },

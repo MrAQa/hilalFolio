@@ -193,7 +193,7 @@ const OtpVerification = () => {
                   )}
                 </div>
               </span> */}
-              <span className="small-text !text-[#1F1F1F] !font-semibold mt-1">
+              <span className="small-text text-lightThemeText !font-semibold mt-1">
                       Remember password?{" "}
                       <Link className="forget-text" to={"/sign-in"}>
                         Login

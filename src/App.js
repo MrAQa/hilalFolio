@@ -23,11 +23,13 @@ import NewsPage from "./Pages/NewsPage";
 import HelpCenter from "./Pages/HelpCenter";
 import TrendingBar from "./Component/TrendingBar";
 import FAQ from "./Component/Hilalbot/FAQ";
+
 function App() {
   const location = useLocation();
   const currentPath = location.pathname;
   const excludedPaths = ['/sign-in', '/sign-up', '/forget-password', '/otp-verification', '/new-password'];
 const isPathExcluded = !excludedPaths.includes(currentPath);
+// 
   return (
     <>
     {
