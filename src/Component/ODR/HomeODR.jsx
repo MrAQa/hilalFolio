@@ -3,7 +3,7 @@ import { AddTokenIcon } from '../../assets/custom-icon';
 
 const HomeODR = ({setShowAssets}) => {
     return (
-        <div className="bg-[#F2F2F2]">
+        <div className="bg-lightThemebg">
         <section className='pt-6 sm:pt-8'>
             <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
                 <div className="rounded-2xl px-4 sm:px-8 py-8 bg-white h-screen max-h-[500px]">

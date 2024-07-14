@@ -9,13 +9,13 @@ const Home = () => {
   const {isLogedin,setIsLogedin} =useGlobalState();
   return (
     <>
-      <div className="min-h-full bg-[#F2F2F2]">
+      <div className="min-h-full bg-lightThemebg">
         <NavBar 
         searchQuery={searchQuery} 
         setSearchQuery={setSearchQuery}
         setIsLoginValue={setIsLogedin}
         />
-          <div className="bg-[#F2F2F2]">
+          <div className="bg-lightThemebg">
            <CoinSecton 
             searchQuery={searchQuery} 
             setSearchQuery={setSearchQuery}

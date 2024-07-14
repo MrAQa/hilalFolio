@@ -79,7 +79,7 @@ const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh,isLoadingCoins ,sele
     return (
         <>
           <ToastContainer />
-        <div className="bg-[#F2F2F2]">
+        <div className="bg-lightThemebg">
             <section className='pt-6 sm:pt-8'>
                 <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
                     <div className="rounded-2xl px-4 sm:px-8 py-8 bg-white h-screen max-h-[585px]">
@@ -120,7 +120,7 @@ const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh,isLoadingCoins ,sele
                                         onClick={() => handleItemClick(item)}
                                         className='flex justify-between items-center max-h-24 gap-1 border-[1px] border-lightThemeOutline shadow-custom rounded-xl p-6 col-3-items'>
                                         <div className='flex items-center gap-2'>
-                                            <span className="bg-[#EBEBEB] rounded px-2 py-[4px] text-lightSecondaryText text-[14px] font-medium">
+                                            <span className="bg-lightGray rounded px-2 py-[4px] text-lightSecondaryText text-[14px] font-medium">
                                                 {index + 1}
                                             </span>
                                             <div className="flex items-center gap-x-2">
@@ -151,7 +151,7 @@ const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh,isLoadingCoins ,sele
                                                     {
 
                                                         (isLoading && selectedItem?._id == item?._id) ?
-                                                            <span className="p-2 bg-[#F2F2F2] rounded-lg flex justify-center items-center cursor-pointer">
+                                                            <span className="p-2 bg-lightThemebg rounded-lg flex justify-center items-center cursor-pointer">
 
                                                                 <CircularProgress size={20} color='primary' />
                                                             </span>
@@ -164,7 +164,7 @@ const CryptoAssets = ({ setShowAssets, CoinsData ,setReresh,isLoadingCoins ,sele
 
                                                 :
                                                 <div className={`rounded-full size-6 border-[1px] border-lightThemeOutline flex items-center justify-center ${selectedItems.includes(item) ? 'bg-primaryPurple' : ''}`}>
-                                                    <TickIconWhite />
+                                                   {selectedItems.includes(item) && <TickIconWhite />} 
                                                 </div>
                                         }
                                     </div>

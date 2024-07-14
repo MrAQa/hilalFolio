@@ -136,8 +136,8 @@ function ChangePassword() {
     <>
       <ToastContainer />
       <form onSubmit={HandleSubmit} className='h-full'>
-        <div className="border-[1px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-[#fff] h-full">
-          <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+        <div className="border-[1px] border-lightThemeOutline rounded-3xl px-4 sm:px-8 py-6 bg-white h-full">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
             Change password
           </h2>
 

@@ -50,11 +50,13 @@ import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { useGlobalState } from "../../context/context";
 import { CircularProgress } from "@mui/material";
+
+
 const Login = () => {
   const [Loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   let [isOpen, setIsOpen] = useState(false)
-
+ 
   function closeModal() {
     setIsOpen(false)
   } const [provider, setProvider] = useState("");
@@ -228,7 +230,7 @@ const Login = () => {
         transform: 'translateX(16px)',
         color: '#fff',
         '& + .MuiSwitch-track': {
-          backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#7147B4',
+          backgroundColor: theme.palette.mode === 'dark' ? '#7147B4' : '#7147B4',
           opacity: 1,
           border: 0,
         },
@@ -266,6 +268,8 @@ const Login = () => {
   }));
 
   return (
+    
+
     <>
       <div className="flex md:h-screen justify-center items-center">
         <ToastContainer />
@@ -335,7 +339,7 @@ const Login = () => {
                     <div className="mb-7">
                       <label
                         htmlFor="password"
-                        className="block mb-2 text-sm font-medium heading text-start"
+                        className="block mb-2 text-sm font-medium text-gray-900 text-start"
                       >
                         Password
                       </label>
@@ -486,7 +490,7 @@ const Login = () => {
           </div>
         </div>
         <div className="w-1/2 min-h-full items-center justify-center hidden md:flex">
-          <div className="bg-gray-100 rounded-lg w-full flex justify-end">
+          <div className="bg-lightThemebg rounded-lg w-full flex justify-end">
             <img src={bg} alt="background" className="h-screen" />
           </div>
         </div>

@@ -175,18 +175,18 @@ function Profile() {
     <div>
       <ToastContainer />
       <NavBar refresh={refresh} />
-      <div className="bg-[#FAFAFA]">
+      <div className="bg-container1">
         {/* <Banner /> */}
         <section className="">
           <div className="2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md  mx-auto px-3 lg:px-0">
-            <div className="flex flex-col md:flex-row gap-6 text-[#0C0F14]">
+            <div className="flex flex-col md:flex-row gap-6 text-gray-900">
               <div className="lg:w-[390px] pt-10 ">
                 <SideBar />
               </div>
               <div className="flex-1 pt-10">
                 <form onSubmit={HandleSubmit} className="h-full">
-                  <div className="border-[1px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-[#fff] h-full">
-                    <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+                  <div className="border-[1px] border-lightThemeOutline rounded-3xl px-4 sm:px-8 py-6 bg-white h-full">
+                    <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                       Profile
                     </h2>
                     <div className="pt-6 flex flex-col sm:flex-row items-center gap-4">
@@ -261,7 +261,7 @@ function Profile() {
                           name="fullName"
                           onChange={handleChange}
                           maxLength={30}
-                          className="p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-transparent mt-2"
+                          className="p-4 outline-none border-[1px] border-lightThemeOutline rounded-lg bg-transparent mt-2"
                           placeholder="Michael Smith"
                           type="text"
                         />
@@ -272,11 +272,11 @@ function Profile() {
                           value={userData?.gender}
                           onChange={handleChange}
                           name="gender"
-                          className="p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-transparent mt-2"
+                          className="p-4 outline-none border-[1px] border-lightThemeOutline rounded-lg bg-transparent mt-2"
                           placeholder="Male"
                           type="text"
                         /> */}
-                        <div className="p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-transparent mt-2">
+                        <div className="p-4 outline-none border-[1px] border-lightThemeOutline rounded-lg bg-transparent mt-2">
 
                         <select
                           value={userData?.gender}
@@ -302,7 +302,7 @@ function Profile() {
                           name="email"
                           // onChange={handleChange}
                           readOnly
-                          className="p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-[#F2F2F2] mt-2"
+                          className="p-4 outline-none border-[1px] border-lightThemeOutline rounded-lg bg-lightThemebg mt-2"
                           placeholder="gottlieb.eldridge@hamill.com"
                           type="email"
                         />
@@ -312,7 +312,7 @@ function Profile() {
                         <input
                           value={userData?.referralCode}
                           readOnly
-                          className="p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-[#F2F2F2] mt-2"
+                          className="p-4 outline-none border-[1px] border-lightThemeOutline rounded-lg bg-lightThemebg mt-2"
                           placeholder="12rXCbRN5w"
                           type="text"
                         />
@@ -325,7 +325,7 @@ function Profile() {
                           value={userData?.dob}
                           name="dob"
                           onChange={handleChange}
-                          className="p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-transparent mt-2"
+                          className="p-4 outline-none border-[1px] border-lightThemeOutline rounded-lg bg-transparent mt-2"
                           placeholder="18-01-1995"
                           max={today}
                           type="date"
@@ -337,7 +337,7 @@ function Profile() {
                           value={userData?.phoneNo}
                           onChange={handleChange}
                           name="phoneNo"
-                          className="p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-transparent mt-2"
+                          className="p-4 outline-none border-[1px] border-lightThemeOutline rounded-lg bg-transparent mt-2"
                           placeholder="+1 717-676-2047"
                           type="text"
                         />
@@ -350,7 +350,7 @@ function Profile() {
                                                     value={userData?.gender}
                                                     onChange={handleChange}
                                                     name='gender'
-                                                    className='p-4 outline-none border-[1px] border-[#D7D9E4] rounded-lg bg-transparent mt-2' placeholder='Male' type="text" />
+                                                    className='p-4 outline-none border-[1px] border-lightThemeOutline rounded-lg bg-transparent mt-2' placeholder='Male' type="text" />
                                             </div>
 
                                         </div> */}

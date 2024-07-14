@@ -1,6 +1,8 @@
 // StateContext.js
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { GetCmcData } from '../service/service';
+import { ThemeProvider } from '@emotion/react';
+import { createTheme } from '@mui/material';
 
 const StateContext = createContext();
 
@@ -14,6 +16,9 @@ export const StateProvider = ({ children }) => {
  const [noDataFlag, setNoDataFlag] = useState(false)
  const [isLogedin, setIsLogedin] = useState(false);
  const [userData, setuserData] = useState({})
+ const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('darkMode') === 'true');
+ const [themeToggle, setThemeToggle] = useState(false); // New state to force re-render
+
  useEffect(() => {
 
    const token = localStorage.getItem('user_token');
@@ -27,7 +32,33 @@ export const StateProvider = ({ children }) => {
    }
  
  }, [])
-
+ const theme = useMemo(
+  () =>
+    createTheme({
+      palette: {
+        mode: isDarkMode ? 'dark' : 'light',
+        primary: {
+          main: isDarkMode ? '#2ECA45' : '#7147B4',
+        },
+      },
+    }),
+  [isDarkMode]
+);
+ const toggleTheme = () => {
+  setIsDarkMode((prev) => {
+    const newMode = !prev;
+    localStorage.setItem('darkMode', newMode);
+    return newMode;
+  });
+  setThemeToggle((prev) => !prev); // Force re-render
+};
+useEffect(() => {
+  if (isDarkMode) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+}, [isDarkMode]);
  useEffect(() => {
   const currentPath = location.pathname;
   const excludedPaths = ['/sign-in', '/sign-up', '/forget-password', '/otp-verification', '/new-password'];
@@ -134,8 +165,8 @@ const numberWithCommas = (number) => {
   });
 };
   return (
-    <StateContext.Provider value={{cartItem, setCartItems,CoinsData, setCoinsData,selectedStatus, setSelectedStatus,selectedRank, setSelectedRank,selectedPercentage,setSelectedPercentage,isLoading, noDataFlag,isLogedin, setIsLogedin,userData,setuserData ,fetchData}}>
-      {children}
+    <StateContext.Provider value={{cartItem, setCartItems,CoinsData, setCoinsData,selectedStatus, setSelectedStatus,selectedRank, setSelectedRank,selectedPercentage,setSelectedPercentage,isLoading, noDataFlag,isLogedin, setIsLogedin,userData,setuserData ,fetchData, isDarkMode, toggleTheme }}>
+       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </StateContext.Provider>
   );
 };

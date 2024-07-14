@@ -155,13 +155,13 @@ const handleRequestReview = (e,symbol) => {
       {/* <MarketCapSection/> */}
       <section className='pt-6 sm:pt-8'>
         <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
-          <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-8 bg-white">
+          <div className="border-[2px] border-lightThemeOutline rounded-3xl px-4 sm:px-8 py-8 bg-white">
             <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-[30px]">
               Today's Cryptocurrency Prices by Market Cap
             </h2>
             <p className="text-base text-gray-600 mt-1">Your current cryptocurrency summary and activity.</p>
             <div className="py-6 flex flex-wrap gap-5">
-              {/* <div className="px-6 py-2 rounded-lg bg-[#F2F2F2] flex items-center justify-center text-base font-normal w-[116px]">USD<span className="text-[#747474]">/BTC</span></div> */}
+              {/* <div className="px-6 py-2 rounded-lg bg-lightThemebg flex items-center justify-center text-base font-normal w-[116px]">USD<span className="text-[#747474]">/BTC</span></div> */}
               <TbaleDropDown
                 value={selectedRank}
                 onChange={setSelectedRank}
@@ -194,14 +194,14 @@ const handleRequestReview = (e,symbol) => {
                     {
                       isLogedin &&
                       <th scope="col" className="px-0 font-semibold whitespace-nowrap ">
-                        <div className="px-2 py-5 border-y-[1px] border-[#D7D9E4] h-[66px]">
+                        <div className="px-2 py-5 border-y-[1px] border-lightThemeOutline h-[66px]">
 
                         </div>
 
                       </th>
                     }
                     <th scope="col" className="px-0 font-semibold whitespace-nowrap ">
-                      <div className="px-2 py-5 border-y-[1px] border-[#D7D9E4] h-[66px] text-center">
+                      <div className="px-2 py-5 border-y-[1px] border-lightThemeOutline h-[66px] text-center">
                         #
                       </div>
 
@@ -211,7 +211,7 @@ const handleRequestReview = (e,symbol) => {
                       // (item.id === 'Status' && !isLogedin) ? null :
                       (
                         <th key={item.id} scope="col" className="px-0 font-semibold ">
-                          <div className={`${item?.id === 'Name' ? 'pl-14 !text-left' : 'pl-6  whitespace-nowrap'} ${item.id === 'Status' ? 'text-left' : 'text-center'}  px-6 py-5 border-y-[1px] border-[#D7D9E4]`}>
+                          <div className={`${item?.id === 'Name' ? 'pl-14 !text-left' : 'pl-6  whitespace-nowrap'} ${item.id === 'Status' ? 'text-left' : 'text-center'}  px-6 py-5 border-y-[1px] border-lightThemeOutline`}>
                             {item.id}
                           </div>
                         </th>
@@ -228,7 +228,7 @@ const handleRequestReview = (e,symbol) => {
 
                       <tr
                         onClick={() => viewDetail(item)}
-                        key={index + '-item'} className={`text-base font-semibold border-b-[1px] border-[#D7D9E4] cursor-pointer`}>
+                        key={index + '-item'} className={`text-base font-semibold border-b-[1px] border-lightThemeOutline cursor-pointer`}>
 
                         {
                           isLogedin &&
@@ -254,7 +254,7 @@ const handleRequestReview = (e,symbol) => {
 
                           </td>
                         }
-                        <td className="px-2 py-5 text-center"><span className="bg-[#EBEBEB] rounded px-2 py-[4px] text-lightSecondaryText text-[14px] font-medium">
+                        <td className="px-2 py-5 text-center"><span className="bg-lightGray rounded px-2 py-[4px] text-lightSecondaryText text-[14px] font-medium">
                           {index + 1}
                         </span></td>
                         <td className="px-6 py-5 max-w-[150px]">
@@ -412,9 +412,9 @@ const handleRequestReview = (e,symbol) => {
       </section>
       <section className='pt-6 sm:pt-12'>
         <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
-          <div className="border-[2px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-white">
+          <div className="border-[2px] border-lightThemeOutline rounded-3xl px-4 sm:px-8 py-6 bg-white">
             <div className='flex justify-between items-center mb-6'>
-              <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+              <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                 Latest News
               </h2>
               <Link to='/news' className='text-base font-medium text-primaryPurple'>

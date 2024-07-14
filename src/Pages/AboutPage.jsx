@@ -9,21 +9,21 @@ function AboutPage() {
     return (
         <div>
             <NavBar />
-            <div className="bg-[#FAFAFA]">
+            <div className="bg-container1">
                 <section className=''>
                     <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
-                        <div className='flex flex-col md:flex-row gap-6 text-[#0C0F14]'>
+                        <div className='flex flex-col md:flex-row gap-6 text-gray-900'>
                             <div className='lg:w-[390px] pt-10 '>
                                 <SideBar />
                             </div>
                             <div className='flex-1 pt-10'>
-                                <div className="border-[1px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-[#fff] h-full">
-                                    <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+                                <div className="border-[1px] border-lightThemeOutline rounded-3xl px-4 sm:px-8 py-6 bg-white h-full">
+                                    <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                     <img className="h-auto  w-[200px]" src={logo} alt="Shariah" />
                         </h2>
                                     <div className='pt-6 flex flex-col text-lg gap-4'>
 
-                                        <p className='text-[#1F1F1F]-400'>"Our Crypto App is committed to offering a halal & ethical approach to managing digital assets in accordance with Islamic principles. With a focus on transparency and integrity, we provide users with a secure platform to engage in halal cryptocurrency transactions. Whether you're seeking to invest, save, or transact, our app ensures compliance with Islamic finance principles, distinguishing between halal and haram activities.</p>
+                                        <p className='text-lightThemeText'>"Our Crypto App is committed to offering a halal & ethical approach to managing digital assets in accordance with Islamic principles. With a focus on transparency and integrity, we provide users with a secure platform to engage in halal cryptocurrency transactions. Whether you're seeking to invest, save, or transact, our app ensures compliance with Islamic finance principles, distinguishing between halal and haram activities.</p>
                                         <p className='font-semibold'>Join us in embracing Islamic values as we revolutionize the world of digital web 3 cryptocurrency with integrity and faith-based guidance."</p>
                                         <p className='text-xl font-semibold'>
                                         Our Socials!

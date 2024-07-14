@@ -11,16 +11,16 @@ function SubscriptionPage() {
     return (
         <div>
             <NavBar />
-            <div className="bg-[#FAFAFA]">
+            <div className="bg-container1">
                 <section className=''>
                     <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
-                        <div className='flex flex-col md:flex-row gap-6 text-[#0C0F14]'>
+                        <div className='flex flex-col md:flex-row gap-6 text-gray-900'>
                             <div className='lg:w-[390px] pt-10 '>
                                 <SideBar />
                             </div>
                             <div className='flex-1 pt-10'>
-                                <div className="border-[1px] border-[#D7D9E4] rounded-3xl px-4 sm:px-8 py-6 bg-[#fff] h-full">
-                                    <h2 className="text-2xl font-bold tracking-tight text-[#0C0F14] sm:text-32">
+                                <div className="border-[1px] border-lightThemeOutline rounded-3xl px-4 sm:px-8 py-6 bg-white h-full">
+                                    <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                         My Subscription
                                     </h2>
                                     <p className='text-base pt-2  text-[#6F7889]'>
@@ -28,7 +28,7 @@ function SubscriptionPage() {
                                     </p>
                                     <div className='pt-8 flex  gap-4'>
 
-                                        <div className='border-[1px] border-[#D7D9E4] rounded-2xl p-4 text-[#0F172A] space-y-6 w-1/2 bg-[#f1edf5] '>
+                                        <div className='border-[1px] border-lightThemeOutline rounded-2xl p-4 text-[#0F172A] space-y-6 w-1/2 bg-[#f1edf5] '>
                                             <h3 className=' text-[28px] font-semibold'>Free</h3>
                                             <div className='text-lg'>
                                                 <strong className='text-[35px] font-bold'>$00/</strong>per Month
@@ -50,7 +50,7 @@ function SubscriptionPage() {
                                             <button type='submit' className='bg-primaryPurple text-white hover:bg-opacity-90 py-3 px-2 rounded-lg disabled:opacity-50 '>Get Started</button>
                                         </div>
                                         </div>
-                                        <div className='border-[1px] border-[#D7D9E4] rounded-2xl p-4 text-[#0F172A] space-y-6 w-1/2 '>
+                                        <div className='border-[1px] border-lightThemeOutline rounded-2xl p-4 text-[#0F172A] space-y-6 w-1/2 '>
                                             <h3 className=' text-[28px] font-semibold'>Paid</h3>
                                             <div className='text-lg'>
                                                 <strong className='text-[35px] font-bold'>$2.99/</strong>per Month

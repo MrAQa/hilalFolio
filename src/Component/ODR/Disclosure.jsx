@@ -27,7 +27,7 @@ export default function AccordianBox({ CoinsData, isLoadingCoins }) {
                                     <>
                                         <Disclosure.Button className='flex justify-between items-center max-h-24 gap-1 p-6 w-full'>
                                             <div className='flex items-center gap-2'>
-                                                <span className='bg-[#EBEBEB] rounded px-2 py-[4px] text-lightSecondaryText text-[14px] font-medium'>
+                                                <span className='bg-lightGray rounded px-2 py-[4px] text-lightSecondaryText text-[14px] font-medium'>
                                                     {index + 1}
                                                 </span>
                                                 <div className='flex items-center gap-x-2'>
