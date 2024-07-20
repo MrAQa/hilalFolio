@@ -5,6 +5,7 @@ import { LoadingButton } from "@mui/lab";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import imglOGO from "../../assets/Logo-new.png";
+import logoDark from "../../assets/logo-dark-mode.png";
 import PasswordStrengthBar from "../../Component/passwordStrengthCheck";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -26,10 +27,11 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { CircularProgress } from "@mui/material";
+import { useGlobalState } from "../../context/context";
 
 const SignUp = () => {
   // const [email, setEmail] = useState("");
-
+  const {isDarkMode} = useGlobalState();
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
   // const [isValidEmail, setIsValidEmail] = useState(false);
@@ -129,7 +131,7 @@ const SignUp = () => {
           <ToastContainer />{" "}
           <div className=" m-4 rounded-lg overflow-auto h-[94vh] flex flex-col justify-center items-center mt-3 text-center">
             <div className="flex justify-center mt-1">
-            <img src={imglOGO} className="h-[44px]" alt="logo" />
+            <img src={isDarkMode? logoDark: imglOGO} className="h-[44px]" alt="logo" />
             </div>
             <div className="flex max-w-sm w-[360px] flex-col justify-center items-center mt-3 text-center ">
               <p className="Welcome-text">Reset Password</p>

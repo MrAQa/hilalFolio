@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CancelIcon from "@mui/icons-material/Cancel";
 import imglOGO from "../../assets/Logo-new.png";
-
+import logoDark from "../../assets/logo-dark-mode.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -14,7 +14,9 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { url } from "../../environment";
 import FormControl from "@mui/material/FormControl";
 import { CircularProgress } from "@mui/material";
+import { useGlobalState } from "../../context/context";
 const ForgetPassword = () => {
+  const {isDarkMode} = useGlobalState();
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -82,7 +84,7 @@ const ForgetPassword = () => {
           {" "}
           <div className=" h-[95vh] m-4 rounded-lg flex flex-col justify-center items-center">
             <div className="flex justify-center items-center mt-1">
-              <img src={imglOGO} className="h-[44px]" alt="logo" />
+              <img src={isDarkMode? logoDark: imglOGO} className="h-[44px]" alt="logo" />
             </div>
             <div className="flex flex-col justify-center items-center mt-3 text-center ">
               <p className="Welcome-text mb-3">Forgot password</p>

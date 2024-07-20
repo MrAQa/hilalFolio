@@ -26,8 +26,8 @@ import Divider from "@mui/material/Divider";
 // import { MenuItem, Select, InputLabel } from "@mui/material";
 
 import Button from "@mui/material/Button";
+import logoDark from "../../assets/logo-dark-mode.png";
 import imglOGO from "../../assets/Logo-new.png";
-
 import { LoadingButton } from "@mui/lab";
 import { useTranslation } from "react-i18next";
 // import i18n from "../../i18n"; // Import your i18n configuration
@@ -53,6 +53,7 @@ import { CircularProgress } from "@mui/material";
 
 
 const Login = () => {
+  const {isDarkMode} = useGlobalState();
   const [Loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   let [isOpen, setIsOpen] = useState(false)
@@ -62,7 +63,7 @@ const Login = () => {
   } const [provider, setProvider] = useState("");
   const { param1, param2 } = useParams();
 
-  const { setIsLogedin, setuserData } = useGlobalState();
+  const { setIsLogedin, setuserData,setIsDarkMode } = useGlobalState();
   const onLoginStart = useCallback(() => {
     // alert("login start");
   }, []);
@@ -130,6 +131,14 @@ const Login = () => {
             .then((result) => {
               const data = result?.body?.user;
               localStorage.setItem("user_Data", JSON.stringify(data));
+              localStorage.setItem('darkMode', data?.darkMode);
+              if(localStorage.getItem('darkMode') === 'true'){
+                document.documentElement.classList.add('dark');
+                setIsDarkMode(true)
+              } else {
+                document.documentElement.classList.remove('dark');
+                setIsDarkMode(false)
+              }
               const userSettings = result?.body?.userSettings;
               localStorage.setItem("user_Setting", JSON.stringify(userSettings));
               setuserData(data)
@@ -278,7 +287,7 @@ const Login = () => {
           <div className="m-4 rounded-lg">
             {/* <div className="relative inline-block text-left"></div> */}
             <div className="flex justify-center mt-1">
-              <img src={imglOGO} alt="logo" className="h-[44px]" />
+              <img src={isDarkMode? logoDark: imglOGO} alt="logo" className="h-[44px]" />
             </div>
             <div className="flex flex-col justify-center items-center mt-6 text-center ">
               <p className="Welcome-text mb-3">Welcome back!</p>

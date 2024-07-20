@@ -1,6 +1,6 @@
 // StateContext.js
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { GetCmcData } from '../service/service';
+import { GetCmcData, UpdateProfileData } from '../service/service';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
 
@@ -48,6 +48,18 @@ export const StateProvider = ({ children }) => {
   setIsDarkMode((prev) => {
     const newMode = !prev;
     localStorage.setItem('darkMode', newMode);
+    const data={
+      darkMode:newMode
+    }
+    if(isLogedin){
+      UpdateProfileData(data).then((result)=>{
+        if (result.success) {
+        console.log(result);
+        }
+      }).catch((error) => {
+         console.error(error);
+        });
+    }
     return newMode;
   });
   setThemeToggle((prev) => !prev); // Force re-render
@@ -165,7 +177,7 @@ const numberWithCommas = (number) => {
   });
 };
   return (
-    <StateContext.Provider value={{cartItem, setCartItems,CoinsData, setCoinsData,selectedStatus, setSelectedStatus,selectedRank, setSelectedRank,selectedPercentage,setSelectedPercentage,isLoading, noDataFlag,isLogedin, setIsLogedin,userData,setuserData ,fetchData, isDarkMode, toggleTheme }}>
+    <StateContext.Provider value={{cartItem, setCartItems,CoinsData, setCoinsData,selectedStatus, setSelectedStatus,selectedRank, setSelectedRank,selectedPercentage,setSelectedPercentage,isLoading, noDataFlag,isLogedin, setIsLogedin,userData,setuserData ,fetchData, isDarkMode, toggleTheme ,setIsDarkMode}}>
        <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </StateContext.Provider>
   );
