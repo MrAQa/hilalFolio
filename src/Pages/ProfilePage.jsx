@@ -185,7 +185,7 @@ function Profile() {
               </div>
               <div className="flex-1 pt-10">
                 <form onSubmit={HandleSubmit} className="h-full">
-                  <div className="border-[1px] border-lightThemeOutline rounded-3xl px-4 sm:px-8 py-6 bg-white h-full">
+                  <div className="rounded-3xl px-4 sm:px-8 py-6 bg-white h-full">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                       Profile
                     </h2>

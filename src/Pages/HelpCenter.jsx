@@ -19,7 +19,7 @@ function HelpCenter() {
                             </div>
                             <div className='flex-1 pt-10'>
                                 
-                                        <div className="border-[1px] border-lightThemeOutline rounded-3xl px-4 sm:px-8 py-6 bg-white">
+                                        <div className="rounded-3xl px-4 sm:px-8 py-6 bg-white">
                                             <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                                 FAQ's
                                             </h2>

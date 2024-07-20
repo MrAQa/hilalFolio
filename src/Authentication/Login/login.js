@@ -273,7 +273,7 @@ const Login = () => {
     <>
       <div className="flex md:h-screen justify-center items-center">
         <ToastContainer />
-        <div className="w-full md:w-1/2 min-h-full bg-white  flex items-center justify-center">
+        <div className="w-full md:w-1/2 min-h-full bg-lightThemebg  flex items-center justify-center">
           {" "}
           <div className="m-4 rounded-lg">
             {/* <div className="relative inline-block text-left"></div> */}

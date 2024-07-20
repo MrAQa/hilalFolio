@@ -13,29 +13,35 @@
   --color-gray-600: #475467;
   --color-gray-500: #667085;
   --color-white:#ffffff;
+  --color-topbar:#ffffff;
   --color-light-gray:#EBEBEB;
   --color-container1:#fafafa;
+  --color-dropdown-bg:#f2f2f2;
+  --color-link:#747474;
 }
 
 .dark {
   --color-light-delete: #ff6666;
   --color-light-success: #33cc33;
   --color-light-text: #ffffff;
-  --color-light-bg: #2b2930;
+  --color-light-bg: #0d0c0f;
   --color-primary-purple: #aa66ff;
   --color-light-secondary: #cccccc;
   --color-primary-dark: #e0e0e0;
   --color-light-secondary-text: #bbbbbb;
-  --color-light-outline: #999999;
+  --color-light-outline: #49454F;
   --color-gray-900: #e0e0e0;
   --color-gray-600: #aaaaaa;
   --color-gray-500: #888888;
-  --color-white:#0d0c0f;
+  --color-white:#211F26;
+  --color-topbar:#0d0c0f;
   --color-light-gray:#2C2C2C;
   --color-container1:#1d1b20;
+  --color-dropdown-bg:#36343B;
+  --color-link:#F0F0F0;
 }
 body {
-  background-color: var(--color-container1);
+  background-color: var(--color-light-bg);
   font-family: "Open Sans";
 }
 .App {
@@ -441,6 +447,12 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px var(--color-white) inset !important;
+  -webkit-box-shadow: 0 0 0 30px var(--color-light-bg) inset !important;
   -webkit-text-fill-color: var(--color-light-text) !important;
+}
+.bg-topbar{
+  background-color: var(--color-topbar);
+}
+.text-white.bg-primaryPurple{
+  color: white !important;
 }

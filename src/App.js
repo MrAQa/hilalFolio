@@ -35,7 +35,7 @@ const isPathExcluded = !excludedPaths.includes(currentPath);
     {
       isPathExcluded &&
 
-      <div className='bg-white hidden lg:block'>
+      <div className='bg-topbar hidden lg:block'>
         <div style={{ overflow: 'hidden', width: '100%', display: 'flex', justifyContent: 'end' }}>
           <div className="trending-bar-container">
             <TrendingBar />

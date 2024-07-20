@@ -203,7 +203,7 @@ function BtcChart() {
                                 // tabData[activeTab] === 1 &&
                                 true &&
                                 <>
-                                    <div className='border-[2px] border-lightThemeOutline rounded-3xl bg-white px-4 sm:px-8 py-6'>
+                                    <div className='rounded-3xl bg-white px-4 sm:px-8 py-6'>
                                         <div className='mb-6 flex justify-between'>
                                             <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                                 Chart
@@ -318,7 +318,7 @@ function BtcChart() {
                                         </div>
                                     </div>
                                     <div className='pt-6'>
-                                        <div className="bg-white shadow-sm rounded-3xl border-[2px] border-lightThemeOutline px-4 sm:px-8 py-6">
+                                        <div className="bg-white shadow-sm rounded-3xl px-4 sm:px-8 py-6">
                                             <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                                 Statistics
                                             </h2>
@@ -402,12 +402,12 @@ function BtcChart() {
                                         </div>
                                     </div>
                                     <div className='pt-6'>
-                                        <div className="bg-white shadow-sm rounded-3xl border-[2px] border-lightThemeOutline px-4 sm:px-8 py-6">
+                                        <div className="bg-white shadow-sm rounded-3xl px-4 sm:px-8 py-6">
                                             <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                                 About {data?.name}
                                             </h2>
                                             <div className='py-5 flex flex-wrap gap-5'>
-                                                <a href={data?.urls?.website[0]} target='_blank' className="px-6 py-2 rounded-lg bg-lightThemebg flex items-center justify-center text-base font-normal">{data?.urls?.website[0]}
+                                                <a href={data?.urls?.website[0]} target='_blank' className="px-6 py-2 rounded-lg bg-colorDropdown flex items-center justify-center text-base font-normal">{data?.urls?.website[0]}
                                                     <ExpandIcon
                                                         className="w-4 cursor-pointer ml-2 fill-[#6F7889]"
                                                     /></a>
@@ -476,7 +476,7 @@ function BtcChart() {
                                         </div>
                                     </div>
                                     <div className='pt-6'>
-                                        <div className="bg-white shadow-sm rounded-3xl border-[2px] border-lightThemeOutline px-4 sm:px-8 py-6">
+                                        <div className="bg-white shadow-sm rounded-3xl px-4 sm:px-8 py-6">
                                             <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                                 {data?.name} Resources
                                             </h2>
@@ -486,7 +486,7 @@ function BtcChart() {
                                                         data?.urls?.website?.map((item, index) => (
 
                                                             <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
-                                                                <span className='text-base font-medium text-[#747474] truncate'>{item}</span>
+                                                                <span className='text-base font-medium text-colorLink truncate'>{item}</span>
                                                                 <div className='text-xl font-medium'>
                                                                     <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
                                                                 </div>
@@ -497,7 +497,7 @@ function BtcChart() {
                                                         data?.urls?.explorer?.map((item, index) => (
 
                                                             <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
-                                                                <span className='text-base font-medium text-[#747474] truncate'>{item}</span>
+                                                                <span className='text-base font-medium text-colorLink truncate'>{item}</span>
                                                                 <div className='text-xl font-medium'>
                                                                     <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
                                                                 </div>
@@ -508,7 +508,7 @@ function BtcChart() {
                                                         data?.urls?.announcement?.map((item, index) => (
 
                                                             <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
-                                                                <span className='text-base font-medium text-[#747474]'>Announcement</span>
+                                                                <span className='text-base font-medium text-colorLink'>Announcement</span>
                                                                 <div className='text-xl font-medium'>
                                                                     <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
                                                                 </div>
@@ -519,7 +519,7 @@ function BtcChart() {
                                                         data?.urls?.technical_doc?.map((item, index) => (
 
                                                             <a key={index} href={item} target='_blank' className='flex items-center justify-between w-[28%]'>
-                                                                <span className='text-base font-medium text-[#747474]'>Technical Document</span>
+                                                                <span className='text-base font-medium text-colorLink'>Technical Document</span>
                                                                 <div className='text-xl font-medium'>
                                                                     <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
                                                                 </div>
@@ -530,7 +530,7 @@ function BtcChart() {
                                                         data?.urls?.source_code?.map((item, index) => (
 
                                                             <a key={index} href={item} target='_blank' className=' flex items-center justify-between w-[28%]'>
-                                                                <span className='text-base font-medium text-[#747474]'>Source Code</span>
+                                                                <span className='text-base font-medium text-colorLink'>Source Code</span>
                                                                 <div className='text-xl font-medium'>
                                                                     <ExpandIcon className="w-4 cursor-pointer ml-2 fill-[#6F7889]" />
                                                                 </div>
@@ -583,7 +583,7 @@ function BtcChart() {
                                         </div>
                                     </div>
                                     <div className='pt-6'>
-                                        <div className="bg-white shadow-sm rounded-3xl border-[2px] border-lightThemeOutline px-4 sm:px-8 py-6">
+                                        <div className="bg-white shadow-sm rounded-3xl px-4 sm:px-8 py-6">
                                             <div className='flex justify-between items-center mb-6'>
                                                 <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                                                     Latest News

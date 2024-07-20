@@ -25,6 +25,8 @@ module.exports = {
         white:"var(--color-white)",
         lightGray:"var(--color-light-gray)",
         container1:"var(--color-container1",
+        colorDropdown:"var(--color-dropdown-bg)",
+        colorLink:"var(--color-link)",
         gray: {
           900: "var(--color-gray-900)",
           600: "var(--color-gray-600)",
