@@ -1,11 +1,12 @@
 import { useState, Fragment, useEffect } from "react";
 import { Menu, Transition, Popover, Dialog } from "@headlessui/react";
 import logo from "../assets/Logo-new.png";
+import logoDark from "../assets/logo-dark-mode.png";
 import { ArrowRightEndOnRectangleIcon, UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-import { BellNotificationIcon, CartIcon, DeleteIcon, GreenDot, SearchIcon, SunIcon } from "../assets/custom-icon";
+import { CartIcon, DeleteIcon, GreenDot, SearchIcon, SunIcon } from "../assets/custom-icon";
 // import img from "../assets/image 4.png"
 import { useGlobalState } from "../context/context";
 // import TrendingBar from "./TrendingBar";
@@ -20,7 +21,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
   const [cartOpen, setcartOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false)
 
-  const { cartItem, setCartItems, isLogedin, setIsLogedin, userData, setuserData, isDarkMode, toggleTheme  } = useGlobalState();
+  const { cartItem, setCartItems, isLogedin, setIsLogedin, userData, setuserData, isDarkMode, toggleTheme } = useGlobalState();
   const currentPath = window.location.pathname;
   useEffect(() => {
     //refresh (in dependency array) is using to get latest data after updating data from settings
@@ -33,9 +34,9 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
     setCartItems(cartItems ?? [])
     getPaymentTotal()
-FMCToken().then((res)=>{
-  console.log(res);
-})
+    FMCToken().then((res) => {
+      console.log(res);
+    })
     // eslint-disable-next-line
   }, [refresh, cartOpen])
 
@@ -142,10 +143,10 @@ FMCToken().then((res)=>{
   return (
     <>
 
-  
+
       <header
         id="main-header"
-        className={`bg-white border-y-[1px] border-lightThemeOutline ${!mobileMenuOpen && "z-50"
+        className={`bg-white border-b-[1px] border-lightThemeOutline ${!mobileMenuOpen && "z-50"
           }`}
       >
         <nav
@@ -155,7 +156,7 @@ FMCToken().then((res)=>{
           <div className="flex lg:flex-1 z-[1]">
             <Link to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Shariah</span>
-              <img className="h-auto  w-[137px]" src={logo} alt="Shariah" />
+              <img className="h-auto  w-[137px]" src={isDarkMode ? logoDark : logo} alt="Shariah" />
             </Link>
           </div>
           <div className="flex lg:hidden">
@@ -258,7 +259,7 @@ FMCToken().then((res)=>{
               <>
                 <div className="p-2 ">
                   {/* <BellNotificationIcon /> */}
-                  <NotificationBox/>
+                  <NotificationBox />
 
                 </div>
                 <div className="p-2 ">
@@ -302,19 +303,26 @@ FMCToken().then((res)=>{
                       </div>
                       {/* <div>{userData?.fullName}</div> */}
                       <div className="flex items-center">
-                        <svg
-                          className="w-[16px] h-[12px]"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="10"
-                          height="8"
-                          viewBox="0 0 10 8"
-                          fill="none"
-                        >
-                          <path
-                            d="M5.57253 6.69703L9.3327 2.1221C9.38457 2.05899 9.42542 1.98853 9.45525 1.91071C9.48508 1.83287 9.5 1.74947 9.5 1.66052C9.5 1.48262 9.45056 1.32806 9.35168 1.19684C9.25281 1.06561 9.1225 1 8.96073 1L1.03927 1C0.877501 1 0.747186 1.06624 0.648323 1.19872C0.549439 1.33123 0.499999 1.4858 0.499999 1.66245C0.499999 1.70663 0.555843 1.85995 0.667534 2.12239L4.42746 6.69707C4.5139 6.80223 4.60324 6.87901 4.6955 6.92741C4.78779 6.9758 4.88928 7 5 7C5.11072 7 5.21221 6.9758 5.30449 6.92741C5.39675 6.87901 5.4861 6.80222 5.57253 6.69703Z"
-                            fill="#0C0F14"
-                          />
-                        </svg>
+                        {
+                          isDarkMode ?
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                              <path d="M8.37136 12.596L2.2714 6.49614C2.18726 6.41199 2.12099 6.31804 2.07259 6.21428C2.0242 6.11049 2 5.99929 2 5.88069C2 5.64349 2.08021 5.43741 2.24062 5.26245C2.401 5.08748 2.61241 5 2.87484 5H15.7255C15.9879 5 16.1993 5.08832 16.3597 5.26496C16.5201 5.44164 16.6003 5.64774 16.6003 5.88326C16.6003 5.94217 16.5097 6.14659 16.3285 6.49652L10.229 12.5961C10.0887 12.7363 9.9438 12.8387 9.79413 12.9032C9.64442 12.9677 9.47977 13 9.30016 13C9.12055 13 8.95589 12.9677 8.80619 12.9032C8.65652 12.8387 8.51158 12.7363 8.37136 12.596Z" fill="#999999" />
+                            </svg>
+                            :
+                            <svg
+                              className="w-[16px] h-[12px]"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="10"
+                              height="8"
+                              viewBox="0 0 10 8"
+                              fill="none"
+                            >
+                              <path
+                                d="M5.57253 6.69703L9.3327 2.1221C9.38457 2.05899 9.42542 1.98853 9.45525 1.91071C9.48508 1.83287 9.5 1.74947 9.5 1.66052C9.5 1.48262 9.45056 1.32806 9.35168 1.19684C9.25281 1.06561 9.1225 1 8.96073 1L1.03927 1C0.877501 1 0.747186 1.06624 0.648323 1.19872C0.549439 1.33123 0.499999 1.4858 0.499999 1.66245C0.499999 1.70663 0.555843 1.85995 0.667534 2.12239L4.42746 6.69707C4.5139 6.80223 4.60324 6.87901 4.6955 6.92741C4.78779 6.9758 4.88928 7 5 7C5.11072 7 5.21221 6.9758 5.30449 6.92741C5.39675 6.87901 5.4861 6.80222 5.57253 6.69703Z"
+                                fill="#0C0F14"
+                              />
+                            </svg>
+                        }
                       </div>
                     </div>
                   </Menu.Button>
@@ -516,7 +524,7 @@ FMCToken().then((res)=>{
             <div className="flex items-center justify-between">
               <Link to="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Hilalfolio</span>
-                <img className="h-10 w-auto" src={logo} alt="Hilalfolio" />
+                <img className="h-10 w-auto" src={isDarkMode ? logoDark : logo} alt="Hilalfolio" />
               </Link>
               <div className="flex items-center xs:gap-3">
                 <button
@@ -662,7 +670,7 @@ FMCToken().then((res)=>{
           onClose={setcartOpen}
         >
           <div className="fixed inset-0 z-10" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 top-24 rounded-l-2xl max-h-[874px] round z-10 w-full max-w-[430px] bg-white px-6 py-6  sm:ring-1 sm:ring-gray-900/10 overflow-y-auto">
+          <Dialog.Panel className="fixed inset-y-0 right-0 top-24 rounded-l-2xl max-h-[874px] round z-10 w-full max-w-[430px] bg-white px-6 py-6 shadow-xl overflow-y-auto">
             <div className="flex items-baseline justify-between pb-6 border-b-[1px] border-lightThemeOutline">
               <div className="-m-1.5 p-1.5">
                 <span className='text-30 font-bold'>Order Summary</span>

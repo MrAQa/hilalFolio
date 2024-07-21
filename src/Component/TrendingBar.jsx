@@ -58,7 +58,7 @@ const TrendingBar = () => {
         }
       };
     return (
-        <div className='bg-white flex gap-4 h-[50px] items-center'>
+        <div className='flex gap-4 h-[50px] items-center'>
             {CoinsData?.map((item,index)=>(
               <div  key={index + '-item'} className={`flex gap-x-4 items-center ${CoinsData.length-1===index ? '':'border-r-[1px]'}  border-lightThemeOutline pr-4 text-base font-semibold`}>
                  <span className="">

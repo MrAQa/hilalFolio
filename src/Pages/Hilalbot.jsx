@@ -114,7 +114,7 @@ function Hilalbot() {
                     setQueryId('')
                     setLoading(false)
                     setShowRecent(false)
-                    const chatHistory = response.data?.conversation;
+                    const chatHistory = response.data?.conversation.reverse();
                     if (chatHistory.length > 0) {
                         setQueryId(chatHistory[0]?.queryId)
                         setChatId(chatId)

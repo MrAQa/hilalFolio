@@ -25,15 +25,17 @@ import { ReactComponent as DropUp } from "../../assets/arrow_drop_down.svg";
 import InputAdornment from "@mui/material/InputAdornment";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import imglOGO from "../../assets/Logo-new.png";
-
+import logoDark from "../../assets/logo-dark-mode.png";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import PasswordStrengthBar from "../../Component/passwordStrengthCheck";
 import bg from '../../assets/Loginpage-section.png'
 import { CircularProgress } from "@mui/material";
+import { useGlobalState } from "../../context/context";
 
 const SignUp = () => {
+  const {isDarkMode} = useGlobalState();
   const [showPassword, setShowPassword] = useState(false);
   const [ShowReferralCode, setShowReferralCode] = useState(false);
   const [Loading, setLoading] = useState(false);
@@ -182,11 +184,11 @@ const SignUp = () => {
       <div className="flex justify-center items-center">
         <ToastContainer />
       
-        <div className="w-full md:w-1/2 min-h-screen bg-white flex justify-center items-center">
+        <div className="w-full md:w-1/2 min-h-screen bg-lightThemebg flex justify-center items-center">
           {" "}
           <div className="rounded-lg py-3">
             <div className="flex justify-center mt-1">
-              <img src={imglOGO}  className="h-[44px]" alt="logo" />
+              <img src={isDarkMode? logoDark: imglOGO}  className="h-[44px]" alt="logo" />
             </div>
             <div className="flex flex-col justify-center items-center mt-6 text-center ">
             <p className="Welcome-text mb-3">Welcome back!</p>

@@ -5,13 +5,16 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import OtpInput from "react-otp-input";
 import { ToastContainer, toast } from "react-toastify";
 import imglOGO from "../../assets/Logo-new.png";
+import logoDark from "../../assets/logo-dark-mode.png";
 import { GetProfileData } from "../../service/service";
 
 import "react-toastify/dist/ReactToastify.css";
 import { LoadingButton } from "@mui/lab";
 import { url } from "../../environment";
 import { CircularProgress } from "@mui/material";
+import { useGlobalState } from "../../context/context";
 const OtpVerification = () => {
+  const {isDarkMode} = useGlobalState();
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(0);
   const [Loading, setLoading] = useState(false);
@@ -134,7 +137,7 @@ const OtpVerification = () => {
           <ToastContainer />{" "}
           <div className=" h-full rounded-lg flex flex-col justify-center items-center overflow-hidden">
             <div className="flex justify-center mt-1">
-              <img src={imglOGO} className="h-[44px]" alt="logo" />
+              <img src={isDarkMode? logoDark: imglOGO} className="h-[44px]" alt="logo" />
             </div>
             <div className="flex max-w-sm w-[360px] flex-col justify-center items-center mt-3 text-center ">
               <p className="text-35 Welcome-text">OTP Verification</p>

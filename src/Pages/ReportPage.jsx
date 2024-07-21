@@ -33,7 +33,7 @@ export default function ReportPage() {
               backgroundSize: 'cover',
               backgroundPosition: 'center'
             }}
-            className='border-[2px] border-lightThemeOutline rounded-3xl bg-white px-4 sm:px-8 py-6 h-[500px]'>
+            className='rounded-3xl bg-white px-4 sm:px-8 py-6 h-[500px]'>
             <div className='flex flex-col sm:flex-row justify-between items-end h-full text-white'>
               <div >
 
@@ -70,7 +70,7 @@ export default function ReportPage() {
             </div>
           </div>
           <div className='pt-6'>
-            <div className="bg-white shadow-sm rounded-3xl border-[2px] border-lightThemeOutline px-4 sm:px-8 py-6">
+            <div className="bg-white shadow-sm rounded-3xl px-4 sm:px-8 py-6">
               <h2 className="text-2xl font-semibold  text-primaryPurple sm:text-32">
               Name of the Protocol: Bitcoin
               </h2>
@@ -123,7 +123,7 @@ export default function ReportPage() {
             </div>
           </div> */}
           <div className='markdown-container'>
-            <div className="bg-white shadow-sm rounded-3xl border-[2px] border-lightThemeOutline px-4 sm:px-8 py-6 relative">
+            <div className="bg-white shadow-sm rounded-3xl px-4 sm:px-8 py-6 relative">
               <Markdown remarkPlugins={[breaks]}>{data?.report}</Markdown>
 
               
@@ -138,7 +138,7 @@ export default function ReportPage() {
          
 
           {/* <div className='pt-6'>
-            <div className='border-[2px] border-lightThemeOutline rounded-3xl bg-white px-4 sm:px-8 py-6'>
+            <div className='rounded-3xl bg-white px-4 sm:px-8 py-6'>
 
               <div className='mb-4 flex flex-col sm:flex-row justify-between gap-4'>
                 <h2 className="text-2xl font-bold tracking-tight text-primaryPurple sm:text-32">
@@ -173,7 +173,7 @@ export default function ReportPage() {
             </div>
           </div>
           <div className='pt-6'>
-            <div className='border-[2px] border-lightThemeOutline rounded-3xl bg-white px-4 sm:px-8 py-6'>
+            <div className='rounded-3xl bg-white px-4 sm:px-8 py-6'>
 
               <div className='mb-4 flex flex-col sm:flex-row justify-between gap-4'>
                 <h2 className="text-2xl font-bold tracking-tight text-primaryPurple sm:text-32">
@@ -227,7 +227,7 @@ export default function ReportPage() {
             </div>
           </div>
           <div className='pt-6'>
-            <div className='border-[2px] border-lightThemeOutline rounded-3xl bg-white px-4 sm:px-8 py-6'>
+            <div className='rounded-3xl bg-white px-4 sm:px-8 py-6'>
 
               <div className='mb-4 flex flex-col sm:flex-row justify-between gap-4'>
                 <h2 className="text-2xl font-bold tracking-tight text-primaryPurple sm:text-32">

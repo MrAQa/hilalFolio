@@ -86,7 +86,7 @@ function SideBar() {
     return (
         <>
             <ToastContainer />
-            <div className='border-[1px] border-lightThemeOutline rounded-3xl bg-white py-5'>
+            <div className='rounded-3xl bg-white py-5'>
                 <div className="px-5">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32 border-lightThemeOutline border-b-[1px] leading-normal pb-[30px]">
                         Account Setting

@@ -1,8 +1,11 @@
 import React from 'react'
 import logo from "../assets/Logo-new.png"
+import logoDark from "../assets/logo-dark-mode.png";
 import { Link } from 'react-router-dom'
 import { FacebookIcon, GooglePlusIcon, TwitterIcon } from '../assets/custom-icon'
+import { useGlobalState } from '../context/context';
 function Footer() {
+    const {isDarkMode} = useGlobalState()
     const quickLinks = [
 
 
@@ -65,7 +68,7 @@ function Footer() {
                                 to="/"
                             >
                                 <span className="sr-only">Hilalfolio</span>
-                                <img className="w-[166px]" src={logo} alt="Hilalfolio" />
+                                <img className="w-[166px]" src={isDarkMode? logoDark : logo} alt="Hilalfolio" />
                             </Link>
                         </div>
                         {/* <div className='leading-7 text-base font-normal max-w-48 text-lightSecondaryText'>
@@ -196,7 +199,7 @@ function Footer() {
                     <div className='flex items-center gap-x-8'>
                            
                             <Link
-                                to={'/'}
+                                to={'https://x.com/BasilInnovate'}
                                 target="_blank"
                             >
                                 <TwitterIcon
@@ -204,7 +207,7 @@ function Footer() {
                                 />
                             </Link>
                             <Link
-                                to={'/'}
+                                to={'https://www.facebook.com/BasilInnovations'}
                                 target="_blank"
                             >
                                 <FacebookIcon

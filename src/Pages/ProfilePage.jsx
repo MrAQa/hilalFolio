@@ -184,8 +184,8 @@ function Profile() {
                 <SideBar />
               </div>
               <div className="flex-1 pt-10">
-                <form onSubmit={HandleSubmit} className="h-full">
-                  <div className="border-[1px] border-lightThemeOutline rounded-3xl px-4 sm:px-8 py-6 bg-white h-full">
+                <form onSubmit={HandleSubmit} className="h-full flex flex-col">
+                  <div className="rounded-3xl px-4 sm:px-8 py-6 bg-white h-full">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">
                       Profile
                     </h2>
@@ -282,7 +282,7 @@ function Profile() {
                           value={userData?.gender}
                           onChange={handleChange}
                           name="gender"
-                          className="outline-none  rounded-lg bg-transparent w-full"
+                          className="outline-none bg-white rounded-lg w-full"
                         >
                           <option value="">Select Gender</option>
                           <option value="male">Male</option>
