@@ -27,6 +27,7 @@ module.exports = {
         container1:"var(--color-container1",
         colorDropdown:"var(--color-dropdown-bg)",
         colorLink:"var(--color-link)",
+        colorLogin:"var(--color-login)",
         gray: {
           900: "var(--color-gray-900)",
           600: "var(--color-gray-600)",

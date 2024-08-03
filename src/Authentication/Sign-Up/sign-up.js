@@ -33,6 +33,7 @@ import PasswordStrengthBar from "../../Component/passwordStrengthCheck";
 import bg from '../../assets/Loginpage-section.png'
 import { CircularProgress } from "@mui/material";
 import { useGlobalState } from "../../context/context";
+import LoginSlider from "../Login/LoginSlider";
 
 const SignUp = () => {
   const {isDarkMode} = useGlobalState();
@@ -442,8 +443,12 @@ const SignUp = () => {
           </div>
         </div>
         <div className="w-1/2 min-h-full items-center justify-center hidden md:flex">
-          <div className="bg-lightThemebg rounded-lg w-full flex justify-end">
-            <img src={bg} alt="background" className="h-screen"/>
+        <div className="bg-colorLogin rounded-lg w-full items-center flex flex-col justify-center h-screen">
+            <LoginSlider/>
+            <div className="text-lightThemeText text-35 font-bold mt-16">Welcome to Hilalfolio!</div>
+            <p className="text-lightThemeText text-xl font-medium capitalize">
+            Your halal crypto portfolio tracker and manager
+            </p>
           </div>
         </div>
       </div>
