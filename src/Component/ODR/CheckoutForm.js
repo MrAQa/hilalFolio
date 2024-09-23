@@ -31,7 +31,7 @@ const CheckoutForm = ({ total, openModal,cartItem }) => {
     const [Refresh, setRefresh] = useState(0);
 
     const stripePromise = loadStripe(
-        'pk_test_51PFsNB08ZDzoXpLEzP4uFGQ9hdOrLtTgmdXDOgLvMjWdYCV8Z8EGheRcZjtzXgltIQ51OiMLdozUuc8QCfaL11Vk003pbrL8J9'
+        'pk_test_51PKiKRIrx9FRzWMDEzpa806Xco9A5D5N2r9zdfyUhQRmZSy9O5bNr4fYNUQmBSq7Rk4UslBtO0JN6C3nRPhScyxu00bIPtjEqR'
     );
     // const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
     const [clientSecret, setClientSecret] = useState('');
@@ -75,7 +75,7 @@ const CheckoutForm = ({ total, openModal,cartItem }) => {
         if (result.success) {
             const { clientSecret } = result.body;
             setClientSecret(clientSecret);
-            const stripe = await loadStripe("pk_test_51PFsNB08ZDzoXpLEzP4uFGQ9hdOrLtTgmdXDOgLvMjWdYCV8Z8EGheRcZjtzXgltIQ51OiMLdozUuc8QCfaL11Vk003pbrL8J9");
+            const stripe = await loadStripe("pk_test_51PKiKRIrx9FRzWMDEzpa806Xco9A5D5N2r9zdfyUhQRmZSy9O5bNr4fYNUQmBSq7Rk4UslBtO0JN6C3nRPhScyxu00bIPtjEqR");
 
             const appearance = {
                 theme: "flat",

@@ -96,7 +96,7 @@ const Payment = ({ setshowPayement,setReresh }) => {
 
     };
     const stripePromise = loadStripe(
-        "pk_test_51PFsNB08ZDzoXpLEzP4uFGQ9hdOrLtTgmdXDOgLvMjWdYCV8Z8EGheRcZjtzXgltIQ51OiMLdozUuc8QCfaL11Vk003pbrL8J9"
+        "pk_test_51PKiKRIrx9FRzWMDEzpa806Xco9A5D5N2r9zdfyUhQRmZSy9O5bNr4fYNUQmBSq7Rk4UslBtO0JN6C3nRPhScyxu00bIPtjEqR"
     );
     // const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
