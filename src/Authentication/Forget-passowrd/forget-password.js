@@ -39,7 +39,7 @@ const ForgetPassword = () => {
   const sendOtp = (e) => {
     console.log(e);
     setLoading(true);
-    fetch(`${url}/api/auth/forgot-password`, {
+    fetch(`${url}/auth/forgot-password`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -118,8 +118,8 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
   const getPaymentTotal = (e) => {
 
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    let symbols = cartItems?.map((item) => item.symbol)
-    fetch(`${url}/api/payment/calculate`, {
+    let symbols = cartItems?.map((item) => item?.cmc_id || '');
+    fetch(`${url}/payment/calculate`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -128,7 +128,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
 
       },
       body: JSON.stringify({
-        symbols: symbols ?? [],
+        cmcIds: symbols ?? [],
       }),
     })
       .then((response) => response.json())

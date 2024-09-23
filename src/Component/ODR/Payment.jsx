@@ -24,22 +24,23 @@ const Payment = ({ setshowPayement,setReresh }) => {
 
     function openModal() {
         // e.preventDefault()
-        setIsLoading(true)
-        const symbols = cartItem.map(item => item.symbol);
-        const data = {
-            symbols
-        }
-      
-        GenrateReport(data).then((result) => {
-            console.log(result);
-
-            setIsLoading(false)
-            if (result.success) {
-                setIsOpen(true)
+            setIsOpen(true)
                 setCartItems([])
                 localStorage.removeItem('cartItems')
-            }
-        }).catch((error) => console.log(error))
+        // setIsLoading(true)
+        // const symbols = cartItem.map(item => item.symbol);
+        // const data = {
+        //     symbols
+        // }
+      
+        // GenrateReport(data).then((result) => {
+        //     console.log(result);
+
+        //     setIsLoading(false)
+        //     if (result.success) {
+            
+        //     }
+        // }).catch((error) => console.log(error))
 
 
     }
@@ -52,29 +53,26 @@ const Payment = ({ setshowPayement,setReresh }) => {
 
 
     const getPaymentTotal = (e) => {
-
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        let symbols = cartItems?.map((item) => item.symbol)
-        fetch(`${url}/api/payment/calculate`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                accept: "application/json",
-                'Authorization': `Bearer ${localStorage.getItem('user_token')}`
-
-            },
-            body: JSON.stringify({
-                symbols: symbols ?? [],
-            }),
+        let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        let symbols = cartItems?.map((item) => item?.cmc_id || '');
+        fetch(`${url}/payment/calculate`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+          },
+          body: JSON.stringify({
+            cmcIds:symbols,
+          }),
         })
-            .then((response) => response.json())
-            .then((res) => {
-                setTotal(res.body.total)
-            })
-            .catch((error) => {
-
-            });
-    };
+          .then((response) => response.json())
+          .then((res) => {
+            setTotal(res.body.total);
+          })
+          .catch((error) => {});
+      };
+      
     const removeCoinFromCart = (coinToRemove) => {
 
         // Ensure that coinToRemove is not null or undefined
@@ -97,10 +95,10 @@ const Payment = ({ setshowPayement,setReresh }) => {
         }
 
     };
-    // const stripePromise = loadStripe(
-    //     "pk_test_51PFsNB08ZDzoXpLEzP4uFGQ9hdOrLtTgmdXDOgLvMjWdYCV8Z8EGheRcZjtzXgltIQ51OiMLdozUuc8QCfaL11Vk003pbrL8J9"
-    // );
-    const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+    const stripePromise = loadStripe(
+        "pk_test_51PFsNB08ZDzoXpLEzP4uFGQ9hdOrLtTgmdXDOgLvMjWdYCV8Z8EGheRcZjtzXgltIQ51OiMLdozUuc8QCfaL11Vk003pbrL8J9"
+    );
+    // const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
     return (
         <>

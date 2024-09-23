@@ -30,10 +30,10 @@ const CheckoutForm = ({ total, openModal }) => {
     const [loading, setLoading] = React.useState(false);
     const [Refresh, setRefresh] = useState(0);
 
-    // const stripePromise = loadStripe(
-    //     'pk_test_51PFsNB08ZDzoXpLEzP4uFGQ9hdOrLtTgmdXDOgLvMjWdYCV8Z8EGheRcZjtzXgltIQ51OiMLdozUuc8QCfaL11Vk003pbrL8J9'
-    // );
-    const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+    const stripePromise = loadStripe(
+        'pk_test_51PFsNB08ZDzoXpLEzP4uFGQ9hdOrLtTgmdXDOgLvMjWdYCV8Z8EGheRcZjtzXgltIQ51OiMLdozUuc8QCfaL11Vk003pbrL8J9'
+    );
+    // const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
     const [clientSecret, setClientSecret] = useState('');
     const [paymentProcessing, setPaymentProcessing] = useState(false);
     const [paymentSucceeded, setPaymentSucceeded] = useState(false);
@@ -50,16 +50,24 @@ const CheckoutForm = ({ total, openModal }) => {
 
     const handlePaymentIntent = async (e) => {
         e.preventDefault()
+        let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+        const token = localStorage.getItem('user_token')
+        let symbols = cartItems?.map((item) => item?.cmc_id || '');
+
         handleOpenPay()
-        const response = await fetch(`http://54.179.193.192:8000/api/payment/intent`, {
+        const response = await fetch(`${url}/payment/intent`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`
+
             },
             body: JSON.stringify({
-                amount: Number(total.split('.')[0]),
-                currency: "usd",
-                country: "UK",
+
+                "cmcIds": symbols,
+                "subscription": false,
+              
             }),
         });
         const result = await response.json();

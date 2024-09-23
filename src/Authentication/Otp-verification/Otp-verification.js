@@ -65,7 +65,7 @@ const OtpVerification = () => {
     }
     let token = "Bearer " + localStorage.getItem("token");
     setLoading(true);
-    fetch(`${url}/api/auth/verify`, {
+    fetch(`${url}/auth/verify`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -112,7 +112,7 @@ const OtpVerification = () => {
 
   const sendOtp = (e) => {
     setLoading(true);
-    fetch(`${url}/api/auth/resend-otp`, {
+    fetch(`${url}/auth/resend-otp`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

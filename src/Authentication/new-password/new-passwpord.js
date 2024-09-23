@@ -61,7 +61,7 @@ const SignUp = () => {
     let token = "Bearer " + localStorage.getItem("token");
 
     setLoading(true);
-    fetch(`${url}/api/auth/new-password`, {
+    fetch(`${url}/auth/new-password`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

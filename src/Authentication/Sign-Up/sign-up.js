@@ -63,7 +63,7 @@ const SignUp = () => {
 
   const submitLogin = (e) => {
     setLoading(true);
-    fetch(`${url}/api/auth/register`, {
+    fetch(`${url}/auth/register`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -109,7 +109,7 @@ const SignUp = () => {
   const googleLogin = (e) => {
     console.log(e);
     setLoading(true);
-    fetch(`${url}/api/auth/social-login`, {
+    fetch(`${url}/auth/social-login`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
