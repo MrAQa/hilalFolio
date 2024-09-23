@@ -46,7 +46,7 @@ export default function AlertDialogSlide({ isOpen, closeModal, setIsOpen }) {
   const googleLogin = (e) => {
     // console.log(e);
     setLoading(true);
-    fetch(`${url}/api/auth/social-login`, {
+    fetch(`${url}/auth/social-login`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

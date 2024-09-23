@@ -36,6 +36,7 @@ import { Link } from "react-router-dom";
 import { ReactComponent as DownloadIcon } from "../../assets/Logo.svg";
 import { ReactComponent as FacebookIcon } from "../../assets/Facebook.svg";
 import SocialPopup from './SocialPopup'
+import LoginSlider from './LoginSlider'
 import InputAdornment from "@mui/material/InputAdornment";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 // import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
@@ -45,7 +46,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { url } from "../../environment";
 import { GetProfileData } from "../../service/service";
-import bg from '../../assets/Loginpage-section.png'
+// import bg from '../../assets/login1.png'
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { useGlobalState } from "../../context/context";
@@ -103,7 +104,7 @@ const Login = () => {
 
   const submitLogin = (e) => {
     setLoading(true);
-    fetch(`${url}/api/auth/login`, {
+    fetch(`${url}/auth/login`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -171,7 +172,7 @@ const Login = () => {
   const googleLogin = (e) => {
     // console.log(e);
     setLoading(true);
-    fetch(`${url}/api/auth/social-login`, {
+    fetch(`${url}/auth/social-login`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -499,8 +500,12 @@ const Login = () => {
           </div>
         </div>
         <div className="w-1/2 min-h-full items-center justify-center hidden md:flex">
-          <div className="bg-lightThemebg rounded-lg w-full flex justify-end">
-            <img src={bg} alt="background" className="h-screen" />
+          <div className="bg-colorLogin rounded-lg w-full items-center flex flex-col justify-center h-screen">
+            <LoginSlider/>
+            <div className="text-lightThemeText text-35 font-bold mt-16">Welcome to Hilalfolio!</div>
+            <p className="text-lightThemeText text-xl font-medium capitalize">
+            Your halal crypto portfolio tracker and manager
+            </p>
           </div>
         </div>
         <SocialPopup

@@ -4,7 +4,7 @@ import axios from "axios";
 const API = axios.create({
   //   baseURL: process.env.REACT_APP_API,
   // baseURL:'http://18.141.200.39:8000/api',
-  baseURL: 'http://54.179.193.192:8000/api'
+  baseURL: 'https://hilalfolio-be-dev-cxhyasbsdjf4eme6.uaenorth-01.azurewebsites.net/api'
 });
 
 export default API; 

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { GetCmcData } from '../service/service';
 
 
 const TrendingBar = () => {
-
+  const isRequestPending = useRef(false);
     const [CoinsData, setCoinsData] = useState([])
     const currentPath = location.pathname;
     const excludedPaths = ['/sign-in', '/sign-up', '/forget-password', '/otp-verification', '/new-password'];
@@ -19,34 +19,43 @@ const TrendingBar = () => {
        // eslint-disable-next-line
       }, [])
       
-      const fetchData = () => {
+      const fetchData = async() => {
+        if (isRequestPending.current) return;  // Don't proceed if a request is already pending
+
+        isRequestPending.current = true;  // Set pending state to true
         
-        
-        GetCmcData('All', 10, '24h').then((result) => {
-       
-          if (result.success) {
-      
-            const sortedData = result?.body?.cmcData?.sort((a, b) => a.cmc_rank - b.cmc_rank);
-            const formattedCoins = sortedData.map(item => {
-              const price = item?.quote?.USD?.price?.toFixed(2);
-              const high = item?.periods?.['24h']?.quote?.USD?.high?.toFixed(2);
-              const low = item?.periods?.['24h']?.quote?.USD?.low?.toFixed(2);
-              const percentChange = item?.periods?.['24h']?.quote?.USD?.percent_change?.toFixed(2);
-            
-              return {
-                ...item,
-                formattedPrice: `$${numberWithCommas(price)}`,
-                formattedHigh: high !== undefined ? `$${numberWithCommas(high)}` : 'N/A',
-                formattedLow: low !== undefined ? `$${numberWithCommas(low)}` : 'N/A',
-                percentChange: percentChange !== undefined ? `${numberWithCommas(percentChange)}%` : 'N/A'
-              };
-            });
-            setCoinsData(formattedCoins)
-           
-          }
-        }).catch((err) => {
-          console.log(err)
-        })
+        try{
+          await GetCmcData('All', 10, '24h').then((result) => {
+          
+             if (result.success) {
+         
+               const sortedData = result?.body?.cmcData?.sort((a, b) => a.cmc_rank - b.cmc_rank);
+               const formattedCoins = sortedData.map(item => {
+                 const price = item?.quote?.USD?.price?.toFixed(2);
+                 const high = item?.periods?.['24h']?.quote?.USD?.high?.toFixed(2);
+                 const low = item?.periods?.['24h']?.quote?.USD?.low?.toFixed(2);
+                 const percentChange = item?.periods?.['24h']?.quote?.USD?.percent_change?.toFixed(2);
+               
+                 return {
+                   ...item,
+                   formattedPrice: `$${numberWithCommas(price)}`,
+                   formattedHigh: high !== undefined ? `$${numberWithCommas(high)}` : 'N/A',
+                   formattedLow: low !== undefined ? `$${numberWithCommas(low)}` : 'N/A',
+                   percentChange: percentChange !== undefined ? `${numberWithCommas(percentChange)}%` : 'N/A'
+                 };
+               });
+               setCoinsData(formattedCoins)
+              
+             }
+           }).catch((err) => {
+             console.log(err)
+           })
+        }
+        catch (error) {
+          console.error(error);
+        } finally {
+          isRequestPending.current = false;  // Reset pending state after request completes
+        }
       }
       const numberWithCommas = (number) => {
         if (typeof (number) === "string") {
