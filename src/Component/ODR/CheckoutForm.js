@@ -131,7 +131,7 @@ const CheckoutForm = ({ total, openModal,cartItem }) => {
 
 
     return (
-        <form onSubmit={handlePaymentIntent} className="form-container">
+        <form  className="form-container">
             {/* <div className="card-element">
                 <CardElement />
             </div> */}
@@ -165,7 +165,7 @@ const CheckoutForm = ({ total, openModal,cartItem }) => {
                 </Box>
             </Modal>
             <button
-                type="submit"
+                onClick={(e)=>handlePaymentIntent(e)}
                 // onClick={handleSubmit}
                 disabled={!stripe || paymentProcessing || paymentSucceeded}
                 // disabled={isLoading || cartItem.length === 0}
