@@ -13,7 +13,7 @@ import CheckoutForm1 from '../Component/ODR/CheckoutForm1'
 
 import { CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
-const stripePromise = loadStripe('pk_test_51PKiKRIrx9FRzWMDEzpa806Xco9A5D5N2r9zdfyUhQRmZSy9O5bNr4fYNUQmBSq7Rk4UslBtO0JN6C3nRPhScyxu00bIPtjEqR');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 let elementsStripe;
 const style = {
     position: "absolute",
@@ -152,7 +152,7 @@ function SubscriptionPage() {
     if (result.success) {
         const { clientSecret } = result.body;
         setClientSecret(clientSecret);
-        const stripe = await loadStripe("pk_test_51PKiKRIrx9FRzWMDEzpa806Xco9A5D5N2r9zdfyUhQRmZSy9O5bNr4fYNUQmBSq7Rk4UslBtO0JN6C3nRPhScyxu00bIPtjEqR");
+        const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
         const appearance = {
             theme: "flat",

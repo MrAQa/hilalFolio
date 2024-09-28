@@ -47,7 +47,12 @@ const Payment = ({ setshowPayement,setReresh }) => {
     useEffect(() => {
         const cartItems = JSON.parse(localStorage.getItem('cartItems'));
         setCartItems(cartItems ?? [])
-        getPaymentTotal()
+        if(cartItems && cartItems.length>0) {
+            getPaymentTotal()
+        }else{
+            
+            setshowPayement(false)
+        }
 
     }, [])
 
@@ -95,10 +100,7 @@ const Payment = ({ setshowPayement,setReresh }) => {
         }
 
     };
-    const stripePromise = loadStripe(
-        "pk_test_51PKiKRIrx9FRzWMDEzpa806Xco9A5D5N2r9zdfyUhQRmZSy9O5bNr4fYNUQmBSq7Rk4UslBtO0JN6C3nRPhScyxu00bIPtjEqR"
-    );
-    // const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+    const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
     return (
         <>
