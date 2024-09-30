@@ -7,7 +7,7 @@ import PaymentPopupNew from '../Component/ODR/PaymentPopupNew';
 import NavBar from '../Component/Navbar';
 import { ActiveBulletPoint, FadeBulletPoint } from '../assets/custom-icon';
 import { url } from '../environment';
-// import Footer from '../Component/Footer';
+import Footer from '../Component/Footer,';
 import Modal from "@mui/material/Modal";
 import CheckoutForm1 from '../Component/ODR/CheckoutForm1'
 
@@ -242,7 +242,7 @@ function SubscriptionPage() {
                 setIsOpen={setIsOpen}
             />
         </div>
-       
+       <Footer/>
       </div>
     </>
   );

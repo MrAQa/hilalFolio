@@ -13,6 +13,7 @@ const CheckoutForm = ({ total, openModal, cartItem }) => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+    console.log("Stripe Publishable Key:", process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
     useEffect(() => {
         const createPaymentIntent = async () => {
