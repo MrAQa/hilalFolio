@@ -80,7 +80,7 @@ useEffect(() => {
     fetchData()
   }
 
-  const interval = setInterval(fetchData, 20000);
+  const interval = setInterval(fetchData, 100000);
 
   return () => clearInterval(interval);
   

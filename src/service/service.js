@@ -1,9 +1,9 @@
 import axios from "./axios";
 
 const handleCatch = (error) => {
-  if (error.response) {
+  if (error?.response) {
 
-    if (error.response.status === 422) {
+    if (error?.response?.status === 422) {
       if (error.response.data.errors) {
         const myObject = error.response.data.errors;
         const firstKey = Object.keys(myObject)[0];
@@ -14,15 +14,15 @@ const handleCatch = (error) => {
         throw new Error(error.response.data.message);
       }
     }
-    else if (error.response.status === 400) {
-      if (error.response.data.message.includes('is already a list member')) {
-        const msg = error.response.data.message.split('. ')[0];
+    else if (error?.response?.status === 400) {
+      if (error?.response?.data?.message?.includes('is already a list member')) {
+        const msg = error?.response?.data?.message?.split('. ')[0];
         throw new Error(msg);
       }
 
       else {
 
-        throw new Error(error.response.data.message);
+        throw new Error(error?.response?.data?.message);
       }
 
     }
@@ -30,11 +30,11 @@ const handleCatch = (error) => {
     else if (error.response.status === 401) {
       localStorage.clear()
       window.location.reload()
-      throw new Error(error.response.data.message);
+      // throw new Error(error.response.data.message);
     }
     else {
 
-      throw new Error('An error occurred on the server.');
+      // throw new Error('An error occurred on the server.');
     }
   } else if (error.request) {
 
