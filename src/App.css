@@ -19,6 +19,7 @@
   --color-dropdown-bg:#f2f2f2;
   --color-link:#747474;
   --color-login:#F1EDF8;
+  --color-table-row-bg:#F7F7F7;
 }
 
 .dark {
@@ -41,6 +42,7 @@
   --color-dropdown-bg:#36343B;
   --color-link:#F0F0F0;
   --color-login:#1D1B20;
+  --color-table-row-bg:#2B2930;
 }
 body {
   background-color: var(--color-light-bg);

@@ -13,7 +13,7 @@ const PricingTable = ({plan,handlePaymentIntent}) => {
                 <th></th>
               </tr>
             </thead>
-            <tbody className="bg-gray-50 text-sm text-[#79747E]">
+            <tbody className="bg-tableRow text-sm text-[#79747E]">
             {plan?.benefits.map((benefit) => (
               <tr key={benefit._id}>
                 <td className="p-6 font-medium text-gray-900">{benefit.key}</td>
