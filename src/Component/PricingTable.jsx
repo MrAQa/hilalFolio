@@ -2,6 +2,7 @@ import React from 'react';
 import { TickIcon } from '../assets/custom-icon';
 
 const PricingTable = ({plan,handlePaymentIntent}) => {
+  const [userData, setUserData] = React.useState(localStorage.getItem('user_Data') ? JSON.parse(localStorage.getItem('user_Data')) : null);
     return (
         <div className="container mx-auto px-4 pb-8">
           <table className="w-full text-left border-separate border-spacing-y-4 border-[#E9E9E9] border-b-[1px]">
@@ -29,7 +30,7 @@ const PricingTable = ({plan,handlePaymentIntent}) => {
               Get started
             </button>
             <button onClick={(e) => handlePaymentIntent(e, plan.productId)} className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
-              Get started
+              {userData?.subscriptionPlanName == plan?.name ? "Get started" :  'Subscribe'}
             </button>
           </div>
         </div>

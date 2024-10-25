@@ -66,7 +66,7 @@ function SubscriptionPage() {
 
   // const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
   const [clientSecret, setClientSecret] = useState('');
-  const [paymentProcessing, setPaymentProcessing] = useState(false);
+  const [paymentProcessing, setPaymentProcessing] = useState(true);
   const [paymentSucceeded, setPaymentSucceeded] = useState(false);
   const [isOpen, setIsOpen] = useState(false)
 
@@ -206,21 +206,21 @@ function SubscriptionPage() {
                         <div className='flex-1 px-6 text-30 text-gray-900 font-semibold'></div>
                         <div className='flex-1 px-6 text-30 text-gray-900 font-semibold'>
                           <div className='flex flex-col gap-4 items-center'>
-                            <span>$0.00 <span className='text-base font-normal'>/ month</span></span>
+                            <span>$0.00 <span className='text-base font-normal'>/ {paymentProcessing ? 'Month' : 'Annual'}</span></span>
                             <span className='text-[#098C26] text-sm font-medium text-center'>Free</span>
                           </div>
                         </div>
                         <div className='flex-1 px-6 text-30 text-gray-900 font-semibold'>
                           <div className='flex flex-col gap-4 items-center'>
-                            <span> $4.99 <span className='text-base font-normal'>/ month</span></span>
+                            <span> ${ paymentProcessing ? allPlans[0]?.amount: allPlans[1]?.amount || 0} <span className='text-base font-normal'>/ month</span></span>
                             <span className='text-[#098C26] text-sm font-medium text-center'>
-                              Select Annual payment
-                              to get discount.
+                              {paymentProcessing ? 'Select Annual payment to get discount.' : ' Get 16.67% discount'}
                             </span>
                             <Tab.List className="flex bg-[#F7F7F7] text-sm font-semibold w-[165px] p-1  rounded-md">
                               <Tab as={React.Fragment}>
                                 {({ selected }) => (
                                   <button
+                                  onClick={()=>setPaymentProcessing(true)}
                                     className={classNames(
                                       'flex-1 py-2 px-3 focus:outline-none w-20 rounded-md',
                                       selected ? 'bg-white text-gray-900' : 'text-[#79747E]'
@@ -233,6 +233,8 @@ function SubscriptionPage() {
                               <Tab as={React.Fragment}>
                                 {({ selected }) => (
                                   <button
+                                  onClick={()=>setPaymentProcessing(false)}
+
                                     className={classNames(
                                       'flex-1 py-2 px-3 focus:outline-none w-20 rounded-md',
                                       selected ? 'bg-white text-gray-900' : 'text-[#79747E]'
