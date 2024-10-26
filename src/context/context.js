@@ -95,6 +95,11 @@ const fetchData = async () => {
     let number = null;
     if (selectedRank !== 'All') {
       number = parseInt(selectedRank.match(/\d+/)[0], 10);
+      // "Compliant",
+      //   "Not Compliant",
+      //   "No Status",
+      //   "Doubtful",
+      //   "My Reviewed",
     }
     let shariastatus=null;
     if(selectedStatus==='Halal'){
@@ -102,8 +107,14 @@ const fetchData = async () => {
     }
     else if(selectedStatus==='Haram'){
       shariastatus='Not Compliant'
-    }else{
+    }else if(selectedStatus==='All'){ 
       shariastatus='All'
+    }
+    else if(selectedStatus==='Doubtful'){
+      shariastatus = 'Doubtful'
+    }
+    else if(selectedStatus==='No Status'){
+      shariastatus = 'No Status'
     }
     const currentPath = location.pathname;
     const excludedPaths = ['/sign-in', '/sign-up', '/forget-password', '/otp-verification', '/new-password'];

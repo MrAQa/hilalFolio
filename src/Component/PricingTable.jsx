@@ -26,13 +26,18 @@ const PricingTable = ({plan,handlePaymentIntent}) => {
     
           {/* Buttons */}
           <div className="flex justify-end space-x-[48px] mt-8">
-            <button onClick={(e) => handlePaymentIntent(e, plan.productId)} className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
+            <button  className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
               Get started
             </button>
-            <button onClick={(e) => handlePaymentIntent(e, plan.productId)} className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
-              {userData?.subscriptionPlanName == plan?.name ? "Get started" :  'Subscribe'}
+            {userData?.subscriptionPlanName == plan?.name &&   <button onClick={(e) => handlePaymentIntent(e, plan.productId)} className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
+              { 'Subscribe'}
+            </button>}
+            {userData?.subscriptionPlanName !== plan?.name &&
+            <button  className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
+               Get started
             </button>
-          </div>
+    
+                      }          </div>
         </div>
       );
 }
