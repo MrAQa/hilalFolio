@@ -18,7 +18,7 @@ function TbaleDropDown({value,placeholder,onChange,dataArray ,disableOptions}) {
             </span>
           </Listbox.Button>
           <Listbox.Options
-            className="absolute mt-1 w-full rounded-md bg-white shadow-lg max-h-56 overflow-auto z-10"
+            className="absolute mt-1 w-full rounded-md bg-dropdown shadow-lg max-h-56 overflow-auto z-10"
           >
             {dataArray?.map((status, index) => (
               // <Listbox.Option
@@ -48,7 +48,7 @@ function TbaleDropDown({value,placeholder,onChange,dataArray ,disableOptions}) {
               <Listbox.Option
               key={index}
               className={({ active, disabled }) =>
-                `${active ? 'bg-primaryPurple text-white' : 'text-gray-900'}
+                `${active ? 'dropdown-hover' : 'text-gray-900'}
                 ${disabled ? 'text-gray-500 cursor-not-allowed' : 'cursor-pointer'}
                 select-none relative py-2 pl-3 pr-9`
               }

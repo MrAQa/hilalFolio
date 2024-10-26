@@ -480,3 +480,17 @@ input:-webkit-autofill:active {
 #login-slider .slick-dots li.slick-active button:before {
   color: #7147B4 !important; /* Purple for active dot, adjust color as needed */
 }
+.dropdown-hover{
+  background-color: #F1EDF8;
+  color: #7147B4;
+}
+.dark .dropdown-hover{
+  background-color: #211F26;
+}
+.bg-dropdown{
+  background-color: var(--color-white);
+  
+}
+.dark .bg-dropdown{
+  background-color: var( --color-dropdown-bg);
+}
