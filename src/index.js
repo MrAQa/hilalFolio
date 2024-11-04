@@ -24,7 +24,7 @@ const theme = createTheme({
 
 root.render(
   <ThemeProvider theme={theme}>
-    <GoogleOAuthProvider clientId={process.env.CLIENT_ID}>
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
       <Elements stripe={stripePromise}>
         <BrowserRouter>
           <App />
