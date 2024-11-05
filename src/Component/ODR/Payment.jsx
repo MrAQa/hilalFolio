@@ -14,7 +14,7 @@ import CheckoutForm from "./CheckoutForm";
 import { loadStripe } from "@stripe/stripe-js";
 import { url } from "../../environment";
 import FullPageLoader from "../../assets/FullpageLoader/FullpageLoader";
-const Payment = ({ setshowPayement, setReresh }) => {
+const Payment = ({ setshowPayement, setReresh,setShowAssets }) => {
   const { cartItem, setCartItems } = useGlobalState();
   const [isLoading, setIsLoading] = useState(false);
   console.log(cartItem);
@@ -306,6 +306,7 @@ const Payment = ({ setshowPayement, setReresh }) => {
           closeModal={closeModal}
           setshowPayement={setshowPayement}
           setReresh={setReresh}
+          setShowAssets={setShowAssets}
         />
       </div>
     </>

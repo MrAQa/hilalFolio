@@ -9,8 +9,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingSpinner from '../Component/ChatLoader';
 
-const TypingDelay = 50; // Adjust the typing delay time in milliseconds
-const MessageDelay = 2000; // Adjust the delay between messages in milliseconds
+const TypingDelay = 25; // Adjust the typing delay time in milliseconds
+const MessageDelay = 1000; // Adjust the delay between messages in milliseconds
 
 const TypingEffect = ({ text, onFinish }) => {
     const [typedText, setTypedText] = useState('');
@@ -301,6 +301,7 @@ function Hilalbot() {
                                                                 className='w-full resize-none border-none outline-none text-xs lg:text-sm'
                                                                 value={inputValue}
                                                                 onChange={handleChange}
+                                                                disabled={loading}
                                                                 placeholder='Example : “what will be the price of bitcoin in 2025”'
                                                                 type="text" />
                                                             <span className='cursor-pointer'>
@@ -324,7 +325,7 @@ function Hilalbot() {
 
                                                     </div>
                                                 </form>
-                                                <div className='text-lightSecondaryText text-sm text-center mt-4'>Hilalfolio can make mistakes. Consider checking important information.</div>
+                                                <div className='text-lightSecondaryText text-sm text-center mt-4'>Hilalbot can make mistakes. Consider checking important information.</div>
                                             </div>
                                         </>
                                 }

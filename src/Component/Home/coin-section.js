@@ -12,7 +12,7 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
   
   const { CoinsData, setCoinsData, selectedStatus, setSelectedStatus, selectedRank, setSelectedRank, selectedPercentage, setSelectedPercentage, isLoading, noDataFlag, fetchData } = useGlobalState();
   const statuses = ['All', 'Halal', 'Haram','Doubtful','No Status'];
-  const rank = ['All', 'Top 10', 'Top 20', 'Top 50', 'Top 100','Recently Added'];
+  const rank = ['All', 'Top 10', 'Top 20', 'Top 50', 'Top 100','Latest'];
   const percentageChange = ['1h', '24h', '7d','30d'];
   useEffect(() => {
     fetchData(); //fetch latest data

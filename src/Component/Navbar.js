@@ -20,7 +20,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
   const [Total, setTotal] = useState(0);
   const [cartOpen, setcartOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false)
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { cartItem, setCartItems, isLogedin, setIsLogedin, userData, setuserData, isDarkMode, toggleTheme } = useGlobalState();
   const currentPath = window.location.pathname;
   useEffect(() => {
@@ -139,7 +139,16 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
 
       });
   };
-
+  const token = localStorage.getItem("user_token");
+  const restrictedPaths = ['/odr', '/hilalbot', '/favorites'];
+  const handleLinkClick = (path) => {
+    if (!token && restrictedPaths.includes(path)) {
+      setIsModalOpen(true);
+      console.log('User is not logged in');
+      return false;
+    }
+    return true;
+  };
   return (
     <>
 
@@ -206,7 +215,8 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
               Home
             </Link>
             <Link
-              to="/odr "
+              to="/odr"
+              onClick={(e) => !handleLinkClick('/odr') && e.preventDefault()}
               className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/odr"
                 ? 'text-white bg-primaryPurple' : 'text-lightThemeSecondary'} flex items-center`}
             >
@@ -214,6 +224,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
             </Link>
             <Link
               to="/hilalbot"
+              onClick={(e) => !handleLinkClick('/hilalbot') && e.preventDefault()}
               className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/hilalbot"
                 ? 'text-white bg-primaryPurple' : 'text-lightThemeSecondary'} flex items-center`}
             >
@@ -221,6 +232,7 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
             </Link>
             <Link
               to="/favorites"
+              onClick={(e) => !handleLinkClick('/favorites') && e.preventDefault()}
               className={`text-base font-semibold rounded-lg px-3 py-2 leading-normal ${currentPath === "/favorites"
                 ? 'text-white bg-primaryPurple' : 'text-lightThemeSecondary'} flex items-center`}
             >
@@ -766,7 +778,57 @@ const NavBar = ({ refresh, setShowAssets, setshowPayement, }) => {
             </div>
           </Dialog.Panel>
         </Dialog>
+      
+        <Transition appear show={isModalOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={() => setIsModalOpen(false)}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
 
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-[500px] transform overflow-hidden rounded-2xl bg-white p-6 px-14 text-center align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-2xl font-bold leading-10 text-primaryDark"
+                  >
+                    Access Denied
+                  </Dialog.Title>
+                    <p className="mt-2 text-md text-primaryDark">
+                    To access this feature, please log in or sign up
+                 </p>
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className='bg-primaryPurple w-full max-w-[310px] text-white hover:bg-opacity-90 py-3 px-2 rounded-lg disabled:opacity-50'
+                      onClick={() => setIsModalOpen(false)}
+                    >
+                      OK
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
       </header>
     </>
   );

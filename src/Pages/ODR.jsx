@@ -85,6 +85,7 @@ const ODR = () => {
             <Payment
               setshowPayement={setshowPayement}
               setReresh={setReresh}
+              setShowAssets={setShowAssets}
             />
             :
             <>

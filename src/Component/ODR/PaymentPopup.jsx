@@ -1,10 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 
-export default function PaymentPopup({ isOpen, closeModal ,setshowPayement,setReresh}) {
+export default function PaymentPopup({ isOpen, closeModal ,setshowPayement,setReresh,setShowAssets}) {
 
     const handleLogout = () => {
         setshowPayement(false)
+        setShowAssets(false)
         setReresh(prev=>!prev)
     }
     return (
