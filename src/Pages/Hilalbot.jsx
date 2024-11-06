@@ -8,14 +8,23 @@ import ConfirmationModal from '../Component/Hilalbot/ConfirmationModal';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingSpinner from '../Component/ChatLoader';
-
+import Markdown from 'react-markdown';
+import breaks from 'remark-breaks';
 const TypingDelay = 25; // Adjust the typing delay time in milliseconds
 const MessageDelay = 1000; // Adjust the delay between messages in milliseconds
 
-const TypingEffect = ({ text, onFinish }) => {
+const TypingEffect = ({ text, onFinish ,chatContainerRef}) => {
     const [typedText, setTypedText] = useState('');
     const typingTimeoutRef = useRef(null);
+    useEffect(() => {
+        scrollToBottom();
+    }, [typedText]);
 
+    const scrollToBottom = () => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    };
     useEffect(() => {
         const typingEffect = () => {
             if (text.length > typedText.length) {
@@ -56,6 +65,7 @@ function Hilalbot() {
             chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
     };
+  
 
     const handleChange = (e) => {
         setInputValue(e.target.value)
@@ -86,6 +96,7 @@ function Hilalbot() {
                     };
                     setMessages(prevMessages => [...prevMessages, botMessage]);
                     setQueryId(response.data?.conversation?.queryId || ''); // Update query ID for subsequent requests
+                    setRefresh(prev => !prev)
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -254,12 +265,14 @@ function Hilalbot() {
                                                                 }
 
                                                                 <div className={`${message.sender === 'user' ? 'bg-white border-[#E2E8F0] rounded-tr-none' : 'bg-[#8A71B01C] border-primaryPurple rounded-tl-none'} text-primaryDark p-4 rounded-xl border-[1px] w-full`}>
+                                                                {/* <Markdown remarkPlugins={[breaks]}> */}
                                                                     {message.typeingEffect ? (
-                                                                        <TypingEffect text={message.text} onFinish={() => setTimeout(() => { }, MessageDelay)} />
+                                                                        <TypingEffect chatContainerRef={chatContainerRef} text={message.text} onFinish={() => setTimeout(() => { }, MessageDelay)} />
                                                                     ) : (
                                                                         message.text
                                                                     )}
                                                                     {/* {message.text} */}
+                                                                    {/* </Markdown> */}
                                                                 </div>
                                                             </div>
                                                         ))}
