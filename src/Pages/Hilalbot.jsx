@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import LoadingSpinner from '../Component/ChatLoader';
 import Markdown from 'react-markdown';
 import breaks from 'remark-breaks';
-const TypingDelay = 25; // Adjust the typing delay time in milliseconds
+const TypingDelay = 10; // Adjust the typing delay time in milliseconds
 const MessageDelay = 1000; // Adjust the delay between messages in milliseconds
 
 const TypingEffect = ({ text, onFinish ,chatContainerRef}) => {
