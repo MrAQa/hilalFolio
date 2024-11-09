@@ -40,7 +40,7 @@ const TypingEffect = ({ text, onFinish ,chatContainerRef}) => {
         return () => clearTimeout(typingTimeoutRef.current);
     }, [text, typedText, onFinish]);
 
-    return <div>{typedText}</div>;
+    return <div><Markdown>{typedText}</Markdown></div>;
 };
 
 
@@ -265,14 +265,14 @@ function Hilalbot() {
                                                                 }
 
                                                                 <div className={`${message.sender === 'user' ? 'bg-white border-[#E2E8F0] rounded-tr-none' : 'bg-[#8A71B01C] border-primaryPurple rounded-tl-none'} text-primaryDark p-4 rounded-xl border-[1px] w-full`}>
-                                                                {/* <Markdown remarkPlugins={[breaks]}> */}
                                                                     {message.typeingEffect ? (
                                                                         <TypingEffect chatContainerRef={chatContainerRef} text={message.text} onFinish={() => setTimeout(() => { }, MessageDelay)} />
                                                                     ) : (
-                                                                        message.text
+                                                                         <Markdown remarkPlugins={[breaks]}> 
+                                                                         {message.text}
+                                                                        </Markdown> 
                                                                     )}
                                                                     {/* {message.text} */}
-                                                                    {/* </Markdown> */}
                                                                 </div>
                                                             </div>
                                                         ))}
