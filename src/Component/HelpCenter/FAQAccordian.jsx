@@ -21,7 +21,7 @@ export default function FAQAccordian({FaqType}) {
 
     return (
 
-        <div className='mt-8 flex flex-wrap gap-4 '>
+        <div className=' flex flex-wrap gap-4 '>
             {isLoading ? (
                 <div className='w-full flex justify-center'>
                     <CircularProgress size={40} color='primary' />

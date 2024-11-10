@@ -4,6 +4,7 @@ import SideNav from '../Component/Hilalbot/SideNav'
 import { HeadphoneChatIcon, HilalBotChatLogo, MicChatIcon, ReceivedMessageIcon, SendChatIcon, SendMessageIcon } from '../assets/custom-icon'
 import { ChatbotQuery, DeleteChatHistory, GetChatHistory, UpdateChatSubject } from '../service/service';
 import RecentChats from '../Component/Hilalbot/RecentChats';
+import FAQ from '../Component/Hilalbot/FAQ';
 import ConfirmationModal from '../Component/Hilalbot/ConfirmationModal';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -53,6 +54,7 @@ function Hilalbot() {
     const [chatId, setChatId] = useState('');
     const [refresh, setRefresh] = useState((false))
     const [showRecent, setShowRecent] = useState(false);
+    const [showFaQ, setShowFaQ] = useState(false);
     const [ids, setIds] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
     const chatContainerRef = useRef(null);
@@ -114,6 +116,8 @@ function Hilalbot() {
         setQueryId('')
         setLoading(false)
         setShowRecent(false)
+        setShowFaQ(false)
+
     }
     const GetChat = (chatId) => {
 
@@ -125,6 +129,7 @@ function Hilalbot() {
                     setQueryId('')
                     setLoading(false)
                     setShowRecent(false)
+                    setShowFaQ(false)
                     const chatHistory = response.data?.conversation.reverse();
                     if (chatHistory.length > 0) {
                         setQueryId(chatHistory[0]?.queryId)
@@ -225,6 +230,7 @@ function Hilalbot() {
                         GetChat={GetChat}
                         chatId={chatId}
                         setShowRecent={setShowRecent}
+                        setShowFaQ={setShowFaQ}
                         deleteAllChat={deleteAllChat}
                     />
                     <main className="h-full md:ml-[294px]">
@@ -240,6 +246,8 @@ function Hilalbot() {
                                             refresh={refresh}
                                             setRefresh={setRefresh}
                                         />
+                                        :   showFaQ ?
+                                        <FAQ/>
                                         :
                                         <>
                                             {
@@ -333,7 +341,7 @@ function Hilalbot() {
                                                                 :
                                                                 <div className='bg-primaryPurple size-[56px] p-3 flex justify-center items-center rounded-lg cursor-pointer'>
                                                                     <HeadphoneChatIcon />
-                                                                </div>
+                                                                </div>  
                                                         }
 
                                                     </div>

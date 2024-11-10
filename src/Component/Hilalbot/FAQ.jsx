@@ -9,32 +9,22 @@ const FAQ = () => {
         window.history.back();
     }
     return (
-        <div className="min-h-full bg-lightThemebg">
-        <NavBar />
-          <div className="bg-lightThemebg">
-          <section className='pt-6 sm:pt-12'>
-            <div className='2xl:max-w-2xl xl:max-w-xl lg:max-w-lg md:max-w-md mx-auto px-3 lg:px-0'>
-                <div className="rounded-3xl px-4 sm:px-8 py-6 bg-white">
+        
+          <div className="rounded-3xl px-4 sm:px-8 py-6 bg-white h-full">
                     <div className='flex justify-between items-center mb-6'>
                        
                         <div
-                                onClick={goBack}
+                               
                                 className='flex items-center gap-4 cursor-pointer'>
-                                <ArrowLeftIcon className="h-6 w-6" />
                                 <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-32">FAQ's</h2>
                             </div>
                     </div>
-                    <div className="py-6">
+                    <div className="mt-4 pb-6 overflow-y-auto max-h-full">
                         <FAQAccordian
                             FaqType={'hilalbot'}
                         />
                     </div>
                 </div>
-            </div>
-        </section>
-          </div>
-          <Footer/>
-      </div>
 
         
     );

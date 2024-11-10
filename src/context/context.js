@@ -94,7 +94,13 @@ const fetchData = async () => {
   try {
     let number = null;
     if (selectedRank !== 'All') {
-      number = parseInt(selectedRank.match(/\d+/)[0], 10);
+      if(selectedRank==='Latest'){
+        number = 'Recently added';
+      }
+      else{
+
+        number = parseInt(selectedRank.match(/\d+/)[0], 10);
+      }
       // "Compliant",
       //   "Not Compliant",
       //   "No Status",
@@ -141,6 +147,9 @@ const fetchData = async () => {
           }
           else if(selectedPercentage==='7d') {
             percentChange= item?.quote?.USD?.percent_change_7d?.toFixed(5)
+          }
+          else if(selectedPercentage==='30d') {
+            percentChange= item?.quote?.USD?.percent_change_30d?.toFixed(5)
           }
           // const percentChange = item?.periods?.['24h']?.quote?.USD?.percent_change?.toFixed(2);
         

@@ -20,23 +20,40 @@ function Favorites() {
   const [isLoading, setIsLoading] = useState(false)
   const [noDataFlag, setNoDataFlag] = useState(false)
   const { isLogedin } = useGlobalState();
-  const statuses = ['All', 'Halal', 'Haram'];
-  const rank = ['All', 'Top 10', 'Top 20', 'Top 100'];
-  const percentageChange = ['1h', '24h', '7d'];
+  const statuses = ['All', 'Halal', 'Haram','Doubtful','No Status'];
+  const rank = ['All', 'Top 10', 'Top 20', 'Top 50', 'Top 100','Latest'];
+  const percentageChange = ['1h', '24h', '7d','30d'];
   useEffect(() => {
     setIsLoading(true)
     let number = null;
     if (selectedRank !== 'All') {
-      number = parseInt(selectedRank.match(/\d+/)[0], 10);
+      if(selectedRank==='Latest'){
+        number = 'Recently added';
+      }
+      else{
+
+        number = parseInt(selectedRank.match(/\d+/)[0], 10);
+      }
+      // "Compliant",
+      //   "Not Compliant",
+      //   "No Status",
+      //   "Doubtful",
+      //   "My Reviewed",
     }
-    let shariastatus = null;
-    if (selectedStatus === 'Halal') {
-      shariastatus = 'Compliant'
+    let shariastatus=null;
+    if(selectedStatus==='Halal'){
+      shariastatus='Compliant'
     }
-    else if (selectedStatus === 'Haram') {
-      shariastatus = 'Not Compliant'
-    } else {
-      shariastatus = 'All'
+    else if(selectedStatus==='Haram'){
+      shariastatus='Not Compliant'
+    }else if(selectedStatus==='All'){ 
+      shariastatus='All'
+    }
+    else if(selectedStatus==='Doubtful'){
+      shariastatus = 'Doubtful'
+    }
+    else if(selectedStatus==='No Status'){
+      shariastatus = 'No Status'
     }
     GetFavData(shariastatus, number, selectedPercentage).then((result) => {
       setIsLoading(false)
@@ -59,6 +76,9 @@ function Favorites() {
             }
             else if (selectedPercentage === '7d') {
               percentChange = item?.quote?.USD?.percent_change_7d?.toFixed(5)
+            }
+            else if (selectedPercentage === '30d') {
+              percentChange = item?.quote?.USD?.percent_change_30d?.toFixed(5)
             }
             // const percentChange = item?.periods?.['24h']?.quote?.USD?.percent_change?.toFixed(5);
 
