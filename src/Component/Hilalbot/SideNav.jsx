@@ -5,7 +5,7 @@ import { GetAllChat, GetProfileData, UpdateUserSettings } from '../../service/se
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,setShowFaQ,deleteAllChat}) {
+function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,setShowFaQ,disableNewChat}) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [questions, setQuestions]=useState([]);
     const [checked, setChecked] = useState(false);
@@ -14,6 +14,7 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,setShowFaQ,
     };
 
     useEffect(()=>{
+      // console.log('---',disableNewChat);
         GetAllChat().then((response)=>{
             if(response?.success){
                 // console.log(response?.data?.history)
@@ -137,7 +138,8 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,setShowFaQ,
             <div className="mt-6">
               <button
                 onClick={handleNewChat}
-                className="bg-primaryPurple text-white text-base font-medium px-4 flex gap-3 py-3 w-full rounded-[10px] hover:opacity-90"
+                disabled={disableNewChat}
+                className="bg-primaryPurple text-white text-base font-medium px-4 flex gap-3 py-3 w-full rounded-[10px] hover:opacity-90 disabled:opacity-50"
               >
                 <span>
                   <svg

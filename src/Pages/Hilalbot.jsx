@@ -58,10 +58,14 @@ function Hilalbot() {
     const [ids, setIds] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
     const chatContainerRef = useRef(null);
+    const queryIdRef = useRef(queryId);
+    const [disableNewChat,setDisaleNewChat] = useState(false);
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
-
+    useEffect(() => {
+        queryIdRef.current = queryId;
+    }, [queryId]);
     const scrollToBottom = () => {
         if (chatContainerRef.current) {
             chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -75,7 +79,9 @@ function Hilalbot() {
 
     const handleSendData = (e) => {
         e.preventDefault();
-
+        if(queryId===''){
+            setDisaleNewChat(true)
+        }
         if (inputValue.trim() !== '') {
             const newMessage = {
                 text: inputValue,
@@ -91,6 +97,9 @@ function Hilalbot() {
             }
             ChatbotQuery(data)
                 .then((response) => {
+                    console.log('Response queryId:', response.data?.conversation?.queryId);
+                    console.log('Current queryIdRef:', queryIdRef.current);
+                if (response.data?.conversation?.queryId === queryIdRef.current || queryIdRef.current==='') {
                     const botMessage = {
                         text: response.data?.conversation?.answer || response?.message,
                         sender: 'bot',// Indicate that the message is from the bot
@@ -98,13 +107,18 @@ function Hilalbot() {
                     };
                     setMessages(prevMessages => [...prevMessages, botMessage]);
                     setQueryId(response.data?.conversation?.queryId || ''); // Update query ID for subsequent requests
-                    setRefresh(prev => !prev)
+                   
+                } else {
+                    console.warn('Response received for a different conversation. Ignoring...');
+                }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 })
                 .finally(() => {
+                    setRefresh(prev => !prev)
                     setLoading(false);
+                    setDisaleNewChat(false)
                 });
         }
     }
@@ -120,7 +134,8 @@ function Hilalbot() {
 
     }
     const GetChat = (chatId) => {
-
+        // console.log(chatId);
+        setQueryId(chatId)
         GetChatHistory(chatId)
             .then((response) => {
                 if (response?.success) {
@@ -232,6 +247,7 @@ function Hilalbot() {
                         setShowRecent={setShowRecent}
                         setShowFaQ={setShowFaQ}
                         deleteAllChat={deleteAllChat}
+                        disableNewChat={disableNewChat}
                     />
                     <main className="h-full md:ml-[294px]">
 
