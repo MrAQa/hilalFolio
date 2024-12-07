@@ -25,16 +25,22 @@ function Hilalbot() {
     const [showFaQ, setShowFaQ] = useState(false);
     const [ids, setIds] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
-    
-   
     const [disableNewChat,setDisaleNewChat] = useState(false);
    
-  
-
+    const [chats, setChats] = useState([
+        {
+            chatId: '',
+            loading: false,
+            conversation: []
+        }
+    ]);
+        useEffect(()=>{
+        console.log(chats)
+        },[chats])
 
 
     const handleNewChat = () => {
-        setRefresh(prev => !prev)
+        // setRefresh(prev => !prev)
         setMessages([])
         setInputValue('')
         setQueryId('')
@@ -45,45 +51,64 @@ function Hilalbot() {
     }
     const GetChat = (chatId) => {
         // console.log(chatId);
-        if(disableNewChat)  return
+        // if(disableNewChat)  return
         setQueryId(chatId)
+        const currentchat = chats.find(chat => chat.chatId === chatId)
+       
+       if(currentchat.conversation.length===0){
         GetChatHistory(chatId)
-            .then((response) => {
-                if (response?.success) {
-                    setMessages([])
-                    setInputValue('')
-                    setQueryId('')
-                    setLoading(false)
-                    setShowRecent(false)
-                    setShowFaQ(false)
-                    const chatHistory = response.data?.conversation.reverse();
-                    if (chatHistory.length > 0) {
-                        setQueryId(chatHistory[0]?.queryId)
-                        setChatId(chatId)
-                    }
-                    const extractedMessages = chatHistory.reduce((acc, chat) => {
-                        // Append question
-                        acc.push({
-                            text: chat.question,
-                            sender: 'user',
-                            typeingEffect: false,
-                        });
-                        // Append answer
-                        acc.push({
-                            text: chat.answer,
-                            sender: 'bot',
-                            typeingEffect: false,
-                        });
-                        return acc;
-                    }, []);
-                    // Append extracted messages to existing messages state
-                    setMessages(extractedMessages);
+        .then((response) => {
+            if (response?.success) {
+                setMessages([])
+                setInputValue('')
+                setQueryId('')
+                setLoading(false)
+                setShowRecent(false)
+                setShowFaQ(false)
+                const chatHistory = response.data?.conversation.reverse();
+                if (chatHistory.length > 0) {
+                    setQueryId(chatHistory[0]?.queryId)
+                    setChatId(chatId)
                 }
+                const extractedMessages = chatHistory.reduce((acc, chat) => {
+                    // Append question
+                    acc.push({
+                        text: chat.question,
+                        sender: 'user',
+                        typeingEffect: false,
+                    });
+                    // Append answer
+                    acc.push({
+                        text: chat.answer,
+                        sender: 'bot',
+                        typeingEffect: false,
+                    });
+                    return acc;
+                }, []);
+                // Append extracted messages to existing messages state
+                setMessages(extractedMessages);
+                setChats((prevChats) =>
+                    prevChats.map((chat) =>
+                        chat.chatId === chatId
+                            ? { ...chat, conversation:extractedMessages  }
+                            : chat
+                    )
+                );
+            }
+            
 
-            })
-            .catch((error) => {
-                console.error('Error fetching chat history:', error);
-            });
+        })
+        .catch((error) => {
+            console.error('Error fetching chat history:', error);
+        });
+       }
+       else{
+        const conversation = currentchat.conversation.map((conversation) =>({
+            ...conversation,
+            typeingEffect: false
+        }));
+        setMessages(conversation);
+    }
     }
 
 
@@ -159,6 +184,7 @@ function Hilalbot() {
                         setShowFaQ={setShowFaQ}
                         deleteAllChat={deleteAllChat}
                         disableNewChat={disableNewChat}
+                        setChats={setChats}
                     />
                     <main className="h-full md:ml-[294px]">
 
@@ -179,6 +205,8 @@ function Hilalbot() {
                                     <ChatInstance
                                     inputValue={inputValue} setInputValue={setInputValue} messages={messages} setMessages={setMessages} loading={loading} setLoading={setLoading} setDisaleNewChat={setDisaleNewChat} setQueryId={setQueryId} queryId={queryId}
                                     setRefresh={setRefresh}
+                                    setChats={setChats}
+                                    chats={chats}
                                     />
                                 }
                             </div>

@@ -38,15 +38,22 @@ const TypingEffect = ({ text, onFinish ,chatContainerRef}) => {
 
     return <div><Markdown>{typedText}</Markdown></div>;
 };
-const ChatInstance = ({inputValue, setInputValue,messages, setMessages,loading, setLoading,setDisaleNewChat,setQueryId,queryId,setRefresh}) => {
+const ChatInstance = ({inputValue, setInputValue,messages, setMessages,loading, setLoading,setDisaleNewChat,setQueryId,queryId,setRefresh,setChats,chats}) => {
     const chatContainerRef = useRef(null);
     const queryIdRef = useRef(queryId);
+    const [conversation, setconversation]= useState([]);
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
     useEffect(() => {
         queryIdRef.current = queryId;
     }, [queryId]);
+    useEffect(() => {
+        const messages= chats?.find(chat => chat.chatId===queryId);
+        setconversation(messages?.conversation || [])
+      
+
+    },[messages]);
     const scrollToBottom = () => {
         if (chatContainerRef.current) {
             chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -59,7 +66,7 @@ const ChatInstance = ({inputValue, setInputValue,messages, setMessages,loading, 
     const handleSendData = (e) => {
         e.preventDefault();
         // if(queryId===''){
-            setDisaleNewChat(true)
+            // setDisaleNewChat(true)
         // }
         if (inputValue.trim() !== '') {
             const newMessage = {
@@ -68,6 +75,13 @@ const ChatInstance = ({inputValue, setInputValue,messages, setMessages,loading, 
                 typeingEffect: false,
             };
             setMessages(prevMessages => [...prevMessages, newMessage]);
+            setChats((prevChats) =>
+                prevChats.map((chat) =>
+                    chat.chatId === queryId
+                        ? { ...chat, conversation:[...chat.conversation,newMessage]}
+                        : chat
+                )
+            );
             setInputValue('');
             setLoading(true); // Set loading state before making the API call
             const data = {
@@ -85,6 +99,13 @@ const ChatInstance = ({inputValue, setInputValue,messages, setMessages,loading, 
                         typeingEffect: true,
                     };
                     setMessages(prevMessages => [...prevMessages, botMessage]);
+                    setChats((prevChats) =>
+                        prevChats.map((chat) =>
+                            chat.chatId === queryId
+                                ? { ...chat, conversation:[...chat.conversation,botMessage]}
+                                : chat
+                        )
+                    );
                     setQueryId(response.data?.conversation?.queryId || ''); // Update query ID for subsequent requests
                    
                 } else {
@@ -95,7 +116,7 @@ const ChatInstance = ({inputValue, setInputValue,messages, setMessages,loading, 
                     console.error('Error:', error);
                 })
                 .finally(() => {
-                    setRefresh(prev => !prev)
+                    // setRefresh(prev => !prev)
                     setLoading(false);
                     setDisaleNewChat(false)
                 });
@@ -104,9 +125,9 @@ const ChatInstance = ({inputValue, setInputValue,messages, setMessages,loading, 
     return (
         <>
         {
-            messages?.length > 0 ?
+            conversation?.length > 0 ?
                 <div ref={chatContainerRef} className='size-full space-y-4 overflow-y-auto pb-4 mb-4 style-3'>
-                    {messages.map((message, index) => (
+                    {conversation.map((message, index) => (
                         <div key={index} className={`flex w-full gap-4 pr-2 ${message.sender === 'user' ? 'items-center flex-row-reverse' : 'items-baseline'}`}>
                             {
                                 message.sender === 'user' ?
@@ -148,7 +169,7 @@ const ChatInstance = ({inputValue, setInputValue,messages, setMessages,loading, 
 
         <div className='relative mx-auto max-w-[924px] w-full'>
             {
-                messages?.length === 0 &&
+                conversation?.length === 0 &&
                 <div className='flex w-full gap-2 lg:gap-4 mb-6 text-lightThemeSecondary text-xs lg:text-sm'>
                     <div className='flex flex-col gap-2 lg:gap-4 w-full'>
                         <div onClick={() => setInputValue('Is Bitcoin halal?')} className='cursor-pointer bg-white hover:bg-[#8A71B01C] h-11 lg:h-[62px] flex items-center border-[1px] border-lightThemeOutline rounded-lg p-2 lg:p-3'>

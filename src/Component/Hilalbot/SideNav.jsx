@@ -5,7 +5,7 @@ import { GetAllChat, GetProfileData, UpdateUserSettings } from '../../service/se
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,setShowFaQ,disableNewChat}) {
+function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,setShowFaQ,disableNewChat,setChats}) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [questions, setQuestions]=useState([]);
     const [checked, setChecked] = useState(false);
@@ -19,6 +19,17 @@ function SideNav({refresh,handleNewChat,GetChat,chatId,setShowRecent,setShowFaQ,
             if(response?.success){
                 // console.log(response?.data?.history)
                 setQuestions(response?.data?.history)
+                const chats = response?.data?.history.map((chat) => ({
+                  chatId: chat._id,
+                  loading: false,
+                  conversation: []
+              }));
+              const newChat = {
+                chatId: '',
+                loading: false,
+                conversation: []
+            }
+              setChats([newChat,...chats])
             }
         })
         const UserSettings = JSON.parse(localStorage.getItem('user_Setting'))
