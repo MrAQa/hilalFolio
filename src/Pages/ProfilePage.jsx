@@ -95,15 +95,15 @@ function Profile() {
     setIsLoading(true);
 
     const date = new Date(userData.dob);
-
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Note: Month starts from 0 (January is 0)
-    const year = date.getFullYear();
-
-    const formattedDay = day < 10 ? `0${day}` : day;
-    const formattedMonth = month < 10 ? `0${month}` : month;
-
-    const formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
+    let formattedDate = '';
+    if(!isNaN(date.getTime())){
+      const day = date.getDate();
+      const month = date.getMonth() + 1; // Note: Month starts from 0 (January is 0)
+      const year = date.getFullYear();
+      const formattedDay = day < 10 ? `0${day}` : day;
+      const formattedMonth = month < 10 ? `0${month}` : month;
+      formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
+    }
 
     const data = {
       fullName: userData.fullName,
@@ -164,11 +164,8 @@ function Profile() {
   };
   const changeformatdata = (dateString) => {
     const parts = dateString.split("-");
-
     const dateObject = new Date(parts[2], parts[1] - 1, parts[0]);
-
-    const formattedDate = dateObject.toISOString().slice(0, 10);
-
+    const formattedDate = `${dateObject.getFullYear()}-${String(dateObject.getMonth() + 1).padStart(2, '0')}-${String(dateObject.getDate()).padStart(2, '0')}`;
     return formattedDate;
   };
   return (

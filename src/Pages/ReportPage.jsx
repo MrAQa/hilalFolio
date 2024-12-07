@@ -11,16 +11,15 @@ export default function ReportPage() {
   // const [sections, setSections] = useState([])
   const navigate = useNavigate();
 
-  const renderers = {
-    paragraph: ({ children }) => <p>{children}</p>
-  };
-  useEffect(() => {
+  // const renderers = {
+  //   paragraph: ({ children }) => <p>{children}</p>
+  // };
+  // useEffect(() => {
 
-    const sections = data.report.split('\n\n').filter(section => section.trim() !== '')
-    console.log(sections);
-    // setSections(sections)
+  //   const sections = data?.report?.split('\n\n')?.filter(section => section?.trim() !== '')
+   
 
-  }, []);
+  // }, []);
   return (
     <div className='bg-lightThemebg'>
       <NavBar />
@@ -123,7 +122,9 @@ export default function ReportPage() {
             </div>
           </div> */}
           <div className='markdown-container'>
-            <div className="bg-white shadow-sm rounded-3xl px-4 sm:px-8 py-6 relative">
+            {
+              data?
+              <div className="bg-white shadow-sm rounded-3xl px-4 sm:px-8 py-6 relative">
               <Markdown remarkPlugins={[breaks]}>{data?.report}</Markdown>
 
               
@@ -134,6 +135,11 @@ export default function ReportPage() {
                     Ask Hilalbot
                   </button>
             </div>
+            :
+            <div className="bg-white shadow-sm rounded-xl px-4 sm:px-8 py-6 relative flex justify-center items-center min-h-[50vh]">
+              Can't find report. Please generate a request for report
+            </div>
+            }
           </div>
          
 
@@ -278,7 +284,7 @@ export default function ReportPage() {
 
         </div>
 
-      </section>
+      </section>         
       <Footer />
     </div>
   )
