@@ -1,5 +1,6 @@
 import React, {
   useCallback,
+  useEffect,
   useState,
 } from "react";
 
@@ -58,7 +59,7 @@ const Login = () => {
   const [Loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   let [isOpen, setIsOpen] = useState(false)
- 
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
   function closeModal() {
     setIsOpen(false)
   } const [provider, setProvider] = useState("");
@@ -73,6 +74,19 @@ const Login = () => {
     // setProfile(null);
     setProvider("");
     alert("logout success");
+  }, []);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
   }, []);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -103,6 +117,14 @@ const Login = () => {
   };
 
   const submitLogin = (e) => {
+    if (isOffline) {
+      toast.error('You are offline. Please connect to the internet to log in.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
+      return;
+    }
+
     setLoading(true);
     fetch(`${url}/auth/login`, {
       method: "POST",
@@ -161,10 +183,18 @@ const Login = () => {
         }
       })
       .catch((error) => {
-        toast.error(error, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
-        });
+        if (!navigator.onLine) {
+          toast.error("Network is offline. Please check your internet connection.", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+          });
+        } 
+        else{
+          toast.error(error, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+          });
+        }
         setLoading(false);
       });
   };

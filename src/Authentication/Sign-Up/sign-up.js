@@ -62,6 +62,13 @@ const SignUp = () => {
   };
 
   const submitLogin = (e) => {
+    if (!navigator.onLine) {
+      toast.error("Network is offline. Please check your internet connection.", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
+      return;
+    } 
     setLoading(true);
     fetch(`${url}/auth/register`, {
       method: "POST",
@@ -100,6 +107,12 @@ const SignUp = () => {
         }
       })
       .catch((err) => {
+        if (!navigator.onLine) {
+          toast.error("Network is offline. Please check your internet connection.", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+          });
+        } 
         setLoading(false);
       });
   };
