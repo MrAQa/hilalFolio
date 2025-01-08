@@ -52,6 +52,7 @@ import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { useGlobalState } from "../../context/context";
 import { CircularProgress } from "@mui/material";
+import { BackArrow } from "../../assets/custom-icon";
 
 
 const Login = () => {
@@ -311,6 +312,13 @@ const Login = () => {
     
 
     <>
+    <button
+    onClick={() => navigate('/')}
+    className="flex gap-4 items-center absolute top-10 left-10 text-primaryPurple text-sm underline font-medium">
+      <span>
+        <BackArrow/>
+        </span> Back to the Main Page
+    </button>
       <div className="flex md:h-screen justify-center items-center">
         <ToastContainer />
         <div className="w-full md:w-1/2 min-h-full bg-lightThemebg  flex items-center justify-center">

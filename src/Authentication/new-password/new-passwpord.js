@@ -28,6 +28,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { CircularProgress } from "@mui/material";
 import { useGlobalState } from "../../context/context";
+import { BackArrow } from "../../assets/custom-icon";
 
 const SignUp = () => {
   // const [email, setEmail] = useState("");
@@ -126,6 +127,13 @@ const SignUp = () => {
 
   return (
     <>
+     <button
+    onClick={() => navigate('/')}
+    className="flex gap-4 items-center absolute top-10 left-10 text-primaryPurple text-sm underline font-medium">
+      <span>
+        <BackArrow/>
+        </span> Back to the Main Page
+    </button>
       <div className="flex">
         <div className="w-full min-h-full ">
           <ToastContainer />{" "}
