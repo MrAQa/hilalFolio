@@ -1,8 +1,10 @@
 import React from 'react';
 import { TickIcon } from '../assets/custom-icon';
+import { useNavigate } from 'react-router-dom';
 
 const PricingTable = ({plan,handlePaymentIntent}) => {
   const [userData, setUserData] = React.useState(localStorage.getItem('user_Data') ? JSON.parse(localStorage.getItem('user_Data')) : null);
+  const navigation = useNavigate();
     return (
         <div className="container mx-auto px-4 pb-8">
           <table className="w-full text-left border-separate border-spacing-y-4 border-[#E9E9E9] border-b-[1px]">
@@ -26,14 +28,14 @@ const PricingTable = ({plan,handlePaymentIntent}) => {
     
           {/* Buttons */}
           <div className="flex justify-end space-x-[48px] mt-8">
-            <button  className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
+            <button onClick={()=>navigation('/')} className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
               Get started
             </button>
             {userData?.subscriptionPlanName == plan?.name &&   <button onClick={(e) => handlePaymentIntent(e, plan.productId)} className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
               { 'Subscribe'}
             </button>}
             {userData?.subscriptionPlanName !== plan?.name &&
-            <button  className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
+            <button onClick={()=>navigation('/')}  className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
                Get started
             </button>
     
