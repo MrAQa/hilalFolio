@@ -214,14 +214,14 @@ function Footer() {
                                 className="w-5 fill-slate-500"
                                 />
                             </Link>
-                            <Link
+                            {/* <Link
                                 to={'/'}
                                 target="_blank"
                             >
                                 <GooglePlusIcon
                                 className="w-8 fill-slate-500"
                                 />
-                            </Link>
+                            </Link> */}
                            
                         </div>
                 </div>

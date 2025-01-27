@@ -286,10 +286,10 @@ const Payment = ({ setshowPayement, setReresh,setShowAssets }) => {
                       <div>{"Discount (FRIENDS)"}</div>
                       <div>{"10% ($4.90)"}</div>
                     </div>
-                    <div className="text-lightThemeSecondary text-base font-medium flex justify-between items-center">
+                    {/* <div className="text-lightThemeSecondary text-base font-medium flex justify-between items-center">
                       <div>{"Express shipping"}</div>
                       <div>{"$3.99"}</div>
-                    </div>
+                    </div> */}
                     <div className="text-primaryDark text-base font-semibold flex justify-between items-center">
                       <div>{"Total"}</div>
                       <div>{Total ? Total : 0}</div>
