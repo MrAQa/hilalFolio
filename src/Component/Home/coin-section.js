@@ -121,10 +121,10 @@ const CoinSecton = ({ searchQuery, isLogedin }) => {
       tableContainer.removeEventListener('wheel', handleScroll);
     };
   }, []);
-  const handleViewReport = (e,reportId) => {
+  const handleViewReport = (e,reportId,odr) => {
     e.stopPropagation()
     if (reportId) {
-        GetReport(reportId).then((result) => {
+        GetReport(reportId,odr).then((result) => {
 
             if (result?.success) {
                 const data = result?.body?.report
@@ -306,7 +306,7 @@ const handleRequestReview = (e,symbol) => {
                                       item?.reportGenerated ?
                                       
                                       <div
-                                        onClick={(e)=>handleViewReport(e,item?.reportId)}
+                                        onClick={(e)=>handleViewReport(e,item?.reportId,item?.odr)}
                                         className="text-[14px] cursor-pointer text-lightSecondaryText whitespace-nowrap font-medium text-left">View Report</div>
                                         :
                                         <div

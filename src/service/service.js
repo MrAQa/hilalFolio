@@ -469,7 +469,7 @@ export const GenrateReport = async (data) => {
   }
 };
 
-export const GetReport = async (id) => {
+export const GetReport = async (id,odr) => {
   const token = localStorage.getItem('user_token')
   try {
 
@@ -480,7 +480,7 @@ export const GetReport = async (id) => {
 
     };
 
-    const response = await axios.get(`/report/view/${id}`, {
+    const response = await axios.get(`/report/view/${id}?odr=${odr}`, {
       headers
     });
 
