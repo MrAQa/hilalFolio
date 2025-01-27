@@ -58,7 +58,7 @@ function TbaleDropDown({value,placeholder,onChange,dataArray ,disableOptions}) {
               {({ selected, active }) => (
                 <>
                   <span className={`${selected ? 'font-semibold' : 'font-normal'} block truncate`}>
-                    {status}
+                    {status == '7d'?'7 days':status == '30d'?'30 days':status}
                   </span>
                   {selected ? (
                     <span
