@@ -31,10 +31,10 @@ const PricingTable = ({plan,handlePaymentIntent}) => {
             <button onClick={()=>navigation('/')} className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
               Get started
             </button>
-            {userData?.subscriptionPlanName == plan?.name &&   <button onClick={(e) => handlePaymentIntent(e, plan.productId)} className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
+            {userData?.subscriptionPlanName == plan?.name && !userData.subscription &&   <button onClick={(e) => handlePaymentIntent(e, plan.productId)} className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
               { 'Subscribe'}
             </button>}
-            {userData?.subscriptionPlanName !== plan?.name &&
+            {userData?.subscriptionPlanName !== plan?.name && userData.subscription &&
             <button onClick={()=>navigation('/')}  className="bg-primaryPurple w-[253px] text-white font-semibold py-3 px-[18px] rounded-lg">
                Get started
             </button>
