@@ -21,23 +21,22 @@ const ReportedCoins = ({ CoinsData, isLoadingCoins,setShowAssets }) => {
 
     };
     const handleViewReport = (data) => {
-        let Coindata = {};
         setIsLoading(true)
-        GetCoinData(data?._id).then((result) => {
-            if (result.success) {
-                Coindata = result?.body?.cmcData
-                if (Coindata?.reportId) {
+        // GetCoinData(data?._id).then((result) => {
+        //     if (result.success) {
+        //         Coindata = result?.body?.cmcData
+        //         if (Coindata?.reportId) {
 
-                    GetReport(Coindata?.reportId).then((result) => {
+                    GetReport(data?._id,data.odr).then((result) => {
                         setIsLoading(false)
                         if (result?.success) {
                             const data = result?.body?.report
                             navigation('/review', { state: data });
                         }
                     }).catch((error) => console.log(error))
-                }
-            }
-        }).catch((error) => console.log(error))
+                // }
+            // }
+        // }).catch((error) => console.log(error))
 
 
     }

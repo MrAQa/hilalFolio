@@ -70,7 +70,7 @@ export default function AccordianBox({ CoinsData, isLoadingCoins }) {
                                                             Report Genration
                                                         </h3>
                                                         <div className='text-lightThemeSecondary text-sm font-normal'>
-                                                            Is a sales copy really omnipotent?
+                                                            {/* Is a sales copy really omnipotent? */}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -101,7 +101,7 @@ export default function AccordianBox({ CoinsData, isLoadingCoins }) {
                                                             Initial Review
                                                         </h3>
                                                         <div className='text-lightThemeSecondary text-sm font-normal'>
-                                                            Is a sales copy really omnipotent?
+                                                            {/* Is a sales copy really omnipotent? */}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -120,7 +120,7 @@ export default function AccordianBox({ CoinsData, isLoadingCoins }) {
                                                             Final Approval
                                                         </h3>
                                                         <div className='text-lightThemeSecondary text-sm font-normal'>
-                                                            Is a sales copy really omnipotent?
+                                                            {/* Is a sales copy really omnipotent? */}
                                                         </div>
                                                     </div>
                                                 </div>
