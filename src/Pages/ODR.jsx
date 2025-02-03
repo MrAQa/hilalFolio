@@ -58,12 +58,28 @@ const ODR = () => {
     }).catch((err) => {
       console.log(err)
     })
-    GetAllReport().then((response)=>{
-      // console.log(response);
-      setReportedCoins(response?.body?.reports)
-    })
+    // GetAllReport().then((response)=>{
+    //   // console.log(response);
+    //   setReportedCoins(response?.body?.reports)
+    // })
   }, [selectedStatus, selectedRank, selectedPercentage ,refresh])
-
+  const currentPath = location.pathname;
+    useEffect(() => {
+      if(currentPath=='/odr'){
+        getreportdata()
+       
+      }
+        const interval = setInterval(getreportdata, 100000);
+        return () => clearInterval(interval);
+        
+       // eslint-disable-next-line
+      }, [])
+const getreportdata=()=>{
+  GetAllReport().then((response)=>{
+    // console.log(response);
+    setReportedCoins(response?.body?.reports)
+  })
+}
   const handleItemClick = (item) => {
         
     setSelectedItem(item);
