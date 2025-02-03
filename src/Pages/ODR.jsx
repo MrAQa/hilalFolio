@@ -3,7 +3,7 @@ import NavBar from '../Component/Navbar';
 import Footer from '../Component/Footer,';
 import HomeODR from '../Component/ODR/HomeODR';
 import CryptoAssets from '../Component/ODR/CryptoAssets';
-import { GetCmcData } from '../service/service';
+import { GetAllReport, GetCmcData } from '../service/service';
 import { useLocation } from 'react-router-dom';
 import Payment from '../Component/ODR/Payment';
 import ReportedCoins from '../Component/ODR/ReportedCoins';
@@ -50,16 +50,36 @@ const ODR = () => {
           const selectedItem = sortedData.find((item)=> item.symbol=== state?.symbol);
           handleItemClick(selectedItem);
         }
-        const reportedCoins = sortedData.filter((item) => item.reportGenerated || item.reportStatus!==null)
+        // const reportedCoins = sortedData.filter((item) => item.reportGenerated || item.reportStatus!==null)
        
-        setReportedCoins(reportedCoins)
+        // setReportedCoins(reportedCoins)
         
       }
     }).catch((err) => {
       console.log(err)
     })
+    // GetAllReport().then((response)=>{
+    //   // console.log(response);
+    //   setReportedCoins(response?.body?.reports)
+    // })
   }, [selectedStatus, selectedRank, selectedPercentage ,refresh])
-
+  const currentPath = location.pathname;
+    useEffect(() => {
+      if(currentPath=='/odr'){
+        getreportdata()
+       
+      }
+        const interval = setInterval(getreportdata, 100000);
+        return () => clearInterval(interval);
+        
+       // eslint-disable-next-line
+      }, [])
+const getreportdata=()=>{
+  GetAllReport().then((response)=>{
+    // console.log(response);
+    setReportedCoins(response?.body?.reports)
+  })
+}
   const handleItemClick = (item) => {
         
     setSelectedItem(item);

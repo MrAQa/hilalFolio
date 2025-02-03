@@ -490,6 +490,27 @@ export const GetReport = async (id,odr) => {
     handleCatch(error)
   }
 };
+export const GetAllReport = async () => {
+  const token = localStorage.getItem('user_token')
+  try {
+
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+
+    };
+
+    const response = await axios.get(`/report/all`, {
+      headers
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    handleCatch(error)
+  }
+};
 export const UpdateUserSettings = async (data) => {
   const token = localStorage.getItem('user_token')
   try {
